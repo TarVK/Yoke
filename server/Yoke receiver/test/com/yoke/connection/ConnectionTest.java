@@ -2,6 +2,10 @@ package com.yoke.connection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -148,13 +152,23 @@ class ConnectionTest {
 			
 			// Create a connection that registers send message calls
 			ConnectionC connection = new ConnectionC() {
-				protected void sendSingleMessage(Message message) { 
-					if (message instanceof ShutDownCmd) {
-						delay1 = (int) (System.currentTimeMillis() - start);
-					}
-					if (message instanceof SleepCmd) {
-						delay2 = (int) (System.currentTimeMillis() - start);
-						resolve.complete(null);
+				protected void sendSingleMessage(byte[] stream) { 
+					try {
+						// Get the message from the stream
+						ByteArrayInputStream bis = new ByteArrayInputStream(stream);
+						ObjectInput ois = new ObjectInputStream(bis);
+						Object message = ois.readObject();
+						
+						// Check the message
+						if (message instanceof ShutDownCmd) {
+							delay1 = (int) (System.currentTimeMillis() - start);
+						}
+						if (message instanceof SleepCmd) {
+							delay2 = (int) (System.currentTimeMillis() - start);
+							resolve.complete(null);
+						}
+					} catch(IOException | ClassNotFoundException e) {
+						e.printStackTrace();
 					}
 				}
 			};	
@@ -181,6 +195,6 @@ class ConnectionC extends Connection{
 		super.emit(message);
 	}
 	
-	protected void sendSingleMessage(Message message) { }
-	protected void setup() { }
+	protected void sendSingleMessage(byte[] message) { }
+	public void destroy() { }
 }

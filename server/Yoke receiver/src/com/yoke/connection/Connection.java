@@ -1,11 +1,19 @@
 package com.yoke.connection;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
@@ -17,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 import com.yoke.connection.CompoundMessage.MessageDelay;
 import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 
-public abstract class Connection implements Runnable {
+public abstract class Connection {
 	// Simple 'enum' for connection states
 	public static int SETUP = -2;
 	public static int CONNECTIONFAILED = -1;
@@ -34,22 +42,11 @@ public abstract class Connection implements Runnable {
 
 	public Connection() {}
 	
-	/**
-	 * Makes sure the setup method is only called once, within a thread
-	 */
-	public void run() {
-		if (this.state != SETUP) {
-			throw new IllegalStateException("This method may not be called after setup");
-		}
-		
-		this.setup();
-	}
 	
 	/**
-	 * Sets up the connection
+	 * Destroys the connection
 	 */
-	protected abstract void setup();
-	
+	public abstract void destroy();	
 	
 	/**
 	 * Sends a message over the channel, handles compound messages
@@ -81,16 +78,35 @@ public abstract class Connection implements Runnable {
 				);
 			}
 		} else {
-			// If it's a non compound message, send it using sendSingleMessage
-			this.sendSingleMessage(message);
+		    try {
+				// If it's a non compound message, serialize it			
+		    	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	            ObjectOutputStream oos = new ObjectOutputStream(baos);
+		        oos.writeObject(message);
+		        byte[] messageStream = baos.toByteArray();
+		        int size = messageStream.length;
+				
+				// Prefix the message with the byte size
+		        byte[] stream = new byte[size + 4];
+		        System.arraycopy(messageStream, 0, stream, 4, size);
+		        stream[0] = (byte)(size >> 24);
+		        stream[1] = (byte)(size >> 16);
+		        stream[2] = (byte)(size >> 8);
+		        stream[3] = (byte)(size);
+		    
+		    	// Send the message
+		    	this.sendSingleMessage(stream);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
 		}
 	}
 	
 	/**
 	 * Sends a message over the channel, doesn't handle compound messages
-	 * @param message  The message to send
+	 * @param message  The byte code of the message to send
 	 */
-	protected abstract void sendSingleMessage(Message message);
+	protected abstract void sendSingleMessage(byte[] message);
 	
 	/**
 	 * Registers a receiver to listen for a specific message
@@ -158,6 +174,28 @@ public abstract class Connection implements Runnable {
 	}
 	
 	/**
+	 * Translate the byte stream to a message and 
+	 * forwards a certain message to all receivers for this message type
+	 * @param message  The message to emit
+	 * @throws IllegalArgumentException if no message could be created from the byte array
+	 */
+	protected void emit(byte[] stream) throws IllegalArgumentException {
+		try {
+			// Translate the bytestream to a message
+			ByteArrayInputStream bis = new ByteArrayInputStream(stream);
+			ObjectInput ois = new ObjectInputStream(bis);
+			Object message = ois.readObject();
+			
+			// Forward the message
+			if (message instanceof Message) {
+				this.emit((Message) message);
+			}
+		} catch(IOException | ClassNotFoundException e) {
+			throw new IllegalArgumentException("The given byte array could not be converted to a message");
+		}
+	}
+	
+	/**
 	 * Forwards a certain message to all receivers for this message type
 	 * @param message  The message to emit
 	 */
@@ -193,5 +231,72 @@ public abstract class Connection implements Runnable {
 	 */
 	protected int getState(){
 		return this.state;
+	}
+	
+	/**
+	 * A class to process incoming data
+	 */
+	public abstract class ProcessConnectionThread extends Thread {		
+		// Keep track of the received size bytes
+		byte[] size = new byte[4];
+		byte sizeIndex = 0;
+		
+		// Keep track of the actual message bytes
+		byte[] message;
+		int messageIndex = 0;
+		
+		
+		public abstract void run();
+		
+		/**
+		 * Reads one byte of data, and handles closing of the stream (on -1 received)
+		 * @param data  The byte of data, represented as a bit
+		 */
+		protected void readByte(int data) {
+			// If the data is -1, the connection has been closed
+			if (data == -1) {
+				// TODO: Make some proper disconnect code
+			} else {
+				readByte((byte) data);
+			}
+		}
+		
+		/**
+		 * Reads a single byte of data
+		 * @param data
+		 */
+		protected void readByte(byte data) {
+			// Check if the bytes should be added to the size
+			if (message == null) {
+				size[sizeIndex++] = data;
+				
+				// Check if we have received an int of data yet
+				if (sizeIndex == 4) {
+					int s = (size[0]) << 24 | 
+							(size[1] & 0xFF) << 16 | 
+							(size[2] & 0xFF) << 8 | 
+							(size[3] & 0xFF);
+					
+					// Create the message array
+					message = new byte[s];
+					messageIndex = 0;
+					
+					// Reset the size input
+					size = new byte[4];
+					sizeIndex = 0;
+				}
+			} else {
+				message[messageIndex++] = data;
+				
+				// Check if the whole message has been received
+				if (messageIndex == message.length) {
+					// Emit the message
+					emit(message);
+					
+					// Continue receiving the next message
+					message = null;
+				}
+			}
+		}
 	}
 }
