@@ -1,4 +1,4 @@
-package com.example.yoke;
+package com.yoke;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
