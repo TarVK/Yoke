@@ -78,3 +78,6 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+# No clue what this is, but lets remove it (probably something eclipse)
+.recommenders/

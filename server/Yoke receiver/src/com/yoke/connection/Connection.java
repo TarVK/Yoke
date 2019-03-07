@@ -147,10 +147,12 @@ public abstract class Connection {
 	
 	/**
 	 * Extracts the message type that a receiver is listening for
-	 * @param reciever  The receiver to extract the data from
+	 * @param receiver  The receiver to extract the data from
 	 * @return The message class that was retrieved
 	 */
 	protected Class<? extends Message> getMessageClass(MessageReceiver<?> receiver) {
+		boolean firstMessageType = true;
+		
 		// Find the receive methods
 		Class<?> c = receiver.getClass();
 		Method[] methods = c.getMethods();
@@ -158,13 +160,28 @@ public abstract class Connection {
 			if (method.getName()=="receive") {
 				
 				// Go through its parameters
-				Parameter[] parameters = method.getParameters();
-				for (Parameter parameter: parameters) {
-					Class mClass = parameter.getType();
-					
-					// return the class
-					return mClass;
+				Type[] parameters = method.getParameterTypes();
+				
+				// Make sure there is exactly one parameter and get it
+				if (parameters.length != 1) {
+					continue;
 				}
+				Class mClass = (Class) parameters[0];
+				
+				// Make sure it's a valid message class
+				if (!Message.class.isAssignableFrom(mClass)) {
+					continue;
+				}
+				
+				// For some reason we get two receive methods, and 1 always has type Message
+				// So make sure to skip at least this type
+				if (firstMessageType && mClass == Message.class) {
+					firstMessageType = false;
+					continue;
+				}
+					
+				// return the class
+				return (Class<? extends Message>) mClass;
 			}
 		}
 		
@@ -176,7 +193,7 @@ public abstract class Connection {
 	/**
 	 * Translate the byte stream to a message and 
 	 * forwards a certain message to all receivers for this message type
-	 * @param message  The message to emit
+	 * @param stream  The message to emit
 	 * @throws IllegalArgumentException if no message could be created from the byte array
 	 */
 	protected void emit(byte[] stream) throws IllegalArgumentException {
