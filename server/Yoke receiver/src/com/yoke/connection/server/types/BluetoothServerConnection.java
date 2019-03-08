@@ -30,7 +30,6 @@ public class BluetoothServerConnection extends Connection{
 		super();
 		
 		connectionThread = new EstablishConnectionThread();
-		connectionThread.start();
 	}
 	
 	/**
@@ -88,7 +87,6 @@ public class BluetoothServerConnection extends Connection{
 	            
 	            // Await a connection
 	            while(true) {
-		            System.out.println("Bluetooth: Listening for devices");
 	                StreamConnection connection = notifier.acceptAndOpen();
 	                
 	                // Create a new thread if a connection is made
@@ -107,13 +105,12 @@ public class BluetoothServerConnection extends Connection{
 	}
 
 	/**
-	 * A class to listen for incomming data from a bluetooth connection
+	 * A class to listen for incoming data from a bluetooth connection
 	 */
 	class ProcessConnectionThread extends Connection.ProcessConnectionThread {
 	    private StreamConnection mConnection;	
 	    public ProcessConnectionThread(StreamConnection connection) {
 	        mConnection = connection;
-            System.out.println("Bluetooth: Device connected");
 	    }
 	
 	    @Override

@@ -1,5 +1,6 @@
 package com.yoke;
 
+import android.arch.persistence.room.Database;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -20,6 +21,14 @@ import com.yoke.connection.client.BluetoothClientConnection;
 import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
 import com.yoke.connection.messages.connection.SelectDevice;
+import com.yoke.database.DataBase;
+import com.yoke.database.DataObject;
+import com.yoke.database.types.Button;
+import com.yoke.database.types.Macro;
+import com.yoke.database.types.Profile;
+import com.yoke.database.types.Settings;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.bluetoothTest();
+//        this.bluetoothTest();
+        this.databaseTest(true);
     }
 
     /**
@@ -71,6 +81,111 @@ public class MainActivity extends AppCompatActivity {
                 connection.send(new ShutDownCmd());
                 connection.send(new SleepCmd());
                 connection.send(new ShutDownCmd());
+            }
+        });
+    }
+
+    /**
+     * Just a test for the database
+     * @param writeData  Whether to write data to the device, or read data from it
+     */
+    protected void databaseTest(boolean writeData) {
+        // Initialize the database
+        DataBase.initialize(this, new DataObject.Callback() {
+            public void call() {
+                if (writeData) {
+                    // Change some data in the settings
+                    Settings settings = Settings.getInstance();
+                    settings.setLanguage("orange");
+
+                    // Delete any old data
+                    Profile.getAll(profiles -> {
+                        for (Profile p: profiles) {
+                            p.delete();
+                        }
+                    });
+                    Macro.getAll(macros -> {
+                        for (Macro m: macros) {
+                            m.delete();
+                        }
+                    });
+                    Button.getAll(buttons -> {
+                        for (Button b: buttons) {
+                            b.delete();
+                        }
+                    });
+
+                    // Create some profile with a button
+                    Profile p = new Profile("Test1");
+                    Macro m = new Macro("ShutDown");
+                    Button b = new Button(m);
+                    if (p.hasSpace()) { // Make sure there is space to add a button
+                        p.addButton(b);
+                    }
+
+                    // Assign it some data
+                    m.setAction(new ShutDownCmd());
+                    m.setText("Crap");
+
+                    // Save all of the data
+                    settings.save();
+                    // The macro has to be saved before saving the profile
+                    m.save(() -> {
+                        // The button will get saved by saving the profile
+                        p.save();
+                    });
+                } else {
+                    // Check the settings data
+                    Settings settings = Settings.getInstance();
+                    Log.w("DATABASE TEST", "language: "+ settings.getLanguage());
+
+                    // Get all of the profiles
+                    Profile.getAll((profiles) -> {
+                        Log.w("DATABASE TEST", "profile count: " + profiles.size());
+
+                        for (Profile profile: profiles) {
+                            Log.w("DATABASE TEST", "profile name: " + profile.getName());
+
+                            List<Button> buttons = profile.getButtons();
+                            Log.w("DATABASE TEST", "button count: " + buttons.size());
+                            for (Button button: buttons) {
+                                Macro macro = button.getMacro();
+
+                                if (macro==null) {
+                                    Log.w("DATABASE TEST", "button has no macro");
+                                    continue;
+                                }
+
+                                Log.w("DATABASE TEST", "macro name: " + macro.getName());
+                                Log.w("DATABASE TEST", "macro text: " + macro.getText());
+
+                                try {
+                                    Message m = macro.getAction();
+                                    Log.w("DATABASE TEST", "action type: " + m.toString());
+                                } catch (IllegalStateException e) {
+                                    Log.w("DATABASE TEST", "macro has no action");
+                                }
+                            }
+                        }
+                    });
+
+                    /**
+                     * The code above uses a lambda expression for an asynchronous callback
+                     *
+                     * Profile.getAll((profiles) -> {
+                     *
+                     * }
+                     *
+                     * is equivalent to
+                     *
+                     * Profile.getAll(new DataObject.DataCallback<List<Profile>>(){
+                     *     public void retrieve(List<Profile> profiles) {
+                     *
+                     *     }
+                     * });
+                     */
+
+                }
             }
         });
     }

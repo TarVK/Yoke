@@ -81,11 +81,8 @@ public abstract class Connection {
 			}
 		} else {
 		    try {
-				// If it's a non compound message, serialize it			
-		    	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	            ObjectOutputStream oos = new ObjectOutputStream(baos);
-		        oos.writeObject(message);
-		        byte[] messageStream = baos.toByteArray();
+				// If it's a non compound message, serialize it
+				byte[] messageStream = Message.serialize(message);
 		        int size = messageStream.length;
 				
 				// Prefix the message with the byte size
@@ -200,15 +197,7 @@ public abstract class Connection {
 	 */
 	protected void emit(byte[] stream) throws IllegalArgumentException {
 		try {
-			// Translate the bytestream to a message
-			ByteArrayInputStream bis = new ByteArrayInputStream(stream);
-			ObjectInput ois = new ObjectInputStream(bis);
-			Object message = ois.readObject();
-			
-			// Forward the message
-			if (message instanceof Message) {
-				this.emit((Message) message);
-			}
+			this.emit(Message.deserialize(stream));
 		} catch(IOException | ClassNotFoundException e) {
 			throw new IllegalArgumentException("The given byte array could not be converted to a message");
 		}

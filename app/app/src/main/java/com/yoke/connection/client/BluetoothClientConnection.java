@@ -30,9 +30,12 @@ public class BluetoothClientConnection extends Connection {
     // Store the socket to send data with
     protected BluetoothSocket socket;
 
-    // Store the context for teh association with the app
+    // Store the context for the association with the app
     protected Context context;
 
+    /**
+     * @param context The context to keep an association with the specific app
+     */
     public BluetoothClientConnection(Context context) {
         // Keep a reference to tge activity that started the connection, as services need it
         this.context = context;
@@ -76,10 +79,15 @@ public class BluetoothClientConnection extends Connection {
         }
     }
 
+    @Override
     public void destroy() {
         processThread.interrupt();
         closeSocket();
     }
+
+    /**
+     * Closes the socket
+     */
     protected void closeSocket() {
         try {
             socket.close();
@@ -89,6 +97,7 @@ public class BluetoothClientConnection extends Connection {
         }
     }
 
+    @Override
     protected void sendSingleMessage(byte[] message) {
         try {
             socket.getOutputStream().write(message);
