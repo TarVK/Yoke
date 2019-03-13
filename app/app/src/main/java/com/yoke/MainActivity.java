@@ -20,7 +20,6 @@ import com.yoke.connection.MessageReceiver;
 import com.yoke.connection.client.BluetoothClientConnection;
 import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
-import com.yoke.connection.messages.connection.SelectDevice;
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
 import com.yoke.database.types.Button;
@@ -51,29 +50,13 @@ public class MainActivity extends AppCompatActivity {
         final BluetoothClientConnection connection = new BluetoothClientConnection(context);
 
         // Add a popup prompt to select a device when the devices are known
-        connection.addReceiver(new MessageReceiver<SelectDevice>() {
-            public void receive(SelectDevice message) {
-                Log.w("DETECT ALSO", "TEST");
-                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Please choose your device");
-                builder.setItems(message.names, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String device = message.names[which];
-                        connection.selectDevice(device);
-                    }
-                });
-                builder.show();
-            }
-        });
-
         connection.addReceiver(new MessageReceiver<SleepCmd>() {
             public void receive(SleepCmd message) {
                 Log.w("SLEEP", "SLEEP");
             }
         });
 
-        connection.requestDevice();
-
+        // Send messages when clicking the button
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +66,18 @@ public class MainActivity extends AppCompatActivity {
                 connection.send(new ShutDownCmd());
             }
         });
+
+        // Select the server to connect with
+        String[] devices = connection.getDeviceNames();
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Please choose your device");
+        builder.setItems(devices, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                String device = devices[which];
+                connection.selectDevice(device);
+            }
+        });
+        builder.show();
     }
 
     /**

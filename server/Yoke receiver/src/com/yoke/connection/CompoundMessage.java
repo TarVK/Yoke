@@ -1,11 +1,16 @@
 package com.yoke.connection;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CompoundMessage extends Message implements Iterable<CompoundMessage.MessageDelay>{
-	protected List<MessageDelay> messages = new ArrayList<MessageDelay>();
+public class CompoundMessage extends Message implements ComposedMessage {
+	// Serialization ID
+	private static final long serialVersionUID = 3671775542209917411L;
+	
+	// The messages that this message consists of
+	protected ArrayList<MessageDelay> messages = new ArrayList<MessageDelay>();
 	
 	/**
 	 * Adds a message to the composite message
@@ -39,17 +44,5 @@ public class CompoundMessage extends Message implements Iterable<CompoundMessage
 	 */
 	public Iterator<MessageDelay> iterator() {
 		return messages.iterator();
-	}
-
-	/**
-	 * A class to store the combination of messages and their delays
-	 */
-	class MessageDelay{
-		public Message message;
-		public Integer delay;
-		MessageDelay(Message message, Integer delay){
-			this.message = message;
-			this.delay = delay;
-		}
 	}
 }

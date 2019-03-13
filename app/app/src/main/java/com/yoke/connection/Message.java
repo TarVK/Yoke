@@ -9,6 +9,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Message implements Serializable{
+	// Serialization ID
+	private static final long serialVersionUID = 3823107424651461814L;
+
     /**
      * Turns a message into a byte array to either be stored or sent
      * @param message  The message to serialize
