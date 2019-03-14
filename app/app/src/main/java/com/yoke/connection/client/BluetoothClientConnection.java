@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.yoke.connection.Connection;
 import com.yoke.connection.messages.connection.ConnectionFailed;
-import com.yoke.connection.messages.connection.SelectDevice;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,10 +40,10 @@ public class BluetoothClientConnection extends Connection {
         this.context = context;
     }
 
-    public void requestDevice(){
+    public String[] getDeviceNames(){
         if (!mBluetoothAdapter.isEnabled()) {
             // TODO: properly handle this error
-            return;
+            return null;
         }
 
         pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -58,8 +57,7 @@ public class BluetoothClientConnection extends Connection {
         }
 
         // Emit a request for the user to pick a device
-        this.emit(new SelectDevice(names));
-        Log.w("DETECT", "TEST");
+        return names;
     }
 
 
@@ -72,7 +70,7 @@ public class BluetoothClientConnection extends Connection {
                     processThread.start();
                     this.state = Connection.CONNECTING;
                 } else {
-                    // TODO: test error handling
+                    this.state = Connection.CONNECTIONFAILED;
                     this.emit(new ConnectionFailed("Selected device is not bonded"));
                 }
             }
@@ -98,7 +96,7 @@ public class BluetoothClientConnection extends Connection {
     }
 
     @Override
-    protected void sendSingleMessage(byte[] message) {
+    protected void sendMessageStream(byte[] message) {
         try {
             socket.getOutputStream().write(message);
         } catch (IOException e) {

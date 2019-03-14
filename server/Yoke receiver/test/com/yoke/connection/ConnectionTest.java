@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -111,22 +112,9 @@ class ConnectionTest {
 		assertTrue(notCalled, "incorrect receiver was called");
 	}
 	
-	@Test
-	void sendMessage() {
-		called = false;
-		ConnectionC connection = new ConnectionC() {
-			protected void sendSingleMessage(Message message) { 
-				called = true;
-				assertTrue(message instanceof ShutDownCmd);
-			}
-		};		
 
-		connection.send(new ShutDownCmd());
-		assertTrue(called);
-	}
-	
 	@Test
-	void sendCompoundMessage() {
+	void emitCompoundMessage() {
 		try {
 			// Setup a future to await
 			CompletableFuture<Void> resolve = new CompletableFuture<Void>();
@@ -136,7 +124,6 @@ class ConnectionTest {
 		        new java.util.TimerTask() {
 		            public void run() {
 						resolve.complete(null);
-						System.out.println("Detect");
 		            }
 		        }, 
 		        2000 
@@ -151,39 +138,53 @@ class ConnectionTest {
 			final long start = System.currentTimeMillis();
 			
 			// Create a connection that registers send message calls
-			ConnectionC connection = new ConnectionC() {
-				protected void sendSingleMessage(byte[] stream) { 
-					try {
-						// Get the message from the stream
-						ByteArrayInputStream bis = new ByteArrayInputStream(stream);
-						ObjectInput ois = new ObjectInputStream(bis);
-						Object message = ois.readObject();
-						
-						// Check the message
-						if (message instanceof ShutDownCmd) {
-							delay1 = (int) (System.currentTimeMillis() - start);
-						}
-						if (message instanceof SleepCmd) {
-							delay2 = (int) (System.currentTimeMillis() - start);
-							resolve.complete(null);
-						}
-					} catch(IOException | ClassNotFoundException e) {
-						e.printStackTrace();
-					}
+			ConnectionC connection = new ConnectionC();
+			connection.addReceiver(new MessageReceiver<ShutDownCmd>() {
+				public void receive(ShutDownCmd message) {
+					delay1 = (int) (System.currentTimeMillis() - start);
 				}
-			};	
+			});
+			connection.addReceiver(new MessageReceiver<SleepCmd>() {
+				public void receive(SleepCmd message) {
+					delay2 = (int) (System.currentTimeMillis() - start);
+					resolve.complete(null);
+				}
+			});
 			
 			// Send the messages
-			connection.send(cm);			
+			connection.emit(cm);			
 			
 			// Wait for the future to complete
 			resolve.get();
-			int margin = 20;
+			int margin = 2;
 			assertTrue(1000 <= delay1 && delay1 <= 1000 + margin);
 			assertTrue(1500 <= delay2 && delay2 <= 1500 + margin);
 		} catch (InterruptedException | ExecutionException  e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	void sendMessage() {
+		called = false;
+		ConnectionC connection = new ConnectionC() {
+			protected void sendMessageStream(byte[] stream) { 
+				called = true;
+				
+				// Get the message from the stream
+				try {
+					stream = Arrays.copyOfRange(stream, 4, stream.length);
+					Object m = Message.deserialize(stream);
+					
+					assertTrue(m instanceof Message);
+				} catch (IOException | ClassNotFoundException e) {
+					assertTrue(false);
+				}
+			}
+		};		
+
+		connection.send(new ShutDownCmd());
+		assertTrue(called);
 	}
 }
 
@@ -195,6 +196,6 @@ class ConnectionC extends Connection{
 		super.emit(message);
 	}
 	
-	protected void sendSingleMessage(byte[] message) { }
+	protected void sendMessageStream(byte[] message) { }
 	public void destroy() { }
 }

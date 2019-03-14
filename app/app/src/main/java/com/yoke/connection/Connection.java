@@ -1,14 +1,11 @@
 package com.yoke.connection;
 
-import android.util.Log;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-//import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
@@ -24,15 +21,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import com.yoke.connection.CompoundMessage.MessageDelay;
 import com.yoke.connection.messages.computerCmds.ShutDownCmd;
+import com.yoke.connection.messages.connection.Connected;
+import com.yoke.connection.messages.connection.Disconnected;
 
 public abstract class Connection {
 	// Simple 'enum' for connection states
-	public static int SETUP = -2;
-	public static int CONNECTIONFAILED = -1;
-	public static int CONNECTING = 0;
-	public static int CONNECTED = 1;
+	public static int SETUP = 0;
+	public static int CONNECTIONFAILED = 1;
+	public static int CONNECTING = 2;
+	public static int CONNECTED = 3;
 	
 	// The current connection state
 	protected int state = SETUP;
@@ -51,61 +49,35 @@ public abstract class Connection {
 	public abstract void destroy();	
 	
 	/**
-	 * Sends a message over the channel, handles compound messages
+	 * Sends a message over the channel, by turning it into a byte array
 	 * @param message  The message to send
 	 */
 	public void send(Message message) {
-		if (message instanceof CompoundMessage) {
-			CompoundMessage cm = (CompoundMessage) message;
+	    try {
+			// If it's a non compound message, serialize it		
+			byte[] messageStream = Message.serialize(message);
+	        int size = messageStream.length;
 			
-			// Store the cumulative delay
-			int cumulativeDelay = 0;
-			
-			// Create a timer
-			Timer t = new java.util.Timer();
-			
-			// Go through all of the messages
-			for (MessageDelay md: cm) {
-				// Get the delay after which to send the message
-				cumulativeDelay += md.delay;
-				
-				// Create an message sending thread
-				t.schedule( 
-			        new java.util.TimerTask() {
-			            public void run() {
-							send(md.message);
-			            }
-			        }, 
-			        cumulativeDelay 
-				);
-			}
-		} else {
-		    try {
-				// If it's a non compound message, serialize it
-				byte[] messageStream = Message.serialize(message);
-		        int size = messageStream.length;
-				
-				// Prefix the message with the byte size
-		        byte[] stream = new byte[size + 4];
-		        System.arraycopy(messageStream, 0, stream, 4, size);
-		        stream[0] = (byte)(size >> 24);
-		        stream[1] = (byte)(size >> 16);
-		        stream[2] = (byte)(size >> 8);
-		        stream[3] = (byte)(size);
-		    
-		    	// Send the message
-		    	this.sendSingleMessage(stream);
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		}
+			// Prefix the message with the byte size
+	        byte[] stream = new byte[size + 4];
+	        System.arraycopy(messageStream, 0, stream, 4, size);
+	        stream[0] = (byte)(size >> 24);
+	        stream[1] = (byte)(size >> 16);
+	        stream[2] = (byte)(size >> 8);
+	        stream[3] = (byte)(size);
+	    
+	    	// Send the message
+	    	this.sendMessageStream(stream);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	/**
-	 * Sends a message over the channel, doesn't handle compound messages
+	 * Sends a message stream over the channel
 	 * @param message  The byte code of the message to send
 	 */
-	protected abstract void sendSingleMessage(byte[] message);
+	protected abstract void sendMessageStream(byte[] message);
 	
 	/**
 	 * Registers a receiver to listen for a specific message
@@ -151,34 +123,34 @@ public abstract class Connection {
 	 */
 	protected Class<? extends Message> getMessageClass(MessageReceiver<?> receiver) {
 		boolean firstMessageType = true;
-
+		
 		// Find the receive methods
 		Class<?> c = receiver.getClass();
 		Method[] methods = c.getMethods();
-		for (Method method: methods) {
+		for (Method method: methods) { 
 			if (method.getName()=="receive") {
 				
-				// Check the first parameter
+				// Go through its parameters
 				Type[] parameters = method.getParameterTypes();
-
+				
 				// Make sure there is exactly one parameter and get it
 				if (parameters.length != 1) {
 					continue;
 				}
 				Class mClass = (Class) parameters[0];
-
+				
 				// Make sure it's a valid message class
-				if (mClass == null || !Message.class.isAssignableFrom(mClass)) {
+				if (!Message.class.isAssignableFrom(mClass)) {
 					continue;
 				}
-
+				
 				// For some reason we get two receive methods, and 1 always has type Message
 				// So make sure to skip at least this type
 				if (firstMessageType && mClass == Message.class) {
 					firstMessageType = false;
 					continue;
 				}
-
+					
 				// return the class
 				return (Class<? extends Message>) mClass;
 			}
@@ -208,28 +180,56 @@ public abstract class Connection {
 	 * @param message  The message to emit
 	 */
 	protected void emit(Message message) {
-		// Go through all super classes of the message
-		Class c = message.getClass();
-		while (c != null) {
+		// Check whether it is a regular message, or a compound message
+		if (message instanceof CompoundMessage) {
+			// If it is a compound message, sequence the emit properly
+			CompoundMessage cm = (CompoundMessage) message;			
 			
-			// Get the receivers for this message type
-			List<MessageReceiver<?>> receivers = this.receivers.get(c);
+			// Store the cumulative delay
+			int cumulativeDelay = 0;
 			
-			// Make sure there are receivers for the message type
-			if (receivers != null) {
-				// Call each of the receivers
-				for (MessageReceiver receiver: receivers) {
-					try {				
-						receiver.receive(message);
-					}catch(Exception e) {
-						System.out.println("Something went wrong while invoking a receiver");
-						e.printStackTrace();
+			// Create a timer
+			Timer t = new java.util.Timer();
+			
+			// Go through all of the messages
+			for (MessageDelay md: cm) {
+				// Get the delay after which to send the message
+				cumulativeDelay += md.delay;
+				
+				// Create an message sending thread
+				t.schedule( 
+			        new java.util.TimerTask() {
+			            public void run() {
+							emit(md.message);
+			            }
+			        }, 
+			        cumulativeDelay 
+				);
+			}
+		} else {
+			// Go through all super classes of the message
+			Class c = message.getClass();
+			while (c != null) {
+				
+				// Get the receivers for this message type
+				List<MessageReceiver<?>> receivers = this.receivers.get(c);
+				
+				// Make sure there are receivers for the message type
+				if (receivers != null) {
+					// Call each of the receivers
+					for (MessageReceiver receiver: receivers) {
+						try {				
+							receiver.receive(message);
+						}catch(Exception e) {
+							System.out.println("Something went wrong while invoking a receiver");
+							e.printStackTrace();
+						}
 					}
 				}
-			}
-			
-			// Get the super class
-			c = c.getSuperclass();
+				
+				// Get the super class
+				c = c.getSuperclass();
+			}			
 		}
 	}
 	
@@ -237,14 +237,26 @@ public abstract class Connection {
 	 * Returns the current connection state, matchable using the global enums
 	 * @return The current state of the connection
 	 */
-	protected int getState(){
+	public int getState(){
 		return this.state;
 	}
+	
+	/**
+	 * Returns a unique ID to keep track of connected devices
+	 * @return A unique ID
+	 */
+	public static int getNextID() {
+		return uniqueID ++;
+	}
+	protected static int uniqueID = 0;
 	
 	/**
 	 * A class to process incoming data
 	 */
 	public abstract class ProcessConnectionThread extends Thread {		
+		// Store the ID for the connection/device
+		int ID;
+		
 		// Keep track of the received size bytes
 		byte[] size = new byte[4];
 		byte sizeIndex = 0;
@@ -253,20 +265,30 @@ public abstract class Connection {
 		byte[] message;
 		int messageIndex = 0;
 		
+		public ProcessConnectionThread() {
+			this.ID = Connection.getNextID();
+	        emit(new Connected(ID));
+		}
 		
+		/**
+		 * The run method to be implemented by a specific connection
+		 */
 		public abstract void run();
 		
 		/**
 		 * Reads one byte of data, and handles closing of the stream (on -1 received)
 		 * @param data  The byte of data, represented as a bit
+		 * @return Whether or not the device disconnected
 		 */
-		protected void readByte(int data) {
+		protected boolean readByte(int data) {
 			// If the data is -1, the connection has been closed
 			if (data == -1) {
-				// TODO: Make some proper disconnect code
+				emit(new Disconnected(ID));
+				return true;
 			} else {
 				readByte((byte) data);
 			}
+			return false;
 		}
 		
 		/**
