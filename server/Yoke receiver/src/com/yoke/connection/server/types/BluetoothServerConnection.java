@@ -30,6 +30,7 @@ public class BluetoothServerConnection extends Connection{
 		super();
 		
 		connectionThread = new EstablishConnectionThread();
+		connectionThread.start();
 	}
 	
 	/**
@@ -111,6 +112,7 @@ public class BluetoothServerConnection extends Connection{
 	    private StreamConnection mConnection;	
 	    public ProcessConnectionThread(StreamConnection connection) {
 	        mConnection = connection;
+	        System.out.println("A connection has been established");
 	    }
 	
 	    @Override

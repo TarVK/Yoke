@@ -208,6 +208,7 @@ public abstract class Connection {
 				this.emit((Message) message);
 			}
 		} catch(IOException | ClassNotFoundException e) {
+			e.printStackTrace();
 			throw new IllegalArgumentException("The given byte array could not be converted to a message");
 		}
 	}
