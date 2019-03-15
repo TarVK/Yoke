@@ -128,29 +128,46 @@ public class BluetoothServerConnection extends Connection {
 	        this.is = is;
 	        this.os = os;
 	    }
+	    
+	    /**
+	     * Closes the streams and updates the state
+	     */
+	    public void close () {
+        	outputStreams.remove(os);
+        	
+        	try {
+				os.close();
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+        	if (outputStreams.size() == 0) {
+        		state = Connection.CONNECTING;
+        	}
+	    }
 
 	    @Override
 	    public void run() {
 	        try {
+	        	boolean awaiting = true;
+	        	
 	            // Listen for incoming data
-	            while (true) {
+	            while (awaiting) {
 	                int data = is.read();
 	                // Check if the connection got closed
 
 	                if (data == -1) {
 	                	// If the device disconnected, destroy its stream
-	                	outputStreams.remove(os);
-	                	os.close();
-
-	                	if (outputStreams.size() == 0) {
-	                		state = Connection.CONNECTING;
-	                	}
+	                	close();
+	                	awaiting = false;
 	                }
 
 	                // Process the bit as usual
 	                this.readByte(data);
 	            }
 	        } catch (Exception e) {
+	        	close();
 	            e.printStackTrace();
 	        }
 	    }

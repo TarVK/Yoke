@@ -1,0 +1,17 @@
+package com.yoke.executors;
+
+import java.awt.Desktop;
+import java.net.URI;
+
+import com.yoke.connection.MessageReceiver;
+import com.yoke.connection.messages.OpenURLCmd;
+
+public class OpenURLExecutor extends MessageReceiver<OpenURLCmd>{
+	Desktop desktop = java.awt.Desktop.getDesktop();
+	
+	@Override
+	public void receive(OpenURLCmd message) {
+		desktop.browse(new URI(message.URL));
+	}
+
+}

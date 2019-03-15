@@ -122,9 +122,7 @@ public abstract class Connection {
 	 * @param receiver  The receiver to extract the data from
 	 * @return The message class that was retrieved
 	 */
-	protected Class<? extends Message> getMessageClass(MessageReceiver<?> receiver) {
-		boolean firstMessageType = true;
-		
+	protected Class<? extends Message> getMessageClass(MessageReceiver<?> receiver) {		
 		// Find the receive methods
 		Class<?> c = receiver.getClass();
 		Method[] methods = c.getMethods();
@@ -144,22 +142,16 @@ public abstract class Connection {
 				if (!Message.class.isAssignableFrom(mClass)) {
 					continue;
 				}
-				
-				// For some reason we get two receive methods, and 1 always has type Message
-				// So make sure to skip at least this type
-				if (firstMessageType && mClass == Message.class) {
-					firstMessageType = false;
-					continue;
-				}
 					
-				// return the class
-				return (Class<? extends Message>) mClass;
+				// return the class if it isn't the message class
+				if (mClass != Message.class) {
+					return (Class<? extends Message>) mClass;
+				}
 			}
 		}
 		
-		// This line shouldn't be reached
-		assert false;
-		return null;
+		// If no non-message class could be found, return the message class
+		return Message.class;
 	}
 	
 	/**
