@@ -11,6 +11,20 @@ import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.connection.server.MultiServerConnection;
 import com.yoke.connection.server.types.BluetoothServerConnection;
+import com.yoke.executors.ClickMouseExecutor;
+import com.yoke.executors.MoveMouseExecutor;
+import com.yoke.executors.OpenProgramExecutor;
+import com.yoke.executors.OpenURLExecutor;
+import com.yoke.executors.PressKeysExecutor;
+import com.yoke.executors.computerCmds.LogOffExecutor;
+import com.yoke.executors.computerCmds.NextTrackExecutor;
+import com.yoke.executors.computerCmds.PlayPauseExecutor;
+import com.yoke.executors.computerCmds.PreviousTrackExecutor;
+import com.yoke.executors.computerCmds.RestartExecutor;
+import com.yoke.executors.computerCmds.ShutDownExecutor;
+import com.yoke.executors.computerCmds.SleepExecutor;
+import com.yoke.executors.computerCmds.VolumeDownExecutor;
+import com.yoke.executors.computerCmds.VolumeUpExecutor;
 
 public class Main {
 	public static void main(String[] args) {
@@ -20,12 +34,12 @@ public class Main {
 		// Setup connection state listeners
 		connection.addReceiver(new MessageReceiver<Connected>() {
 			public void receive(Connected cmd) {				
-				System.out.println("Device " + cmd.deviceID + " connected");
+				System.out.println("Device " + cmd.deviceID + " connected, state: " + connection.getState());
 			}
 		});
 		connection.addReceiver(new MessageReceiver<Disconnected>() {
 			public void receive(Disconnected cmd) {				
-				System.out.println("Device " + cmd.deviceID + " disconnected");
+				System.out.println("Device " + cmd.deviceID + " disconnected, state: " + connection.getState());
 			}
 		});
 		connection.addReceiver(new MessageReceiver<ConnectionFailed>() {
@@ -39,16 +53,23 @@ public class Main {
 		});
 		
 		// Setup cmd listeners
-		connection.addReceiver(new MessageReceiver<ShutDownCmd>() {
-			public void receive(ShutDownCmd cmd) {				
-				System.out.println("received shutdown");
-			}
-		});
-		connection.addReceiver(new MessageReceiver<SleepCmd>() {
-			public void receive(SleepCmd cmd) {				
-				System.out.println("received sleep");
-				connection.send(cmd);
-			}
-		});
+		connection.addReceiver(new PlayPauseExecutor());
+		connection.addReceiver(new PreviousTrackExecutor());
+		connection.addReceiver(new NextTrackExecutor());
+		connection.addReceiver(new VolumeUpExecutor());
+		connection.addReceiver(new VolumeDownExecutor());
+		
+		connection.addReceiver(new ShutDownExecutor());
+		connection.addReceiver(new SleepExecutor());
+		connection.addReceiver(new RestartExecutor());
+		connection.addReceiver(new LogOffExecutor());
+		
+		connection.addReceiver(new MoveMouseExecutor());
+		connection.addReceiver(new ClickMouseExecutor());
+		connection.addReceiver(new PressKeysExecutor());
+		
+		connection.addReceiver(new OpenProgramExecutor());
+		connection.addReceiver(new OpenURLExecutor());
+		
 	}
 }
