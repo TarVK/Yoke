@@ -7,7 +7,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.yoke.connection.Connection;
+import com.yoke.connection.messages.ConnectionChange;
 import com.yoke.connection.messages.connection.ConnectionFailed;
+import com.yoke.connection.messages.connection.Disconnected;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,8 +75,13 @@ public class BluetoothClientConnection extends Connection {
                     this.state = Connection.CONNECTIONFAILED;
                     this.emit(new ConnectionFailed("Selected device is not bonded"));
                 }
+                return;
             }
         }
+
+        // If the device couldn't be found
+        this.state = Connection.CONNECTIONFAILED;
+        this.emit(new ConnectionFailed("Unknown device selected"));
     }
 
     @Override
@@ -97,11 +104,13 @@ public class BluetoothClientConnection extends Connection {
 
     @Override
     protected void sendMessageStream(byte[] message) {
-        try {
-            socket.getOutputStream().write(message);
-        } catch (IOException e) {
-            // TODO: properly handle errors
-            e.printStackTrace();
+        if (this.state == CONNECTED) {
+            try {
+                socket.getOutputStream().write(message);
+            } catch (IOException e) {
+                // TODO: properly handle errors
+                e.printStackTrace();
+            }
         }
     }
 
@@ -140,7 +149,11 @@ public class BluetoothClientConnection extends Connection {
             } catch (IOException e) {
                 e.printStackTrace();
                 closeSocket();
-                // TODO: properly handle the error
+
+                emit(new ConnectionFailed(e));
+                state = Connection.CONNECTIONFAILED;
+                emit(new Disconnected(this.ID));
+
                 return;
             }
 
@@ -152,13 +165,24 @@ public class BluetoothClientConnection extends Connection {
 
                 System.out.println("waiting for input");
 
-                while (true) {
+                boolean awaitingMessages = true;
+                while (awaitingMessages) {
                     int data = inputStream.read();
+
+                    if (data == -1) {
+                        // If the device disconnected, indicate this
+                        state = Connection.DISCONNECTED;
+                        awaitingMessages = false;
+                        closeSocket();
+                    }
+
                     this.readByte(data);
                 }
             }catch(IOException e) {
                 // TODO: notify about disconnected
                 closeSocket();
+                state = Connection.DISCONNECTED;
+                emit(new Disconnected(this.ID));
             }
         }
     }

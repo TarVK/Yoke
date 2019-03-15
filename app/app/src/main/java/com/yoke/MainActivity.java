@@ -15,9 +15,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.yoke.R;
+import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
 import com.yoke.connection.client.BluetoothClientConnection;
+import com.yoke.connection.messages.ClickMouseCmd;
+import com.yoke.connection.messages.MoveMouseCmd;
+import com.yoke.connection.messages.OpenProgramCmd;
+import com.yoke.connection.messages.OpenURLCmd;
+import com.yoke.connection.messages.PressKeysCmd;
+import com.yoke.connection.messages.computerCmds.LogOffCmd;
+import com.yoke.connection.messages.computerCmds.NextTrackCmd;
+import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
+import com.yoke.connection.messages.computerCmds.RestartCmd;
 import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
 import com.yoke.database.DataBase;
@@ -26,6 +36,7 @@ import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 import com.yoke.database.types.Settings;
+import com.yoke.utils.Keys;
 
 import java.util.List;
 
@@ -38,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        this.bluetoothTest();
-        this.databaseTest(true);
+        this.bluetoothTest();
+//        this.databaseTest(true);
     }
 
     /**
@@ -61,9 +72,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                connection.send(new ShutDownCmd());
-                connection.send(new SleepCmd());
-                connection.send(new ShutDownCmd());
+                connection.send(new OpenURLCmd("youtube.com"));
+                CompoundMessage cm = new CompoundMessage();
+                cm.add(new PlayPauseCmd(), 0);
+                cm.add(new NextTrackCmd(), 2000);
+                connection.send(cm);
             }
         });
 

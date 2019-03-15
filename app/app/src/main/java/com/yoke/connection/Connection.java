@@ -31,6 +31,7 @@ public abstract class Connection {
 	public static int CONNECTIONFAILED = 1;
 	public static int CONNECTING = 2;
 	public static int CONNECTED = 3;
+	public static int DISCONNECTED = 4;
 	
 	// The current connection state
 	protected int state = SETUP;
@@ -122,8 +123,6 @@ public abstract class Connection {
 	 * @return The message class that was retrieved
 	 */
 	protected Class<? extends Message> getMessageClass(MessageReceiver<?> receiver) {
-		boolean firstMessageType = true;
-		
 		// Find the receive methods
 		Class<?> c = receiver.getClass();
 		Method[] methods = c.getMethods();
@@ -143,22 +142,16 @@ public abstract class Connection {
 				if (!Message.class.isAssignableFrom(mClass)) {
 					continue;
 				}
-				
-				// For some reason we get two receive methods, and 1 always has type Message
-				// So make sure to skip at least this type
-				if (firstMessageType && mClass == Message.class) {
-					firstMessageType = false;
-					continue;
+
+				// return the class if it isn't the message class
+				if (mClass != Message.class) {
+					return (Class<? extends Message>) mClass;
 				}
-					
-				// return the class
-				return (Class<? extends Message>) mClass;
 			}
 		}
 		
-		// This line shouldn't be reached
-		assert false;
-		return null;
+		// If no non-message class could be fund, return the message class;
+		return Message.class;
 	}
 	
 	/**
@@ -255,15 +248,15 @@ public abstract class Connection {
 	 */
 	public abstract class ProcessConnectionThread extends Thread {		
 		// Store the ID for the connection/device
-		int ID;
+		protected int ID;
 		
 		// Keep track of the received size bytes
-		byte[] size = new byte[4];
-		byte sizeIndex = 0;
+		protected byte[] size = new byte[4];
+		protected byte sizeIndex = 0;
 		
 		// Keep track of the actual message bytes
-		byte[] message;
-		int messageIndex = 0;
+		protected byte[] message;
+		protected int messageIndex = 0;
 		
 		public ProcessConnectionThread() {
 			this.ID = Connection.getNextID();
