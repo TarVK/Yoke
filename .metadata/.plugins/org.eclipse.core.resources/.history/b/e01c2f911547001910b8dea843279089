@@ -2,7 +2,6 @@ package com.yoke;
 
 import java.awt.AWTException;
 import java.awt.CheckboxMenuItem;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuItem;
@@ -10,14 +9,8 @@ import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import com.yoke.connection.Connection;
 import com.yoke.connection.MessageReceiver;
@@ -54,9 +47,6 @@ public class Main {
 	
 	// The connection to any potential remotes
 	protected MultiServerConnection connection;
-	
-	// A list of the currently connected device IDs
-	protected List<Integer> deviceIDs = new ArrayList<Integer>();
 	
 	public Main() {
 		BluetoothServerConnection bluetooth = new BluetoothServerConnection();
@@ -119,65 +109,51 @@ public class Main {
 	/**
 	 * Sets up the tray interface
 	 */
-	protected MenuItem connectedDevices;
-	protected void setupTray() {		
+	protected void setupTray() {
 		// Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");
             return;
         }
         
-        // Get the system tray
-        final SystemTray tray = SystemTray.getSystemTray();
+        Image image = Toolkit.getDefaultToolkit().getImage("logo.png");
+        System.out.println(this.getClass().getResource("logo.png"));
         
-        // Create the image
-        Image image = new ImageIcon(this.getClass().getResource("/logo.png"), "").getImage();
-        Dimension iconSize = tray.getTrayIconSize();
-        image = image.getScaledInstance(iconSize.width, iconSize.height, Image.SCALE_SMOOTH);
-        
-        // Create the actual tray icon and menu
         final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon = new TrayIcon(image);
+        final SystemTray tray = SystemTray.getSystemTray();
+       
+        // Create a pop-up menu components
+        MenuItem aboutItem = new MenuItem("About");
+        CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
+        CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
+        Menu displayMenu = new Menu("Display");
+        MenuItem errorItem = new MenuItem("Error");
+        MenuItem warningItem = new MenuItem("Warning");
+        MenuItem infoItem = new MenuItem("Info");
+        MenuItem noneItem = new MenuItem("None");
+        MenuItem exitItem = new MenuItem("Exit");
+       
+        //Add components to pop-up menu
+        popup.add(aboutItem);
+        popup.addSeparator();
+        popup.add(cb1);
+        popup.add(cb2);
+        popup.addSeparator();
+        popup.add(displayMenu);
+        displayMenu.add(errorItem);
+        displayMenu.add(warningItem);
+        displayMenu.add(infoItem);
+        displayMenu.add(noneItem);
+        popup.add(exitItem);
+       
         trayIcon.setPopupMenu(popup);
-        trayIcon.setToolTip("Yoke");
+        
 
-        // Show the created trayIcon
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
             System.out.println("TrayIcon could not be added.");
         }
-        
-       
-        // Create a pop-up menu components
-        MenuItem about = new MenuItem("About");
-        connectedDevices = new MenuItem("");
-        CheckboxMenuItem autoStartup = new CheckboxMenuItem("Auto Startup");
-        MenuItem exit = new MenuItem("Exit");
-       
-        // Add pop-up components
-        popup.add(connectedDevices);
-        popup.addSeparator();
-        popup.add(autoStartup);
-        popup.addSeparator();
-        popup.add(about);
-        popup.add(exit);
-        
-        // Add interaction handlers
-        exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-        
-        // Update the connected devices
-        refreshConnectedDevices();
-	}
-	
-	/**
-	 * Updates the number of connected devices in the menu
-	 */
-	protected void refreshConnectedDevices() {
-		connectedDevices.setLabel("Connected Devices: " + deviceIDs.size());
 	}
 }

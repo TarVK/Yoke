@@ -152,6 +152,7 @@ public class Main {
         // Create a pop-up menu components
         MenuItem about = new MenuItem("About");
         connectedDevices = new MenuItem("");
+        connectedDevices.disable();
         CheckboxMenuItem autoStartup = new CheckboxMenuItem("Auto Startup");
         MenuItem exit = new MenuItem("Exit");
        

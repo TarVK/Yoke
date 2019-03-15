@@ -10,8 +10,6 @@ import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,6 +150,7 @@ public class Main {
         // Create a pop-up menu components
         MenuItem about = new MenuItem("About");
         connectedDevices = new MenuItem("");
+        connectedDevices.disable();
         CheckboxMenuItem autoStartup = new CheckboxMenuItem("Auto Startup");
         MenuItem exit = new MenuItem("Exit");
        
@@ -164,11 +163,6 @@ public class Main {
         popup.add(exit);
         
         // Add interaction handlers
-        exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
         
         // Update the connected devices
         refreshConnectedDevices();
