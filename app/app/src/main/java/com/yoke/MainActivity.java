@@ -1,11 +1,9 @@
 package com.yoke;
 
-import android.arch.persistence.room.Database;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,18 +14,14 @@ import android.view.MenuItem;
 
 import com.example.yoke.R;
 import com.yoke.connection.CompoundMessage;
+import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
-import com.yoke.connection.client.BluetoothClientConnection;
-import com.yoke.connection.messages.ClickMouseCmd;
-import com.yoke.connection.messages.MoveMouseCmd;
-import com.yoke.connection.messages.OpenProgramCmd;
+import com.yoke.connection.client.MultiClientConnection;
+import com.yoke.connection.client.types.BluetoothClientConnection;
 import com.yoke.connection.messages.OpenURLCmd;
-import com.yoke.connection.messages.PressKeysCmd;
-import com.yoke.connection.messages.computerCmds.LogOffCmd;
 import com.yoke.connection.messages.computerCmds.NextTrackCmd;
 import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
-import com.yoke.connection.messages.computerCmds.RestartCmd;
 import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
 import com.yoke.database.DataBase;
@@ -36,11 +30,11 @@ import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 import com.yoke.database.types.Settings;
-import com.yoke.utils.Keys;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    protected Connection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +52,27 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void bluetoothTest(){
         Context context = this;
-        final BluetoothClientConnection connection = new BluetoothClientConnection(context);
+        if (connection == null) {
+            connection = MultiClientConnection.getInstance();
+
+            if (connection == null) {
+                final BluetoothClientConnection bluetoothConnection = new BluetoothClientConnection(context);
+                MultiClientConnection.initialize(bluetoothConnection);
+                connection = MultiClientConnection.getInstance();
+
+                // Select the server to connect with
+                String[] devices = bluetoothConnection.getDeviceNames();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Please choose your device");
+                builder.setItems(devices, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String device = devices[which];
+                        bluetoothConnection.selectDevice(device);
+                    }
+                });
+                builder.show();
+            }
+        }
 
         // Add a popup prompt to select a device when the devices are known
         connection.addReceiver(new MessageReceiver<SleepCmd>() {
@@ -79,18 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 connection.send(cm);
             }
         });
-
-        // Select the server to connect with
-        String[] devices = connection.getDeviceNames();
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Please choose your device");
-        builder.setItems(devices, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                String device = devices[which];
-                connection.selectDevice(device);
-            }
-        });
-        builder.show();
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.yoke.connection.client;
+package com.yoke.connection.client.types;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
