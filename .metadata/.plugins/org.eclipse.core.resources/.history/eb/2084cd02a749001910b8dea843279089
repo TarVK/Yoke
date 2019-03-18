@@ -1,0 +1,93 @@
+package com.yoke;
+
+import java.awt.AWTException;
+import java.awt.CheckboxMenuItem;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+
+public class Tray {
+	// The single instance of the tray
+	protected static Tray INSTANCE;
+	
+	/**
+	 * Singleton method to get one instance of the Tray class
+	 * @return The singleton Tray
+	 */
+	public static Tray getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new Tray();
+		}
+		return INSTANCE;
+	}
+	
+
+	// The menu item that says how many devices are connected
+	protected MenuItem connectedDevices;
+	
+	protected Tray() {
+		// Check the SystemTray is supported
+        if (!SystemTray.isSupported()) {
+            System.out.println("SystemTray is not supported");
+            return;
+        }
+        
+        // Get the system tray
+        final SystemTray tray = SystemTray.getSystemTray();
+        
+        // Create the image
+        Image image = new ImageIcon(this.getClass().getResource("/logo.png"), "").getImage();
+        Dimension iconSize = tray.getTrayIconSize();
+        image = image.getScaledInstance(iconSize.width, iconSize.height, Image.SCALE_SMOOTH);
+        
+        // Create the actual tray icon and menu
+        final PopupMenu popup = new PopupMenu();
+        final TrayIcon trayIcon = new TrayIcon(image);
+        trayIcon.setPopupMenu(popup);
+        trayIcon.setToolTip("Yoke");
+
+        // Show the created trayIcon
+        try {
+            tray.add(trayIcon);
+        } catch (AWTException e) {
+            System.out.println("TrayIcon could not be added.");
+        }
+        
+       
+        // Create a pop-up menu components
+        MenuItem about = new MenuItem("About");
+        connectedDevices = new MenuItem("");
+        CheckboxMenuItem autoStartup = new CheckboxMenuItem("Auto Startup");
+        MenuItem exit = new MenuItem("Exit");
+       
+        // Add pop-up components
+        popup.add(connectedDevices);
+        popup.addSeparator();
+        popup.add(autoStartup);
+        popup.addSeparator();
+        popup.add(about);
+        popup.add(exit);
+        
+        // Add interaction handlers
+        exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+   
+	}
+	
+	/**
+	 * Updates the number of connected devices in the menu
+	 */
+	protected void updateConnectedDevices(int connectedDevices) {
+		connectedDevices.setLabel("Connected Devices: " + connectedDevices);
+	}
+}

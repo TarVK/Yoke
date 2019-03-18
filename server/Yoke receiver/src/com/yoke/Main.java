@@ -58,13 +58,19 @@ public class Main {
 	// A list of the currently connected device IDs
 	protected List<Integer> deviceIDs = new ArrayList<Integer>();
 	
+	// A reference to the tray
+	protected Tray tray;
+	
 	public Main() {
 		BluetoothServerConnection bluetooth = new BluetoothServerConnection();
 		connection = new MultiServerConnection(bluetooth);
 		
-		setupTray();
 		setupConnectionListeners();
 		setupExecutors();
+		
+		// Setup the tray
+		tray = Tray.getInstance();
+		tray.updateConnectedDevices(deviceIDs.size());
 	}
 	
 	/*
@@ -72,19 +78,45 @@ public class Main {
 	 */
 	protected void setupConnectionListeners() {
 		connection.addReceiver(new MessageReceiver<Connected>() {
-			public void receive(Connected cmd) {				
-				System.out.println("Device " + cmd.deviceID + " connected, state: " + connection.getState());
+			public void receive(Connected cmd) {
+				// Add the device and get its index
+				deviceIDs.add(cmd.deviceID);
+				int index = deviceIDs.indexOf(cmd.deviceID) + 1;
+				
+				// Notify that a device has connected
+				tray.showMessage("Panel " + index + " has connected");
+
+				// Update how many devices are connected
+				tray.updateConnectedDevices(deviceIDs.size());
 			}
 		});
 		connection.addReceiver(new MessageReceiver<Disconnected>() {
-			public void receive(Disconnected cmd) {				
-				System.out.println("Device " + cmd.deviceID + " disconnected, state: " + connection.getState());
+			public void receive(Disconnected cmd) {
+				// Get the index of the device, and remove it
+				int index = deviceIDs.indexOf(cmd.deviceID) + 1;
+				deviceIDs.remove(cmd.deviceID);		
+				
+				// Notify that a device has connected
+				tray.showMessage("Panel " + index + " has disconnected");
+				
+				// Go through all devices after, and indicate that index update
+				for (int i = index + 1; i <= deviceIDs.size(); i++) {
+					tray.showMessage("Panel " + i + " has now become panel " + (i - 1));
+				}
+				
+				// Update how many devices are connected
+				tray.updateConnectedDevices(deviceIDs.size());
 			}
 		});
 		connection.addReceiver(new MessageReceiver<ConnectionFailed>() {
 			public void receive(ConnectionFailed cmd) {		
-				System.out.println("Something went wrong while connecting device; " 
-						+ cmd.description);
+				// Show that there was an error
+				tray.showMessage("Something went wrong while connecting panel" + (cmd.description != "" ? ":" : ""));
+				
+				// Show the error message
+				tray.showMessage(cmd.description);
+				
+				// Show the exact error in the console, TODO: make this accessable to the user
 				if (cmd.exception != null) {
 					cmd.exception.printStackTrace();
 				}
@@ -113,71 +145,5 @@ public class Main {
 		
 		connection.addReceiver(new OpenProgramExecutor());
 		connection.addReceiver(new OpenURLExecutor());
-		
-	}
-	
-	/**
-	 * Sets up the tray interface
-	 */
-	protected MenuItem connectedDevices;
-	protected void setupTray() {		
-		// Check the SystemTray is supported
-        if (!SystemTray.isSupported()) {
-            System.out.println("SystemTray is not supported");
-            return;
-        }
-        
-        // Get the system tray
-        final SystemTray tray = SystemTray.getSystemTray();
-        
-        // Create the image
-        Image image = new ImageIcon(this.getClass().getResource("/logo.png"), "").getImage();
-        Dimension iconSize = tray.getTrayIconSize();
-        image = image.getScaledInstance(iconSize.width, iconSize.height, Image.SCALE_SMOOTH);
-        
-        // Create the actual tray icon and menu
-        final PopupMenu popup = new PopupMenu();
-        final TrayIcon trayIcon = new TrayIcon(image);
-        trayIcon.setPopupMenu(popup);
-        trayIcon.setToolTip("Yoke");
-
-        // Show the created trayIcon
-        try {
-            tray.add(trayIcon);
-        } catch (AWTException e) {
-            System.out.println("TrayIcon could not be added.");
-        }
-        
-       
-        // Create a pop-up menu components
-        MenuItem about = new MenuItem("About");
-        connectedDevices = new MenuItem("");
-        CheckboxMenuItem autoStartup = new CheckboxMenuItem("Auto Startup");
-        MenuItem exit = new MenuItem("Exit");
-       
-        // Add pop-up components
-        popup.add(connectedDevices);
-        popup.addSeparator();
-        popup.add(autoStartup);
-        popup.addSeparator();
-        popup.add(about);
-        popup.add(exit);
-        
-        // Add interaction handlers
-        exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-        
-        // Update the connected devices
-        refreshConnectedDevices();
-	}
-	
-	/**
-	 * Updates the number of connected devices in the menu
-	 */
-	protected void refreshConnectedDevices() {
-		connectedDevices.setLabel("Connected Devices: " + deviceIDs.size());
 	}
 }
