@@ -3,6 +3,8 @@ package com.yoke;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -43,8 +45,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.bluetoothTest();
-//        this.databaseTest(true);
+        this.databaseTest(true, ()->{
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    bluetoothTest();
+                }
+            });
+        });
+    }
+
+    protected void handleMessage(){
+
     }
 
     /**
@@ -60,17 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 MultiClientConnection.initialize(bluetoothConnection);
                 connection = MultiClientConnection.getInstance();
 
-                // Select the server to connect with
-                String[] devices = bluetoothConnection.getDeviceNames();
-                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Please choose your device");
-                builder.setItems(devices, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String device = devices[which];
-                        bluetoothConnection.selectDevice(device);
-                    }
-                });
-                builder.show();
+                // Initialize the bluetooth connection
+                bluetoothConnection.setup();
             }
         }
 
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.w("Detect", "this");
                 connection.send(new OpenURLCmd("youtube.com"));
                 CompoundMessage cm = new CompoundMessage();
                 cm.add(new PlayPauseCmd(), 0);
@@ -98,8 +101,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Just a test for the database
      * @param writeData  Whether to write data to the device, or read data from it
+     * @param initialized  A callback that gets called once the database has been initialized
      */
-    protected void databaseTest(boolean writeData) {
+    protected void databaseTest(boolean writeData, final DataObject.Callback initialized) {
         // Initialize the database
         DataBase.initialize(this, new DataObject.Callback() {
             public void call() {
@@ -195,6 +199,10 @@ public class MainActivity extends AppCompatActivity {
                      * });
                      */
 
+                }
+
+                if (initialized != null) {
+                    initialized.call();
                 }
             }
         });
