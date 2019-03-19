@@ -1,0 +1,15 @@
+package com.yoke;
+
+public class Tray {
+	protected static Tray INSTANCE;
+	protected Tray() {
+		
+	}
+	
+	public static Tray getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new Tray();
+		}
+		return INSTANCE;
+	}
+}

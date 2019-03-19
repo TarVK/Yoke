@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;messages&apos; in &apos;com.yoke.Tray&apos; to &apos;messagesQueue&apos;&#x0D;&#x0A;- Original project: &apos;server&apos;&#x0D;&#x0A;- Original element: &apos;com.yoke.Tray.messages&apos;&#x0D;&#x0A;- Renamed element: &apos;com.yoke.Tray.messagesQueue&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;messages&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/Yoke receiver\/src&lt;com.yoke{Tray.java[Tray^messages" name="messagesQueue" references="true" setter="false" stamp="1552933247913" textual="false" version="1.0"/>
+</session>
