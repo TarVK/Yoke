@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yoke</string>
+    <string name="action_settings">Настройки</string>
+    <string name="title_activity_settings">Настройки</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Общи</string>
+
+    <string name="pref_title_social_recommendations">Разреши социални препоръки</string>
+    <string name="pref_description_social_recommendations">Препоръчани хора базирано на история на съобщенията</string>
+
+    <string name="pref_title_display_name">Покажи име</string>
+    <string name="pref_default_display_name">Иван Иванов</string>
+
+    <string name="pref_title_add_friends_to_messages">Добави приятели към чатовете</string>
+    <string-array name="pref_example_list_titles">
+        <item>Винаги</item>
+        <item>Когато е възможно</item>
+        <item>Никога</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Данни &amp; синхронизиране</string>
+
+    <string name="pref_title_sync_frequency">Честота на синхронизациите</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 минути</item>
+        <item>30 минути</item>
+        <item>1 час</item>
+        <item>3 часа</item>
+        <item>6 часа</item>
+        <item>Никога</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Вписване 1</item>
+        <item>Вписване 2</item>
+        <item>Вписване 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">Настройки за синхронизация на системата</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Известия</string>
+
+    <string name="pref_title_new_message_notifications">Известия за нови съобщения</string>
+
+    <string name="pref_title_ringtone">Мелодия</string>
+    <string name="pref_ringtone_silent">Без звук</string>
+
+    <string name="pref_title_vibrate">Вибрация</string>
+</resources>
