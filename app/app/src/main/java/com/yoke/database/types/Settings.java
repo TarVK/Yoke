@@ -43,7 +43,7 @@ public class Settings extends DataObject<Settings.SettingsData> {
     // Interaction methods (with super redundant java doc)
     /**
      * Retrieves the user's language
-     * @return  The language represented by a string
+     * @return The language represented by a string
      */
     public String getLanguage() {
         return this.data.language;
@@ -51,7 +51,7 @@ public class Settings extends DataObject<Settings.SettingsData> {
 
     /**
      * Retrieves an identifier for the color scheme to use
-     * @return  The identifier
+     * @return The identifier
      */
     public byte getMainColorID () {
         return this.data.mainColorID;
@@ -59,7 +59,7 @@ public class Settings extends DataObject<Settings.SettingsData> {
 
     /**
      * Retrieves an identifier for the connection type to use
-     * @return  The identifier
+     * @return The identifier
      */
     public byte getConnectionType () {
         return this.data.connectionType;
@@ -67,7 +67,7 @@ public class Settings extends DataObject<Settings.SettingsData> {
 
     /**
      * Retrieves whether or not the light theme is enabled
-     * @return  Whether the light theme is enabled
+     * @return Whether the light theme is enabled
      */
     public boolean getUsesLightTheme () {
         return this.data.useLightTheme;
@@ -75,10 +75,18 @@ public class Settings extends DataObject<Settings.SettingsData> {
 
     /**
      * Retrieves whether or not automatic pc server startup is enabled
-     * @return  Whether or not automatic startup is enabled
+     * @return Whether or not automatic startup is enabled
      */
     public boolean getUsesAutomaticStartup () {
         return this.data.useAutomaticStartup;
+    }
+
+    /**
+     * Retrieves the name of the bluetooth device to use as the server
+     * @return The name of the device
+     */
+    public String getBluetoothServer() {
+        return this.data.bluetoothServerName;
     }
 
     /**
@@ -121,6 +129,14 @@ public class Settings extends DataObject<Settings.SettingsData> {
         this.data.useAutomaticStartup = usesAutomaticStartup;
     }
 
+    /**
+     * Sets the name of the device to use as the bluetooth receiver
+     * @param name  The name of the device in the list of bluetooth devices
+     */
+    public void setBluetoothServer(String name) {
+        this.data.bluetoothServerName = name;
+    }
+
     // Defines the data that is stored
     @Entity
     static public final class SettingsData extends DataObject.DataObjectData {
@@ -138,6 +154,9 @@ public class Settings extends DataObject<Settings.SettingsData> {
 
         @ColumnInfo(name = "useAutomaticStartup")
         public boolean useAutomaticStartup;
+
+        @ColumnInfo(name = "bluetoothServerName")
+        public String bluetoothServerName;
     }
 
 
