@@ -26,6 +26,9 @@ import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 import com.yoke.connection.messages.connection.Connected;
 import com.yoke.connection.messages.connection.Disconnected;
 
+/**
+ * The abstract class representing a connection to the application
+ */
 public abstract class Connection {
 	// Simple 'enum' for connection states
 	public static int SETUP = 0;
@@ -41,6 +44,9 @@ public abstract class Connection {
 		= new HashMap<Class<? extends Message>, List<MessageReceiver<?>>>(); 
 	
 
+    /**
+     * The constructor method
+     */
 	public Connection() {}
 	
 	
@@ -186,7 +192,7 @@ public abstract class Connection {
 			Timer t = new java.util.Timer();
 			
 			// Go through all of the messages
-			for (MessageDelay md: cm) {
+			for (ComposedMessage.MessageDelay md: cm) {
 				// Get the delay after which to send the message
 				cumulativeDelay += md.delay;
 				

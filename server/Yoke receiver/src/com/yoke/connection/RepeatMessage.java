@@ -2,6 +2,9 @@ package com.yoke.connection;
 
 import java.util.Iterator;
 
+/**
+ * A class to store a message that should be repeated a number of times
+ */
 public class RepeatMessage implements ComposedMessage{
 	// Serialization ID
 	private static final long serialVersionUID = 8396994954447114066L;
@@ -15,10 +18,19 @@ public class RepeatMessage implements ComposedMessage{
 	// Store the message type
 	public Message message;
 	
-	
+	/**
+	 * Creates a repeat method
+	 * @param message  The message to repeat
+	 */
 	public RepeatMessage(Message message) {
 		this(message, 1, 10);
 	}
+	/**
+	 * Creates a repeat method
+	 * @param message  The message to repeat
+	 * @param repeatAmount  The number of times to repeat the message
+	 * @param frequency  How often to execute the macro per second
+	 */
 	public RepeatMessage(Message message, int repeatAmount, double frequency) {
 		this.message = message;
 		this.repeatAmount = repeatAmount;

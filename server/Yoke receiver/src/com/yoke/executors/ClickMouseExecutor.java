@@ -4,6 +4,9 @@ import java.awt.event.InputEvent;
 
 import com.yoke.connection.messages.ClickMouseCmd;
 
+/**
+ * A message receiver that listens for click commands, and perform them
+ */
 public class ClickMouseExecutor extends RobotExecutor<ClickMouseCmd>{
 
 	@Override

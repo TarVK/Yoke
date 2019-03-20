@@ -2,6 +2,9 @@ package com.yoke.connection.messages;
 
 import com.yoke.connection.Message;
 
+/**
+ * A command representing mouse clicks
+ */
 public class ClickMouseCmd extends Message {
 	// Serialization ID
 	private static final long serialVersionUID = -2463696863023873571L;
@@ -24,9 +27,19 @@ public class ClickMouseCmd extends Message {
 	// The type of button press
 	public byte type;
 	
+	/**
+	 * Creates a mouse click command
+	 * @param button  The mouse button that should be clicked (ClickMouseCmd.LEFTCLICK, etc)
+	 */
 	public ClickMouseCmd(int button) {
 		this(button, BUTTONPRESS);
 	}
+	
+	/**
+	 * Creates a mouse click command
+     * @param button  The mouse button that should be clicked (ClickMouseCmd.LEFTCLICK, etc)
+	 * @param type  The type of button press (ClickMouseCmd.BUTTONDOWN, etc)
+	 */
 	public ClickMouseCmd(int button, byte type) {
 		this.button = button;
 		this.type = type;

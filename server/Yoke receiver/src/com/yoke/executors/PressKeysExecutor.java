@@ -6,7 +6,12 @@ import java.util.List;
 
 import com.yoke.connection.messages.PressKeysCmd;
 
+
+/**
+ * A message receiver that listens for key press commands, and perform them
+ */
 public class PressKeysExecutor extends RobotExecutor<PressKeysCmd>{
+    // All the keyboard modifiers
 	static List<Integer> modifierKeys = Arrays.asList(new Integer[] {
 			KeyEvent.VK_CONTROL, 
 			KeyEvent.VK_SHIFT, 

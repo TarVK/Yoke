@@ -17,6 +17,9 @@ import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 
+/**
+ * A concrete connection class that makes use of bluetooth
+ */
 public class BluetoothServerConnection extends Connection {
 	// The thread used to set up new connections
 	protected EstablishConnectionThread connectionThread;
@@ -27,6 +30,9 @@ public class BluetoothServerConnection extends Connection {
 	// The output streams used to send messages
 	protected List<OutputStream> outputStreams = new ArrayList<OutputStream>();
 
+	/**
+	 * The constructor method
+	 */
 	public BluetoothServerConnection() {
 		super();
 
@@ -124,6 +130,11 @@ public class BluetoothServerConnection extends Connection {
 	    protected InputStream is;
 	    protected OutputStream os;
 
+	    /**
+	     * Creates an instance of the processing thread
+	     * @param is  The input stream that is used to receive data
+	     * @param os  The output stream that is used to send data
+	     */
 	    public ProcessConnectionThread(InputStream is, OutputStream os) {
 	        this.is = is;
 	        this.os = os;

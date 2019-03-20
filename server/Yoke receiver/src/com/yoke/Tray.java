@@ -26,6 +26,9 @@ import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
+/**
+ * A class managing the Tray menu of the app
+ */
 public class Tray {
 	// The single instance of the tray
 	protected static Tray INSTANCE;
@@ -52,7 +55,7 @@ public class Tray {
 	protected CheckboxMenuItem autoStartup;
 	
 	/**
-	 * Manages the tray menu of the program
+     * The constructor method
 	 */
 	protected Tray() {
 		// Check the SystemTray is supported

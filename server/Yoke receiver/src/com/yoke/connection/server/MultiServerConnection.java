@@ -7,10 +7,17 @@ import com.yoke.connection.messages.connection.Connected;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 
+/**
+ * A class that can contain multiple connection types, and handles connections through each of them
+ */
 public class MultiServerConnection extends Connection {
 	// Store a list of concrete connection types
 	protected Connection[] connections;
 	
+	/**
+	 * Creates a multieServerConnection instance
+	 * @param connections  The concrete connection types that should be used
+	 */
 	public MultiServerConnection(Connection... connections){
 		this.connections = connections;
 		

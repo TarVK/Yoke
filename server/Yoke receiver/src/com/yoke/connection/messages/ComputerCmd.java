@@ -11,6 +11,9 @@ import com.yoke.connection.messages.computerCmds.SleepCmd;
 import com.yoke.connection.messages.computerCmds.VolumeDownCmd;
 import com.yoke.connection.messages.computerCmds.VolumeUpCmd;
 
+/**
+ * A general abstract class that can be extended for computer commands
+ */
 public abstract class ComputerCmd extends Message {
 	// Serialization ID
 	private static final long serialVersionUID = -4832852006823409330L;
@@ -28,6 +31,9 @@ public abstract class ComputerCmd extends Message {
 		new VolumeDownCmd(),
 	};
 	
+	/**
+	 * Creates a computer command
+	 */
 	public ComputerCmd() {}
 	
 	/**

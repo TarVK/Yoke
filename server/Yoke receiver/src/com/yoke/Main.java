@@ -43,6 +43,9 @@ import com.yoke.executors.computerCmds.SleepExecutor;
 import com.yoke.executors.computerCmds.VolumeDownExecutor;
 import com.yoke.executors.computerCmds.VolumeUpExecutor;
 
+/**
+ * The main class for the application
+ */
 public class Main {
 	/**
 	 * Starts the program, doesn't take any arguments
@@ -61,6 +64,9 @@ public class Main {
 	// A reference to the tray
 	protected Tray tray;
 	
+	/*
+     * The constructor method
+	 */
 	public Main() {
 		BluetoothServerConnection bluetooth = new BluetoothServerConnection();
 		connection = new MultiServerConnection(bluetooth);
@@ -94,7 +100,7 @@ public class Main {
 			public void receive(Disconnected cmd) {
 				// Get the index of the device, and remove it
 				int index = deviceIDs.indexOf(cmd.deviceID) + 1;
-				deviceIDs.remove(cmd.deviceID);		
+				deviceIDs.remove((Object) cmd.deviceID);		
 				
 				// Notify that a device has connected
 				tray.showMessage("Panel " + index + " has disconnected");

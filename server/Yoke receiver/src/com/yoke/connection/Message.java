@@ -8,7 +8,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class Message implements Serializable{
+/**
+ * The class used for communication between the server and client
+ * This class can be extended to any concrete message types that store data
+ */
+public class Message implements Serializable {
 	// Serialization ID
 	private static final long serialVersionUID = 3823107424651461814L;
 

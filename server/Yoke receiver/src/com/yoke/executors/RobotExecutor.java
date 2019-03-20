@@ -10,8 +10,16 @@ import java.awt.Toolkit;
 import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
 
+/**
+ * An abstract message receiver that provides a java robot instance
+ */
 public abstract class RobotExecutor<T extends Message> extends MessageReceiver<T> {
-	protected Robot robot;
+	// A robot to simulate user inputs
+    protected Robot robot;
+	
+    /**
+     * Creates a robotExecutor instance
+     */
 	public RobotExecutor() {
 		try {
 			robot = new Robot();

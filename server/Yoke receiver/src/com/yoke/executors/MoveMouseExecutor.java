@@ -6,6 +6,9 @@ import java.awt.Robot;
 
 import com.yoke.connection.messages.MoveMouseCmd;
 
+/**
+ * A message receiver that listens for mouse move commands, and perform them
+ */
 public class MoveMouseExecutor extends RobotExecutor<MoveMouseCmd>{
 
 	@Override

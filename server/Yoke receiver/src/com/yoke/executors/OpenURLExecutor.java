@@ -8,7 +8,11 @@ import java.net.URISyntaxException;
 import com.yoke.connection.MessageReceiver;
 import com.yoke.connection.messages.OpenURLCmd;
 
+/**
+ * A message receiver that listens for open url commands, and perform them
+ */
 public class OpenURLExecutor extends MessageReceiver<OpenURLCmd>{
+    // A desktop object to connect to the user's desktop
 	Desktop desktop = java.awt.Desktop.getDesktop();
 	
 	@Override
