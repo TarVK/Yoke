@@ -19,8 +19,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import com.sun.jna.Native;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WTypes.LPWSTR;
+import com.sun.jna.platform.win32.WinDef.HWND;
 import com.yoke.connection.Connection;
 import com.yoke.connection.MessageReceiver;
+import com.yoke.connection.messages.ProgramFocused;
 import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
 import com.yoke.connection.messages.connection.Connected;
@@ -40,6 +45,7 @@ import com.yoke.executors.computerCmds.PreviousTrackExecutor;
 import com.yoke.executors.computerCmds.RestartExecutor;
 import com.yoke.executors.computerCmds.ShutDownExecutor;
 import com.yoke.executors.computerCmds.SleepExecutor;
+import com.yoke.executors.computerCmds.VirtualKeyExecutor;
 import com.yoke.executors.computerCmds.VolumeDownExecutor;
 import com.yoke.executors.computerCmds.VolumeUpExecutor;
 
@@ -67,19 +73,21 @@ public class Main {
 	/*
      * The constructor method
 	 */
-	public Main() {
+	public Main() {        
 		BluetoothServerConnection bluetooth = new BluetoothServerConnection();
 		connection = new MultiServerConnection(bluetooth);
 		
 		setupConnectionListeners();
 		setupExecutors();
+		setupProgramPoll();
 		
 		// Setup the tray
 		tray = Tray.getInstance();
 		tray.updateConnectedDevices(deviceIDs.size());
 	}
 	
-	/*
+	
+	/**
 	 * Sets up the listeners to check connection state changes
 	 */
 	protected void setupConnectionListeners() {
@@ -130,7 +138,7 @@ public class Main {
 		});
 	}
 	
-	/*
+	/**
 	 * Sets up all of the command executors
 	 */
 	protected void setupExecutors() {
@@ -152,4 +160,61 @@ public class Main {
 		connection.addReceiver(new OpenProgramExecutor());
 		connection.addReceiver(new OpenURLExecutor());
 	}
+	
+	/**
+	 * Sets up a function to poll for what program is selected
+	 */
+	protected void setupProgramPoll() {
+	    // Get a reference to the settings
+	    final LocalSettings settings = LocalSettings.getInstance();
+	    
+	    // use the user32 dll
+	    U32 user32 = U32.INSTANCE;
+	    
+	    
+	    // Create a thread to perform the polling in
+	    Thread thread = new Thread() {
+	        // The name of the focused window
+	        protected String focusedName = "";
+	        
+	        @Override
+	        public void run() {
+                try {
+                    while(true) {
+                        // Have a little timeout to reduce computation efforts
+                        sleep(500);
+                        
+                        // Check if the poll should be performed
+                        if (settings.getPollFocusedProgram()) {
+                            // Get the window text name
+                            HWND h = user32.GetForegroundWindow();
+                            byte[] windowText = new byte[512];
+                            U32.INSTANCE.GetWindowTextA(h, windowText, 512);
+                            String name = Native.toString(windowText).trim();
+                            
+                            // Check if this name is different from the previous name
+                            if (!focusedName.equals(name)) {
+                                focusedName = name;
+                                
+                                // Send the program focus message
+                                connection.send(new ProgramFocused(name));
+                            }
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+	        }
+	    };
+	    thread.start();
+	}
+	
+	/**
+	 * An interface containing an instance of a class implementing the interface,
+	 * that allows for retrieval of a program name
+	 */
+    public interface U32 extends User32 {
+        U32 INSTANCE = (U32) Native.load("user32.dll",U32.class);
+        int GetWindowTextA(HWND  hWnd, byte[] lpString, int   nMaxCount);
+    }
 }

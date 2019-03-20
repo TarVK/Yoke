@@ -58,6 +58,9 @@ public class Tray {
      * The constructor method
 	 */
 	protected Tray() {
+	    // Get a reference to the settings
+	    LocalSettings settings = LocalSettings.getInstance();
+	    
 		// Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");
@@ -90,12 +93,15 @@ public class Tray {
         connectedDevices = new MenuItem("");
         autoStartup = new CheckboxMenuItem("Auto Startup");
         autoStartup.setState(isAutoStartup());
+        CheckboxMenuItem programPoll = new CheckboxMenuItem("Program poll");
+        programPoll.setState(settings.getPollFocusedProgram());
         MenuItem exit = new MenuItem("Exit");
        
         // Add pop-up components
         popup.add(connectedDevices);
         popup.addSeparator();
         popup.add(autoStartup);
+        popup.add(programPoll);
         popup.addSeparator();
         popup.add(about);
         popup.add(exit);
@@ -110,7 +116,13 @@ public class Tray {
 			public void itemStateChanged(ItemEvent arg0) {
 				setAutoStartup(autoStartup.getState());
 			}
-		});;
+		});
+		programPoll.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent arg0) {
+                settings.setPollFocusedProgram(programPoll.getState());
+                settings.save();
+            }
+        });
 	}
 	
 	/**
@@ -118,7 +130,7 @@ public class Tray {
 	 * @param deviceCount  The number of devices that are connected
 	 */
 	protected void updateConnectedDevices(int deviceCount) {
-		connectedDevices.setLabel("Connected Devices: " + deviceCount);
+		connectedDevices.setLabel("Connected Panels: " + deviceCount);
 	}
 
 	

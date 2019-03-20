@@ -1,0 +1,97 @@
+package com.yoke;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.prefs.Preferences;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+/**
+ * A singleton class intended to store local data
+ */
+public class LocalSettings {
+	// The singleton instance of the settings
+	protected static LocalSettings INSTANCE;
+	
+	/**
+	 * Retrieves the singleton instance of the settings
+	 * @return The instance
+	 */
+	public static LocalSettings getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new LocalSettings();
+		}
+		
+		return INSTANCE;
+	}
+	
+	// The preferences object
+	protected Preferences prefs;
+	
+	// A reference to the file to store the settings in
+	protected File settingsFile = new File(System.getenv("APPDATA") + "/Yoke/settings.txt");
+	
+	// Stores all of the settings
+	protected HashMap<String, String> settings = new HashMap<String, String>();
+	
+	/**
+	 * Creates a local settings instance
+	 */
+	public LocalSettings() {
+	    // Retrieve the user preference node for this class
+	    prefs = Preferences.userNodeForPackage(this.getClass());
+	    
+	    
+	}
+	
+	/**
+	 * Retrieves whether or not yoke should poll what program is selected
+	 * @return Whether it should poll
+	 */
+	public boolean getPollFocusedProgram() {
+	    return prefs.getBoolean("pollFocusedProgram", true);
+	}
+	
+	/**
+	 * Sets whether or not yoke should poll what program is selected
+	 * @param value  Whether it should poll
+	 */
+	public void setPollFocusedProgram(boolean value) {
+	    prefs.putBoolean("pollFocusedProgram", value);
+	    
+	}
+	
+	/**
+	 * Saves all changes that have been made
+	 */
+	public void save() {
+	    // Convert the settings to a string
+	    String output = "";
+	    for (String setting: settings.keySet()) {
+	        String value = settings.get(setting);
+	        output += setting + ":" + value + "\n";
+	    }
+	     
+	    // Write the data into the file
+	    try {
+	        BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile));
+	        writer.write(output);
+	        writer.close();	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+}
