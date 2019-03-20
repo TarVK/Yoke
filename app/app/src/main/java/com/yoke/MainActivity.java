@@ -1,12 +1,8 @@
 package com.yoke;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;

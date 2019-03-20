@@ -1,7 +1,8 @@
 package com.yoke.connection.messages;
 
-import com.yoke.connection.Message;
 import com.yoke.connection.messages.softwareCmds.ToggleRecordingCmd;
+import com.yoke.connection.Message;
+
 
 /**
  * A general abstract class that can be extended for software commands 

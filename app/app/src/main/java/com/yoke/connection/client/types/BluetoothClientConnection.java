@@ -5,20 +5,15 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Looper;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import com.yoke.connection.Connection;
-import com.yoke.connection.messages.ConnectionChange;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.types.Settings;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InterruptedIOException;
-import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 

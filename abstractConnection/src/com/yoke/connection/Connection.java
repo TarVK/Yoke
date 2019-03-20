@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
@@ -35,6 +34,7 @@ public abstract class Connection {
 	public static int CONNECTIONFAILED = 1;
 	public static int CONNECTING = 2;
 	public static int CONNECTED = 3;
+	public static int DISCONNECTED = 4;
 	
 	// The current connection state
 	protected int state = SETUP;
@@ -255,15 +255,15 @@ public abstract class Connection {
 	 */
 	public abstract class ProcessConnectionThread extends Thread {		
 		// Store the ID for the connection/device
-		int ID;
+		protected int ID;
 		
 		// Keep track of the received size bytes
-		byte[] size = new byte[4];
-		byte sizeIndex = 0;
+		protected byte[] size = new byte[4];
+		protected byte sizeIndex = 0;
 		
 		// Keep track of the actual message bytes
-		byte[] message;
-		int messageIndex = 0;
+		protected byte[] message;
+		protected int messageIndex = 0;
 		
 		public ProcessConnectionThread() {
 			this.ID = Connection.getNextID();

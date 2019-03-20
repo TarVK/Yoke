@@ -2,6 +2,7 @@ package com.yoke.connection.messages;
 
 import com.yoke.connection.Message;
 
+
 /**
  * A command representing opening a computer program
  */
