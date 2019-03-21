@@ -21,6 +21,7 @@ import com.yoke.connection.messages.computerCmds.NextTrackCmd;
 import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
 import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
+import com.yoke.connection.messages.connection.Connected;
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
 import com.yoke.database.types.Button;
@@ -44,10 +45,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         gifView = (GifView) findViewById(R.id.gif_view);
-        //database = Database.getInstance();
+
         //database.initialize(this, ?);   //callback runOnUi
         //create normal connection
-        //conn = MultiClientConnection.getInstance(); //no get instance
         //conn.initialize(?); //bluetooth requires setupcall, after all receivers
         //look in bluetooth test
         //add listener and receiver to connection
@@ -66,11 +66,13 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
 
-        connection.addReceiver(new MessageReceiver<SleepCmd>() {
-            public void receive(SleepCmd message) {
-                Log.w("SLEEP", "SLEEP");
+        connection.addReceiver(new MessageReceiver<Connected>() {
+            public void receive(Connected message) {
+                Log.w("CONNECTED", "CONNECTED");
             }
         });
+
+        //to-do connection listener
 
 
         DataBase.initialize(this, new DataObject.Callback() {
