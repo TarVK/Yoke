@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Yoke</string>
     <string name="action_settings">Settings</string>
+    <string name="heading1">Eat</string>
+    <string name="heading2">Sleep</string>
+    <string name="heading3">Code</string>
+    <string name="description1">Eating is important.</string>
+    <string name="description2">Sleeping is bliss.</string>
+    <string name="description3">Coding is life</string>
+    <string name="backBtn">Back</string>
+    <string name="nextBtn">Next</string>
+    <string name="nextBtn2">Finish</string>
+    <string name="tutorialBtn">Tutorial</string>
+    <string name="splashBtn">Splash/Tutorial</string>
 </resources>
