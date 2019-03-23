@@ -9,8 +9,8 @@ import com.yoke.executors.CmdPromptExecutor;
  */
 public class RestartExecutor extends CmdPromptExecutor<RestartCmd>{
 
-	@Override
-	public void receive(RestartCmd message) {
-		execCmd("shutdown.exe -r");
-	}
+    @Override
+    public void receive(RestartCmd message) {
+        execCmd("shutdown.exe -r");
+    }
 }
