@@ -13,18 +13,18 @@ import com.yoke.connection.messages.OpenURLCmd;
  */
 public class OpenURLExecutor extends MessageReceiver<OpenURLCmd>{
     // A desktop object to connect to the user's desktop
-	Desktop desktop = java.awt.Desktop.getDesktop();
-	
-	@Override
-	public void receive(OpenURLCmd message) throws IOException, URISyntaxException {
-		String URL = message.URL;
-		
-		// Make sure the URL has a valid prefix
-		if (!URL.matches("(www\\.|https?\\://).*")) {
-			URL = "www." + URL;
-		}
-		
-		desktop.browse(new URI(URL));
-	}
+    Desktop desktop = java.awt.Desktop.getDesktop();
+    
+    @Override
+    public void receive(OpenURLCmd message) throws IOException, URISyntaxException {
+        String URL = message.URL;
+        
+        // Make sure the URL has a valid prefix
+        if (!URL.matches("(www\\.|https?\\://).*")) {
+            URL = "www." + URL;
+        }
+        
+        desktop.browse(new URI(URL));
+    }
 
 }

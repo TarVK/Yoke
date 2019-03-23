@@ -9,8 +9,8 @@ import com.yoke.executors.CmdPromptExecutor;
  */
 public class LogOffExecutor extends CmdPromptExecutor<LogOffCmd>{
 
-	@Override
-	public void receive(LogOffCmd message) {
-		execCmd("shutdown.exe -l");
-	}
+    @Override
+    public void receive(LogOffCmd message) {
+        execCmd("shutdown.exe -l");
+    }
 }

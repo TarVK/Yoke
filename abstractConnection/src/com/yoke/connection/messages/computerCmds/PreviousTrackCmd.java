@@ -6,11 +6,11 @@ import com.yoke.connection.messages.ComputerCmd;
  * A command representing going to the previous music track
  */
 public class PreviousTrackCmd extends ComputerCmd {
-	// Serialization ID
-	private static final long serialVersionUID = -665911888787301177L;
+    // Serialization ID
+    private static final long serialVersionUID = -665911888787301177L;
 
-	@Override
-	public String getName() {
-		return "Previous Track";
-	}
+    @Override
+    public String getName() {
+        return "Previous Track";
+    }
 }

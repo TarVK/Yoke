@@ -1,0 +1,35 @@
+package com.yoke;
+
+import java.util.List;
+
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+
+/**
+ * A class to prompt the user to select a keyboard combination
+ */
+public class KeyPressChooser extends JDialog {
+    // The input field that shows the se'ected keys
+    protected JTextField input; 
+    
+    // The keys that have been selected 
+    protected List<Integer> keys;
+    
+    /**
+     * Creates an instance of the keypress chooser
+     */
+    public KeyPressChooser() {
+        super();
+        
+        
+    }
+    
+    /**
+     * Opens the dialog and returns the pressed key or null if cancelled
+     * @return The selected keys
+     */
+    public List<Integer> showDialog() {
+        setVisible(true);
+        return keys;
+    }
+}

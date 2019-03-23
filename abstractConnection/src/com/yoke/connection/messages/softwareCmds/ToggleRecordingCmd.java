@@ -8,7 +8,7 @@ import com.yoke.connection.messages.SoftwareCmd;
 public class ToggleRecordingCmd extends SoftwareCmd {
 
     @Override
-	public String getName() {
-		return "Toggle OBS recording";
-	}
+    public String getName() {
+        return "Toggle OBS recording";
+    }
 }

@@ -1,0 +1,121 @@
+package com.yoke;
+
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+
+/**
+ * A class to prompt the user to select a keyboard combination
+ */
+public class KeyPressChooser extends JDialog {
+    // The input field that shows the se'ected keys
+    protected JTextField input; 
+    
+    // The keys that have been selected 
+    protected List<Integer> keys;
+    
+    /**
+     * Creates an instance of the keypress chooser
+     */
+    public KeyPressChooser() {
+        super();
+        setModal(true);
+        
+        // Create all functional components
+        input = new JTextField();
+        JButton ok = new JButton("OK");
+        JButton cancel = new JButton("Cancel");
+        
+        // Setup the appropriate GUI structure
+        this.add(input);
+        this.setSize(200, 100);
+        
+        // Change the appearance a little
+        input.setCaretColor(Color.white);
+        
+        // Handle inputs correctly
+        input.addKeyListener(new KeyListener() {
+            // The order of the modifier keys
+            protected List<Integer> modifiers = Arrays.asList(new Integer[] {
+                    KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_ALT});
+            
+            // Counts the number of keys that are currently pressed
+            protected int pressed = 0;
+            
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // Prevent the key from changing the text
+                e.consume();
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                pressed--;
+            }
+            
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // Reset the keys if needed
+                if (pressed == 0) {
+                    keys = new ArrayList<Integer>();
+                }
+                
+                // Check if the key didn't trigger already
+                int key = e.getKeyCode(); 
+                if (keys.indexOf(key) != -1) {
+                    return;
+                }
+                
+                // Increase the number of held keys
+                pressed++;
+                
+                // Check the index of the key
+                int orderIndex = modifiers.indexOf(key);
+                if (orderIndex == -1) {
+                    keys.add(key);
+                } else {
+                    // Insert key at the right index by finding a key it should go in front of
+                    for (int i = 0; i < keys.size(); i++) {
+                        int orderIndexK = modifiers.indexOf(keys.get(i));
+                        if (orderIndexK == -1 || orderIndexK > orderIndex) {
+                            keys.add(i, key);
+                            break;
+                        }
+                    }
+                    keys.add(key);
+                }
+                
+                // Show the keys that have been selected now
+                update();
+            }
+            
+            /**
+             * Updates the text in the text field to represent the selected keys
+             */
+            public void update() {
+                String text = "";
+                for (Integer key: keys) {
+                    text += KeyEvent.getKeyText(key) + " + ";
+                }
+                text = text.substring(0, text.length() - 3);
+                input.setText(text);
+            }
+        });
+    }
+    
+    /**
+     * Opens the dialog and returns the pressed key or null if cancelled
+     * @return The selected keys
+     */
+    public List<Integer> showDialog() {
+        setVisible(true);
+        return keys;
+    }
+}

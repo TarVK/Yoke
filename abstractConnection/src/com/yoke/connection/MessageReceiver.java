@@ -12,5 +12,5 @@ import java.net.URISyntaxException;
  * @param <T> The message type that this receiver can receive
  */
 public abstract class MessageReceiver <T extends Message> {
-	public abstract void receive(T message) throws Exception;
+    public abstract void receive(T message) throws Exception;
 }

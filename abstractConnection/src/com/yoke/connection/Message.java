@@ -13,8 +13,8 @@ import java.io.Serializable;
  * This class can be extended to any concrete message types that store data
  */
 public class Message implements Serializable {
-	// Serialization ID
-	private static final long serialVersionUID = 3823107424651461814L;
+    // Serialization ID
+    private static final long serialVersionUID = 3823107424651461814L;
 
     /**
      * Turns a message into a byte array to either be stored or sent

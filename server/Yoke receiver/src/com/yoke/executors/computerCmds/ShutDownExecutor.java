@@ -8,8 +8,8 @@ import com.yoke.executors.CmdPromptExecutor;
  */
 public class ShutDownExecutor extends CmdPromptExecutor<ShutDownCmd>{
 
-	@Override
-	public void receive(ShutDownCmd message) {
-		execCmd("shutdown.exe -s");
-	}
+    @Override
+    public void receive(ShutDownCmd message) {
+        execCmd("shutdown.exe -s");
+    }
 }
