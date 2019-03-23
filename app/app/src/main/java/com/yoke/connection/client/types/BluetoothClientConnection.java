@@ -50,8 +50,14 @@ public class BluetoothClientConnection extends Connection {
     /**
      * Sets up the server connection by prompting a server to be connected to, or using the currently saved name
      * @param forcePrompt  Whether or not a prompt to select the device is forced, rather than using the stored device
+     * @returns Whether or not the setup initiated successfully, if it did not, this is due to bluetooth not being enabled
      */
-    public void setup(boolean forcePrompt) {
+    public boolean setup(boolean forcePrompt) {
+        // Check whether bluetooth is actually enabled
+        if (!mBluetoothAdapter.isEnabled()) {
+            return false;
+        }
+
         // Get the name of the server if stored
         String serverName = Settings.getInstance().getBluetoothServer();
 
@@ -72,6 +78,8 @@ public class BluetoothClientConnection extends Connection {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
+
+        return true;
     }
 
     /**
