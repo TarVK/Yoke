@@ -15,7 +15,7 @@ import com.yoke.database.types.Settings;
         Settings.SettingsData.class,
         Profile.ProfileData.class,
         Button.ButtonData.class
-}, version = 3)
+}, version = 4)
 public abstract class DataBase extends RoomDatabase {
     // All daos
     public abstract Macro.MacroDataDao macroDataDao();
@@ -45,8 +45,10 @@ public abstract class DataBase extends RoomDatabase {
      * @return  The database
      */
     public static DataBase getInstance(){
-        if (instance == null)
+        if (instance == null) {
             throw new ExceptionInInitializerError("The class hasn't been initialized yet");
+        }
+
         return instance;
     }
 

@@ -12,6 +12,9 @@ import com.yoke.database.DataObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class to manage the profile data in the database
+ */
 public class Profile extends DataObject<Profile.ProfileData> {
     // Keep track of the buttons on the profile
     List<Button> buttons;
@@ -26,7 +29,12 @@ public class Profile extends DataObject<Profile.ProfileData> {
         this.buttons = new ArrayList<Button>();
         this.setSize((byte)2, (byte)3);
     }
-    protected Profile(Profile.ProfileData data) {
+
+    /**
+     * Creates a profile with the data that was obtained from the database
+     * @param data  The data that was obtained from the database
+     */
+    protected Profile(ProfileData data) {
         super(data);
     }
 
@@ -103,7 +111,7 @@ public class Profile extends DataObject<Profile.ProfileData> {
      * @return  Whether or not there is still space to add a button
      */
     public boolean hasSpace(){
-        return this.buttons.size() + 1 < this.getWidth() * this.getHeight();
+        return this.buttons.size() < this.getWidth() * this.getHeight();
     }
 
     /**

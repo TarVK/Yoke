@@ -1,10 +1,19 @@
 package com.yoke.database.types;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.os.AsyncTask;
 
 import com.yoke.connection.Message;
 import com.yoke.database.DataBase;
@@ -13,11 +22,29 @@ import com.yoke.utils.ImageTools;
 
 import java.util.List;
 
+/**
+ * A class to manage the macro data in the database
+ */
 public class Macro extends DataObject<Macro.MacroData> {
+    // Define a resolution for the macro images
+    public static final int resolution = 400;
+
+    // Define the font size relative to the resolution, e.g. 0.25 is 1/4th of resolution in height
+    public static final double fontScale = 0.1;
+
+    /**
+     * Creates a new macro with a certain name
+     * @param name  The name of the macro
+     */
     public Macro(String name) {
         super(new MacroData());
         this.setName(name);
     }
+
+    /**
+     * Creates a macro with the data that was obtained from the database
+     * @param data  The data that was obtained from the database
+     */
     protected Macro(MacroData data) {
         super(data);
     }
@@ -29,6 +56,14 @@ public class Macro extends DataObject<Macro.MacroData> {
      */
     public String getName() {
         return this.data.name;
+    }
+
+    /**
+     * Retrieves the final image to represent all of the macro
+     * @return The image representing all of the visual data
+     */
+    public Bitmap getCombinedImage() {
+        return ImageTools.getImageFromString(this.data.combinedImage);
     }
 
     /**
@@ -121,7 +156,8 @@ public class Macro extends DataObject<Macro.MacroData> {
      * @param image The image
      */
     public void setForegroundImage(Bitmap image) {
-        this.data.foregroundImage = ImageTools.getStringFromImage(image);}
+        this.data.foregroundImage = ImageTools.getStringFromImage(image);
+    }
 
     /**
      * Sets the background color
@@ -176,12 +212,107 @@ public class Macro extends DataObject<Macro.MacroData> {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
+    /**
+     * Combines the macro data into a single image
+     * @param callback  The callback to be called to get the resulting image
+     */
+    public void createCombinedImage(DataCallback<Bitmap> callback) {
+        (new AsyncTask<Void, Void, Bitmap>(){
+            protected Bitmap doInBackground(Void... nothing){
+                // Create the image
+                Bitmap newImage = Bitmap.createBitmap(resolution, resolution,
+                        Bitmap.Config.ARGB_8888, true);
+                Canvas canvas = new Canvas(newImage);
+
+                // Get some properties
+                int width = canvas.getWidth();
+                int height = canvas.getHeight();
+                Bitmap backgroundImage = getBackgroundImage();
+                Bitmap foregroundImage = getForegroundImage();
+                int backgroundColor = getBackgroundColor();
+                int foregroundColor = getForegroundColor();
+                boolean useText = isTextEnabled();
+                int textColor = getTextColor();
+                String text = getText();
+
+                // Draw the first layer
+                if (backgroundImage != null) {
+                    canvas.drawBitmap(backgroundImage,
+                            new Rect(0, 0,
+                                    backgroundImage.getWidth(),
+                                    backgroundImage.getHeight()
+                            ), new Rect(0, 0,
+                                    resolution,
+                                    resolution
+                            ), null);
+                } else {
+                    Paint paint = new Paint();
+                    paint.setColor(backgroundColor);
+                    canvas.drawRect(0, 0, resolution, resolution, paint);
+                }
+
+                // Draw the second layer
+                if (foregroundImage != null) {
+                    canvas.drawBitmap(foregroundImage,
+                            new Rect(0, 0,
+                                    foregroundImage.getWidth(),
+                                    foregroundImage.getHeight()
+                            ), new Rect(0, 0,
+                                    resolution,
+                                    resolution
+                            ), null);
+                } else {
+                    Paint paint = new Paint();
+                    paint.setColor(foregroundColor);
+                    canvas.drawRect(0, 0, resolution, resolution, paint);
+                }
+
+                // Draw text
+                if (useText) {
+                    // Determine the y level for the tezt
+                    int y = resolution/2;
+                    if (foregroundImage != null || backgroundImage != null) {
+                        y = resolution/5;
+                    }
+
+                    // Create the font
+                    Paint textPaint = new Paint();
+                    textPaint.setColor(textColor);
+                    textPaint.setTextAlign(Paint.Align.CENTER);
+                    textPaint.setTypeface(Typeface.DEFAULT);
+                    textPaint.setTextSize((int) (resolution * fontScale));
+
+                    // Draw the text
+                    canvas.drawText(text,resolution/2, y, textPaint);
+                }
+
+                // Return the created image
+                return newImage;
+            }
+            protected void onPostExecute(Bitmap result) {
+                callback.retrieve(result);
+            }
+        }).execute();
+    }
+
+    @Override
+    public void save(Callback callback) {
+        createCombinedImage((image) -> {
+            data.combinedImage = ImageTools.getStringFromImage(image);
+            super.save(callback);
+        });
+    }
+
 
     // Defines the data that is stored
     @Entity
     static public final class MacroData extends DataObject.DataObjectData {
         @ColumnInfo(name = "name")
         public String name;
+
+        @ColumnInfo(name = "combinedImage")
+        public String combinedImage;
 
         @ColumnInfo(name = "backgroundImage")
         public String backgroundImage;
@@ -235,6 +366,21 @@ public class Macro extends DataObject<Macro.MacroData> {
                 dataCallback);
     }
 
+    /**
+     * Retrieves a specific macro
+     * @param name  The name of the macro to retrieve
+     * @param dataCallback  The callback to make once the data has been retrieved
+     */
+    public static void getByName(String name, DataCallback<Macro> dataCallback){
+        final MacroDataDao dao = DataBase.getInstance().macroDataDao();
+        new Thread(new Runnable() {
+            public void run() {
+                MacroData data = dao.getByName(name);
+                dataCallback.retrieve(data != null ? new Macro(data) : null);
+            }
+        }).start();
+    }
+
     // Defines the associated queries
     @Dao
     public interface MacroDataDao extends DataDao<MacroData> {
@@ -243,6 +389,9 @@ public class Macro extends DataObject<Macro.MacroData> {
 
         @Query("SELECT * FROM macroData WHERE uid=:ID")
         MacroData getByID(long ID);
+
+        @Query("SELECT * FROM macroData WHERE name=:name")
+        MacroData getByName(String name);
     }
 
     // Attaches the dao

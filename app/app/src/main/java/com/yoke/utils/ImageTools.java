@@ -21,6 +21,11 @@ public class ImageTools{
      * @return  The retrieved string
      */
     public static String getStringFromImage(Bitmap image){
+        if (image == null) {
+            return null;
+        }
+
+        // If an image was provided, convert it
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] bytes = stream.toByteArray();
@@ -33,6 +38,11 @@ public class ImageTools{
      * @return  The retrieved image
      */
     public static Bitmap getImageFromString(String string){
+        if (string == null) {
+            return null;
+        }
+
+        // If a string was provided, convert it
         byte[] bytes = Base64.decode(string, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }

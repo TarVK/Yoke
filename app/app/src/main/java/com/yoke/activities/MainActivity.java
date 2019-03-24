@@ -4,20 +4,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-//import android.widget.Button;
+import android.view.View;
 
 import com.example.yoke.R;
-import com.yoke.activities.splash.SplashActivity;
+import com.yoke.activities.profile2.AA_Profile;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
@@ -27,7 +24,6 @@ import com.yoke.connection.client.types.BluetoothClientConnection;
 import com.yoke.connection.messages.OpenURLCmd;
 import com.yoke.connection.messages.computerCmds.NextTrackCmd;
 import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
-import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
@@ -36,7 +32,10 @@ import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 import com.yoke.database.types.Settings;
 
+import java.util.ArrayList;
 import java.util.List;
+
+//import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     protected Connection connection;
@@ -58,12 +57,39 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        this.databaseTest(true, ()->{
+
+//        this.databaseTest(true, ()->{
+//
+//
+//        });
+
+        Context context = this;
+        Profile.getAll(profiles -> {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    bluetoothTest();
+                    String[] names = new String[profiles.size()];
+                    List<Long> ids = new ArrayList<>();
+
+                    for (Profile profile : profiles) {
+                        names[ids.size()] = (profile.getName());
+                        ids.add(profile.getID());
+                    }
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("CHOOSE PROFILE");
+                    builder.setItems(names, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Long id = ids.get(which);
+                            Intent intent = new Intent(context, AA_Profile.class);
+                            intent.putExtra("profile id", id);
+                            context.startActivity(intent);
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 }
             });
+
         });
     }
 
@@ -85,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 connection = MultiClientConnection.getInstance();
 
                 // Initialize the bluetooth connection
-                bluetoothConnection.setup();
+                bluetoothConnection.setup(true);
             }
         }
 
@@ -151,15 +177,19 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     // Assign it some data
-                    m.setAction(new ShutDownCmd());
-                    m.setText("Crap");
+                    m.setAction(new OpenURLCmd("google.com"));
+                    m.setText("test");
 
                     // Save all of the data
                     settings.save();
                     // The macro has to be saved before saving the profile
                     m.save(() -> {
                         // The button will get saved by saving the profile
-                        p.save();
+                        p.save(() -> {
+                            if (initialized != null) {
+                                initialized.call();
+                            }
+                        });
                     });
                 } else {
                     // Check the settings data
@@ -192,7 +222,13 @@ public class MainActivity extends AppCompatActivity {
                                 } catch (IllegalStateException e) {
                                     Log.w("DATABASE TEST", "macro has no action");
                                 }
+
+
                             }
+                        }
+
+                        if (initialized != null) {
+                            initialized.call();
                         }
                     });
 
@@ -214,9 +250,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                if (initialized != null) {
-                    initialized.call();
-                }
             }
         });
     }
