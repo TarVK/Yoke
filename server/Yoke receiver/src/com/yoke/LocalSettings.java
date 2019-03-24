@@ -73,7 +73,9 @@ public class LocalSettings {
      * @return Whether it should poll
      */
     public boolean getPollFocusedProgram() {
-        return !settings.get("pollFocused").equals("false");
+        String pollEnabled = settings.get("pollFocused");
+        
+        return pollEnabled == null || !pollEnabled.equals("true");
     }
     
     /**
