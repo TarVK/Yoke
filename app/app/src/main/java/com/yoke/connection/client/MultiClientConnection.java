@@ -20,7 +20,7 @@ public class MultiClientConnection extends Connection {
     }
 
     /**
-     * Retrieves an instance of this class
+     * Retrieves an instance of this class, initialize must have been called first
      * @return an instance of the MultiClientConnection class
      */
     public static MultiClientConnection getInstance() {
