@@ -5,6 +5,7 @@
     android:id="@+id/settings_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat"
     tools:context="com.yoke.activities.settings.Settings">
 
 </android.support.constraint.ConstraintLayout>
