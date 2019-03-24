@@ -1,4 +1,4 @@
-package com.example.dblapp;
+package com.yoke.activities.home;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.yoke.R;
 
 import java.util.ArrayList;
 

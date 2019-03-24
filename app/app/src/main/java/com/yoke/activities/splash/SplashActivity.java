@@ -76,7 +76,7 @@ public class SplashActivity extends AppCompatActivity {
 
 //                startActivity(new Intent(SplashActivity.this,
 //                        com.yoke.activities.tutorial.TutorialActivity.class));
-                h.postDelayed(r, 5000);
+                //h.postDelayed(r, 5000);
 
             }
         });
@@ -89,6 +89,19 @@ public class SplashActivity extends AppCompatActivity {
             //create alert dialog if bluetooth not enabled
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Bluetooth is not enabled");
+            builder.setMessage("This app will not function correctly without Bluetooth enabled.")
+                    .setPositiveButton("open Bluetooth settings", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intentOpenBluetoothSettings = new Intent();
+                            intentOpenBluetoothSettings.setAction(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
+                            startActivity(intentOpenBluetoothSettings);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
