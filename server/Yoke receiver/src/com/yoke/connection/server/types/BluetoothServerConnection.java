@@ -85,15 +85,32 @@ public class BluetoothServerConnection extends Connection {
          */
         private void establishConnection() {
             try {
-                // setup the server to listen for connection
-                LocalDevice local = LocalDevice.getLocalDevice();
-                local.setDiscoverable(DiscoveryAgent.GIAC);
-
-                UUID uuid = new UUID(80087355); // "04c6093b-0000-1000-8000-00805f9b34fb"
-                String url = "btspp://localhost:" + uuid.toString() + ";name=RemoteBluetooth";
-                StreamConnectionNotifier notifier = (StreamConnectionNotifier)Connector.open(url);
-
-                state = Connection.CONNECTING;
+                StreamConnectionNotifier notifier = null;
+                
+                // Track whether this is the first try
+                boolean firstTry = true;
+                
+                // Try to connect until successful
+                while (state != Connection.CONNECTING) {
+                    try { 
+                        // setup the server to listen for connection
+                        LocalDevice local = LocalDevice.getLocalDevice();
+                        local.setDiscoverable(DiscoveryAgent.GIAC);
+                        
+                        UUID uuid = new UUID(80087355); // "04c6093b-0000-1000-8000-00805f9b34fb"
+                        String url = "btspp://localhost:" + uuid.toString() + ";name=RemoteBluetooth";
+                        notifier = (StreamConnectionNotifier)Connector.open(url);
+                        
+                        state = Connection.CONNECTING;  
+                    } catch (Exception e) {
+                        if (firstTry) {
+                            emit(new ConnectionFailed("Bluetooth initialization failed, please make sure bluetooth is enabled"));
+                            firstTry = false;
+                        }
+                        Thread.sleep(1000);
+                    }
+                }
+                
 
                 // Await a connection
                 while(true) {
@@ -115,7 +132,9 @@ public class BluetoothServerConnection extends Connection {
                     outputStreams.add(os);
                 }
             } catch (Exception e) {
-                state = CONNECTIONFAILED;
+                if (outputStreams.size() == 0) {
+                    state = CONNECTIONFAILED;                    
+                }
                 emit(new ConnectionFailed(e));
                 e.printStackTrace();
             }

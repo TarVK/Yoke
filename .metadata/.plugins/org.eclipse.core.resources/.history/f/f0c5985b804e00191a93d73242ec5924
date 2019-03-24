@@ -1,0 +1,370 @@
+package com.yoke;
+
+import java.awt.AWTException;
+import java.awt.CheckboxMenuItem;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.ImageIcon;
+
+/**
+ * A class managing the Tray menu of the app
+ */
+public class Tray {
+    // The single instance of the tray
+    protected static Tray INSTANCE;
+    
+    /**
+     * Singleton method to get one instance of the Tray class
+     * @return The singleton Tray
+     */
+    public static Tray getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Tray();
+        }
+        return INSTANCE;
+    }
+    
+
+    // The actual icon image
+    protected Image icon;
+    
+    // The tray icon
+    protected TrayIcon trayIcon;
+
+    // The menu item that says how many devices are connected
+    protected MenuItem connectedDevices;
+    
+    // The menu item that either enables or disables auto startup
+    protected CheckboxMenuItem autoStartup;
+    
+    /**
+     * The constructor method
+     */
+    protected Tray() {
+        // Get a reference to the settings
+        LocalSettings settings = LocalSettings.getInstance();
+        
+        // Check the SystemTray is supported
+        if (!SystemTray.isSupported()) {
+            System.out.println("SystemTray is not supported");
+            return;
+        }
+        
+        // Get the system tray
+        final SystemTray tray = SystemTray.getSystemTray();
+        
+        // Create the image
+        icon = new ImageIcon(this.getClass().getResource("/logo.png"), "").getImage();
+        
+        // Create the actual tray icon and menu
+        final PopupMenu popup = new PopupMenu();
+        trayIcon = new TrayIcon(icon);
+        trayIcon.setPopupMenu(popup);
+        trayIcon.setToolTip("Yoke");
+        trayIcon.setImageAutoSize(true);
+
+        // Show the created trayIcon
+        try {
+            tray.add(trayIcon);
+        } catch (AWTException e) {
+            System.out.println("TrayIcon could not be added.");
+        }
+        
+       
+        // Create a pop-up menu components
+        MenuItem about = new MenuItem("About");
+        connectedDevices = new MenuItem("");
+        autoStartup = new CheckboxMenuItem("Auto Startup");
+        autoStartup.setState(isAutoStartup());
+        CheckboxMenuItem programPoll = new CheckboxMenuItem("Program poll");
+        MenuItem restart = new MenuItem("Restart receiver");
+        programPoll.setState(settings.getPollFocusedProgram());
+        MenuItem exit = new MenuItem("Exit");
+       
+        // Add pop-up components
+        popup.add(connectedDevices);
+        popup.addSeparator();
+        popup.add(autoStartup);
+        popup.add(programPoll);
+        popup.add(restart);
+        popup.addSeparator();
+        popup.add(about);
+        popup.add(exit);
+        
+        // Add interaction handlers
+        exit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        autoStartup.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent arg0) {
+                setAutoStartup(autoStartup.getState());
+            }
+        });
+        programPoll.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent arg0) {
+                settings.setPollFocusedProgram(programPoll.getState());
+                settings.save();
+            }
+        });
+        restart.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                restart();
+            }
+        });
+    }
+    
+    /**
+     * Retrieves the icon of yoke
+     * @returns Yoke's icon
+     */
+    public Image getIcon() {
+        return icon;
+    }
+    
+    /**
+     * Retrieves the icon of yoke, in different sizes
+     * @return Yoke's icon
+     */
+    public List<Image> getIcons() {
+        Image icon = getIcon();
+        List<Image> icons = new ArrayList<Image>();
+        icons.add(icon.getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        icons.add(icon.getScaledInstance(24, 24, Image.SCALE_SMOOTH));
+        icons.add(icon.getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+        icons.add(icon.getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+        icons.add(icon.getScaledInstance(48, 48, Image.SCALE_SMOOTH));
+        icons.add(icon.getScaledInstance(56, 56, Image.SCALE_SMOOTH));
+        icons.add(icon.getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+        return icons;        
+    }
+    
+    /**
+     * Updates the number of connected devices in the menu
+     * @param deviceCount  The number of devices that are connected
+     */
+    protected void updateConnectedDevices(int deviceCount) {
+        connectedDevices.setLabel("Connected Panels: " + deviceCount);
+    }
+
+    
+    // Store the last time task
+    protected Timer messageTimeout;
+    
+    // Store the sent messages
+    protected List<String> messageQueue = new ArrayList<String>();
+
+    /**
+     * Shows a message in the tray, batches messages
+     * @param message  The content of the message
+     */
+    public void showMessage(String message) {
+        // Cancel any previous timeout
+        if (messageTimeout != null) {
+            messageTimeout.cancel();
+        }
+        
+        // Create a timer
+        messageTimeout = new Timer();
+        
+        // Create an message sending thread
+        messageTimeout.schedule( 
+            new TimerTask() {
+                public void run() {
+                    sendBatchMessages();
+                }
+            },
+            10
+        );
+        
+        // Add the message to the queue
+        messageQueue.add(message);
+    }
+    
+    /**
+     * Shows all of the messages that were batched
+     */
+    protected void sendBatchMessages() {
+        // Cancel any previous timeout
+        if (messageTimeout != null) {
+            messageTimeout.cancel();
+        }
+                
+        // Remove any timeout
+        messageTimeout = null;
+        
+        // Combine the message
+        String message = String.join("\n", messageQueue);
+        
+        // Reset the previous messages
+        messageQueue = new ArrayList<String>();
+        
+        // Send all the message
+        this.showMessage("Yoke", message, MessageType.NONE);
+    }
+    
+    /**
+     * Shows a message in the tray
+     * @param caption  The caption of the message
+     * @param message  The content of the message
+     */
+    public void showMessage(String caption, String message) {
+        this.showMessage(caption, message, MessageType.NONE);
+    }
+
+    /**
+     * Shows a message in the tray
+     * @param caption  The caption of the message
+     * @param message  The content of the message
+     * @param type  The type of the message
+     */
+    public void showMessage(String caption, String message, MessageType type) {
+        // Send any queued messages if present
+        if (messageTimeout != null) {
+            sendBatchMessages();
+        }
+        
+        // Send the passed message
+        trayIcon.displayMessage(caption, message, type);
+    }
+    
+
+    // The yoke file's location in the startup directory
+    protected File startupFile = new File(System.getProperty("java.io.tmpdir")
+            .replace("Local\\Temp\\", "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Yoke.jar"));
+    
+    /**
+     * Checks whether or no auto startup is currently enabled
+     * @return Whether or not auto startup is enabled
+     */
+    protected boolean isAutoStartup() {
+        return startupFile.exists();
+    }
+    
+    /**
+     * Retrieves the file that is currently running
+     * @return
+     */
+    protected File getRunningJar() {
+        try {
+            return new File(Tray.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        } catch (URISyntaxException e) {
+            return null;
+        }
+    }
+    
+    /**
+     * Either enables or disables auto startup, by removing the file from/adding it to the startup directory
+     * @param autoStartup  Whether or not to automatically startup
+     */
+    protected void setAutoStartup(boolean enabled) {
+        // Make sure there the autoStartup changed
+        if (isAutoStartup() != enabled) {
+            // Check whether it is disabled or disabled
+            if (!enabled) {
+                // Remove the jay from the startup folder if disabled
+                startupFile.delete();
+            } else {
+                // Track whether or not the install is successful
+                boolean successful = false;
+                try {
+                    // Get the currently running jar file, i.e. Yoke.
+                    File yokeJarFile = getRunningJar();
+                    
+                    // Make sure the output file exist
+                    startupFile.createNewFile();
+                    
+                    // Copy the running jar into the startup file
+                    FileInputStream srcInputStream = null;
+                    FileOutputStream destOutputStream = null; 
+                    FileChannel src = null;
+                    FileChannel dest = null;
+                    try {
+                        
+                        // Copy the contents from the currently running jar
+                        srcInputStream = new FileInputStream(yokeJarFile);
+                        destOutputStream = new FileOutputStream(startupFile); 
+                        src = srcInputStream.getChannel();
+                        dest = destOutputStream.getChannel();
+                        dest.transferFrom(src, 0, src.size());
+                        
+                        // Indicate that install was successful
+                        successful = true;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        // Make sure all streams are always properly disposed
+                        if (srcInputStream != null) {                        
+                            srcInputStream.close();
+                        }
+                        if (destOutputStream != null) {
+                            destOutputStream.close();                        
+                        }
+                        if (src != null) {
+                            src.close();                        
+                        }
+                        if (dest != null) {
+                            dest.close();                        
+                        }
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+                // Notify the user of an unsuccessful install
+                if (!successful) {
+                    showMessage("Auto startup could not be enabled");
+                    showMessage("Yoke might need administrator privileges, or it might not work on this system");
+                    
+                    // Revert any changes that indicate startup
+                    autoStartup.setState(false);
+                    startupFile.delete();
+                }
+            }
+        }
+    }
+    
+    /**
+     * Restarts the yoke receiver
+     */
+    protected void restart() {
+        try {
+            File yoke = getRunningJar();
+            
+            String extension = Arrays.stream(yoke.getName().split("\\.")).reduce((a,b) -> b).orElse(null);
+            showMessage(extension);
+            if (extension == "jar") {
+                Runtime.getRuntime().exec("java -jar \"" + yoke.getAbsolutePath() + '"');                
+            }
+
+            System.exit(0);
+            return;
+        } catch (Exception e) {
+        }
+        
+        showMessage("Program could not automatically be restarted");
+        showMessage("Yoke might need administrator privileges, or it might not work on this system");
+    }
+}

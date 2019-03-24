@@ -13,7 +13,7 @@ public abstract class CmdPromptExecutor<T extends Message> extends MessageReceiv
      * Executes a terminal command
      * @param command  The command to execute
      */
-    protected void execCmd(String command) {
+    public static void execCmd(String command) {
         // Simple code to execute cmd line arguments
         try {
             Runtime.getRuntime().exec(
@@ -28,7 +28,7 @@ public abstract class CmdPromptExecutor<T extends Message> extends MessageReceiv
      * Executes a terminal command
      * @param cmd  The command to execute, split into arguments
      */
-    protected void execAdvancedCmd(String... cmd) {
+    public static void execAdvancedCmd(String... cmd) {
         ProcessBuilder builder = new ProcessBuilder(cmd);
         builder.redirectError(ProcessBuilder.Redirect.INHERIT);
         try {
