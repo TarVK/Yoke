@@ -1,4 +1,4 @@
-package com.example.dblapp;
+package com.yoke.activities.home;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -11,9 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.yoke.R;
+
 import java.util.ArrayList;
 
-/*import com.example.dblapp.R;
+//import com.example.dblapp.R;
+import com.yoke.activities.home.MyAdapter;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
@@ -27,10 +30,10 @@ import com.yoke.connection.messages.computerCmds.ShutDownCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
-import com.yoke.database.types.Button;
+//import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
-import com.yoke.database.types.Settings;*/
+import com.yoke.database.types.Settings;
 
 public class HomeActivity extends AppCompatActivity {
     FloatingActionButton button;
@@ -50,14 +53,14 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MacroSelection.class));
+                //startActivity(new Intent(getApplicationContext(), MacroSelection.class));
             }
         });
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Settings.class));
+                //startActivity(new Intent(getApplicationContext(), Settings.class));
             }
         });
 

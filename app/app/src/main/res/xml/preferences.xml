@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.preference.PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <Preference
+            app:key="language"
+            app:title="Pick Language"
+            app:summary="English (default)"/>
+
+        <Preference
+            app:key="color"
+            app:title="Pick Colour"/>
+
+
+    </androidx.preference.PreferenceScreen>
+
+</PreferenceScreen>
