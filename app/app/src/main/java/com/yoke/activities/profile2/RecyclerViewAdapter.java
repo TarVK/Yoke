@@ -81,7 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        viewHolder.buttonImage.setImageResource(mMacro.get(i).getBackgroundColor());
 
         //ACTUAL BUTTON IMAGE SOURCES
-//        viewHolder.buttonImage.setImageResource(mButton.get(i).getIndex());
+        viewHolder.buttonImage.setImageBitmap(mButton.get(i).getMacro().getCombinedImage());
 
         //THIS IS DRAWABLE SOURCES
 //        viewHolder.buttonImage.setImageResource(mImage.get(i));

@@ -10,6 +10,10 @@ import com.yoke.database.DataObject;
 
 import java.util.List;
 
+/**
+ * A class that manages the data for connecting the profiles and macros together
+ * Since this is a many to many relation
+ */
 public class Button extends DataObject<Button.ButtonData> {
     // A local reference to the assigned macro
     protected Macro macro;
@@ -23,6 +27,11 @@ public class Button extends DataObject<Button.ButtonData> {
         super(new Button.ButtonData());
         this.setMacro(macro);
     }
+
+    /**
+     * Creates a button with the data that was obtained from the database
+     * @param data  The data that was obtained from the database
+     */
     protected Button(Button.ButtonData data) {
         super(data);
     }
