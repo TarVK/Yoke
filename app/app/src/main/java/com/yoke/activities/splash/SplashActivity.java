@@ -21,8 +21,9 @@ import com.yoke.database.DataObject;
 
 public class SplashActivity extends AppCompatActivity {
     private GifView gifView;
-//    Handler h = new Handler();
+    Handler h = new Handler();
     protected Connection connection;
+    boolean connected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +38,16 @@ public class SplashActivity extends AppCompatActivity {
                 }
             });
         });
-
-        //h.postDelayed(r, 5000);
     }
 
-//    Runnable r = new Runnable() {
-//        @Override
-//        public void run() {
-//            startActivity(new Intent(SplashActivity.this,
-//                    com.yoke.activities.tutorial.TutorialActivity.class));
-//            finish();
-//        }
-//    };
+    Runnable r = new Runnable() {
+        @Override
+        public void run() {
+            startActivity(new Intent(SplashActivity.this,
+                    com.yoke.activities.tutorial.TutorialActivity.class));
+            finish();
+        }
+    };
 
     //initialize database
     protected void databaseInit (boolean writeData, final DataObject.Callback initialized) {
@@ -74,8 +73,11 @@ public class SplashActivity extends AppCompatActivity {
             public void receive(Connected message) {
                 //eventually check for first time
                 //if connected message is received, close splash
-                startActivity(new Intent(SplashActivity.this,
-                        com.yoke.activities.tutorial.TutorialActivity.class));
+
+//                startActivity(new Intent(SplashActivity.this,
+//                        com.yoke.activities.tutorial.TutorialActivity.class));
+                h.postDelayed(r, 5000);
+
             }
         });
 

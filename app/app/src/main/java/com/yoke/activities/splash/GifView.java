@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Movie;
 import android.os.SystemClock;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.io.InputStream;
@@ -83,6 +84,7 @@ public class GifView extends View {
             gifMovie.setTime(relTime);
 
             gifMovie.draw(canvas, 0, 0);
+            Log.w("test", relTime + "");
             invalidate();
         }
     }

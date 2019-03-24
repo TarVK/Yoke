@@ -7,7 +7,7 @@
     android:background="#FCFCFF"
     tools:context="com.yoke.activities.splash.SplashActivity">
 
-    <com.example.test.GifView
+    <com.yoke.activities.splash.GifView
         android:id="@+id/gif_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
