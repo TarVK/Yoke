@@ -3,15 +3,24 @@
 
     <androidx.preference.PreferenceScreen
         xmlns:app="http://schemas.android.com/apk/res-auto">
+        <!--android:id="preference_screen"-->
+        <!--android:width=""
+        android:height="fill_parent"-->
 
         <Preference
             app:key="language"
             app:title="Pick Language"
             app:summary="English (default)"/>
+            <!--android:width="wrap_content"
+            android:height="wrap_content"-->
+
 
         <Preference
             app:key="color"
             app:title="Pick Colour"/>
+            <!--android:width="fill_parent"
+            android:height="wrap_content"-->
+
 
 
     </androidx.preference.PreferenceScreen>
