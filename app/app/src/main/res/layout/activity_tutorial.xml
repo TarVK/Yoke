@@ -11,7 +11,8 @@
         android:id="@+id/slideViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="82dp"></android.support.v4.view.ViewPager>
+        android:layout_marginBottom="82dp">
+    </android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/dotsLayout"
@@ -25,7 +26,8 @@
         android:layout_marginEnd="143dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="0dp"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal">
+    </LinearLayout>
 
     <Button
         android:id="@+id/prevBtn"
@@ -36,7 +38,7 @@
         android:paddingLeft="20dp"
         android:text="Back"
         android:textColor="@color/colorTransparentWhite"
-        android:visibility="invisible" />
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/nextBtn"
