@@ -10,13 +10,30 @@ import com.yoke.database.DataObject;
 
 import java.util.List;
 
+/**
+ * A class to manage all of the global settings for the app
+ */
 public class Settings extends DataObject<Settings.SettingsData> {
+    // The single instance that exists of the settings
     protected static Settings INSTANCE;
+
+    // Keep track of whether this was the first launch
+    protected boolean firstLaunch = true;
+
+    /**
+     * Creates a new empty settings instance
+     */
     protected Settings() {
         super(new Settings.SettingsData());
     }
+
+    /**
+     * Creates a new settings instance with the given data from the database
+     * @param data  The database data
+     */
     protected Settings(Settings.SettingsData data) {
         super(data);
+        this.firstLaunch = false; // Since data was obtained from the database
     }
 
     /**
@@ -41,6 +58,15 @@ public class Settings extends DataObject<Settings.SettingsData> {
     }
 
     // Interaction methods (with super redundant java doc)
+
+    /**
+     * Retrieves whether or not this is the first launch of the app on this device
+     * @return Whether or not this is the first launch
+     */
+    public boolean isFirstLaunch() {
+        return this.firstLaunch;
+    }
+
     /**
      * Retrieves the user's language
      * @return The language represented by a string

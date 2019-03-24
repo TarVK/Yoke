@@ -7,10 +7,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44179840-a82f-4897-9e1d-71e91784427f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/Settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/xml/preferences.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/xml/preferences.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/4.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/RecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/RecyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/SplashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Macro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Macro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Settings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/utils/ImageTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/utils/ImageTools.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +64,7 @@
           <entry key="gradle" value="13" />
           <entry key="java" value="111" />
           <entry key="txt" value="18" />
-          <entry key="xml" value="518" />
+          <entry key="xml" value="594" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -62,18 +72,21 @@
           <entry key="Groovy" value="13" />
           <entry key="JAVA" value="111" />
           <entry key="PLAIN_TEXT" value="18" />
-          <entry key="XML" value="518" />
+          <entry key="XML" value="594" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+            <state relative-caret-position="690">
+              <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+              <folding>
+                <element signature="e#1300#1318#0" expanded="true" />
+              </folding>
             </state>
           </provider>
           <provider editor-type-id="android-manifest" />
@@ -101,7 +114,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/xml/preferences.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
@@ -141,7 +154,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1035">
-              <caret line="102" column="35" selection-start-line="102" selection-start-column="35" selection-end-line="102" selection-end-column="35" />
+              <caret line="100" column="35" selection-start-line="100" selection-start-column="35" selection-end-line="100" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -167,12 +180,12 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/MyAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/Settings.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_settings.xml" />
         <option value="$PROJECT_DIR$/src/main/res/xml/preferences.xml" />
+        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -413,7 +426,7 @@
       <window_info anchor="bottom" id="Terminal" order="4" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Build" order="7" visible="true" weight="0.45967743" />
+      <window_info active="true" anchor="bottom" id="Build" order="7" visible="true" weight="0.075806454" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
@@ -441,21 +454,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../build.gradle">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1035">
-          <caret line="102" column="35" selection-start-line="102" selection-start-column="35" selection-end-line="102" selection-end-column="35" />
+          <caret line="100" column="35" selection-start-line="100" selection-start-column="35" selection-end-line="100" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -516,6 +521,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
           <caret line="4" column="60" selection-start-line="4" selection-start-column="60" selection-end-line="4" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+          <folding>
+            <element signature="e#1300#1318#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
