@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.yoke.R;
+
 import java.util.ArrayList;
 
 import com.example.yoke.R;
@@ -56,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Settings.class));
+                //startActivity(new Intent(getApplicationContext(), Settings.class));
             }
         });
 

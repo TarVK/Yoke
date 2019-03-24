@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 connection = MultiClientConnection.getInstance();
 
                 // Initialize the bluetooth connection
-                bluetoothConnection.setup();
+                bluetoothConnection.setup(true);
             }
         }
 

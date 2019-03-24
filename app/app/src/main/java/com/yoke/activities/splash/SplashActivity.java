@@ -42,8 +42,9 @@ import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
     private GifView gifView;
-//    Handler h = new Handler();
+    Handler h = new Handler();
     protected Connection connection;
+    boolean connected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +59,16 @@ public class SplashActivity extends AppCompatActivity {
                 }
             });
         });
-
-        //h.postDelayed(r, 5000);
     }
 
-//    Runnable r = new Runnable() {
-//        @Override
-//        public void run() {
-//            startActivity(new Intent(SplashActivity.this,
-//                    com.yoke.activities.tutorial.TutorialActivity.class));
-//            finish();
-//        }
-//    };
+    Runnable r = new Runnable() {
+        @Override
+        public void run() {
+            startActivity(new Intent(SplashActivity.this,
+                    com.yoke.activities.tutorial.TutorialActivity.class));
+            finish();
+        }
+    };
 
     //initialize database
     protected void databaseInit (boolean writeData, final DataObject.Callback initialized) {
@@ -106,6 +105,19 @@ public class SplashActivity extends AppCompatActivity {
             //create alert dialog if bluetooth not enabled
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Bluetooth is not enabled");
+            builder.setMessage("This app will not function correctly without Bluetooth enabled.")
+                    .setPositiveButton("open Bluetooth settings", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intentOpenBluetoothSettings = new Intent();
+                            intentOpenBluetoothSettings.setAction(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
+                            startActivity(intentOpenBluetoothSettings);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
