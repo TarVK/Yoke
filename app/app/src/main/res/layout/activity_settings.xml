@@ -8,9 +8,14 @@
     android:theme="@style/Theme.AppCompat"
     tools:context="com.yoke.activities.settings.Settings">
 
-    <include
-        android:id="@+id/preference_screen"
-        layout="@xml/preferences"
-        android:layout_width="wrap_content"
-        android:layout_height="408dp"></include>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_container">
+        <include
+            android:id="@+id/preference_screen"
+            layout="@xml/preferences"
+            android:layout_width="408dp"
+            android:layout_height="408dp"></include>
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

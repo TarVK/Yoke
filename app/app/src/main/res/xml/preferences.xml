@@ -7,19 +7,54 @@
         <!--android:width=""
         android:height="fill_parent"-->
 
-        <Preference
-            app:key="language"
-            app:title="Pick Language"
-            app:summary="English (default)"/>
+        <ListPreference
+            android:id="@+id/language"
+            app:title="@string/language"
+            app:summary="@string/summaryLanguage"
+            android:entries="@array/pref_lang_entries"
+            android:entryValues="@array/pref_lang_values"
+            android:enabled="true"
+            android:defaultValue="@string/eng"/>
+            <!--app:key="language"-->
             <!--android:width="wrap_content"
             android:height="wrap_content"-->
 
 
         <Preference
             app:key="color"
-            app:title="Pick Colour"/>
+            app:title="@string/color"
+            android:enabled="true"/>
             <!--android:width="fill_parent"
             android:height="wrap_content"-->
+
+        <SwitchPreference
+            app:key="light_theme"
+            app:title="@string/light"
+            android:enabled="true"/>
+
+        <ListPreference
+            app:key="connection"
+            app:title="@string/connection"
+            app:summary="@string/summaryConnection"
+            android:enabled="true"
+            android:entries="@array/pref_conn_entries"
+            android:entryValues="@array/pref_conn_values"
+            android:defaultValue="@string/blu"/>
+
+        <SwitchPreference
+            app:key="auto"
+            app:title="@string/auto"
+            android:enabled="true"/>
+
+        <Preference
+            app:key="tutorial"
+            app:title="@string/tutorial"
+            android:enabled="true"/>
+
+        <Preference
+            app:key="about"
+            app:title="@string/about"
+            android:enabled="true"/>
 
 
 

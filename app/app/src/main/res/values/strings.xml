@@ -15,7 +15,47 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
+    <string name="language">Language</string>
+    <!-- TODO summary should change according to the set language -->
+    <string name="summaryLanguage">English (default)</string>
+    <string name="eng">English</string>
+    <string name="ne">Dutch</string>
+    <string name="bg">Bulgarian</string>
+    <string-array name="pref_lang_entries">
+        <item>@string/eng</item>
+        <item>@string/ne</item>
+        <item>@string/bg</item>
+    </string-array>
 
+    <string-array name="pref_lang_values">
+        <item>english</item>
+        <item>dutch</item>
+        <item>bulg</item>
+    </string-array>
+    <string name="color">Colour</string>
+    <string name="light">Light Theme</string>
+    <string name="connection">Connection type</string>
+    <!-- TODO summary should change according to the set connection type -->
+    <string name="summaryConnection">Bluetooth (default)</string>
+    <string name="blu">Bluetooth</string>
+    <string name="wifi">WiFi</string>
+    <string name="usb">USB cable</string>
+    <string-array name="pref_conn_entries">
+        <item>@string/blu</item>
+        <item>@string/wifi</item>
+        <item>@string/usb</item>
+    </string-array>
+
+    <string-array name="pref_conn_values">
+        <item>blu</item>
+        <item>wifi</item>
+        <item>usb</item>
+    </string-array>
+
+    <string name="auto">Automatic Desktop Startup</string>
+
+    <string name="tutorial">Replay Tutorial</string>
+    <string name="about">About</string>
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
