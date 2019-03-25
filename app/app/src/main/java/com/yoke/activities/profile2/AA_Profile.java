@@ -1,11 +1,14 @@
 package com.yoke.activities.profile2;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import com.example.yoke.R;
 import com.yoke.database.types.Button;
@@ -26,10 +29,11 @@ public class AA_Profile extends AppCompatActivity {
     private ArrayList<String> mImageName = new ArrayList<>(); //save the name of the buttons
     private List<com.yoke.database.types.Button> mButton;
     private ArrayList<Macro> mMacro = new ArrayList<>();
+    Long id;
 //    private TextView profile_name = findViewById(R.id.textView);
-//    private Button beginEdit = findViewById(R.id.beginEdit);
 
     Profile profile; //declare the profile object we are going to use
+    boolean isLandscape;
 
 
 
@@ -37,16 +41,30 @@ public class AA_Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aa_profile);
         Toolbar toolbar = findViewById(R.id.toolbar_profile);
+
+        isLandscape =
+                getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
+        if (isLandscape) {
+            toolbar.setVisibility(View.GONE);
+        }
+        setSupportActionBar(toolbar);
         Log.d(TAG, "onCreate: started");
 
         retrieveData();
-//        beginEdit.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//               startActivity(new Intent(AA_Profile.this, AA_ProfileEdit.class));
-//            }
-//        });
+
+        android.widget.Button edit = findViewById(R.id.beginEdit) ;
+
+        //when edit button is clicked send the profile id and open the edit activity
+        edit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
+                intent.putExtra("profile id", retrieveID());
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -54,13 +72,12 @@ public class AA_Profile extends AppCompatActivity {
      * Retrieve the data from the database and store in the arraylist
      */
     public void retrieveData() {
-        Long profileId = getIntent().getLongExtra("profile id", 0);
-        Log.w(TAG, "retrieveData: " + profileId);
-
-        int i = 0;
+        Long profileID = getIntent().getLongExtra("profile id", 0);
+        id = profileID;
+        Log.w(TAG, "retrieveData: " + profileID);
 
         //add the profile datas to the arguments
-        Profile.getByID(profileId, (profile)-> {
+        Profile.getByID(profileID, (profile)-> {
             mButton = (profile.getButtons());
 
             //sort the buttons so they are in order and displayed in a correct order on the layout
@@ -74,6 +91,7 @@ public class AA_Profile extends AppCompatActivity {
             profile.getIndex();
 
             myRecyclerView();
+
         });
 
 
@@ -109,7 +127,6 @@ public class AA_Profile extends AppCompatActivity {
 //            }
 //        });
 
-
         mImageID.add(R.drawable.spotify);
         mImageName.add("spotify");
         mImageID.add(R.drawable.steam);
@@ -123,18 +140,20 @@ public class AA_Profile extends AppCompatActivity {
         mImageID.add(R.drawable.wikipedia);
         mImageName.add("wikipedia");
 
-
-
-
     }
 
     //uses the rercycler view
     private void myRecyclerView() {
-        RecyclerView recyclerView = findViewById(R.id.recyclerv_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImageID,this, mImageName, mMacro, mButton);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerViewAdapter adapter =
+                new RecyclerViewAdapter(mImageID,this, mImageName, mMacro, mButton);
 
+        int columns = 2;
+        if (isLandscape) {
+            columns = 3;
+        }
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, columns));
     }
 
 //    going back to the previous page
@@ -142,6 +161,11 @@ public class AA_Profile extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    //pass on the profile id for the profile edit activity
+    public long retrieveID() {
+        return id;
     }
 
 

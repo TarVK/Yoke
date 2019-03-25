@@ -15,7 +15,7 @@ import com.yoke.database.types.Settings;
         Settings.SettingsData.class,
         Profile.ProfileData.class,
         Button.ButtonData.class
-}, version = 4)
+}, version = 7)
 public abstract class DataBase extends RoomDatabase {
     // All daos
     public abstract Macro.MacroDataDao macroDataDao();

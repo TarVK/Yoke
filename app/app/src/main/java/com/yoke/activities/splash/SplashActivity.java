@@ -1,16 +1,12 @@
 package com.yoke.activities.splash;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import com.example.yoke.R;
 import com.yoke.connection.Connection;
@@ -35,7 +31,6 @@ import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 import com.yoke.utils.Keys;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -157,7 +152,7 @@ public class SplashActivity extends AppCompatActivity {
                 createMacro("4", R.drawable.wikipedia,
                         new OpenURLCmd("https://www.wikipedia.org/"), macroCallback);
                 createMacro("5", R.drawable.youtube, // ooops
-                        new OpenURLCmd("https://www.pornhub.com"), macroCallback);
+                        new OpenURLCmd("https://www.youtube.com"), macroCallback);
                 createMacro("6", R.drawable.spotify,
                         new OpenURLCmd("https://www.spotify.com/"), macroCallback);
 

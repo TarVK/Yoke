@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.yoke.activities.profile2.AA_Profile"></activity>
+        <activity android:name="com.yoke.activities.profile2.AA_ProfileEdit"></activity>
         <activity
             android:name="com.yoke.activities.MainActivity"
             android:label="@string/app_name"

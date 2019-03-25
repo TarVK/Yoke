@@ -99,7 +99,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //                connection.send(new OpenURLCmd(path));
 //                connection.send(new OpenProgramCmd(path));
 //                connection.send(new OpenURLCmd("youtube.com"));
-                connection.send(mButton.get(i).getMacro().getAction());
+                if (connection.getState() == Connection.CONNECTED) {
+                    connection.send(mButton.get(i).getMacro().getAction());
+                } else {
+//                    Toast.makeText("connection not established", )
+                }
 
             }
         });
