@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.yoke.R;
@@ -15,6 +16,8 @@ import com.yoke.connection.MessageReceiver;
 import com.yoke.connection.client.MultiClientConnection;
 import com.yoke.connection.client.types.BluetoothClientConnection;
 import com.yoke.connection.messages.connection.Connected;
+import com.yoke.connection.messages.connection.ConnectionFailed;
+import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
 
@@ -76,8 +79,53 @@ public class SplashActivity extends AppCompatActivity {
 
 //                startActivity(new Intent(SplashActivity.this,
 //                        com.yoke.activities.tutorial.TutorialActivity.class));
+                //start tutorial with delay
                 //h.postDelayed(r, 5000);
 
+            }
+        });
+
+        //receiver in case of failed connection
+        connection.addReceiver(new MessageReceiver<ConnectionFailed>() {
+            public void receive(ConnectionFailed message) {
+                final AlertDialog.Builder builder1 =
+                        new AlertDialog.Builder(SplashActivity.this);
+                builder1.setTitle("Connection Failed");
+                builder1.setMessage("Your phone was not able to connect to your laptop/pc. \n" +
+                        "Close the app and try again.")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog = builder1.create();
+                alertDialog.show();
+            }
+        });
+
+        //receiver in case of disconnection
+        connection.addReceiver(new MessageReceiver<Disconnected>() {
+            public void receive(Disconnected message) {
+                final AlertDialog.Builder builder2 =
+                        new AlertDialog.Builder(SplashActivity.this);
+                builder2.setTitle("Your phone is disconnected");
+                builder2.setMessage("Reconnect your phone to your laptop/pc.")
+                        .setPositiveButton("open Bluetooth settings",
+                                new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent intentOpenBluetoothSettings = new Intent();
+                                intentOpenBluetoothSettings.setAction
+                                        (android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
+                                startActivity(intentOpenBluetoothSettings);
+                            }
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog = builder2.create();
+                alertDialog.show();
             }
         });
 
@@ -86,14 +134,16 @@ public class SplashActivity extends AppCompatActivity {
         if (bluetoothEnabled) {
             //proceed if bluetooth is enabled
         } else {
-            //create alert dialog if bluetooth not enabled
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Bluetooth is not enabled");
-            builder.setMessage("This app will not function correctly without Bluetooth enabled.")
-                    .setPositiveButton("open Bluetooth settings", new DialogInterface.OnClickListener() {
+            //create alert dialog if bluetooth is not enabled
+            final AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
+            builder3.setTitle("Bluetooth is not enabled");
+            builder3.setMessage("This app will not function correctly without Bluetooth enabled.")
+                    .setPositiveButton("open Bluetooth settings",
+                            new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Intent intentOpenBluetoothSettings = new Intent();
-                            intentOpenBluetoothSettings.setAction(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
+                            intentOpenBluetoothSettings.setAction
+                                    (android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
                             startActivity(intentOpenBluetoothSettings);
                         }
                     })
@@ -102,7 +152,7 @@ public class SplashActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     });
-            AlertDialog alertDialog = builder.create();
+            AlertDialog alertDialog = builder3.create();
             alertDialog.show();
         }
     }
