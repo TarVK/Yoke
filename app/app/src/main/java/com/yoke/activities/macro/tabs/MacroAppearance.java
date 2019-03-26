@@ -20,12 +20,10 @@ import android.widget.Switch;
 
 import java.io.IOException;
 
-import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 
 import com.example.yoke.R;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.yoke.database.types.Profile;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -354,7 +352,7 @@ public class MacroAppearance extends Fragment {
                                     // Remove solid color and reset color picker image and its color
                                     macro.setBackgroundColor(0x00000000);
                                     backgroundColorPicker.setImageResource(R.drawable.color_picker);
-                                    backgroundColorPicker.setColorFilter(R.color.colorAccent);
+                                    backgroundColorPicker.setColorFilter(R.color.colorSecondary);
 
                                     macro.setBackgroundImage(bitmap);
                                     backgroundImage.setImageBitmap(bitmap);

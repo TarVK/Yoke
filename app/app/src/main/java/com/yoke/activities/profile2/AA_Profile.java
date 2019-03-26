@@ -69,7 +69,7 @@ public class AA_Profile extends AppCompatActivity {
         name = returnName();
         profileName.setText(name);
 
-        //add a new macro, it should direct to the macro activity
+        //add a new macro, it should direct to the macro activity //TODO remove toolbar background
         findViewById(R.id.addMacro)
                 .setOnClickListener(addView -> {
             if (hasSpace) {
