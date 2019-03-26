@@ -74,6 +74,7 @@ public class AA_Profile extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
                 intent.putExtra("profile id", retrieveID());
                 startActivity(intent);
+                finish();
             }
         });
 

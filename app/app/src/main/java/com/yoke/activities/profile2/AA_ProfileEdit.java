@@ -114,6 +114,7 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
                         Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
                         intent.putExtra("profile id", profile.getID());
                         startActivity(intent);
+                        finish();
                     });
 
                 });
