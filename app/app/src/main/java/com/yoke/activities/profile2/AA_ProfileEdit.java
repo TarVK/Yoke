@@ -52,6 +52,9 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 //            toolbar.setVisibility(View.GONE);
 //        }
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Log.d(TAG, "onCreate: edit started");
 
 
