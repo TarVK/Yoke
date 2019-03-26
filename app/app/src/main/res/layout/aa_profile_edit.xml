@@ -22,14 +22,15 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="95dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="16dp"
+                android:id="@+id/profileEditTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:clickable="true"
-                android:text="TextView"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -41,10 +42,12 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@android:color/transparent"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/deleteMacro"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@android:drawable/ic_input_add" />
+                android:src="@drawable/add" />
 
             <ImageButton
                 android:id="@+id/deleteMacro"
@@ -52,10 +55,12 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
                 android:clickable="true"
+                android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/doneEdit"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@android:drawable/ic_menu_delete" />
+                android:src="@drawable/trash" />
 
             <ImageButton
                 android:id="@+id/doneEdit"
@@ -64,11 +69,13 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@android:color/transparent"
                 android:clickable="true"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@android:drawable/checkbox_on_background" />
+                android:src="@drawable/done" />
 
 
         </android.support.constraint.ConstraintLayout>

@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.database.types.Button;
@@ -29,6 +31,8 @@ public class AA_Profile extends AppCompatActivity {
     private ArrayList<String> mImageName = new ArrayList<>(); //save the name of the buttons
     private List<com.yoke.database.types.Button> mButton;
     private ArrayList<Macro> mMacro = new ArrayList<>();
+    private TextView profileName;
+    private String name = "";
     Long id;
 //    private TextView profile_name = findViewById(R.id.textView);
 
@@ -41,6 +45,7 @@ public class AA_Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aa_profile);
         Toolbar toolbar = findViewById(R.id.toolbar_profile);
+        profileName = (TextView) findViewById(R.id.profileTextView);
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
@@ -49,11 +54,14 @@ public class AA_Profile extends AppCompatActivity {
             toolbar.setVisibility(View.GONE);
         }
         setSupportActionBar(toolbar);
-        Log.d(TAG, "onCreate: started");
+        Log.w(TAG, "onCreate: started");
 
         retrieveData();
 
-        android.widget.Button edit = findViewById(R.id.beginEdit) ;
+        ImageButton edit = findViewById(R.id.beginEdit);
+        Log.w(TAG, "onCreate: " + name);
+        name = returnName();
+        profileName.setText(name);
 
         //when edit button is clicked send the profile id and open the edit activity
         edit.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +86,10 @@ public class AA_Profile extends AppCompatActivity {
 
         //add the profile datas to the arguments
         Profile.getByID(profileID, (profile)-> {
+            String name = profile.getName();
+            profileName.setText(name);
+            Log.w(TAG, "retrieveData: "+ name);
+
             mButton = (profile.getButtons());
 
             //sort the buttons so they are in order and displayed in a correct order on the layout
@@ -167,6 +179,8 @@ public class AA_Profile extends AppCompatActivity {
     public long retrieveID() {
         return id;
     }
+
+    public String returnName() { return name; }
 
 
 

@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.yoke.R;
 import com.yoke.connection.Connection;
@@ -166,12 +165,7 @@ public class RecyclerViewAdapterEdit extends
             buttonViewHolder.rowView.setBackgroundColor(Color.WHITE);
         }
 
-//        for (ViewHolder view : buttonViewHolders) {
-//            view.rowView.setBackgroundColor(Color.WHITE);
-//        }
-
         viewHolder.rowView.setBackgroundColor(Color.GRAY);
-        Toast.makeText(mContext, " long click", Toast.LENGTH_LONG).show();
 
         mStartDragListener.requestDrag(viewHolder);
         mProfile.selectButton(button);

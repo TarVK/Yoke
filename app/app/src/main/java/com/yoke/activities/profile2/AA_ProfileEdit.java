@@ -11,11 +11,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yoke.R;
 import com.yoke.database.types.Button;
-import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
@@ -27,14 +27,12 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
     private static final String TAG = "AA_ProfileEdit";
 
 
-    private ArrayList<Integer> mImageID = new ArrayList<>(); //save the index of the buttons
-    private ArrayList<String> mImageName = new ArrayList<>(); //save the name of the buttons
-    private ArrayList<Macro> mMacro = new ArrayList<>();
     private List<com.yoke.database.types.Button> mButton;
     private com.yoke.database.types.Button selectedButton;
     private Profile profile;
     private ArrayList<com.yoke.database.types.Button> deletedButtons = new ArrayList<>();
     RecyclerViewAdapterEdit adapter;
+    private TextView textView;
 
     boolean isActivated;
     boolean isLandscape;
@@ -46,6 +44,7 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aa_profile_edit);
         Toolbar toolbar = findViewById(R.id.toolbarEdit);
+        textView = (TextView) findViewById(R.id.profileEditTextView);
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
@@ -126,6 +125,7 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
         Log.w(TAG, "retrieveData: " + profileId);
 
         Profile.getByID(profileId, (profile)-> {
+            textView.setText(profile.getName());
             mButton = (profile.getButtons());
             this.profile = profile;
 
