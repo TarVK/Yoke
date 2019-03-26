@@ -11,7 +11,7 @@
         android:id="@+id/toolbarEditView"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorGrayLight"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,21 +25,21 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorGray"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/editMacro"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:id="@+id/addMacro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/edit_button"
-                android:tint="@color/colorWhite"
+                android:src="@drawable/add_button"
+                android:tint="@color/colorGray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/deleteMacro"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,23 +52,36 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/delete_button"
-                android:tint="@color/colorWhite"
+                android:tint="@color/colorGray"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/doneMacro"
+                app:layout_constraintEnd_toStartOf="@+id/editMacro"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/doneMacro"
+                android:id="@+id/editMacro"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/done_button"
-                android:tint="@color/colorWhite"
+                android:src="@drawable/edit_button"
+                android:tint="@color/colorGray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!--<ImageView-->
+                <!--android:id="@+id/doneMacro"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginBottom="16dp"-->
+                <!--android:src="@drawable/done_button"-->
+                <!--android:tint="@color/colorWhite"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent" />-->
 
 
         </android.support.constraint.ConstraintLayout>

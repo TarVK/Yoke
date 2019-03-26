@@ -38,6 +38,8 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 
     boolean isActivated;
     boolean isLandscape;
+    boolean hasSpace;
+
 
     ItemTouchHelper touchHelper;
 
@@ -62,10 +64,22 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 
         retrieveProfileData();
 
-        // Delete selected macro //TODO add confirmation dialog
+        // Create new macro
+        findViewById(R.id.addMacro)
+                .setOnClickListener(addView -> {
+                    if (hasSpace) {
+                        Intent intent = new Intent(getApplicationContext(), MacroBuilder.class);
+                        intent.putExtra("macro id", -1);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        // Edit selected macro //TODO add confirmation dialog
         findViewById(R.id.editMacro)
                 .setOnClickListener(deleteView -> {
-                    int index = mButton.indexOf(selectedButton);
+                    long index = selectedButton.getMacro().getID();
                     Log.w(TAG, "onClick: " + index);
 
                     Intent intent = new Intent(getApplicationContext(), MacroBuilder.class);
@@ -95,24 +109,24 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 
         });
 
-        //finish edit //TODO remove for redundant back button
-        findViewById(R.id.doneMacro)
-                .setOnClickListener(completedView -> {
-            for (byte i = 0; i < mButton.size(); i++ ) {
-                mButton.get(i).setIndex(i);
-            }
-            for (Button button : deletedButtons) {
-                button.delete();
-            }
-
-            profile.save(() -> runOnUiThread(() -> {
-                Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
-                intent.putExtra("profile id", profile.getID());
-                startActivity(intent);
-                finish();
-            }));
-
-        });
+//        //finish edit //TODO remove for redundant back button
+//        findViewById(R.id.doneMacro)
+//                .setOnClickListener(completedView -> {
+//            for (byte i = 0; i < mButton.size(); i++ ) {
+//                mButton.get(i).setIndex(i);
+//            }
+//            for (Button button : deletedButtons) {
+//                button.delete();
+//            }
+//
+//            profile.save(() -> runOnUiThread(() -> {
+//                Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
+//                intent.putExtra("profile id", profile.getID());
+//                startActivity(intent);
+//                finish();
+//            }));
+//
+//        });
     }
 
     //still retrieves the data on edit page as well
@@ -123,6 +137,7 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
         Profile.getByID(profileId, (profile)-> {
             textView.setText(profile.getName());
             mButton = (profile.getButtons());
+            hasSpace = profile.hasSpace();
             this.profile = profile;
 
             //sort the buttons so they are in order and displayed in a correct order on the layout

@@ -54,6 +54,16 @@ public class MacroAppearance extends Fragment {
     private boolean textEnabled;
     private boolean hasSolidBackgroundColor;
 
+    private int foregroundAlpha;
+    private int backgroundAlpha;
+
+    private int foregroundSize;
+    private int backgroundSize;
+
+    private int foregroundAspectRatio;
+    private int backgroundAspectRatio;
+
+
     private Macro macro;
 
 
@@ -86,7 +96,7 @@ public class MacroAppearance extends Fragment {
         backgroundColorPicker = (ImageView) view.findViewById(R.id.backgroundColorPicker);
         descriptionColorPicker = (ImageView) view.findViewById(R.id.descriptionColorPicker);
 
-        previewImage = view.findViewById(R.id.previewImage);
+        previewImage = (ImageView) view.findViewById(R.id.previewImage);
 
         //Initialize Switch and EditText
         descriptionSwitch = (Switch) view.findViewById(R.id.descriptionSwitch);
@@ -133,8 +143,6 @@ public class MacroAppearance extends Fragment {
                     openColorPicker();
                 });
 
-
-
         //Check if switch is pressed
         descriptionSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             descriptionValue.setEnabled(isChecked);
@@ -145,10 +153,9 @@ public class MacroAppearance extends Fragment {
         descriptionValue.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String text = s.toString();
-                macro.setText(text);
-
                 macro.createCombinedImage((combBitmap) -> {
+                    String text = s.toString();
+                    macro.setText(text);
                     previewImage.setImageBitmap(combBitmap);
                 });
             }
@@ -163,11 +170,15 @@ public class MacroAppearance extends Fragment {
         });
 
 
+        // Foreground image Alpha
         seekAlphaForeground = (SeekBar) view.findViewById(R.id.seekAlphaForeground);
         seekAlphaForeground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //foregroundImage.setImageAlpha(progress); //TODO add alpha to macro.java
+                macro.createCombinedImage((combBitmap) -> {
+//                    macro.setForegroundAlpha(progress); //TODO add alpha to macro.java
+                    previewImage.setImageBitmap(combBitmap);
+                });
             }
 
             @Override
@@ -182,14 +193,23 @@ public class MacroAppearance extends Fragment {
         });
 
         view.findViewById(R.id.seekAlphaForegroundDefault)
-                .setOnClickListener(viewAlphaFGDefault -> seekAlphaForeground.setProgress(100));
+                .setOnClickListener(viewAlphaFGDefault -> seekAlphaForeground.setProgress(foregroundAlpha));
 
 
+        // Foreground image Size
         seekSizeForeground = (SeekBar) view.findViewById(R.id.seekSizeForeground);
         seekSizeForeground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                macro.createCombinedImage((combBitmap) -> {
+//                    int height = macro.getForegroundHeight();//TODO add size
+//                    int width = macro.getForegroundWidth();
+//                    int sHeight = height * (progress / 100);
+//                    int sWidth = width * (progress / 100);
+//                    macro.setForegroundHeight(sHeight);
+//                    macro.setForeGroundWidth(sWidth);
+                    previewImage.setImageBitmap(combBitmap);
+                });
             }
 
             @Override
@@ -203,15 +223,30 @@ public class MacroAppearance extends Fragment {
             }
         });
 
-
         view.findViewById(R.id.seekSizeForegroundDefault)
-                .setOnClickListener(viewSizeFGDefault -> seekSizeForeground.setProgress(100));
+                .setOnClickListener(viewSizeFGDefault -> seekSizeForeground.setProgress(foregroundSize));
 
+
+        // Foreground image Aspect Ratio
         seekAspectForeground = (SeekBar) view.findViewById(R.id.seekAspectForeground);
         seekAspectForeground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                macro.createCombinedImage((combBitmap) -> {
+//                    int height = macro.getForegroundHeight();//TODO add size
+//                    int width = macro.getForegroundWidth();
+//                    int aspectRatio = width / height * (progress / 100);
+//                    if (progress < 100) {
+//                        int sHeight = height + height * (progress / 50);
+//                        int sWidth = width - width * (progress / 50);
+//                    } else {
+//                        int sHeight = height - height * (progress / 50);
+//                        int sWidth = width + width * (progress / 50);
+//                    }
+//                    macro.setForegroundHeight(sHeight);
+//                    macro.setForeGroundWidth(sWidth);
+                    previewImage.setImageBitmap(combBitmap);
+                });
             }
 
             @Override
@@ -227,13 +262,18 @@ public class MacroAppearance extends Fragment {
 
 
         view.findViewById(R.id.seekAspectForegroundDefault)
-                .setOnClickListener(viewAspectFGDefault -> seekAspectForeground.setProgress(50));
+                .setOnClickListener(viewAspectFGDefault -> seekAspectForeground.setProgress(foregroundAspectRatio));
 
+
+        // Background image alpha
         seekAlphaBackground = (SeekBar) view.findViewById(R.id.seekAlphaBackground);
         seekAlphaBackground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //backgroundImage.setImageAlpha(progress); //TODO add alpha to macro.java
+                macro.createCombinedImage((combBitmap) -> {
+//                    macro.setBackgroundAlpha(progress); //TODO add alpha to macro.java
+                    previewImage.setImageBitmap(combBitmap);
+                });
             }
 
             @Override
@@ -248,13 +288,23 @@ public class MacroAppearance extends Fragment {
         });
 
         view.findViewById(R.id.seekAlphaBackgroundDefault)
-                .setOnClickListener(viewAlphaBGDefault -> seekAlphaBackground.setProgress(100));
+                .setOnClickListener(viewAlphaBGDefault -> seekAlphaBackground.setProgress(backgroundAlpha));
 
+
+        // Background image Size
         seekSizeBackground = (SeekBar) view.findViewById(R.id.seekSizeBackground);
         seekSizeBackground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                macro.createCombinedImage((combBitmap) -> {
+//                    int height = macro.getBackgroundHeight();//TODO add size
+//                    int width = macro.getBackgroundWidth();
+//                    int sHeight = height * (progress / 100);
+//                    int sWidth = width * (progress / 100);
+//                    macro.setBackgroundHeight(sHeight);
+//                    macro.setBackGroundWidth(sWidth);
+                    previewImage.setImageBitmap(combBitmap);
+                });
             }
 
             @Override
@@ -269,13 +319,29 @@ public class MacroAppearance extends Fragment {
         });
 
         view.findViewById(R.id.seekSizeBackgroundDefault)
-                .setOnClickListener(viewSizeBGDefault -> seekSizeBackground.setProgress(100));
+                .setOnClickListener(viewSizeBGDefault -> seekSizeBackground.setProgress(backgroundSize));
 
+
+        // Background image Aspect Ratio
         seekAspectBackground = (SeekBar) view.findViewById(R.id.seekAspectBackground);
         seekAspectBackground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                macro.createCombinedImage((combBitmap) -> {
+//                    int height = macro.getBackgroundHeight();//TODO add size
+//                    int width = macro.getBackgroundWidth();
+//                    int aspectRatio = width / height * (progress / 100);
+//                    if (progress < 100) {
+//                        int sHeight = height + height * (progress / 50);
+//                        int sWidth = width - width * (progress / 50);
+//                    } else {
+//                        int sHeight = height - height * (progress / 50);
+//                        int sWidth = width + width * (progress / 50);
+//                    }
+//                    macro.setBackgroundHeight(sHeight);
+//                    macro.setBackGroundWidth(sWidth);
+                    previewImage.setImageBitmap(combBitmap);
+                });
             }
 
             @Override
@@ -290,7 +356,7 @@ public class MacroAppearance extends Fragment {
         });
 
         view.findViewById(R.id.seekAspectBackgroundDefault)
-                .setOnClickListener(viewAspectBGDefault -> seekAspectBackground.setProgress(50));
+                .setOnClickListener(viewAspectBGDefault -> seekAspectBackground.setProgress(backgroundAspectRatio));
 
 
         // Inflate the layout for this fragment
@@ -421,11 +487,26 @@ public class MacroAppearance extends Fragment {
             Log.d(TAG, "Macro should be created: " + macroId);
         } else if (macroId > -1 && macroId < 6) {
             Macro.getByID(macroId, (macro) -> {
-                textEnabled = macro.isTextEnabled();
-                previewImage.setImageBitmap(macro.getCombinedImage());
-                //TODO add exceptions in Macro.java (e.g. no foregroundimage selected use default) and backgroundcolor instead of backgroundImage)
-                foregroundImage.setImageBitmap(macro.getForegroundImage()); //TODO replace with macro.getForeground()
-                backgroundImage.setImageBitmap(macro.getBackgroundImage()); //TODO replace with macro.getBackground()
+                if (macro != null) {
+                    Log.w(TAG, "here: " + macroId);
+                    textEnabled = macro.isTextEnabled();
+
+                    //TODO add exceptions in Macro.java (e.g. no foregroundimage selected use default) and backgroundcolor instead of backgroundImage)
+                    foregroundImage.setImageBitmap(macro.getForegroundImage()); //TODO replace with macro.getForeground()
+//                    foregroundAlpha = macro.getForegroundAlpha();
+                    foregroundSize = macro.resolution;
+//                    foregroundAspectRatio = macro.getForegroundApectRatio();
+
+                    backgroundImage.setImageBitmap(macro.getBackgroundImage()); //TODO replace with macro.getBackground()
+//                    backgroundAlpha = macro.getBackgroundALpha();
+                    backgroundSize = macro.resolution;
+//                    backgroundAspectRatio = macro.getBackgroundApectRatio();
+
+
+                    previewImage.setImageBitmap(macro.getCombinedImage());
+                } else {
+                    Log.e(TAG, "macro is null" + macroId);
+                }
             });
         } else {
             Log.e(TAG, "MacroActivity incorrectly called; wrong macroId: " + macroId);

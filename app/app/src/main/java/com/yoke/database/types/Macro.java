@@ -79,7 +79,7 @@ public class Macro extends DataObject<Macro.MacroData> {
      * @return The image as a bitmap
      */
     public Bitmap getForegroundImage() {
-        return ImageTools.getImageFromString(this.data.foregroundImage);
+        return ImageTools.getImageFromString(this.data.foregroundImage); //TODO refactor to getForeground
     }
 
     /**
@@ -96,7 +96,7 @@ public class Macro extends DataObject<Macro.MacroData> {
      */
     public int getForegroundColor() {
         return this.data.foregroundColor;
-    }
+    } //TODO remove
 
     /**
      * Retrieves the display text of the macro

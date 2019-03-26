@@ -41,7 +41,6 @@ public class AA_Profile extends AppCompatActivity {
 
     Profile profile; //declare the profile object we are going to use
     boolean isLandscape;
-    boolean hasSpace;
 
 
 
@@ -69,19 +68,7 @@ public class AA_Profile extends AppCompatActivity {
         name = returnName();
         profileName.setText(name);
 
-        //add a new macro, it should direct to the macro activity //TODO remove toolbar background
-        findViewById(R.id.addMacro)
-                .setOnClickListener(addView -> {
-            if (hasSpace) {
-                Intent intent = new Intent(getApplicationContext(), MacroBuilder.class);
-                intent.putExtra("macro id", -1);
-                startActivity(intent);
-            } else {
-                Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        //when edit button is clicked send the profile id and open the edit activity
+        //when edit button is clicked send the profile id and open the edit activity //TODO remove toolbar background
         findViewById(R.id.beginEdit)
                 .setOnClickListener(openEditView -> {
             Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
@@ -103,7 +90,6 @@ public class AA_Profile extends AppCompatActivity {
         //add the profile datas to the arguments
         Profile.getByID(id, (profile)-> {
             String name = profile.getName();
-            hasSpace = profile.hasSpace();
             profileName.setText(name);
             Log.w(TAG, "retrieveData: "+ name);
 
