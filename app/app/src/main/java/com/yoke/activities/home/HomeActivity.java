@@ -10,8 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+
 
 import com.example.yoke.R;
 
@@ -40,7 +40,7 @@ import com.yoke.database.types.Settings;
 
 public class HomeActivity extends AppCompatActivity {
     FloatingActionButton button;
-    ImageButton settings;
+    ImageView settings;
     Toolbar toolbar;
     private ArrayList<Profile> mDataset = new ArrayList<>();
     RecyclerView recyclerView2;
@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView2.setLayoutManager(llm);
 
-        Context mContext = this;
+        Context mContext = this; //TODO add fab implementation and replace with extended text fab
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,11 +79,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(), Settings.class));
-            }
+        settings.setOnClickListener(settingsView -> {
+            //startActivity(new Intent(getApplicationContext(), Settings.class));
         });
 
         initData();

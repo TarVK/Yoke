@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yoke.R;
+import com.yoke.activities.macro.MacroBuilder;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Profile;
 
@@ -44,8 +45,8 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aa_profile_edit);
-        Toolbar toolbar = findViewById(R.id.toolbarEdit);
-        textView = (TextView) findViewById(R.id.profileEditTextView);
+        Toolbar toolbar = findViewById(R.id.toolbarEditView);
+        textView = (TextView) findViewById(R.id.profileEditText);
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
@@ -61,66 +62,56 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 
         retrieveProfileData();
 
-        ImageButton add = findViewById(R.id.addMacro);
-        ImageButton delete = findViewById(R.id.deleteMacro);
-        ImageButton done = findViewById(R.id.doneEdit);
+        // Delete selected macro //TODO add confirmation dialog
+        findViewById(R.id.editMacro)
+                .setOnClickListener(deleteView -> {
+                    int index = mButton.indexOf(selectedButton);
+                    Log.w(TAG, "onClick: " + index);
 
-        //add a new macro, it should direct to the macro activity
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (profile.hasSpace()) {
+                    Intent intent = new Intent(getApplicationContext(), MacroBuilder.class);
+                    intent.putExtra("macro id", index);
+                    startActivity(intent);
 
-                } else {
-                    Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        //delete a selected macro
-        delete.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                int index = mButton.indexOf(selectedButton);
-
-                profile.removeButton(selectedButton);
-//                selectedButton.delete();
-                deletedButtons.add(selectedButton);
-                mButton.remove(selectedButton);
-                Log.w(TAG, "onClick: " + index);
-
-                adapter.notifyItemRangeChanged(index, mButton.size());
-                adapter.notifyItemRemoved(index);
+//                    adapter.notifyItemRangeChanged(index, mButton.size());
+//                    adapter.notifyItemRemoved(index);
 //                adapter.notifyDataSetChanged();
-
-            }
-        });
-
-        //finish edit
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (byte i = 0; i < mButton.size(); i++ ) {
-                    mButton.get(i).setIndex(i);
-
-                }
-
-                for (com.yoke.database.types.Button button : deletedButtons) {
-                    button.delete();
-                }
-
-                profile.save(()->{
-                    runOnUiThread(()-> {
-                        Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
-                        intent.putExtra("profile id", profile.getID());
-                        startActivity(intent);
-                        finish();
-                    });
 
                 });
 
+        // Delete selected macro
+        findViewById(R.id.deleteMacro)
+                .setOnClickListener(deleteView -> {
+            int index = mButton.indexOf(selectedButton);
+
+            profile.removeButton(selectedButton);
+//                selectedButton.delete();
+            deletedButtons.add(selectedButton);
+            mButton.remove(selectedButton);
+            Log.w(TAG, "onClick: " + index);
+
+            adapter.notifyItemRangeChanged(index, mButton.size());
+            adapter.notifyItemRemoved(index);
+//                adapter.notifyDataSetChanged();
+
+        });
+
+        //finish edit //TODO remove for redundant back button
+        findViewById(R.id.doneMacro)
+                .setOnClickListener(completedView -> {
+            for (byte i = 0; i < mButton.size(); i++ ) {
+                mButton.get(i).setIndex(i);
             }
+            for (Button button : deletedButtons) {
+                button.delete();
+            }
+
+            profile.save(() -> runOnUiThread(() -> {
+                Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
+                intent.putExtra("profile id", profile.getID());
+                startActivity(intent);
+                finish();
+            }));
+
         });
     }
 
