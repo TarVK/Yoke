@@ -178,6 +178,10 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
+        intent.putExtra("profile id", profile.getID());
+        startActivity(intent);
+        finish();
         return true;
     }
 
