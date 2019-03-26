@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.yoke.R;
+import com.yoke.activities.home.HomeActivity;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
@@ -64,7 +65,7 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         public void run() {
             startActivity(new Intent(SplashActivity.this,
-                    com.yoke.activities.tutorial.TutorialActivity.class));
+                    HomeActivity.class));
             finish();
         }
     };
@@ -140,6 +141,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
+
         // Initialize the bluetooth connection
         boolean bluetoothEnabled = bluetoothConnection.setup(false);//returns bool whether succeeded
         if (bluetoothEnabled) {
@@ -176,7 +178,7 @@ public class SplashActivity extends AppCompatActivity {
 //        startActivity(new Intent(SplashActivity.this,
 //                com.yoke.activities.tutorial.TutorialActivity.class));
         startActivity(new Intent(SplashActivity.this,
-                com.yoke.activities.MainActivity.class));
+                HomeActivity.class));
     }
 
     /**

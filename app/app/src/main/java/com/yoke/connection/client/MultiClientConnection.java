@@ -1,5 +1,7 @@
 package com.yoke.connection.client;
 
+import android.os.Handler;
+
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
@@ -49,6 +51,8 @@ public class MultiClientConnection extends Connection {
      * @param connection  The connection that should be used
      */
     public void setType(Connection connection) {
+
+
         // Check if the previous connection has to be disposed
         if (this.connection != null) {
             this.connection.destroy();
