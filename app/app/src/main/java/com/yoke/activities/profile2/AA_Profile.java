@@ -54,6 +54,8 @@ public class AA_Profile extends AppCompatActivity {
             toolbar.setVisibility(View.GONE);
         }
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //display back arrow on toolbar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         Log.w(TAG, "onCreate: started");
 
         retrieveData();
