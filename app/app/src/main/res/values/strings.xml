@@ -16,7 +16,7 @@
 
     <!-- Strings related to Settings -->
     <string name="language">Language</string>
-    <!-- TODO summary should change according to the set language -->
+    <!-- changed summary to textview, summary no longer needed -->
     <string name="summaryLanguage">English (default)</string>
     <string name="eng">English</string>
     <string name="ne">Dutch</string>
@@ -35,7 +35,7 @@
     <string name="color">Colour</string>
     <string name="light">Light Theme</string>
     <string name="connection">Connection type</string>
-    <!-- TODO summary should change according to the set connection type -->
+    <!-- changed summary to textview, summary no longer needed -->
     <string name="summaryConnection">Bluetooth (default)</string>
     <string name="blu">Bluetooth</string>
     <string name="wifi">WiFi</string>

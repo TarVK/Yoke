@@ -10,12 +10,15 @@
         <ListPreference
             android:id="@+id/language"
             app:title="@string/language"
-            app:summary="@string/summaryLanguage"
+
             android:entries="@array/pref_lang_entries"
             android:entryValues="@array/pref_lang_values"
-            android:enabled="true"
-            android:defaultValue="@string/eng"/>
-            <!--app:key="language"-->
+            android:defaultValue="@string/eng">
+            <TextView
+                android:id="@+id/currLanguage"/>
+        </ListPreference>
+            <!--app:summary="@string/summaryLanguage"
+            app:key="language"-->
             <!--android:width="wrap_content"
             android:height="wrap_content"-->
 
@@ -36,10 +39,12 @@
             app:key="connection"
             app:title="@string/connection"
             app:summary="@string/summaryConnection"
-            android:enabled="true"
             android:entries="@array/pref_conn_entries"
             android:entryValues="@array/pref_conn_values"
-            android:defaultValue="@string/blu"/>
+            android:defaultValue="@string/blu">
+            <TextView
+                android:id="@+id/currConn"/>
+        </ListPreference>
 
         <SwitchPreference
             app:key="auto"
@@ -48,13 +53,17 @@
 
         <Preference
             app:key="tutorial"
-            app:title="@string/tutorial"
-            android:enabled="true"/>
+            app:title="@string/tutorial">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.package.name"
+                android:targetClass="com.yoke.activities.tutorial"
+            />
+        </Preference>
 
         <Preference
             app:key="about"
-            app:title="@string/about"
-            android:enabled="true"/>
+            app:title="@string/about" />
 
 
 

@@ -7,26 +7,37 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.yoke.R;
 
+
+import org.w3c.dom.Text;
 
 import static com.example.yoke.R.xml.*;
 
 public class Settings extends AppCompatActivity {
 
-    View language;
+    /*Preference language;
     SwitchPreference lightTheme;
     Preference color;
     Preference connection;
     Preference autoStartUp;
     Preference tutorial;
-    Preference about;
+    Preference about;*/
+
+    TextView textViewLang;
+    TextView textViewConn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+
+        //com.yoke.database.types.Settings.SettingsData settingsData = new com.yoke.database.types.Settings.SettingsData();
+        //com.yoke.database.types.Settings.initialize(); //??
 
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null){
@@ -38,12 +49,15 @@ public class Settings extends AppCompatActivity {
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
-        language = findViewById(R.id.language);
 
-        Preference.OnPreferenceClickListener clickListener=new Preference.OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-                return true;
-            }
-        };
+
+        textViewLang = (TextView) findViewById(R.id.currLanguage);
+        textViewLang.setText(com.yoke.database.types.Settings.getInstance().getLanguage());
+
+        textViewConn = (TextView) findViewById(R.id.currConn);
+        textViewConn.setText(com.yoke.database.types.Settings.getInstance().getConnectionType());
+
+
+
     }
 }
