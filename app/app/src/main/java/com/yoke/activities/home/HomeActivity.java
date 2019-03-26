@@ -2,6 +2,7 @@ package com.yoke.activities.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import java.util.List;
 import com.example.yoke.R;
 import com.yoke.activities.profile2.AA_Profile;
 import com.yoke.activities.profile2.AA_ProfileEdit;
+import com.yoke.activities.splash.ConnectionEventReceiver;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
@@ -87,7 +89,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         initData();
-
     }
     // initialize the date for the RecyclerView
     // This should be all the profiles
@@ -100,6 +101,7 @@ public class HomeActivity extends AppCompatActivity {
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
         Profile.getAll(retrievedProfiles -> {
             runOnUiThread(() -> {
+                profiles.clear();
                 profiles.addAll(retrievedProfiles);
                 adapter.notifyDataSetChanged();
 
@@ -116,4 +118,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }*/
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Make sure to refresh the data
+        initRecyclerView();
+    }
 }

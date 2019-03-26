@@ -276,6 +276,7 @@ public abstract class Connection {
         
         public ProcessConnectionThread() {
             this.ID = Connection.getNextID();
+            state = CONNECTED;
             emit(new Connected(ID));
         }
         
@@ -292,6 +293,7 @@ public abstract class Connection {
         protected boolean readByte(int data) {
             // If the data is -1, the connection has been closed
             if (data == -1) {
+
                 emit(new Disconnected(ID));
                 return true;
             } else {

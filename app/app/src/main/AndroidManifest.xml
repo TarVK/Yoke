@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.yoke.activities.tutorial.TutorialActivity"></activity>
-        <activity android:name="com.yoke.activities.splash.SplashActivity">
+        <activity android:name="com.yoke.activities.splash.SplashActivity"
+            android:launchMode="singleInstance"
+            android:configChanges="orientation"
+            android:windowNoTitle="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.yoke.activities.profile2.AA_Profile"></activity>
-        <activity android:name="com.yoke.activities.profile2.AA_ProfileEdit"></activity>
+        <activity android:name="com.yoke.activities.profile2.AA_ProfileEdit"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name="com.yoke.activities.home.HomeActivity"></activity>
         <activity
             android:name="com.yoke.activities.MainActivity"
@@ -26,6 +30,11 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <receiver android:name="com.yoke.activities.splash.ConnectionEventReceiver">
+            <intent-filter>
+                <action android:name="connectionStateChanged"/>
+            </intent-filter>
+        </receiver>
     </application>
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />

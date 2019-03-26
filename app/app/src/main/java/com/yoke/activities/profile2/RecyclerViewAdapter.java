@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.yoke.R;
 import com.yoke.connection.Connection;
@@ -25,28 +26,19 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     private static final String TAG = "RecyclerViewAdapter";
-    protected Connection connection = MultiClientConnection.getInstance(); //establishes the connection
-    private ArrayList<Integer> mImage = new ArrayList<>(); //store the images
-    private ArrayList<String> mName = new ArrayList<>();
-    private ArrayList<Macro> mMacro = new ArrayList<>();
-    private List<com.yoke.database.types.Button> mButton;
-    private Context mContext;
+    protected Connection connection =
+            MultiClientConnection.getInstance(); // Gets the connection
+    private List<com.yoke.database.types.Button> buttons;
+    private Context context;
 
 
     /**
      *
-     * @param image
-     * @param context
-     * @param name
-     * @param macro list of macros of the selected profile
+     * @param buttons list of buttons of the selected profile
      */
-    public RecyclerViewAdapter(ArrayList<Integer> image, Context context, ArrayList<String> name,
-                               ArrayList<Macro> macro, List<Button> button) {
-        mImage = image;
-        mName = name;
-        mMacro = macro;
-        mContext = context;
-        mButton = button;
+    public RecyclerViewAdapter(Context context, List<Button> buttons) {
+        this.context = context;
+        this.buttons = buttons;
     }
 
 
@@ -81,7 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        viewHolder.buttonImage.setImageResource(mMacro.get(i).getBackgroundColor());
 
         //ACTUAL BUTTON IMAGE SOURCES
-        viewHolder.buttonImage.setImageBitmap(mButton.get(i).getMacro().getCombinedImage());
+        viewHolder.buttonImage.setImageBitmap(buttons.get(i).getMacro().getCombinedImage());
 
         //THIS IS DRAWABLE SOURCES
 //        viewHolder.buttonImage.setImageResource(mImage.get(i));
@@ -91,7 +83,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: clicked on: " + mImage.get(i));
 //                Toast.makeText(mContext, mName.get(i), Toast.LENGTH_LONG).show();
 //                String path = mMacro.get(i).getAction().toString();
 
@@ -105,7 +96,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //                    Toast.makeText(mContext, "connection not established",
 //                            Toast.LENGTH_LONG ).show();
 //                }
-                connection.send(mButton.get(i).getMacro().getAction());
+                if (connection.getState() == Connection.CONNECTED) {
+                    connection.send(buttons.get(i).getMacro().getAction());
+                } else {
+                    Toast.makeText(context, "Command could not be sent. " +
+                                    "\n Please make sure you are connected",
+                            Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -113,7 +110,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mButton.size();
+        return buttons.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

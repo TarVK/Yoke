@@ -1,5 +1,7 @@
 package com.yoke.activities.splash;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -46,6 +48,10 @@ public class SplashActivity extends AppCompatActivity {
     protected Connection connection;
     boolean connected = false;
 
+    // Keep track of whether we are still waiting for either timer or setup
+    boolean timerFinished = false;
+    boolean setupFinished = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,25 +59,26 @@ public class SplashActivity extends AppCompatActivity {
 
         gifView = (GifView) findViewById(R.id.gif_view);
 
-        this.databaseInit(true, ()->{
-            runOnUiThread(new Runnable() {
-                public void run() {
-                }
-            });
+        this.databaseInit(true, () -> {
+            connectionInit();
         });
-    }
 
-    Runnable r = () -> {
-        startActivity(new Intent(SplashActivity.this, HomeActivity.class));
-        finish();
-    };
+        // Add a 'fake loading' delay to show off the splash
+        new Handler().postDelayed(() -> {
+            timerFinished = true;
+            continueApp();
+        }, 2400);
+    }
 
     //initialize database
     protected void databaseInit (boolean writeData, final DataObject.Callback initialized) {
-        DataBase.initialize(this, ()
-                -> createPresets(()
-                -> runOnUiThread(()
-                -> connectionInit())));
+        DataBase.initialize(this, () -> {
+            createPresets(() -> {
+                runOnUiThread(() -> {
+                    initialized.call();
+                });
+            });
+        });
     }
 
     protected void connectionInit () {
@@ -85,42 +92,24 @@ public class SplashActivity extends AppCompatActivity {
         //add receiver to connection
         connection.addReceiver(new MessageReceiver<Connected>() {
             public void receive(Connected message) {
-                //if connected message is received, close splash
-                continueApp();
+            //if connected message is received, close splash
+            setupFinished = true;
+            continueApp();
             }
         });
 
         //receiver in case of failed connection
+        Context context = this;
         connection.addReceiver(new MessageReceiver<ConnectionFailed>() {
             public void receive(ConnectionFailed message) {
-                final AlertDialog.Builder builder1 =
-                        new AlertDialog.Builder(SplashActivity.this);
-                builder1.setTitle("Connection Failed");
-                builder1.setMessage("Your phone was not able to connect to your laptop/pc. \n" +
-                        "Close the app and try again.")
-                        .setPositiveButton("ok", (dialog, id) -> dialog.dismiss());
-                AlertDialog alertDialog = builder1.create();
-                alertDialog.show();
+            forwardConnectionChange(message);
             }
         });
 
         //receiver in case of disconnection
         connection.addReceiver(new MessageReceiver<Disconnected>() {
             public void receive(Disconnected message) {
-                final AlertDialog.Builder builder2 =
-                        new AlertDialog.Builder(SplashActivity.this);
-                builder2.setTitle("Your phone is disconnected");
-                builder2.setMessage("Reconnect your phone to your laptop/pc.")
-                        .setPositiveButton("open Bluetooth settings",
-                                (dialog, id) -> {
-                                    Intent intentOpenBluetoothSettings = new Intent();
-                                    intentOpenBluetoothSettings.setAction
-                                            (android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
-                                    startActivity(intentOpenBluetoothSettings);
-                                })
-                        .setNegativeButton("cancel", (dialog, id) -> dialog.dismiss());
-                AlertDialog alertDialog = builder2.create();
-                alertDialog.show();
+            forwardConnectionChange(message);
             }
         });
 
@@ -151,11 +140,27 @@ public class SplashActivity extends AppCompatActivity {
      * Exits the splash screen
      */
     protected void continueApp() {
-        //eventually check for first time
-//        startActivity(new Intent(SplashActivity.this,
-//                com.yoke.activities.tutorial.TutorialActivity.class));
-        startActivity(new Intent(SplashActivity.this,
-                HomeActivity.class));
+        // Check if both 'timers' finished
+        if (!setupFinished || !timerFinished) {
+            return;
+        }
+
+        // If they did, continue to the home activity
+        Intent intent = new Intent(SplashActivity.this,
+                HomeActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    /**
+     * Forwards the connection change to the ConnectionEventReceiver
+     */
+    protected void forwardConnectionChange(Message message) {
+        Intent intent = new Intent(this, ConnectionEventReceiver.class);
+        intent.setAction("connectionStateChanged");
+        intent.putExtra("message", message);
+        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+        sendBroadcast(intent);
     }
 
     /**
@@ -258,7 +263,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void createMacro(String name, int imageResourceID,
                                Message action, DataObject.DataCallback<Macro> callback) {
         // Check if the macro already exists
-        Macro.getByName("launch yt", (macro) -> {
+        Macro.getByName(name, (macro) -> {
             if (macro != null) {
                 callback.retrieve(macro);
                 return;

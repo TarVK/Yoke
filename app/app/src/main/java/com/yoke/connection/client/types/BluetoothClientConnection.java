@@ -5,9 +5,12 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.yoke.connection.Connection;
+import com.yoke.connection.messages.connection.Connected;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.types.Settings;
@@ -18,6 +21,9 @@ import java.util.Set;
 import java.util.UUID;
 
 public class BluetoothClientConnection extends Connection {
+    // Whether or not a fake debug bluetooth 'connection' is enabled
+    private final boolean debug = true;
+
     // Get android's bluetooth adapater
     private static BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -53,8 +59,16 @@ public class BluetoothClientConnection extends Connection {
      * @returns Whether or not the setup initiated successfully, if it did not, this is due to bluetooth not being enabled
      */
     public boolean setup(boolean forcePrompt) {
+        // While debugging, if no bluetooth is present (on virtual device) just act as if it is
+        if (mBluetoothAdapter == null && debug) {
+            this.state = CONNECTED;
+            new Handler().postDelayed(() -> {
+                emit(new Connected(0));
+            }, 100);
+        }
+
         // Check whether bluetooth is actually enabled
-        if (!mBluetoothAdapter.isEnabled()) {
+        if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
             return false;
         }
 
@@ -62,7 +76,7 @@ public class BluetoothClientConnection extends Connection {
         String serverName = Settings.getInstance().getBluetoothServer();
 
         // Try to connect to the stored device if available, or prompt otherwise
-        if (forcePrompt || !selectDevice(serverName)) {
+        if (forcePrompt || !selectDevice(serverName, serverName != null)) {
             // Get a list of the available devices
             String[] devices = getDeviceNames();
 
@@ -72,7 +86,7 @@ public class BluetoothClientConnection extends Connection {
             builder.setItems(devices, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     String device = devices[which];
-                    selectDevice(device);
+                    selectDevice(device, true);
                 }
             });
             AlertDialog alertDialog = builder.create();
@@ -111,13 +125,16 @@ public class BluetoothClientConnection extends Connection {
     /**
      * Selects the passed device as the server
      * @param deviceName  The local name of the device to use
+     * @param notFoundError  Whether or not a connection
+     *                       failed should be emitted if device wasn't found
      * @return Whether or not the device was found
      */
-    public boolean selectDevice(String deviceName) {
+    public boolean selectDevice(String deviceName, boolean notFoundError) {
 
         // Retrieve the paired bluetooth devices
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
+        Log.w("Connection started", "Connection started");
         // Look for the selected device
         for (BluetoothDevice device: pairedDevices) {
             if (device.getName().equals(deviceName)) {
@@ -134,8 +151,10 @@ public class BluetoothClientConnection extends Connection {
         }
 
         // If the device couldn't be found
-        this.state = Connection.CONNECTIONFAILED;
-        this.emit(new ConnectionFailed("Unknown device selected"));
+        if (notFoundError) {
+            this.state = Connection.CONNECTIONFAILED;
+            this.emit(new ConnectionFailed("Unknown device selected"));
+        }
         return false;
     }
 
@@ -159,7 +178,7 @@ public class BluetoothClientConnection extends Connection {
 
     @Override
     protected void sendMessageStream(byte[] message) {
-        if (this.state == CONNECTED) {
+        if (this.state == CONNECTED && mBluetoothAdapter != null) {
             try {
                 socket.getOutputStream().write(message);
             } catch (IOException e) {
@@ -176,6 +195,8 @@ public class BluetoothClientConnection extends Connection {
         // Keep a reference to the device to connect with
         private final BluetoothDevice device;
         public ProcessConnectionThread(BluetoothDevice device) {
+            super();
+
             this.device = device;
             try {
                 socket = device.createRfcommSocketToServiceRecord(
@@ -210,9 +231,8 @@ public class BluetoothClientConnection extends Connection {
                 e.printStackTrace();
                 closeSocket();
 
-                emit(new ConnectionFailed(e));
                 state = Connection.CONNECTIONFAILED;
-                emit(new Disconnected(this.ID));
+                emit(new ConnectionFailed(e));
 
                 return;
             }
@@ -231,7 +251,8 @@ public class BluetoothClientConnection extends Connection {
 
                     if (data == -1) {
                         // If the device disconnected, indicate this
-                        state = Connection.DISCONNECTED;
+                        state = Connection.DISCONNECTED; // parent class sends disconnect message
+
                         awaitingMessages = false;
                         closeSocket();
                     }

@@ -28,16 +28,12 @@ public class AA_Profile extends AppCompatActivity {
 
     private static final String TAG = "AA_Profile";
 
-    private ArrayList<Integer> mImageID = new ArrayList<>(); //save the index of the buttons
-    private ArrayList<String> mImageName = new ArrayList<>(); //save the name of the buttons
-    private List<com.yoke.database.types.Button> mButton;
+    private List<com.yoke.database.types.Button> buttons;
     private ArrayList<Macro> mMacro = new ArrayList<>();
     private TextView profileName;
-    private String name = "";
-    Long id;
 //    private TextView profile_name = findViewById(R.id.textView);
 
-    Profile profile; //declare the profile object we are going to use
+    private Profile profile; //declare the profile object we are going to use
     boolean isLandscape;
 
 
@@ -58,21 +54,18 @@ public class AA_Profile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Log.w(TAG, "onCreate: started");
-
         retrieveData();
 
         ImageButton edit = findViewById(R.id.beginEdit);
-        Log.w(TAG, "onCreate: " + name);
-        name = returnName();
-        profileName.setText(name);
 
         //when edit button is clicked send the profile id and open the edit activity
         edit.setOnClickListener(openEditView -> {
-            Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
-            intent.putExtra("profile id", retrieveID());
-            startActivity(intent);
-            finish();
+            // Make sure the profile has loaded
+            if (profile!=null) {
+                Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
+                intent.putExtra("profile id", profile.getID());
+                startActivity(intent);
+            }
         });
 
     }
@@ -82,25 +75,21 @@ public class AA_Profile extends AppCompatActivity {
      */
     public void retrieveData() {
         Long profileID = getIntent().getLongExtra("profile id", 0);
-        id = profileID;
-        Log.w(TAG, "retrieveData: " + profileID);
 
         //add the profile datas to the arguments
-        Profile.getByID(profileID, (profile)-> {
-            String name = profile.getName();
-            profileName.setText(name);
-            Log.w(TAG, "retrieveData: "+ name);
+        Profile.getByID(profileID, (profile) -> {
+            runOnUiThread(() -> {
+                String name = profile.getName();
+                this.profile = profile;
+                profileName.setText(name);
 
-            mButton = (profile.getButtons());
+                buttons = profile.getButtons();
 
-            //sort the buttons so they are in order and displayed in a correct order on the layout
-            Collections.sort(mButton, (o1, o2) -> o1.getIndex() - o2.getIndex());
+                //sort the buttons so they are in order and displayed in a correct order on the layout
+                Collections.sort(buttons, (o1, o2) -> o1.getIndex() - o2.getIndex());
 
-            profile.getName();
-            profile.getIndex();
-
-            myRecyclerView();
-
+                myRecyclerView();
+            });
         });
 
 
@@ -136,26 +125,13 @@ public class AA_Profile extends AppCompatActivity {
 //            }
 //        });
 
-        mImageID.add(R.drawable.spotify);
-        mImageName.add("spotify");
-        mImageID.add(R.drawable.steam);
-        mImageName.add("steam");
-        mImageID.add(R.drawable.youtube);
-        mImageName.add("youtube");
-        mImageID.add(R.drawable.chrome);
-        mImageName.add("chrome");
-        mImageID.add(R.drawable.twitch);
-        mImageName.add("twitch");
-        mImageID.add(R.drawable.wikipedia);
-        mImageName.add("wikipedia");
-
     }
 
     //uses the rercycler view
     private void myRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         RecyclerViewAdapter adapter =
-                new RecyclerViewAdapter(mImageID,this, mImageName, mMacro, mButton);
+                new RecyclerViewAdapter(this, buttons);
 
         int columns = 2;
         if (isLandscape) {
@@ -172,16 +148,11 @@ public class AA_Profile extends AppCompatActivity {
         return true;
     }
 
-    //pass on the profile id for the profile edit activity
-    public long retrieveID() {
-        return id;
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Make sure to refresh the data
+        retrieveData();
     }
-
-    public String returnName() { return name; }
-
-
-
-
-
-
 }
