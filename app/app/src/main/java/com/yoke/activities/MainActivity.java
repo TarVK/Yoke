@@ -57,39 +57,37 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+
+//        this.databaseTest(true, ()->{
+//
+//
+//        });
+
         Context context = this;
+        Profile.getAll(profiles -> {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    String[] names = new String[profiles.size()];
+                    List<Long> ids = new ArrayList<>();
 
-        this.databaseTest(true, ()->{
-            Profile.getAll(profiles -> {
-
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        String[] names = new String[profiles.size()];
-                        List<Long> ids = new ArrayList<>();
-
-                        for (Profile profile : profiles) {
-                            names[ids.size()] = (profile.getName());
-                            ids.add(profile.getID());
-                        }
-
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setTitle("CHOOSE PROFILE");
-                        builder.setItems(names, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Long id = ids.get(which);
-//                                selectDevice(device);
-                                Intent intent = new Intent(context, AA_Profile.class);
-                                intent.putExtra("profile id", id);
-                                context.startActivity(intent);
-                            }
-                        });
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-                        bluetoothTest();
-
+                    for (Profile profile : profiles) {
+                        names[ids.size()] = (profile.getName());
+                        ids.add(profile.getID());
                     }
-                });
 
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("CHOOSE PROFILE");
+                    builder.setItems(names, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Long id = ids.get(which);
+                            Intent intent = new Intent(context, AA_Profile.class);
+                            intent.putExtra("profile id", id);
+                            context.startActivity(intent);
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
             });
 
         });

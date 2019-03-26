@@ -20,11 +20,16 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
+
+import com.yoke.connection.messages.OpenURLCmd;
+import com.yoke.executors.CmdPromptExecutor;
+import com.yoke.executors.OpenURLExecutor;
 
 /**
  * A class managing the Tray menu of the app
@@ -98,6 +103,7 @@ public class Tray {
         autoStartup.setState(isAutoStartup());
         CheckboxMenuItem programPoll = new CheckboxMenuItem("Program poll");
         programPoll.setState(settings.getPollFocusedProgram());
+        MenuItem restart = new MenuItem("Restart");
         MenuItem exit = new MenuItem("Exit");
        
         // Add pop-up components
@@ -107,6 +113,7 @@ public class Tray {
         popup.add(programPoll);
         popup.addSeparator();
         popup.add(about);
+        popup.add(restart);
         popup.add(exit);
         
         // Add interaction handlers
@@ -126,6 +133,21 @@ public class Tray {
                 settings.save();
             }
         });
+        restart.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                restart();
+            }
+        });
+        about.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new OpenURLExecutor().receive(new OpenURLCmd("https://github.com/TarVK/Yoke"));
+                } catch (IOException | URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        
     }
     
     /**
@@ -256,6 +278,18 @@ public class Tray {
     }
     
     /**
+     * Retrieves the file that is currently running
+     * @return
+     */
+    protected File getRunningJar() {
+        try {
+            return new File(Tray.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        } catch (URISyntaxException e) {
+            return null;
+        }
+    }
+    
+    /**
      * Either enables or disables auto startup, by removing the file from/adding it to the startup directory
      * @param autoStartup  Whether or not to automatically startup
      */
@@ -271,7 +305,7 @@ public class Tray {
                 boolean successful = false;
                 try {
                     // Get the currently running jar file, i.e. Yoke.
-                    File yokeJarFile = new File(Tray.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+                    File yokeJarFile = getRunningJar();
                     
                     // Make sure the output file exist
                     startupFile.createNewFile();
@@ -293,7 +327,6 @@ public class Tray {
                         // Indicate that install was successful
                         successful = true;
                     } catch (IOException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     } finally {
                         // Make sure all streams are always properly disposed
@@ -310,7 +343,7 @@ public class Tray {
                             dest.close();                        
                         }
                     }
-                }catch (URISyntaxException | IOException e) {
+                }catch (Exception e) {
                     e.printStackTrace();
                 }
                 
@@ -325,5 +358,27 @@ public class Tray {
                 }
             }
         }
+    }
+    
+    /**
+     * Restarts the yoke receiver
+     */
+    protected void restart() {
+        try {
+            File yoke = getRunningJar();
+            
+            String extension = Arrays.stream(yoke.getName().split("\\.")).reduce((a,b) -> b).orElse(null);
+            if (extension.equals("jar")) {
+                System.out.println(extension);
+                CmdPromptExecutor.execAdvancedCmd("java", "-jar", yoke.getAbsolutePath());
+            }
+
+            System.exit(0);
+            return;
+        } catch (Exception e) {
+        }
+        
+        showMessage("Program could not automatically be restarted");
+        showMessage("Yoke might need administrator privileges, or it might not work on this system");
     }
 }

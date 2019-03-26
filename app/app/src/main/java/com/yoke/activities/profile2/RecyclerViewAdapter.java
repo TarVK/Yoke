@@ -81,7 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        viewHolder.buttonImage.setImageResource(mMacro.get(i).getBackgroundColor());
 
         //ACTUAL BUTTON IMAGE SOURCES
-//        viewHolder.buttonImage.setImageResource(mButton.get(i).getIndex());
+        viewHolder.buttonImage.setImageBitmap(mButton.get(i).getMacro().getCombinedImage());
 
         //THIS IS DRAWABLE SOURCES
 //        viewHolder.buttonImage.setImageResource(mImage.get(i));
@@ -99,6 +99,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //                connection.send(new OpenURLCmd(path));
 //                connection.send(new OpenProgramCmd(path));
 //                connection.send(new OpenURLCmd("youtube.com"));
+//                if (connection.getState() == Connection.CONNECTED) {
+//                    connection.send(mButton.get(i).getMacro().getAction());
+//                } else {
+//                    Toast.makeText(mContext, "connection not established",
+//                            Toast.LENGTH_LONG ).show();
+//                }
                 connection.send(mButton.get(i).getMacro().getAction());
 
             }

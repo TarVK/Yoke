@@ -52,7 +52,7 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
         new Thread(new Runnable() {
             public void run() {
                 D data = dao.getByID(ID);
-                dataCallback.retrieve(getObject.apply(data));
+                dataCallback.retrieve(data != null ? getObject.apply(data) : null);
             }
         }).start();
     }
