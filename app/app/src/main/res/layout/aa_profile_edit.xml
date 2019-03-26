@@ -11,7 +11,7 @@
         android:id="@+id/toolbarEdit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorAccent"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +28,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:clickable="true"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,11 +42,11 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/transparent"
+                android:src="@drawable/add"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/deleteMacro"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/add" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/deleteMacro"
@@ -56,10 +56,10 @@
                 android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
                 android:clickable="true"
+                android:src="@drawable/trash"
                 android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/doneEdit"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/trash" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/doneEdit"
@@ -70,11 +70,11 @@
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/transparent"
                 android:clickable="true"
+                android:src="@drawable/done"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/done" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </android.support.constraint.ConstraintLayout>
