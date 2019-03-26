@@ -59,6 +59,8 @@ public class BluetoothClientConnection extends Connection {
      * @returns Whether or not the setup initiated successfully, if it did not, this is due to bluetooth not being enabled
      */
     public boolean setup(boolean forcePrompt) {
+
+        Log.w("Connection started", "Connection started");
         // While debugging, if no bluetooth is present (on virtual device) just act as if it is
         if (mBluetoothAdapter == null && debug) {
             this.state = CONNECTED;
@@ -134,7 +136,6 @@ public class BluetoothClientConnection extends Connection {
         // Retrieve the paired bluetooth devices
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
-        Log.w("Connection started", "Connection started");
         // Look for the selected device
         for (BluetoothDevice device: pairedDevices) {
             if (device.getName().equals(deviceName)) {

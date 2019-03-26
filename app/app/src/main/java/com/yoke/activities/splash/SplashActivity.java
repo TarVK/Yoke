@@ -24,6 +24,7 @@ import com.yoke.connection.messages.MoveMouseCmd;
 import com.yoke.connection.messages.OpenProgramCmd;
 import com.yoke.connection.messages.OpenURLCmd;
 import com.yoke.connection.messages.PressKeysCmd;
+import com.yoke.connection.messages.client.OpenTrackpadCmd;
 import com.yoke.connection.messages.computerCmds.NextTrackCmd;
 import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
 import com.yoke.connection.messages.computerCmds.VolumeDownCmd;
@@ -134,6 +135,15 @@ public class SplashActivity extends AppCompatActivity {
             AlertDialog alertDialog = builder3.create();
             alertDialog.show();
         }
+
+
+        //receivers for navigation within the app
+        // TODO: move all listener setup to 'ConnectionEventReceiver'
+        connection.addReceiver(new MessageReceiver<OpenTrackpadCmd>() {
+            public void receive(OpenTrackpadCmd message) {
+                forwardConnectionChange(message);
+            }
+        }, true);
     }
 
     /**
@@ -188,7 +198,7 @@ public class SplashActivity extends AppCompatActivity {
                 createMacro("5", R.drawable.youtube, // ooops
                         new OpenURLCmd("https://www.youtube.com"), macroCallback);
                 createMacro("6", R.drawable.spotify,
-                        new OpenURLCmd("https://www.spotify.com/"), macroCallback);
+                        new OpenTrackpadCmd(), macroCallback);
 
                 createMacro("7", R.drawable.spotify, new VolumeUpCmd(), macroCallback);
                 createMacro("8", R.drawable.steam, new VolumeDownCmd(), macroCallback);

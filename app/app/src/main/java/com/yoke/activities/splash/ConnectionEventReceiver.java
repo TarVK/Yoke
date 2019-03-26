@@ -12,7 +12,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.yoke.R;
+import com.yoke.activities.mouse.MouseActivity;
 import com.yoke.connection.Message;
+import com.yoke.connection.messages.OpenProgramCmd;
+import com.yoke.connection.messages.client.OpenTrackpadCmd;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 
@@ -59,6 +62,11 @@ public class ConnectionEventReceiver extends BroadcastReceiver {
                     .setNegativeButton("cancel", (dialog, id) -> dialog.dismiss());
             AlertDialog alertDialog = builder2.create();
             alertDialog.show();
+        }
+
+        // Also manage open trackpad events
+        else if (message instanceof OpenTrackpadCmd) {
+            context.startActivity(new Intent(context, MouseActivity.class));
         }
     }
 

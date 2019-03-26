@@ -12,4 +12,5 @@
     <string name="nextBtn2">Finish</string>
     <string name="tutorialBtn">Tutorial</string>
     <string name="splashBtn">Splash/Tutorial</string>
+    <string name="title_activity_mouse">MouseActivity</string>
 </resources>

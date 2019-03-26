@@ -1,6 +1,7 @@
 package com.yoke.connection.client;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
@@ -99,6 +100,10 @@ public class MultiClientConnection extends Connection {
 
     @Override
     public void send(Message message) {
+        // Send the message to local receivers
+        emitToReceivers(message, this.sendReceivers);
+
+        // Send using connection
         this.connection.send(message);
     }
 
