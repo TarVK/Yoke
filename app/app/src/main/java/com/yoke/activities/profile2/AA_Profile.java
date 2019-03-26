@@ -18,6 +18,7 @@ import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -67,15 +68,11 @@ public class AA_Profile extends AppCompatActivity {
         profileName.setText(name);
 
         //when edit button is clicked send the profile id and open the edit activity
-        edit.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
-                intent.putExtra("profile id", retrieveID());
-                startActivity(intent);
-                finish();
-            }
+        edit.setOnClickListener(openEditView -> {
+            Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
+            intent.putExtra("profile id", retrieveID());
+            startActivity(intent);
+            finish();
         });
 
     }
@@ -97,12 +94,8 @@ public class AA_Profile extends AppCompatActivity {
             mButton = (profile.getButtons());
 
             //sort the buttons so they are in order and displayed in a correct order on the layout
-            mButton.sort(new Comparator<Button>() {
-                @Override
-                public int compare(Button o1, Button o2) {
-                    return o1.getIndex() - o2.getIndex();
-                }
-            });
+            Collections.sort(mButton, (o1, o2) -> o1.getIndex() - o2.getIndex());
+
             profile.getName();
             profile.getIndex();
 

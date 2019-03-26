@@ -61,24 +61,17 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
-    Runnable r = new Runnable() {
-        @Override
-        public void run() {
-            startActivity(new Intent(SplashActivity.this,
-                    HomeActivity.class));
-            finish();
-        }
+    Runnable r = () -> {
+        startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+        finish();
     };
 
     //initialize database
     protected void databaseInit (boolean writeData, final DataObject.Callback initialized) {
-        DataBase.initialize(this, () -> {
-            createPresets(() -> {
-                runOnUiThread(() -> {
-                    connectionInit();
-                });
-            });
-        });
+        DataBase.initialize(this, ()
+                -> createPresets(()
+                -> runOnUiThread(()
+                -> connectionInit())));
     }
 
     protected void connectionInit () {
@@ -105,11 +98,7 @@ public class SplashActivity extends AppCompatActivity {
                 builder1.setTitle("Connection Failed");
                 builder1.setMessage("Your phone was not able to connect to your laptop/pc. \n" +
                         "Close the app and try again.")
-                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.dismiss();
-                            }
-                        });
+                        .setPositiveButton("ok", (dialog, id) -> dialog.dismiss());
                 AlertDialog alertDialog = builder1.create();
                 alertDialog.show();
             }
@@ -123,19 +112,13 @@ public class SplashActivity extends AppCompatActivity {
                 builder2.setTitle("Your phone is disconnected");
                 builder2.setMessage("Reconnect your phone to your laptop/pc.")
                         .setPositiveButton("open Bluetooth settings",
-                                new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Intent intentOpenBluetoothSettings = new Intent();
-                                intentOpenBluetoothSettings.setAction
-                                        (android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
-                                startActivity(intentOpenBluetoothSettings);
-                            }
-                        })
-                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.dismiss();
-                            }
-                        });
+                                (dialog, id) -> {
+                                    Intent intentOpenBluetoothSettings = new Intent();
+                                    intentOpenBluetoothSettings.setAction
+                                            (android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
+                                    startActivity(intentOpenBluetoothSettings);
+                                })
+                        .setNegativeButton("cancel", (dialog, id) -> dialog.dismiss());
                 AlertDialog alertDialog = builder2.create();
                 alertDialog.show();
             }
@@ -152,19 +135,13 @@ public class SplashActivity extends AppCompatActivity {
             builder3.setTitle("Bluetooth is not enabled");
             builder3.setMessage("This app will not function correctly without Bluetooth enabled.")
                     .setPositiveButton("open Bluetooth settings",
-                            new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent intentOpenBluetoothSettings = new Intent();
-                            intentOpenBluetoothSettings.setAction
-                                    (android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
-                            startActivity(intentOpenBluetoothSettings);
-                        }
-                    })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                            (dialog, id) -> {
+                                Intent intentOpenBluetoothSettings = new Intent();
+                                intentOpenBluetoothSettings.setAction
+                                        (android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
+                                startActivity(intentOpenBluetoothSettings);
+                            })
+                    .setNegativeButton("cancel", (dialog, id) -> dialog.dismiss());
             AlertDialog alertDialog = builder3.create();
             alertDialog.show();
         }
@@ -293,9 +270,7 @@ public class SplashActivity extends AppCompatActivity {
             newMacro.setBackgroundImage(BitmapFactory.decodeResource(this.getResources(), imageResourceID));
 
             // Save the newly created macro
-            newMacro.save(() -> {
-                callback.retrieve(newMacro);
-            });
+            newMacro.save(() -> callback.retrieve(newMacro));
         });
     }
 }

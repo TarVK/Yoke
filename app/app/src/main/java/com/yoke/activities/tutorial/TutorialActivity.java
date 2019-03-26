@@ -46,27 +46,15 @@ public class TutorialActivity extends AppCompatActivity {
 
         mSlideViewPager.addOnPageChangeListener(viewListener);
 
-        mNextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if( mCurrentPage == mDots.length - 1) {
-                    closeTutorial();
-                } else {
-                    mSlideViewPager.setCurrentItem(mCurrentPage + 1);
-                }
+        mNextBtn.setOnClickListener(closeTutView -> {
+            if( mCurrentPage == mDots.length - 1) {
+                closeTutorial();
+            } else {
+                mSlideViewPager.setCurrentItem(mCurrentPage + 1);
             }
         });
 
-        mBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mSlideViewPager.setCurrentItem(mCurrentPage - 1);
-
-            }
-        });
-
+        mBackBtn.setOnClickListener(goBackView -> mSlideViewPager.setCurrentItem(mCurrentPage - 1));
     }
 
     public void addDotsIndicator(int position) {

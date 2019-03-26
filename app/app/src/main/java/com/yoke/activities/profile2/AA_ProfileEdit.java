@@ -19,6 +19,7 @@ import com.yoke.database.types.Button;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -134,12 +135,8 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
             this.profile = profile;
 
             //sort the buttons so they are in order and displayed in a correct order on the layout
-            mButton.sort(new Comparator<Button>() {
-                @Override
-                public int compare(Button o1, Button o2) {
-                    return o1.getIndex() - o2.getIndex();
-                }
-            });
+            Collections.sort(mButton, (o1, o2) -> o1.getIndex() - o2.getIndex());
+
             profile.getName();
             profile.getIndex();
 
