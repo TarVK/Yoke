@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yoke.R;
+import com.yoke.activities.macro.MacroBuilder;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Profile;
 
@@ -68,7 +69,8 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
         ImageButton done = findViewById(R.id.doneEdit);
 
         //add a new macro, it should direct to the macro activity
-        add.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.addMacro)
+            .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (profile.hasSpace()) {
@@ -81,32 +83,34 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
         });
 
         //edit a macro, it should direct to the macro activity
-        add.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.editMacro)
+            .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 long macroID = selectedButton.getMacro().getID();
-                // TODO: create intent
+                Log.w(TAG, "onClick: " + macroID);
+
+                Intent intent = new Intent(getApplicationContext(), MacroBuilder.class);
+                    intent.putExtra("macro id", macroID);
+                    startActivity(intent);
             }
         });
 
-        //delete a selected macro
-        delete.setOnClickListener(new View.OnClickListener() {
+        // Delete selected macro
+        findViewById(R.id.deleteMacro)
+                .setOnClickListener(deleteView -> {
+            int index = mButton.indexOf(selectedButton);
 
-            @Override
-            public void onClick(View v) {
-                int index = mButton.indexOf(selectedButton);
-
-                profile.removeButton(selectedButton);
+            profile.removeButton(selectedButton);
 //                selectedButton.delete();
-                deletedButtons.add(selectedButton);
-                mButton.remove(selectedButton);
-                Log.w(TAG, "onClick: " + index);
+            deletedButtons.add(selectedButton);
+            mButton.remove(selectedButton);
+            Log.w(TAG, "onClick: " + index);
 
-                adapter.notifyItemRangeChanged(index, mButton.size());
-                adapter.notifyItemRemoved(index);
+            adapter.notifyItemRangeChanged(index, mButton.size());
+            adapter.notifyItemRemoved(index);
 //                adapter.notifyDataSetChanged();
 
-            }
         });
 
         //finish edit
@@ -133,9 +137,13 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
                         onBackPressed();
                     });
 
-                });
+            profile.save(() -> runOnUiThread(() -> {
+                Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
+                intent.putExtra("profile id", profile.getID());
+                startActivity(intent);
+                finish();
+            }));
 
-            }
         });
     }
 

@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yoke.R;
+import com.yoke.activities.macro.MacroBuilder;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
@@ -35,6 +37,7 @@ public class AA_Profile extends AppCompatActivity {
 
     private Profile profile; //declare the profile object we are going to use
     boolean isLandscape;
+    boolean hasSpace;
 
 
 
@@ -57,14 +60,30 @@ public class AA_Profile extends AppCompatActivity {
         retrieveData();
 
         ImageButton edit = findViewById(R.id.beginEdit);
+        Log.w(TAG, "onCreate: " + name);
+        name = returnName();
+        profileName.setText(name);
+
+        //add a new macro, it should direct to the macro activity //TODO remove toolbar background
+        findViewById(R.id.addMacro)
+                .setOnClickListener(addView -> {
+            if (hasSpace) {
+                Intent intent = new Intent(getApplicationContext(), MacroBuilder.class);
+                intent.putExtra("macro id", -1);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
+            }
+        });
 
         //when edit button is clicked send the profile id and open the edit activity
-        edit.setOnClickListener(openEditView -> {
-            // Make sure the profile has loaded
-            if (profile!=null) {
+        findViewById(R.id.beginEdit)
+                .setOnClickListener(openEditView -> {
+            if (profile != null) {
                 Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
-                intent.putExtra("profile id", profile.getID());
+                intent.putExtra("profile id", retrieveID());
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -82,6 +101,7 @@ public class AA_Profile extends AppCompatActivity {
                 String name = profile.getName();
                 this.profile = profile;
                 profileName.setText(name);
+                hasSpace = profile.hasSpace();
 
                 buttons = profile.getButtons();
 
