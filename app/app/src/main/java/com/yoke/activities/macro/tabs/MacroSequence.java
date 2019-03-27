@@ -62,9 +62,9 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
 
-        retrieveData();
-
-        populateRecyclerView();
+//        retrieveData();
+//
+//        populateRecyclerView();
 
         // Inflate the layout for this fragment
         return view;
@@ -82,19 +82,19 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
         int i = 0;
 
         //add the profile datas to the arguments
-        Profile.getByID(profileId, (profile)-> {
-            mButton = (profile.getButtons());
-
-            //sort the buttons so they are in order and displayed in a correct order on the layout
-            mButton.sort(new Comparator<Button>() {
-                @Override
-                public int compare(Button o1, Button o2) {
-                    return o1.getIndex() - o2.getIndex();
-                }
-            });
-            profile.getName();
-            profile.getIndex();
-        });
+//        Profile.getByID(profileId, (profile)-> {
+//            mButton = (profile.getButtons());
+//
+//            //sort the buttons so they are in order and displayed in a correct order on the layout
+//            mButton.sort(new Comparator<Button>() {
+//                @Override
+//                public int compare(Button o1, Button o2) {
+//                    return o1.getIndex() - o2.getIndex();
+//                }
+//            });
+//            profile.getName();
+//            profile.getIndex();
+//        });
 
 
         //not sure which way is better
