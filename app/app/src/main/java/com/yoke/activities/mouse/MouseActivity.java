@@ -53,15 +53,12 @@ public class MouseActivity extends AppCompatActivity {
                     lastX = x;
                     lastY = y;
                     dragDistance = 0;
-                    Log.w("Click mouse", "detect2");
                 }
                 // Check if the touchpad is released
                 else if (m.getAction() == android.view.MotionEvent.ACTION_UP) {
-                    Log.w("Click mouse", "detect1");
                     if (dragDistance < 40) {
                         // Send a mouse click if you didn't drag
                         connection.send(new ClickMouseCmd(ClickMouseCmd.LEFTCLICK));
-                        Log.w("Click mouse", "clicked");
                     }
                 }
 
@@ -74,7 +71,6 @@ public class MouseActivity extends AppCompatActivity {
 
                     // Move the mouse
                     connection.send(new MoveMouseCmd((int) dx, (int) dy));
-                    Log.w("Move mouse", dx +" " + dy);
 
                     lastX = x;
                     lastY = y;

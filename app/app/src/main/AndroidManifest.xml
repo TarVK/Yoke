@@ -21,7 +21,6 @@
         <activity
             android:name="com.yoke.activities.splash.SplashActivity"
             android:configChanges="orientation"
-            android:launchMode="singleInstance"
             android:windowNoTitle="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
