@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,11 +32,13 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
     private Profile profile;
     private ArrayList<com.yoke.database.types.Button> deletedButtons = new ArrayList<>();
     RecyclerViewAdapterEdit adapter;
-    private EditText textView;
+    private EditText profileEditTextView;
+
+    private String profileName;
+    private Long profileID;
 
     boolean isActivated;
     boolean isLandscape;
-    boolean hasSpace;
 
 
     ItemTouchHelper touchHelper;
@@ -45,11 +48,12 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
         Toolbar toolbar = findViewById(R.id.toolbarEditView);
-        textView = (EditText) findViewById(R.id.profileEditTextView);
+
+        profileEditTextView = (EditText) findViewById(R.id.profileEditTextView);
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-//        if (isLandscape) { //TODO remove unnecessary code?
+//        if (isLandscape) { //TODO fix hiding of elements (need redraw of toolbar)
 //            toolbar.setVisibility(View.GONE);
 //        }
         setSupportActionBar(toolbar);
@@ -59,18 +63,17 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         Log.d(TAG, "onCreate: edit started");
 
         retrieveProfileData();
+//        checkSpace(); //TODO fix add button
+
+        profileEditTextView.setText(profileName);
 
         // Create new macro
         findViewById(R.id.addMacro)
                 .setOnClickListener(addView -> {
-                    if (false) { //TODO hasSpace
-//                        Intent intent = new Intent(getApplicationContext(), MacroSelector.class); //TODO add selection activity
-//                        intent.putExtra("macro id", -1);
-//                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getApplicationContext(),"Profile has no space left!", Toast.LENGTH_LONG).show();
-                    }
-                });
+//            Intent intent = new Intent(getApplicationContext(), MacroSelector.class); //TODO add selection activity
+//            intent.putExtra("macro id", -1);
+//            startActivity(intent);
+        });
 
         // Edit selected macro
         findViewById(R.id.addMacro)
@@ -93,7 +96,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
             adapter.notifyItemRangeChanged(macroID, mButton.size());
             adapter.notifyItemRemoved(macroID);
 //                adapter.notifyDataSetChanged(); //TODO remove unnecessary code?
-
+//            checkSpace(); //TODO fix add button
         });
 
         // Finish edit
@@ -106,7 +109,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
                 button.delete();
             }
 
-            profile.setName(textView.getText().toString());
+            profile.setName(profileEditTextView.getText().toString());
 
             profile.save(() -> {
                 runOnUiThread(() -> {
@@ -122,15 +125,14 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
 
     //TODO still retrieves the data on edit page as well
     public void retrieveProfileData() {
-        Long profileID = getIntent().getLongExtra("profile id", 0);
+        profileID = getIntent().getLongExtra("profile id", 0);
         Log.w(TAG, "retrieveData: " + profileID);
 
         Profile.getByID(profileID, (profile)-> {
             this.profile = profile;
 
-            textView.setText(profile.getName());
+            profileName = profile.getName();
             mButton = profile.getButtons();
-            hasSpace = profile.hasSpace();
 
             //sort the buttons so they are in order and displayed in a correct order on the layout
             Collections.sort(mButton, (o1, o2) -> o1.getIndex() - o2.getIndex());
@@ -140,7 +142,6 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
 
             myRecyclerView();
         });
-
     }
 
     private void myRecyclerView() {
@@ -167,7 +168,19 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         isActivated = adapter.canDelete();
     }
 
-
+    //TODO add plus button hider
+//    // Hide addMacro button when there is no space to add a macro
+//    private void checkSpace() {
+//        Profile.getByID(profileID, (profile) -> {
+//            if (profile.hasSpace()) {
+//                findViewById(R.id.addMacro).setVisibility(View.VISIBLE);
+////                findViewById(R.id.addMacro).bringToFront();
+//            } else {
+//                findViewById(R.id.addMacro).setVisibility(View.INVISIBLE);
+////                findViewById(R.id.addMacro).invalidate();
+//            }
+//        });
+//    }
 
 
     @Override

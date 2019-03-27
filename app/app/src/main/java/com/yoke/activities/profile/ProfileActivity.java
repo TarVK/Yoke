@@ -47,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
             toolbar.setVisibility(View.GONE);
         }
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO create custom toolbar + back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         retrieveData();
