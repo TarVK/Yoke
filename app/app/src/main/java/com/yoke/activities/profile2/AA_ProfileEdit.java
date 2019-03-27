@@ -39,6 +39,8 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 
     boolean isActivated;
     boolean isLandscape;
+    boolean hasSpace;
+
 
     ItemTouchHelper touchHelper;
 
@@ -63,24 +65,23 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 
         retrieveProfileData();
 
-        ImageButton add = findViewById(R.id.addMacro);
-        ImageButton delete = findViewById(R.id.deleteMacro);
-        ImageButton edit = findViewById(R.id.editMacro);
-        ImageButton done = findViewById(R.id.doneEdit);
-
-        //add a new macro, it should direct to the macro activity
+        // Create new macro
         findViewById(R.id.addMacro)
-            .setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (profile.hasSpace()) {
-                    long macroID = selectedButton.getMacro().getID();
-                    // TODO: create intent
-                } else {
-                    Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+                .setOnClickListener(addView -> {
+                    if (hasSpace) {
+                        Intent intent = new Intent(getApplicationContext(), MacroBuilder.class);
+                        intent.putExtra("macro id", -1);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        // Edit selected macro //TODO add confirmation dialog
+        findViewById(R.id.editMacro)
+                .setOnClickListener(deleteView -> {
+                    long index = selectedButton.getMacro().getID();
+                    Log.w(TAG, "onClick: " + index);
 
         //edit a macro, it should direct to the macro activity
         findViewById(R.id.editMacro)
@@ -114,7 +115,7 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
         });
 
         //finish edit
-        done.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.doneMacro).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (byte i = 0; i < mButton.size(); i++ ) {
@@ -155,6 +156,7 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
         Profile.getByID(profileId, (profile)-> {
             textView.setText(profile.getName());
             mButton = (profile.getButtons());
+            hasSpace = profile.hasSpace();
             this.profile = profile;
 
             //sort the buttons so they are in order and displayed in a correct order on the layout

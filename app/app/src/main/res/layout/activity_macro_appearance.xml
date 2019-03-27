@@ -53,6 +53,7 @@
                 <ImageView
                     android:id="@+id/foregroundImage"
                     android:src="@drawable/default_image"
+                    android:scaleType="center"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     app:layout_constraintBottom_toBottomOf="@+id/foregroundDivider"
@@ -134,8 +135,8 @@
                     android:id="@+id/seekAspectForeground"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:max="100"
-                    android:progress="50"
+                    android:max="200"
+                    android:progress="100"
                     app:layout_constraintBottom_toBottomOf="@+id/foregroundDivider"
                     app:layout_constraintEnd_toStartOf="@+id/seekAspectForegroundDefault"
                     app:layout_constraintStart_toEndOf="@+id/foregroundDivider" />
@@ -183,9 +184,10 @@
 
                 <ImageView
                     android:id="@+id/backgroundImage"
+                    android:src="@drawable/default_image"
+                    android:scaleType="center"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/default_image"
                     app:layout_constraintBottom_toBottomOf="@+id/backgroundDivider"
                     app:layout_constraintEnd_toStartOf="@+id/backgroundDivider"
                     app:layout_constraintStart_toStartOf="parent"
@@ -277,8 +279,8 @@
                     android:id="@+id/seekAspectBackground"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:max="100"
-                    android:progress="50"
+                    android:max="200"
+                    android:progress="100"
                     app:layout_constraintBottom_toBottomOf="@+id/backgroundDivider"
                     app:layout_constraintEnd_toStartOf="@+id/seekAspectBackgroundDefault"
                     app:layout_constraintStart_toEndOf="@+id/backgroundDivider" />
