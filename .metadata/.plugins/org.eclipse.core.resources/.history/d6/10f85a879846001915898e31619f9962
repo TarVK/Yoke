@@ -1,7 +1,0 @@
-package com.yoke.executors;
-
-import com.yoke.connection.MessageReceiver;
-
-public abstract class cmdPromptExecutor<T> extends MessageReceiver<T>{
-
-}
