@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.yoke.R;
-import com.yoke.activities.profile2.ProfileActivity;
+import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.yoke.activities.profile2.ProfileActivity">
+    tools:context="com.yoke.activities.profile.ProfileActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_profile"

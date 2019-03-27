@@ -29,8 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.yoke.activities.profile2.ProfileActivity" />
-        <activity android:name="com.yoke.activities.profile2.ProfileEditActivity"
+        <activity android:name="com.yoke.activities.profile.ProfileActivity" />
+        <activity android:name="com.yoke.activities.profile.ProfileEditActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.yoke.activities.home.HomeActivity" />
         <activity android:name="com.yoke.activities.MainActivity"

@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.yoke.R;
-import com.yoke.activities.profile2.ProfileActivity;
+import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;

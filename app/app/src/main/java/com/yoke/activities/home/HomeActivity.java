@@ -16,7 +16,7 @@ import com.example.yoke.R;
 
 import java.util.ArrayList;
 
-import com.yoke.activities.profile2.ProfileEditActivity;
+import com.yoke.activities.profile.ProfileEditActivity;
 import com.yoke.database.types.Profile;
 
 public class HomeActivity extends AppCompatActivity {

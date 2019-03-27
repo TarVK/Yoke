@@ -1,4 +1,4 @@
-package com.yoke.activities.profile2;
+package com.yoke.activities.profile;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.yoke.activities.profile2;
+package com.yoke.activities.profile;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

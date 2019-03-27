@@ -1,4 +1,4 @@
-package com.yoke.activities.profile2;
+package com.yoke.activities.profile;
 
 import android.content.Intent;
 import android.content.res.Configuration;
