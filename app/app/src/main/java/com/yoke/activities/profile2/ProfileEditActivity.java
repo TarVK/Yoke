@@ -9,25 +9,21 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yoke.R;
-import com.yoke.activities.macro.MacroBuilder;
+import com.yoke.activities.macro.MacroActivity;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class AA_ProfileEdit extends AppCompatActivity implements StartDragListener {
+public class ProfileEditActivity extends AppCompatActivity implements StartDragListener {
 
-    private static final String TAG = "AA_ProfileEdit";
+    private static final String TAG = "ProfileEditActivity";
 
 
     private List<com.yoke.database.types.Button> mButton;
@@ -47,13 +43,13 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aa_profile_edit);
-        Toolbar toolbar = findViewById(R.id.toolbarEdit);
+        setContentView(R.layout.activity_profile_edit);
+        Toolbar toolbar = findViewById(R.id.toolbarEditView);
         textView = (EditText) findViewById(R.id.profileEditTextView);
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-//        if (isLandscape) {
+//        if (isLandscape) { //TODO remove unnecessary code?
 //            toolbar.setVisibility(View.GONE);
 //        }
         setSupportActionBar(toolbar);
@@ -62,102 +58,79 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 
         Log.d(TAG, "onCreate: edit started");
 
-
         retrieveProfileData();
 
         // Create new macro
         findViewById(R.id.addMacro)
                 .setOnClickListener(addView -> {
-                    if (hasSpace) {
-                        Intent intent = new Intent(getApplicationContext(), MacroBuilder.class);
-                        intent.putExtra("macro id", -1);
-                        startActivity(intent);
+                    if (false) { //TODO hasSpace
+//                        Intent intent = new Intent(getApplicationContext(), MacroSelector.class); //TODO add selection activity
+//                        intent.putExtra("macro id", -1);
+//                        startActivity(intent);
                     } else {
-                        Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Profile has no space left!", Toast.LENGTH_LONG).show();
                     }
                 });
 
-        // Edit selected macro //TODO add confirmation dialog
-        findViewById(R.id.editMacro)
+        // Edit selected macro
+        findViewById(R.id.addMacro)
                 .setOnClickListener(deleteView -> {
-                    long index = selectedButton.getMacro().getID();
-                    Log.w(TAG, "onClick: " + index);
-
-        //edit a macro, it should direct to the macro activity
-        findViewById(R.id.editMacro)
-            .setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long macroID = selectedButton.getMacro().getID();
-                Log.w(TAG, "onClick: " + macroID);
-
-                Intent intent = new Intent(getApplicationContext(), MacroBuilder.class);
-                    intent.putExtra("macro id", macroID);
-                    startActivity(intent);
-            }
+            long macroID = selectedButton.getMacro().getID();
+            Intent intent = new Intent(getApplicationContext(), MacroActivity.class);
+            intent.putExtra("macro id", macroID);
+            startActivity(intent);
         });
 
         // Delete selected macro
         findViewById(R.id.deleteMacro)
                 .setOnClickListener(deleteView -> {
-            int index = mButton.indexOf(selectedButton);
+            int macroID = (int) selectedButton.getMacro().getID(); //TODO check if (int) implementation works
 
             profile.removeButton(selectedButton);
-//                selectedButton.delete();
+//                selectedButton.delete(); //TODO remove unnecessary code?
             deletedButtons.add(selectedButton);
             mButton.remove(selectedButton);
-            Log.w(TAG, "onClick: " + index);
-
-            adapter.notifyItemRangeChanged(index, mButton.size());
-            adapter.notifyItemRemoved(index);
-//                adapter.notifyDataSetChanged();
+            adapter.notifyItemRangeChanged(macroID, mButton.size());
+            adapter.notifyItemRemoved(macroID);
+//                adapter.notifyDataSetChanged(); //TODO remove unnecessary code?
 
         });
 
-        //finish edit
-        findViewById(R.id.doneMacro).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (byte i = 0; i < mButton.size(); i++ ) {
-                    mButton.get(i).setIndex(i);
+        // Finish edit
+        findViewById(R.id.doneMacro).setOnClickListener(v -> {
+            for (byte i = 0; i < mButton.size(); i++) {
+                mButton.get(i).setIndex(i);
+            }
 
-                }
+            for (Button button : deletedButtons) {
+                button.delete();
+            }
 
-                for (com.yoke.database.types.Button button : deletedButtons) {
-                    button.delete();
-                }
+            profile.setName(textView.getText().toString());
 
-                profile.setName(textView.getText().toString());
-
-                profile.save(()->{
-                    runOnUiThread(()-> {
-//                        Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
-//                        intent.putExtra("profile id", profile.getID());
-//                        startActivity(intent);
-//                        finish();
-                        onBackPressed();
-                    });
-
-            profile.save(() -> runOnUiThread(() -> {
-                Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
-                intent.putExtra("profile id", profile.getID());
-                startActivity(intent);
-                finish();
-            }));
-
+            profile.save(() -> {
+                runOnUiThread(() -> {
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    intent.putExtra("profile id", profile.getID());
+                    startActivity(intent);
+                    finish();
+                    onBackPressed();
+                });
+            });
         });
     }
 
-    //still retrieves the data on edit page as well
+    //TODO still retrieves the data on edit page as well
     public void retrieveProfileData() {
-        Long profileId = getIntent().getLongExtra("profile id", 0);
-        Log.w(TAG, "retrieveData: " + profileId);
+        Long profileID = getIntent().getLongExtra("profile id", 0);
+        Log.w(TAG, "retrieveData: " + profileID);
 
-        Profile.getByID(profileId, (profile)-> {
-            textView.setText(profile.getName());
-            mButton = (profile.getButtons());
-            hasSpace = profile.hasSpace();
+        Profile.getByID(profileID, (profile)-> {
             this.profile = profile;
+
+            textView.setText(profile.getName());
+            mButton = profile.getButtons();
+            hasSpace = profile.hasSpace();
 
             //sort the buttons so they are in order and displayed in a correct order on the layout
             Collections.sort(mButton, (o1, o2) -> o1.getIndex() - o2.getIndex());
@@ -172,9 +145,9 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 
     private void myRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view_edit);
-        adapter = new RecyclerViewAdapterEdit(AA_ProfileEdit.this, mButton, this, recyclerView);
+        adapter = new RecyclerViewAdapterEdit(ProfileEditActivity.this, mButton, this, recyclerView);
 
-        //looper issue needs to be fixed
+        //TODO looper issue needs to be fixed
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -200,7 +173,7 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
+        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         intent.putExtra("profile id", profile.getID());
         startActivity(intent);
         finish();

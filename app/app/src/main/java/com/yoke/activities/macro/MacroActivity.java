@@ -1,6 +1,5 @@
 package com.yoke.activities.macro;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,9 +16,8 @@ import com.example.yoke.R;
 
 import com.yoke.activities.macro.tabs.MacroAppearance;
 import com.yoke.activities.macro.tabs.MacroSequence;
-import com.yoke.activities.profile2.AA_ProfileEdit;
 
-public class MacroBuilder extends AppCompatActivity {
+public class MacroActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -82,7 +80,7 @@ public class MacroBuilder extends AppCompatActivity {
     public void exitBuilder() {
         //TODO Save and store data
 
-//        Intent intent = new Intent(this, AA_ProfileEdit.class);
+//        Intent intent = new Intent(this, ProfileEditActivity.class);
 //        startActivity(intent);
         onBackPressed();
     }

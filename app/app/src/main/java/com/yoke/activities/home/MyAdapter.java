@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.yoke.R;
-import com.yoke.activities.profile2.AA_Profile;
+import com.yoke.activities.profile2.ProfileActivity;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
@@ -48,13 +48,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.textView.setText(mDataset.get(position).getName());
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, AA_Profile.class);
-                intent.putExtra("profile id", mDataset.get(position).getID());
-                mContext.startActivity(intent);
-            }
+        holder.parentLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, ProfileActivity.class);
+            intent.putExtra("profile id", mDataset.get(position).getID());
+            mContext.startActivity(intent);
         });
 
 

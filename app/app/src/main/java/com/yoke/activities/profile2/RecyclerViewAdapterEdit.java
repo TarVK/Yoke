@@ -28,7 +28,7 @@ public class RecyclerViewAdapterEdit extends
     private static final String TAG = "RecyclerViewAdapterEdit";
 
     protected Connection connection; //establishes the connection
-    private AA_ProfileEdit mProfile;
+    private ProfileEditActivity mProfile;
     private List<com.yoke.database.types.Button> mButton;
     private final StartDragListener mStartDragListener;
     private Context mContext ;
@@ -53,7 +53,7 @@ public class RecyclerViewAdapterEdit extends
     /**
      * Put list of items in the constructor
      */
-    public RecyclerViewAdapterEdit(AA_ProfileEdit profile,  List<Button> button, StartDragListener startDragListener, RecyclerView recyclerView) {
+    public RecyclerViewAdapterEdit(ProfileEditActivity profile, List<Button> button, StartDragListener startDragListener, RecyclerView recyclerView) {
         mProfile = profile;
         mButton = button;
         mStartDragListener = startDragListener;
@@ -66,7 +66,7 @@ public class RecyclerViewAdapterEdit extends
     @Override
     public RecyclerViewAdapterEdit.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.aa_layout_listitem, parent, false);
+                    inflate(R.layout.activity_profile_object, parent, false);
 
         ViewHolder holder = new ViewHolder(view);
         return holder;

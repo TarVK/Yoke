@@ -7,28 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.yoke.R;
-import com.yoke.activities.macro.MacroBuilder;
-import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class AA_Profile extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
 //    protected Connection connection = MultiClientConnection.getInstance();
 
-    private static final String TAG = "AA_Profile";
+    private static final String TAG = "ProfileActivity";
 
     private List<com.yoke.database.types.Button> buttons;
     private ArrayList<Macro> mMacro = new ArrayList<>();
@@ -42,7 +36,7 @@ public class AA_Profile extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aa_profile);
+        setContentView(R.layout.activity_profile);
         Toolbar toolbar = findViewById(R.id.toolbar_profile);
         profileName = (TextView) findViewById(R.id.profileTextView);
 
@@ -58,19 +52,13 @@ public class AA_Profile extends AppCompatActivity {
 
         retrieveData();
 
-        ImageButton edit = findViewById(R.id.beginEdit);
-        Log.w(TAG, "onCreate: " + name);
-        name = returnName();
-        profileName.setText(name);
-
-        //when edit button is clicked send the profile id and open the edit activity //TODO remove toolbar background
+        //when edit button is clicked send the profile id and open the edit activity
         findViewById(R.id.beginEdit)
                 .setOnClickListener(openEditView -> {
             if (profile != null) {
-                Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
-                intent.putExtra("profile id", retrieveID());
+                Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
+                intent.putExtra("profile id", profile.getID());
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -85,11 +73,10 @@ public class AA_Profile extends AppCompatActivity {
         //add the profile datas to the arguments
         Profile.getByID(profileID, (profile) -> {
             runOnUiThread(() -> {
-                String name = profile.getName();
                 this.profile = profile;
-                profileName.setText(name);
-                hasSpace = profile.hasSpace();
 
+                String name = profile.getName();
+                profileName.setText(name);
                 buttons = profile.getButtons();
 
                 //sort the buttons so they are in order and displayed in a correct order on the layout

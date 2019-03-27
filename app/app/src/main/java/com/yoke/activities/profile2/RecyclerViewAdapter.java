@@ -15,9 +15,7 @@ import com.example.yoke.R;
 import com.yoke.connection.Connection;
 import com.yoke.connection.client.MultiClientConnection;
 import com.yoke.database.types.Button;
-import com.yoke.database.types.Macro;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.aa_layout_listitem, parent, false);
+                inflate(R.layout.activity_profile_object, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }

@@ -2,7 +2,6 @@ package com.yoke.activities.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,35 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 
 import com.example.yoke.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import com.example.yoke.R;
-import com.yoke.activities.profile2.AA_Profile;
-import com.yoke.activities.profile2.AA_ProfileEdit;
-import com.yoke.activities.splash.ConnectionEventReceiver;
-import com.yoke.connection.CompoundMessage;
-import com.yoke.connection.Connection;
-import com.yoke.connection.Message;
-import com.yoke.connection.MessageReceiver;
-import com.yoke.connection.client.MultiClientConnection;
-import com.yoke.connection.client.types.BluetoothClientConnection;
-import com.yoke.connection.messages.OpenURLCmd;
-import com.yoke.connection.messages.computerCmds.NextTrackCmd;
-import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
-import com.yoke.connection.messages.computerCmds.ShutDownCmd;
-import com.yoke.connection.messages.computerCmds.SleepCmd;
-import com.yoke.database.DataBase;
-import com.yoke.database.DataObject;
-import com.yoke.database.types.Macro;
+import com.yoke.activities.profile2.ProfileEditActivity;
 import com.yoke.database.types.Profile;
-import com.yoke.database.types.Settings;
 
 public class HomeActivity extends AppCompatActivity {
     FloatingActionButton button;
@@ -67,18 +46,15 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView2.setLayoutManager(llm);
 
         Context mContext = this; //TODO add fab implementation and replace with extended text fab
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Profile profile = new Profile("Some Cool {Profile");
-                profile.save(() -> {
-                    long ID = profile.getID();
-                    Log.w("COOL ID ", ID+"");
-                    Intent intent = new Intent(mContext, AA_ProfileEdit.class);
-                    intent.putExtra("profile id", ID);
-                    mContext.startActivity(intent);
-                });
-            }
+        button.setOnClickListener(v -> {
+            Profile profile = new Profile("Some Cool {Profile");
+            profile.save(() -> {
+                long ID = profile.getID();
+                Log.w("COOL ID ", ID+"");
+                Intent intent = new Intent(mContext, ProfileEditActivity.class);
+                intent.putExtra("profile id", ID);
+                mContext.startActivity(intent);
+            });
         });
 
         settings.setOnClickListener(settingsView -> {

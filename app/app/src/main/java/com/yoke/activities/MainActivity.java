@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.yoke.R;
-import com.yoke.activities.profile2.AA_Profile;
+import com.yoke.activities.profile2.ProfileActivity;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     builder.setItems(names, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Long id = ids.get(which);
-                            Intent intent = new Intent(context, AA_Profile.class);
+                            Intent intent = new Intent(context, ProfileActivity.class);
                             intent.putExtra("profile id", id);
                             context.startActivity(intent);
                         }
