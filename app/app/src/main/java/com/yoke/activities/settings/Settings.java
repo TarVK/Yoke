@@ -1,13 +1,17 @@
 package com.yoke.activities.settings;
 
 import android.preference.SwitchPreference;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
+//import android.widget.Toolbar;
 
 import com.example.yoke.R;
 
@@ -34,10 +38,14 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        getLayoutInflater().inflate(R.layout.toolbar_settings, (ViewGroup) findViewById(android.R.id.content));
 
+        Toolbar toolbar = findViewById(R.id.toolbarSettings);
+        setSupportActionBar(toolbar);
 
-        //com.yoke.database.types.Settings.SettingsData settingsData = new com.yoke.database.types.Settings.SettingsData();
-        //com.yoke.database.types.Settings.initialize(); //??
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null){
@@ -51,10 +59,10 @@ public class Settings extends AppCompatActivity {
 
 
 
-        textViewLang = (TextView) findViewById(R.id.currLanguage);
+        textViewLang = findViewById(R.id.currLanguage);
         textViewLang.setText(com.yoke.database.types.Settings.getInstance().getLanguage());
 
-        textViewConn = (TextView) findViewById(R.id.currConn);
+        textViewConn = findViewById(R.id.currConn);
         textViewConn.setText(com.yoke.database.types.Settings.getInstance().getConnectionType());
 
 

@@ -42,7 +42,7 @@ public class AA_Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aa_profile);
         Toolbar toolbar = findViewById(R.id.toolbar_profile);
-        profileName = (TextView) findViewById(R.id.profileTextView);
+        profileName = findViewById(R.id.profileTextView);
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;

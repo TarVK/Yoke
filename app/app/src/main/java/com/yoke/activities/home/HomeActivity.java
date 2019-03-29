@@ -23,6 +23,7 @@ import java.util.List;
 import com.example.yoke.R;
 import com.yoke.activities.profile2.AA_Profile;
 import com.yoke.activities.profile2.AA_ProfileEdit;
+import com.yoke.activities.settings.Settings;
 import com.yoke.activities.splash.ConnectionEventReceiver;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Connection;
@@ -39,7 +40,6 @@ import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
-import com.yoke.database.types.Settings;
 
 public class HomeActivity extends AppCompatActivity {
     FloatingActionButton button;

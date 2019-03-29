@@ -28,7 +28,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.xml.preferences, container, false);
+        return inflater.inflate(R.layout.activity_settings, container, false);
     }
 
 
@@ -40,7 +40,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         com.yoke.database.types.Settings settingsData = Settings.getInstance();
 
-        Preference tutorial = (Preference) findPreference("tutorial");
+        Preference tutorial = findPreference("tutorial");
         tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -49,7 +49,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-        Preference about = (Preference) findPreference("about");
+        Preference about = findPreference("about");
         tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -59,7 +59,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-        Preference language = (Preference) findPreference("language");
+        Preference language = findPreference("language");
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -70,7 +70,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 
 
-        Preference connection = (Preference) findPreference("connection");
+        Preference connection = findPreference("connection");
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {

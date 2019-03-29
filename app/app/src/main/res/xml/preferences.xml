@@ -1,72 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:enabled="false"
+    android:orderingFromXml="false"
+    android:persistent="false"
+    android:selectable="false"
+    android:shouldDisableView="false">
 
-    <androidx.preference.PreferenceScreen
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-        <!--android:id="preference_screen"-->
-        <!--android:width=""
-        android:height="fill_parent"-->
+    <PreferenceCategory
+        android:layout="@layout/toolbar_settings">
+        <androidx.preference.PreferenceScreen>
 
-        <ListPreference
-            android:id="@+id/language"
-            app:title="@string/language"
+            <ListPreference
+                android:id="@+id/language"
+                android:defaultValue="@string/eng"
 
-            android:entries="@array/pref_lang_entries"
-            android:entryValues="@array/pref_lang_values"
-            android:defaultValue="@string/eng">
-            <TextView
-                android:id="@+id/currLanguage"/>
-        </ListPreference>
+                android:entries="@array/pref_lang_entries"
+                android:entryValues="@array/pref_lang_values"
+                app:title="@string/language">
+                <TextView android:id="@+id/currLanguage" />
+            </ListPreference>
             <!--app:summary="@string/summaryLanguage"
-            app:key="language"-->
+                app:key="language"-->
             <!--android:width="wrap_content"
-            android:height="wrap_content"-->
+                android:height="wrap_content"-->
 
 
-        <Preference
-            app:key="color"
-            app:title="@string/color"
-            android:enabled="true"/>
+            <Preference
+                android:enabled="true"
+                app:key="color"
+                app:title="@string/color" />
             <!--android:width="fill_parent"
-            android:height="wrap_content"-->
+                android:height="wrap_content"-->
 
-        <SwitchPreference
-            app:key="light_theme"
-            app:title="@string/light"
-            android:enabled="true"/>
+            <SwitchPreference
+                android:background="@color/colorPrimary"
+                android:enabled="true"
+                android:foreground="@color/colorAccent"
+                app:key="light_theme"
+                app:title="@string/light" />
 
-        <ListPreference
-            app:key="connection"
-            app:title="@string/connection"
-            app:summary="@string/summaryConnection"
-            android:entries="@array/pref_conn_entries"
-            android:entryValues="@array/pref_conn_values"
-            android:defaultValue="@string/blu">
-            <TextView
-                android:id="@+id/currConn"/>
-        </ListPreference>
+            <ListPreference
+                android:defaultValue="@string/blu"
+                android:entries="@array/pref_conn_entries"
+                android:entryValues="@array/pref_conn_values"
+                app:key="connection"
+                app:summary="@string/summaryConnection"
+                app:title="@string/connection">
+                <TextView android:id="@+id/currConn" />
+            </ListPreference>
 
-        <SwitchPreference
-            app:key="auto"
-            app:title="@string/auto"
-            android:enabled="true"/>
+            <SwitchPreference
+                android:enabled="true"
+                app:key="auto"
+                app:title="@string/auto" />
 
-        <Preference
-            app:key="tutorial"
-            app:title="@string/tutorial">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:targetPackage="com.package.name"
-                android:targetClass="com.yoke.activities.tutorial"
-            />
-        </Preference>
+            <Preference
+                app:key="tutorial"
+                app:title="@string/tutorial">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:targetClass="com.yoke.activities.tutorial"
+                    android:targetPackage="com.package.name" />
+            </Preference>
 
-        <Preference
-            app:key="about"
-            app:title="@string/about" />
+            <Preference
+                app:key="about"
+                app:title="@string/about" />
 
 
-
-    </androidx.preference.PreferenceScreen>
-
+        </androidx.preference.PreferenceScreen>
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -46,7 +46,7 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aa_profile_edit);
         Toolbar toolbar = findViewById(R.id.toolbarEdit);
-        textView = (EditText) findViewById(R.id.profileEditTextView);
+        textView = findViewById(R.id.profileEditTextView);
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;

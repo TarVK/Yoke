@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        gifView = (GifView) findViewById(R.id.gif_view);
+        gifView = findViewById(R.id.gif_view);
 
         this.databaseInit(true, () -> {
             connectionInit();
