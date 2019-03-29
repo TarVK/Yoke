@@ -2,6 +2,7 @@ package com.yoke.activities.settings;
 
 import android.content.Intent;
 //import android.support.v4.view.LayoutInflaterCompat;
+import android.os.Build;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.os.Bundle;
@@ -18,11 +19,24 @@ import com.yoke.activities.tutorial.TutorialActivity;
 import com.yoke.database.types.Settings;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.preferences);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.xml.preferences, container, false);
+    }
+
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-        setPreferencesFromResource(R.xml.preferences, rootKey);
+        //setPreferencesFromResource(R.xml.preferences, rootKey);
 
         com.yoke.database.types.Settings settingsData = Settings.getInstance();
 
@@ -67,4 +81,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
 
     }
+
+
 }
