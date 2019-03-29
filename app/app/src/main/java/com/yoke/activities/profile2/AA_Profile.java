@@ -1,11 +1,16 @@
 package com.yoke.activities.profile2;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.database.types.Button;
@@ -13,6 +18,7 @@ import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -22,14 +28,13 @@ public class AA_Profile extends AppCompatActivity {
 
     private static final String TAG = "AA_Profile";
 
-    private ArrayList<Integer> mImageID = new ArrayList<>(); //save the index of the buttons
-    private ArrayList<String> mImageName = new ArrayList<>(); //save the name of the buttons
-    private List<com.yoke.database.types.Button> mButton;
+    private List<com.yoke.database.types.Button> buttons;
     private ArrayList<Macro> mMacro = new ArrayList<>();
+    private TextView profileName;
 //    private TextView profile_name = findViewById(R.id.textView);
-//    private Button beginEdit = findViewById(R.id.beginEdit);
 
-    Profile profile; //declare the profile object we are going to use
+    private Profile profile; //declare the profile object we are going to use
+    boolean isLandscape;
 
 
 
@@ -37,16 +42,31 @@ public class AA_Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aa_profile);
         Toolbar toolbar = findViewById(R.id.toolbar_profile);
-        Log.d(TAG, "onCreate: started");
+        profileName = (TextView) findViewById(R.id.profileTextView);
+
+        isLandscape =
+                getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
+        if (isLandscape) {
+            toolbar.setVisibility(View.GONE);
+        }
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         retrieveData();
-//        beginEdit.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//               startActivity(new Intent(AA_Profile.this, AA_ProfileEdit.class));
-//            }
-//        });
+
+        ImageButton edit = findViewById(R.id.beginEdit);
+
+        //when edit button is clicked send the profile id and open the edit activity
+        edit.setOnClickListener(openEditView -> {
+            // Make sure the profile has loaded
+            if (profile!=null) {
+                Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
+                intent.putExtra("profile id", profile.getID());
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -54,26 +74,22 @@ public class AA_Profile extends AppCompatActivity {
      * Retrieve the data from the database and store in the arraylist
      */
     public void retrieveData() {
-        Long profileId = getIntent().getLongExtra("profile id", 0);
-        Log.w(TAG, "retrieveData: " + profileId);
-
-        int i = 0;
+        Long profileID = getIntent().getLongExtra("profile id", 0);
 
         //add the profile datas to the arguments
-        Profile.getByID(profileId, (profile)-> {
-            mButton = (profile.getButtons());
+        Profile.getByID(profileID, (profile) -> {
+            runOnUiThread(() -> {
+                String name = profile.getName();
+                this.profile = profile;
+                profileName.setText(name);
 
-            //sort the buttons so they are in order and displayed in a correct order on the layout
-            mButton.sort(new Comparator<Button>() {
-                @Override
-                public int compare(Button o1, Button o2) {
-                    return o1.getIndex() - o2.getIndex();
-                }
+                buttons = profile.getButtons();
+
+                //sort the buttons so they are in order and displayed in a correct order on the layout
+                Collections.sort(buttons, (o1, o2) -> o1.getIndex() - o2.getIndex());
+
+                myRecyclerView();
             });
-            profile.getName();
-            profile.getIndex();
-
-            myRecyclerView();
         });
 
 
@@ -109,32 +125,20 @@ public class AA_Profile extends AppCompatActivity {
 //            }
 //        });
 
-
-        mImageID.add(R.drawable.spotify);
-        mImageName.add("spotify");
-        mImageID.add(R.drawable.steam);
-        mImageName.add("steam");
-        mImageID.add(R.drawable.youtube);
-        mImageName.add("youtube");
-        mImageID.add(R.drawable.chrome);
-        mImageName.add("chrome");
-        mImageID.add(R.drawable.twitch);
-        mImageName.add("twitch");
-        mImageID.add(R.drawable.wikipedia);
-        mImageName.add("wikipedia");
-
-
-
-
     }
 
     //uses the rercycler view
     private void myRecyclerView() {
-        RecyclerView recyclerView = findViewById(R.id.recyclerv_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImageID,this, mImageName, mMacro, mButton);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerViewAdapter adapter =
+                new RecyclerViewAdapter(this, buttons);
 
+        int columns = 2;
+        if (isLandscape) {
+            columns = 3;
+        }
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, columns));
     }
 
 //    going back to the previous page
@@ -144,9 +148,11 @@ public class AA_Profile extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
-
-
-
-
+        // Make sure to refresh the data
+        retrieveData();
+    }
 }

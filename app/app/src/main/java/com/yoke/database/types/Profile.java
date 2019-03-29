@@ -184,6 +184,11 @@ public class Profile extends DataObject<Profile.ProfileData> {
                         }
                     });
                 }
+
+                // If there are no buttons to save, perform the callback immediately
+                if (buttons.size() == 0) {
+                    callback.call();
+                }
             }
         });
     }

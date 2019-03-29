@@ -23,7 +23,6 @@ public class MultiServerConnection extends Connection {
         this.connections = connections;
         
         for (Connection c: connections) {
-            System.out.println(c);
             // Register a receiver to forward messages for each connection
             c.addReceiver(new MessageReceiver<Message>() {
                 public void receive(Message message) {
@@ -80,6 +79,7 @@ public class MultiServerConnection extends Connection {
             receiver.receive(message);
         }catch(Exception e) {
             Tray.getInstance().showMessage("Your computer doesn't seem to support this action, our apologies.");
+            e.printStackTrace();
         }
     }
     

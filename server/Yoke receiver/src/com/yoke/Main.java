@@ -81,17 +81,18 @@ public class Main {
      * The constructor method
      */
     public Main() {        
-        BluetoothServerConnection bluetooth = new BluetoothServerConnection();
-        connection = new MultiServerConnection(bluetooth);
-        
-        setupConnectionListeners();
-        setupExecutors();
-        setupProgramPoll();
-        
         // Setup the tray
         tray = Tray.getInstance();
         tray.updateConnectedDevices(deviceIDs.size());
         
+        // Setup the connection
+        BluetoothServerConnection bluetooth = new BluetoothServerConnection();
+        connection = new MultiServerConnection(bluetooth);
+        
+        // Setup the remaining behavior
+        setupConnectionListeners();
+        setupExecutors();
+        setupProgramPoll();        
         setupPrompts();
     }
     
@@ -132,7 +133,7 @@ public class Main {
             }
         });
         connection.addReceiver(new MessageReceiver<ConnectionFailed>() {
-            public void receive(ConnectionFailed cmd) {        
+            public void receive(ConnectionFailed cmd) {
                 // Show that there was an error
                 tray.showMessage("Something went wrong while connecting panel" + (cmd.description != "" ? ":" : ""));
                 

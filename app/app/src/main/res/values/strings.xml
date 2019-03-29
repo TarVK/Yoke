@@ -12,6 +12,8 @@
     <string name="nextBtn2">Finish</string>
     <string name="tutorialBtn">Tutorial</string>
     <string name="splashBtn">Splash/Tutorial</string>
+    <string name="title_activity_mouse">MouseActivity</string>
+
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -125,4 +127,5 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
 </resources>

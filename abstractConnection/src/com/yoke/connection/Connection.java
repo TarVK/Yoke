@@ -41,8 +41,12 @@ public abstract class Connection {
     
     // The list of receivers that are listening for messages
     protected HashMap<Class<? extends Message>, List<MessageReceiver<?>>> receivers 
-        = new HashMap<Class<? extends Message>, List<MessageReceiver<?>>>(); 
-    
+        = new HashMap<Class<? extends Message>, List<MessageReceiver<?>>>();
+
+    // The list of receivers that are listening for send messages (instead of received)
+    protected HashMap<Class<? extends Message>, List<MessageReceiver<?>>> sendReceivers
+            = new HashMap<Class<? extends Message>, List<MessageReceiver<?>>>();
+
 
     /**
      * The constructor method
@@ -61,6 +65,9 @@ public abstract class Connection {
      */
     public void send(Message message) {
         try {
+            // Send the message to local receivers
+            emitToReceivers(message, this.sendReceivers);
+
             // If it's a non compound message, serialize it        
             byte[] messageStream = Message.serialize(message);
             int size = messageStream.length;
@@ -85,38 +92,64 @@ public abstract class Connection {
      * @param message  The byte code of the message to send
      */
     protected abstract void sendMessageStream(byte[] message);
-    
+
+
     /**
      * Registers a receiver to listen for a specific message
      * @param receiver  The receiver to register
      */
     public void addReceiver(MessageReceiver<?> receiver) {
+        this.addReceiver(receiver, false);
+    }
+
+    /**
+     * Registers a receiver to listen for a specific message
+     * @param receiver  The receiver to register
+     * @param onSend  Whether it listens for sending of messages instead of receiving
+     *                If set to true, the receiver will trigger if this connection sends a message
+     */
+    public void addReceiver(MessageReceiver<?> receiver, boolean onSend) {
         // Get the message type to listen for
         Class<? extends Message> type = getMessageClass(receiver);
         
         // Get the list of receivers
-        List<MessageReceiver<?>> receivers = this.receivers.get(type);
+        HashMap<Class<? extends Message>, List<MessageReceiver<?>>> receiverMap =
+                onSend ? this.sendReceivers : this.receivers;
+        List<MessageReceiver<?>> receivers = receiverMap.get(type);
         
         // If the list of receivers doesn't exist, create it
         if (receivers == null) {
             receivers = new ArrayList<MessageReceiver<?>>();
-            this.receivers.put(type, receivers);
+            receiverMap.put(type, receivers);
         }
         
         // Add the receiver to the list
         receivers.add(receiver);
     }
-    
+
+
     /**
      * Removes a receiver to listen for a specific message
      * @param receiver  The receiver to remove
      */
     public void removeReceiver(MessageReceiver<?> receiver) {
+        this.removeReceiver(receiver, false);
+    }
+
+    /**
+     * Removes a receiver to listen for a specific message
+     * @param receiver  The receiver to remove
+     * @param onSend  Whether it listens for sending of messages instead of receiving
+     *                If set to true, the receiver will trigger if this connection sends a message
+     */
+    public void removeReceiver(MessageReceiver<?> receiver, boolean onSend) {
         // Get the message type to listen for
         Class<? extends Message> type = getMessageClass(receiver);
         
         // Get the list of receivers
-        List<MessageReceiver<?>> receivers = this.receivers.get(type);
+        List<MessageReceiver<?>> receivers = onSend ? this.sendReceivers.get(type)
+                : this.receivers.get(type);
+
         if (receivers != null) {
             // Remove the receiver from the list
             receivers.remove(receiver);
@@ -183,48 +216,60 @@ public abstract class Connection {
         // Check whether it is a regular message, or a compound message
         if (message instanceof CompoundMessage) {
             // If it is a compound message, sequence the emit properly
-            CompoundMessage cm = (CompoundMessage) message;            
-            
+            CompoundMessage cm = (CompoundMessage) message;
+
             // Store the cumulative delay
             int cumulativeDelay = 0;
-            
+
             // Create a timer
             Timer t = new java.util.Timer();
-            
+
             // Go through all of the messages
             for (ComposedMessage.MessageDelay md: cm) {
                 // Get the delay after which to send the message
                 cumulativeDelay += md.delay;
-                
+
                 // Create an message sending thread
-                t.schedule( 
+                t.schedule(
                     new java.util.TimerTask() {
                         public void run() {
                             emit(md.message);
                         }
-                    }, 
-                    cumulativeDelay 
+                    },
+                    cumulativeDelay
                 );
             }
         } else {
-            // Go through all super classes of the message
-            Class c = message.getClass();
-            while (c != null) {
-                
-                // Get the receivers for this message type
-                List<MessageReceiver<?>> receivers = this.receivers.get(c);
-                
-                // Make sure there are receivers for the message type
-                if (receivers != null) {
-                    // Call each of the receivers
-                    for (MessageReceiver receiver: receivers) {
-                        invokeReceiver(receiver, message);
-                    }
+            emitToReceivers(message, this.receivers);
+        }
+    }
+
+    /**
+     * Forwards a certain message to subset of passed receivers for this message type
+     * Doesn't handle compound messages
+     * @param message  The message to emit
+     * @param receiverMap  The possible receivers to send it to
+     */
+    protected void emitToReceivers(Message message,
+                                   HashMap<Class<? extends Message>,
+                                           List<MessageReceiver<?>>> receiverMap) {
+        // Go through all super classes of the message
+        Class c = message.getClass();
+        while (c != null) {
+
+            // Get the receivers for this message type
+            List<MessageReceiver<?>> receivers = receiverMap.get(c);
+
+            // Make sure there are receivers for the message type
+            if (receivers != null) {
+                // Call each of the receivers
+                for (MessageReceiver receiver: receivers) {
+                    invokeReceiver(receiver, message);
                 }
-                
-                // Get the super class
-                c = c.getSuperclass();
-            }            
+            }
+
+            // Get the super class
+            c = c.getSuperclass();
         }
     }
     
@@ -276,6 +321,7 @@ public abstract class Connection {
         
         public ProcessConnectionThread() {
             this.ID = Connection.getNextID();
+            state = CONNECTED;
             emit(new Connected(ID));
         }
         
@@ -292,6 +338,7 @@ public abstract class Connection {
         protected boolean readByte(int data) {
             // If the data is -1, the connection has been closed
             if (data == -1) {
+
                 emit(new Disconnected(ID));
                 return true;
             } else {
