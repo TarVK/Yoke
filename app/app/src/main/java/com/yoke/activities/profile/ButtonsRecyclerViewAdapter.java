@@ -1,4 +1,4 @@
-package com.yoke.activities.profile2;
+package com.yoke.activities.profile;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,17 +15,15 @@ import com.example.yoke.R;
 import com.yoke.connection.Connection;
 import com.yoke.connection.client.MultiClientConnection;
 import com.yoke.database.types.Button;
-import com.yoke.database.types.Macro;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecyclerViewAdapter.ViewHolder>{
 
-    private static final String TAG = "RecyclerViewAdapter";
+    private static final String TAG = "ButtonsRecyclerViewAdapter";
     protected Connection connection =
             MultiClientConnection.getInstance(); // Gets the connection
     private List<com.yoke.database.types.Button> buttons;
@@ -36,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      *
      * @param buttons list of buttons of the selected profile
      */
-    public RecyclerViewAdapter(Context context, List<Button> buttons) {
+    public ButtonsRecyclerViewAdapter(Context context, List<Button> buttons) {
         this.context = context;
         this.buttons = buttons;
     }
@@ -47,7 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.aa_layout_listitem, parent, false);
+                inflate(R.layout.button, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -86,18 +84,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //                Toast.makeText(mContext, mName.get(i), Toast.LENGTH_LONG).show();
 //                String path = mMacro.get(i).getAction().toString();
 
-                //either one should be selected?
-//                connection.send(new OpenURLCmd(path));
-//                connection.send(new OpenProgramCmd(path));
-//                connection.send(new OpenURLCmd("youtube.com"));
-//                if (connection.getState() == Connection.CONNECTED) {
-//                    connection.send(mButton.get(i).getMacro().getAction());
-//                } else {
-//                    Toast.makeText(mContext, "connection not established",
-//                            Toast.LENGTH_LONG ).show();
-//                }
                 if (connection.getState() == Connection.CONNECTED) {
-                    connection.send(buttons.get(i).getMacro().getAction());
+                    try {
+                        connection.send(buttons.get(i).getMacro().getAction());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(context,
+                                "Something went wrong while trying to perform this action",
+                                Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(context, "Command could not be sent. " +
                                     "\n Please make sure you are connected",

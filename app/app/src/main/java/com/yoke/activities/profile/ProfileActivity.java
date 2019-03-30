@@ -1,4 +1,4 @@
-package com.yoke.activities.profile2;
+package com.yoke.activities.profile;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -7,26 +7,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.yoke.R;
-import com.yoke.database.types.Button;
+import com.yoke.activities.profileEdit.ProfileEditActivity;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class AA_Profile extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
 //    protected Connection connection = MultiClientConnection.getInstance();
 
-    private static final String TAG = "AA_Profile";
+    private static final String TAG = "ProfileActivity";
 
     private List<com.yoke.database.types.Button> buttons;
     private ArrayList<Macro> mMacro = new ArrayList<>();
@@ -40,7 +38,7 @@ public class AA_Profile extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aa_profile);
+        setContentView(R.layout.activity_profile);
         Toolbar toolbar = findViewById(R.id.toolbar_profile);
         profileName = (TextView) findViewById(R.id.profileTextView);
 
@@ -62,7 +60,7 @@ public class AA_Profile extends AppCompatActivity {
         edit.setOnClickListener(openEditView -> {
             // Make sure the profile has loaded
             if (profile!=null) {
-                Intent intent = new Intent(getApplicationContext(), AA_ProfileEdit.class);
+                Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
                 intent.putExtra("profile id", profile.getID());
                 startActivity(intent);
             }
@@ -130,8 +128,8 @@ public class AA_Profile extends AppCompatActivity {
     //uses the rercycler view
     private void myRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter =
-                new RecyclerViewAdapter(this, buttons);
+        ButtonsRecyclerViewAdapter adapter =
+                new ButtonsRecyclerViewAdapter(this, buttons);
 
         int columns = 2;
         if (isLandscape) {

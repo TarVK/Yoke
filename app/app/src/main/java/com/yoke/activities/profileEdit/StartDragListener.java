@@ -1,4 +1,4 @@
-package com.yoke.activities.profile2;
+package com.yoke.activities.profileEdit;
 
 import android.support.v7.widget.RecyclerView;
 

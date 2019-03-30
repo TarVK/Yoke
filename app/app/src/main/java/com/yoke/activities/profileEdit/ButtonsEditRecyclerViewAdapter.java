@@ -1,4 +1,4 @@
-package com.yoke.activities.profile2;
+package com.yoke.activities.profileEdit;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -21,14 +21,14 @@ import java.util.List;
 /**
  * Implement longClick, drag, add, delete, done
  */
-public class RecyclerViewAdapterEdit extends
-        RecyclerView.Adapter<RecyclerViewAdapterEdit.ViewHolder> implements
+public class ButtonsEditRecyclerViewAdapter extends
+        RecyclerView.Adapter<ButtonsEditRecyclerViewAdapter.ViewHolder> implements
         ItemMoveCallback.ItemTouchHelperContract {
 
-    private static final String TAG = "RecyclerViewAdapterEdit";
+    private static final String TAG = "ButtonsEditRecyclerViewAdapter";
 
     protected Connection connection; //establishes the connection
-    private AA_ProfileEdit mProfile;
+    private ProfileEditActivity mProfile;
     private List<com.yoke.database.types.Button> mButton;
     private final StartDragListener mStartDragListener;
     private Context mContext ;
@@ -53,7 +53,7 @@ public class RecyclerViewAdapterEdit extends
     /**
      * Put list of items in the constructor
      */
-    public RecyclerViewAdapterEdit(AA_ProfileEdit profile,  List<Button> button, StartDragListener startDragListener, RecyclerView recyclerView) {
+    public ButtonsEditRecyclerViewAdapter(ProfileEditActivity profile, List<Button> button, StartDragListener startDragListener, RecyclerView recyclerView) {
         mProfile = profile;
         mButton = button;
         mStartDragListener = startDragListener;
@@ -64,9 +64,9 @@ public class RecyclerViewAdapterEdit extends
     //inflates the view
     @NonNull
     @Override
-    public RecyclerViewAdapterEdit.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public ButtonsEditRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.aa_layout_listitem, parent, false);
+                    inflate(R.layout.button, parent, false);
 
         ViewHolder holder = new ViewHolder(view);
         return holder;
@@ -74,7 +74,7 @@ public class RecyclerViewAdapterEdit extends
 
     //implement drag
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapterEdit.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ButtonsEditRecyclerViewAdapter.ViewHolder viewHolder, int i) {
         Log.d(TAG, "onBindViewHolder: called");
         com.yoke.database.types.Button button = mButton.get(i);
         viewHolder.buttonImage.setImageBitmap(button.getMacro().getCombinedImage());

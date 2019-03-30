@@ -28,9 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.yoke.activities.profile2.AA_Profile" />
+        <activity android:name="com.yoke.activities.profile.ProfileActivity" />
         <activity
-            android:name="com.yoke.activities.profile2.AA_ProfileEdit"
+            android:name="com.yoke.activities.profileEdit.ProfileEditActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.yoke.activities.home.HomeActivity" />
         <activity
@@ -38,7 +38,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <receiver android:name="com.yoke.activities.splash.ConnectionEventReceiver">
+        <receiver android:name="com.yoke.activities.splash.GlobalMessageReceiver">
             <intent-filter>
                 <action android:name="connectionStateChanged" />
             </intent-filter>

@@ -1,5 +1,6 @@
 package com.yoke.activities.splash;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -20,6 +21,8 @@ import com.yoke.connection.messages.MoveMouseCmd;
 import com.yoke.connection.messages.OpenProgramCmd;
 import com.yoke.connection.messages.OpenURLCmd;
 import com.yoke.connection.messages.PressKeysCmd;
+import com.yoke.connection.messages.app.AppCmd;
+import com.yoke.connection.messages.app.OpenProfileCmd;
 import com.yoke.connection.messages.app.OpenTrackpadCmd;
 import com.yoke.connection.messages.computerCmds.NextTrackCmd;
 import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
@@ -35,8 +38,11 @@ import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 import com.yoke.utils.Keys;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -99,14 +105,14 @@ public class SplashActivity extends AppCompatActivity {
         Context context = this;
         connection.addReceiver(new MessageReceiver<ConnectionFailed>() {
             public void receive(ConnectionFailed message) {
-            forwardConnectionChange(message);
+                forwardGlobalMessage(message);
             }
         });
 
         //receiver in case of disconnection
         connection.addReceiver(new MessageReceiver<Disconnected>() {
             public void receive(Disconnected message) {
-            forwardConnectionChange(message);
+                forwardGlobalMessage(message);
             }
         });
 
@@ -134,16 +140,16 @@ public class SplashActivity extends AppCompatActivity {
 
 
         //receivers for navigation within the app
-        // TODO: move all listener setup to 'ConnectionEventReceiver'
-        connection.addReceiver(new MessageReceiver<OpenTrackpadCmd>() {
-            public void receive(OpenTrackpadCmd message) {
-                forwardConnectionChange(message);
+        // TODO: move all listener setup to 'GlobalMessageReceiver'
+        connection.addReceiver(new MessageReceiver<AppCmd>() {
+            public void receive(AppCmd message) {
+                forwardGlobalMessage(message);
             }
         }, true);
     }
 
     /**
-     * Exits the splash screen
+     * Exits the splash screen if loading is done
      */
     protected void continueApp() {
         // Check if both 'timers' finished
@@ -160,10 +166,11 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     /**
-     * Forwards the connection change to the ConnectionEventReceiver
+     * Forwards a message to the globalMessageReceiver
+     * @param message  The message to forward
      */
-    protected void forwardConnectionChange(Message message) {
-        Intent intent = new Intent(this, ConnectionEventReceiver.class);
+    protected void forwardGlobalMessage(Message message) {
+        Intent intent = new Intent(this, GlobalMessageReceiver.class);
         intent.setAction("connectionStateChanged");
         intent.putExtra("message", message);
         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -206,7 +213,8 @@ public class SplashActivity extends AppCompatActivity {
                         new MoveMouseCmd(100, 100), macroCallback);
                 createMacro("11", R.drawable.youtube,
                         new ClickMouseCmd(ClickMouseCmd.LEFTCLICK), macroCallback);
-                createMacro("12", R.drawable.spotify, new NextTrackCmd(), macroCallback);
+                createMacro("12", R.drawable.spotify,
+                        new OpenProfileCmd(0), macroCallback);
 
 
             }
@@ -236,24 +244,35 @@ public class SplashActivity extends AppCompatActivity {
                     Profile profile1 = new Profile("test1");
                     Profile profile2 = new Profile("test2");
 
-                    // Fill the profiles with their buttons TODO; think of proper names
-                    profile1.addButton(new Button(macros.get("1")));
-                    profile1.addButton(new Button(macros.get("2")));
-                    profile1.addButton(new Button(macros.get("3")));
-                    profile1.addButton(new Button(macros.get("4")));
-                    profile1.addButton(new Button(macros.get("5")));
-                    profile1.addButton(new Button(macros.get("6")));
+                    // Save profile 2 such that it gets an ID
+                    profile1.save(() -> {
+                        // Fill the profiles with their buttons TODO; think of proper names
+                        profile1.addButton(new Button(macros.get("1")));
+                        profile1.addButton(new Button(macros.get("2")));
+                        profile1.addButton(new Button(macros.get("3")));
+                        profile1.addButton(new Button(macros.get("4")));
+                        profile1.addButton(new Button(macros.get("5")));
+                        profile1.addButton(new Button(macros.get("6")));
 
-                    profile2.addButton(new Button(macros.get("7")));
-                    profile2.addButton(new Button(macros.get("8")));
-                    profile2.addButton(new Button(macros.get("9")));
-                    profile2.addButton(new Button(macros.get("10")));
-                    profile2.addButton(new Button(macros.get("11")));
-                    profile2.addButton(new Button(macros.get("12")));
+                        profile2.addButton(new Button(macros.get("7")));
+                        profile2.addButton(new Button(macros.get("8")));
+                        profile2.addButton(new Button(macros.get("9")));
+                        profile2.addButton(new Button(macros.get("10")));
+                        profile2.addButton(new Button(macros.get("11")));
 
-                    // Save the profiles
-                    profile1.save(profileSaveCallback);
-                    profile2.save(profileSaveCallback);
+                        // Assign the correct profileID to the openProfile macro
+                        Macro openProfileMacro = macros.get("12");
+                        openProfileMacro.setAction(new OpenProfileCmd(profile1.getID()));
+                        profile2.addButton(new Button(openProfileMacro));
+
+                        // Save the openProfileMacro
+                        openProfileMacro.save(() -> {
+                            // Save the profiles
+                            profile1.save(profileSaveCallback);
+                            profile2.save(profileSaveCallback);
+                        });
+                    });
+
                 }
             };
         });

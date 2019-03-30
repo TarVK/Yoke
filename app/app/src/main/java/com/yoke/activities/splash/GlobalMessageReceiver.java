@@ -1,29 +1,26 @@
 package com.yoke.activities.splash;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.yoke.R;
 import com.yoke.activities.mouse.MouseActivity;
+import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.connection.Message;
-import com.yoke.connection.messages.OpenProgramCmd;
-import com.yoke.connection.messages.client.OpenTrackpadCmd;
+import com.yoke.connection.messages.app.OpenProfileCmd;
+import com.yoke.connection.messages.app.OpenTrackpadCmd;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
+import com.yoke.database.types.Profile;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-public class ConnectionEventReceiver extends BroadcastReceiver {
+public class GlobalMessageReceiver extends BroadcastReceiver {
     private static final String TAG = "MyBroadcastReceiver";
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -64,9 +61,38 @@ public class ConnectionEventReceiver extends BroadcastReceiver {
             alertDialog.show();
         }
 
-        // Also manage open trackpad events
+        // Also manage app messages\
+
+        // Open trackpad command
         else if (message instanceof OpenTrackpadCmd) {
             context.startActivity(new Intent(context, MouseActivity.class));
+        }
+        // Switch profile command
+        else if (message instanceof OpenProfileCmd) {
+            OpenProfileCmd cmd = (OpenProfileCmd) message;
+
+            // Check if the profile exists first
+            Profile.getByID(cmd.profileID, (profile) -> {
+                if (profile != null) {
+                    // Switch to activity
+                    Intent profileIntent = new Intent(context, ProfileActivity.class);
+                    profileIntent.putExtra("profile id", cmd.profileID);
+                    context.startActivity(profileIntent);
+
+                    // Make sure to not store the history
+                    if (activity != null) {
+                        activity.finish();
+                    }
+                } else {
+                    // If no such profile exists, try to send an error notification
+                    if (activity != null) {
+                        activity.runOnUiThread(() -> {
+                            Toast.makeText(context, "The profile that this action should link to, no longer exists.",
+                                    Toast.LENGTH_LONG).show();
+                        });
+                    }
+                }
+            });
         }
     }
 

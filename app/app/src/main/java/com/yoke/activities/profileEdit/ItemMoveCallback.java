@@ -1,8 +1,10 @@
-package com.yoke.activities.profile2;
+package com.yoke.activities.profileEdit;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+
+import com.yoke.activities.profileEdit.ButtonsEditRecyclerViewAdapter;
 
 public class ItemMoveCallback extends ItemTouchHelper.Callback {
 
@@ -37,9 +39,9 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (viewHolder instanceof RecyclerViewAdapterEdit.ViewHolder) {
-                RecyclerViewAdapterEdit.ViewHolder myViewHolder =
-                        (RecyclerViewAdapterEdit.ViewHolder) viewHolder;
+            if (viewHolder instanceof ButtonsEditRecyclerViewAdapter.ViewHolder) {
+                ButtonsEditRecyclerViewAdapter.ViewHolder myViewHolder =
+                        (ButtonsEditRecyclerViewAdapter.ViewHolder) viewHolder;
                 mAdapter.onRowSelected(myViewHolder);
             }
         }
@@ -51,9 +53,9 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
 
-        if (viewHolder instanceof RecyclerViewAdapterEdit.ViewHolder) {
-            RecyclerViewAdapterEdit.ViewHolder myViewHolder =
-                    (RecyclerViewAdapterEdit.ViewHolder) viewHolder;
+        if (viewHolder instanceof ButtonsEditRecyclerViewAdapter.ViewHolder) {
+            ButtonsEditRecyclerViewAdapter.ViewHolder myViewHolder =
+                    (ButtonsEditRecyclerViewAdapter.ViewHolder) viewHolder;
             mAdapter.onRowClear(myViewHolder);
         }
     }
@@ -77,8 +79,8 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     public interface ItemTouchHelperContract {
 
         void onRowMoved(int fromPosition, int toPosition);
-        void onRowSelected(RecyclerViewAdapterEdit.ViewHolder myViewHolder);
-        void onRowClear(RecyclerViewAdapterEdit.ViewHolder myViewHolder);
+        void onRowSelected(ButtonsEditRecyclerViewAdapter.ViewHolder myViewHolder);
+        void onRowClear(ButtonsEditRecyclerViewAdapter.ViewHolder myViewHolder);
 
 
     }

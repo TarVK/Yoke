@@ -1,4 +1,4 @@
-package com.yoke.activities.profile2;
+package com.yoke.activities.profileEdit;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,28 +12,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yoke.R;
-import com.yoke.database.types.Button;
+import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class AA_ProfileEdit extends AppCompatActivity implements StartDragListener {
+public class ProfileEditActivity extends AppCompatActivity implements StartDragListener {
 
-    private static final String TAG = "AA_ProfileEdit";
+    private static final String TAG = "ProfileEditActivity";
 
 
     private List<com.yoke.database.types.Button> mButton;
     private com.yoke.database.types.Button selectedButton;
     private Profile profile;
     private ArrayList<com.yoke.database.types.Button> deletedButtons = new ArrayList<>();
-    RecyclerViewAdapterEdit adapter;
+    ButtonsEditRecyclerViewAdapter adapter;
     private EditText textView;
 
     boolean isActivated;
@@ -44,7 +42,7 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aa_profile_edit);
+        setContentView(R.layout.activity_profile_edit);
         Toolbar toolbar = findViewById(R.id.toolbarEdit);
         textView = (EditText) findViewById(R.id.profileEditTextView);
 
@@ -126,10 +124,6 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
 
                 profile.save(()->{
                     runOnUiThread(()-> {
-//                        Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
-//                        intent.putExtra("profile id", profile.getID());
-//                        startActivity(intent);
-//                        finish();
                         onBackPressed();
                     });
 
@@ -145,24 +139,26 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
         Log.w(TAG, "retrieveData: " + profileId);
 
         Profile.getByID(profileId, (profile)-> {
-            textView.setText(profile.getName());
-            mButton = (profile.getButtons());
-            this.profile = profile;
+            runOnUiThread(() -> {
+                textView.setText(profile.getName());
+                mButton = (profile.getButtons());
+                this.profile = profile;
 
-            //sort the buttons so they are in order and displayed in a correct order on the layout
-            Collections.sort(mButton, (o1, o2) -> o1.getIndex() - o2.getIndex());
+                //sort the buttons so they are in order and displayed in a correct order on the layout
+                Collections.sort(mButton, (o1, o2) -> o1.getIndex() - o2.getIndex());
 
-            profile.getName();
-            profile.getIndex();
+                profile.getName();
+                profile.getIndex();
 
-            myRecyclerView();
+                myRecyclerView();
+            });
         });
 
     }
 
     private void myRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view_edit);
-        adapter = new RecyclerViewAdapterEdit(AA_ProfileEdit.this, mButton, this, recyclerView);
+        adapter = new ButtonsEditRecyclerViewAdapter(ProfileEditActivity.this, mButton, this, recyclerView);
 
         //looper issue needs to be fixed
         runOnUiThread(new Runnable() {
@@ -190,10 +186,6 @@ public class AA_ProfileEdit extends AppCompatActivity implements StartDragListen
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), AA_Profile.class);
-        intent.putExtra("profile id", profile.getID());
-        startActivity(intent);
-        finish();
         return true;
     }
 

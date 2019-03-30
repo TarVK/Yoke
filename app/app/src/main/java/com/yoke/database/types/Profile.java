@@ -256,6 +256,12 @@ public class Profile extends DataObject<Profile.ProfileData> {
         // A callback for the getAll method to assign the buttons
         DataCallback<Profile> getButtons = new DataCallback<Profile>() {
             public void retrieve(Profile profile) {
+                // Make sure the profile is defined before continuing
+                if (profile == null) {
+                    dataCallback.retrieve(null);
+                    return;
+                }
+
                 // Get all the buttons for the profile, and assign them
                 Button.getAll(profile.getID(), buttons -> {
                     profile.setButtons(buttons);
