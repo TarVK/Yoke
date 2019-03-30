@@ -1,18 +1,12 @@
 package com.yoke.activities.settings;
 
 import android.content.Intent;
-//import android.support.v4.view.LayoutInflaterCompat;
-import android.os.Build;
-import android.view.View;
-import android.view.LayoutInflater;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.activities.tutorial.TutorialActivity;
@@ -23,24 +17,26 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_settings, container, false);
-    }
+    // Doesn't seem required at all and only cause bugs? would make it inflate the activity_settings withings the avtivity_settings?
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.activity_settings, container, false);
+//    }
 
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         //setPreferencesFromResource(R.xml.preferences, rootKey);
 
+        // Use this to store stuff, idk, maybe?
         com.yoke.database.types.Settings settingsData = Settings.getInstance();
 
         Preference tutorial = findPreference("tutorial");
+        System.out.println(tutorial);
+
         tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
