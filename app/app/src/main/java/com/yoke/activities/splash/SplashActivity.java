@@ -1,16 +1,12 @@
 package com.yoke.activities.splash;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 
 import com.example.yoke.R;
 import com.yoke.activities.home.HomeActivity;
@@ -24,7 +20,7 @@ import com.yoke.connection.messages.MoveMouseCmd;
 import com.yoke.connection.messages.OpenProgramCmd;
 import com.yoke.connection.messages.OpenURLCmd;
 import com.yoke.connection.messages.PressKeysCmd;
-import com.yoke.connection.messages.client.OpenTrackpadCmd;
+import com.yoke.connection.messages.app.OpenTrackpadCmd;
 import com.yoke.connection.messages.computerCmds.NextTrackCmd;
 import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
 import com.yoke.connection.messages.computerCmds.VolumeDownCmd;

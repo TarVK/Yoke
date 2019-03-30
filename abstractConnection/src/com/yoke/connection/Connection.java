@@ -57,33 +57,45 @@ public abstract class Connection {
     /**
      * Destroys the connection
      */
-    public abstract void destroy();    
-    
+    public abstract void destroy();
+
     /**
      * Sends a message over the channel, by turning it into a byte array
      * @param message  The message to send
      */
     public void send(Message message) {
-        try {
-            // Send the message to local receivers
-            emitToReceivers(message, this.sendReceivers);
+        send(message, false);
+    }
 
-            // If it's a non compound message, serialize it        
-            byte[] messageStream = Message.serialize(message);
-            int size = messageStream.length;
-            
-            // Prefix the message with the byte size
-            byte[] stream = new byte[size + 4];
-            System.arraycopy(messageStream, 0, stream, 4, size);
-            stream[0] = (byte)(size >> 24);
-            stream[1] = (byte)(size >> 16);
-            stream[2] = (byte)(size >> 8);
-            stream[3] = (byte)(size);
-        
-            // Send the message
-            this.sendMessageStream(stream);
-        } catch (IOException e) {
-            e.printStackTrace();
+    /**
+     * Sends a message over the channel, by turning it into a byte array
+     * @param message  The message to send
+     * @param local  Whether or not to just emit the message locally,
+     *               rather than transferring it over the connection
+     */
+    public void send(Message message, boolean local) {
+        if (local) {
+            // Send the message to local receivers
+            emit(message, this.sendReceivers);
+        } else {
+            try {
+                // If it's a non compound message, serialize it
+                byte[] messageStream = Message.serialize(message);
+                int size = messageStream.length;
+
+                // Prefix the message with the byte size
+                byte[] stream = new byte[size + 4];
+                System.arraycopy(messageStream, 0, stream, 4, size);
+                stream[0] = (byte)(size >> 24);
+                stream[1] = (byte)(size >> 16);
+                stream[2] = (byte)(size >> 8);
+                stream[3] = (byte)(size);
+
+                // Send the message
+                this.sendMessageStream(stream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     
@@ -207,12 +219,22 @@ public abstract class Connection {
             throw new IllegalArgumentException("The given byte array could not be converted to a message");
         }
     }
-    
+
     /**
      * Forwards a certain message to all receivers for this message type
      * @param message  The message to emit
      */
     protected void emit(Message message) {
+        this.emit(message, this.receivers);
+    }
+
+    /**
+     * Forwards a certain message to all receivers for this message type
+     * @param message  The message to emit
+     * @param receiverMap  The possible receivers to send it to
+     */
+    protected void emit(Message message, HashMap<Class<? extends Message>,
+            List<MessageReceiver<?>>> receiverMap) {
         // Check whether it is a regular message, or a compound message
         if (message instanceof CompoundMessage) {
             // If it is a compound message, sequence the emit properly
@@ -233,43 +255,31 @@ public abstract class Connection {
                 t.schedule(
                     new java.util.TimerTask() {
                         public void run() {
-                            emit(md.message);
+                            emit(md.message, receiverMap);
                         }
                     },
                     cumulativeDelay
                 );
             }
         } else {
-            emitToReceivers(message, this.receivers);
-        }
-    }
+            // Go through all super classes of the message
+            Class c = message.getClass();
+            while (c != null) {
 
-    /**
-     * Forwards a certain message to subset of passed receivers for this message type
-     * Doesn't handle compound messages
-     * @param message  The message to emit
-     * @param receiverMap  The possible receivers to send it to
-     */
-    protected void emitToReceivers(Message message,
-                                   HashMap<Class<? extends Message>,
-                                           List<MessageReceiver<?>>> receiverMap) {
-        // Go through all super classes of the message
-        Class c = message.getClass();
-        while (c != null) {
+                // Get the receivers for this message type
+                List<MessageReceiver<?>> receivers = receiverMap.get(c);
 
-            // Get the receivers for this message type
-            List<MessageReceiver<?>> receivers = receiverMap.get(c);
-
-            // Make sure there are receivers for the message type
-            if (receivers != null) {
-                // Call each of the receivers
-                for (MessageReceiver receiver: receivers) {
-                    invokeReceiver(receiver, message);
+                // Make sure there are receivers for the message type
+                if (receivers != null) {
+                    // Call each of the receivers
+                    for (MessageReceiver receiver: receivers) {
+                        invokeReceiver(receiver, message);
+                    }
                 }
-            }
 
-            // Get the super class
-            c = c.getSuperclass();
+                // Get the super class
+                c = c.getSuperclass();
+            }
         }
     }
     
