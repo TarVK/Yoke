@@ -12,9 +12,8 @@ INDEX VERSION 1.131+C:\Users\tarde\Documents\Projects\Github\Yoke\.metadata\.plu
 1580166048.index
 592600685.index
 4232500288.index
-1368629669.index
 1055679481.index
-4248239116.index
+1368629669.index
 2692035760.index
 3947521672.index
 3637040476.index

@@ -34,8 +34,11 @@ public abstract class Preset {
     // The number of macros that are currently being created
     protected int awaitingMacroCount = 0;
 
+    // The number of macros in the profile
+    protected byte buttonCount = 6;
+
     // The list of macros that should be added to the profile
-    protected Macro[] macros = new Macro[6];
+    protected Macro[] macros;
 
     // A list of listeners that check whether the preset has been finished
     protected List<DataCallback<Long>> finishCallbacks = new ArrayList<>();
@@ -50,6 +53,9 @@ public abstract class Preset {
      */
     protected Preset(Context context) {
         this.context = context;
+
+        // Create the macros list
+        macros = new Macro[buttonCount];
 
         // Create a profile
         profile = new Profile("P" + Math.random());

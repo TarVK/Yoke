@@ -83,7 +83,7 @@ public class ButtonsEditRecyclerViewAdapter extends
 
         viewHolder.buttonImage.setOnTouchListener(new View.OnTouchListener() {
 
-            //activate dragging
+            //Select macro
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {

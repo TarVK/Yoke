@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +18,10 @@ import android.widget.TextView;
 import com.example.yoke.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
+import com.yoke.activities.profileEdit.ItemMoveCallback;
 import com.yoke.activities.profileEdit.ProfileEditActivity;
 import com.yoke.database.types.Profile;
 
@@ -30,6 +35,10 @@ public class HomeActivity extends AppCompatActivity {
     MyAdapter adapter;
     ArrayList<Profile> profiles = new ArrayList<>();
 
+    DragController dragController;
+    ItemTouchHelper dragHelper;
+    boolean orderChanged = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,22 +50,36 @@ public class HomeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        adapter = new MyAdapter(profiles, this);
+        adapter = new HomeAdapter(profiles, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-        Context mContext = this; //TODO add fab implementation and replace with extended text fab
-        button.setOnClickListener(v -> {
-            Profile profile = new Profile("Some Cool {Profile");
-            profile.save(() -> {
-                long ID = profile.getID();
-                Log.w("COOL ID ", ID+"");
-                Intent intent = new Intent(mContext, ProfileEditActivity.class);
-                intent.putExtra("profile id", ID);
-                mContext.startActivity(intent);
-            });
+        // Add a swipe adapter
+        ItemTouchHelper.Callback swipeController = new SwipeController(this);
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+        itemTouchhelper.attachToRecyclerView(recyclerView);
+
+        // Add drag adapter
+        dragController = new DragController(adapter);
+        dragHelper = new ItemTouchHelper(dragController);
+        dragHelper.attachToRecyclerView(recyclerView);
+
+
+        Context mContext = this;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Profile profile = new Profile("Some Cool Profile");
+                profile.setIndex(profiles.size());
+                profile.save(() -> {
+                    long ID = profile.getID();
+                    Intent intent = new Intent(mContext, ProfileEditActivity.class);
+                    intent.putExtra("profile id", ID);
+                    mContext.startActivity(intent);
+                });
+            }
         });
 
         settings.setOnClickListener(settingsView -> {
@@ -71,28 +94,42 @@ public class HomeActivity extends AppCompatActivity {
         initRecyclerView();
     }
 
-    // Initialize the RecyclerView
+    /**
+     * Initializes the recycler view
+     */
     private void initRecyclerView() {
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
         Profile.getAll(retrievedProfiles -> {
             runOnUiThread(() -> {
                 profiles.clear();
                 profiles.addAll(retrievedProfiles);
+
+                // Sort the profiles by index
+                Collections.sort(profiles, new Comparator<Profile>() {
+                    public int compare(Profile p1, Profile p2) {
+                        return p1.getIndex() - p2.getIndex();
+                    }
+                });
+
                 adapter.notifyDataSetChanged();
             });
         });
 
     }
 
-    //method to get all profiles.
-   /* private void getProfiles() {
-        Profile.getAll(new DataObject.DataCallback<List<Profile>>(){
-            public void retrieve(List<Profile> profiles) {
+    @Override
+    protected void onPause() {
+        super.onPause();
 
+        if (orderChanged) {
+            orderChanged = false;
+            for (int i = 0; i < profiles.size(); i++) {
+                Profile profile = profiles.get(i);
+                profile.setIndex(i);
+                profile.save();
             }
-        });
-    }*/
-
+        }
+    }
 
     @Override
     public void onResume() {

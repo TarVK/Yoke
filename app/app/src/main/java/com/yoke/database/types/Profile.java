@@ -165,9 +165,7 @@ public class Profile extends DataObject<Profile.ProfileData> {
         this.buttons.remove(button);
     }
 
-    /**
-     * Saves the profile data into the database, as well as all the added buttons
-     */
+    @Override
     public void save(Callback callback){
         Profile p = this;
 
@@ -180,13 +178,37 @@ public class Profile extends DataObject<Profile.ProfileData> {
                     button.setProfile(p);
                     button.save(() -> {
                         // If we have saved all of the buttons, perform the callback
-                        if (++completed == buttons.size() && callback != null) {
+                        if (++completed == buttons.size()) {
                             callback.call();
                         }
                     });
                 }
 
                 // If there are no buttons to save, perform the callback immediately
+                if (buttons.size() == 0) {
+                    callback.call();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void delete(Callback callback) {
+        super.delete(new Callback() {
+            // Track how many of the buttons we have deleted
+            int completed = 0;
+
+            public void call() {
+                for (Button button: buttons) {
+                    button.delete(() -> {
+                        // If we have deleted all of the buttons, perform the callback
+                        if (++completed == buttons.size()) {
+                            callback.call();
+                        }
+                    });
+                }
+
+                // If there are no buttons to be deleted, perform the callback immediately
                 if (buttons.size() == 0) {
                     callback.call();
                 }

@@ -150,13 +150,16 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
                 profile.getName();
                 profile.getIndex();
 
-                myRecyclerView();
+                initializeRecyclerView();
             });
         });
 
     }
 
-    private void myRecyclerView() {
+    /**
+     * Initializes the recycler view
+     */
+    private void initializeRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view_edit);
         adapter = new ButtonsEditRecyclerViewAdapter(ProfileEditActivity.this, mButton, this, recyclerView);
 
