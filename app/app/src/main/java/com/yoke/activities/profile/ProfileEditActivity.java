@@ -47,7 +47,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
-        Toolbar toolbar = findViewById(R.id.toolbarEditView);
+        Toolbar toolbar = findViewById(R.id.toolbarEdit);
 
         profileEditTextView = (EditText) findViewById(R.id.profileEditTextView);
 
@@ -76,7 +76,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         });
 
         // Edit selected macro
-        findViewById(R.id.addMacro)
+        findViewById(R.id.editMacro)
                 .setOnClickListener(deleteView -> {
             long macroID = selectedButton.getMacro().getID();
             Intent intent = new Intent(getApplicationContext(), MacroActivity.class);

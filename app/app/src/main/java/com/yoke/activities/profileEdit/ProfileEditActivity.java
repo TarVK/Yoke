@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.yoke.R;
@@ -33,7 +34,13 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
     private Profile profile;
     private ArrayList<com.yoke.database.types.Button> deletedButtons = new ArrayList<>();
     ButtonsEditRecyclerViewAdapter adapter;
-    private EditText textView;
+
+    private EditText profileName;
+    private ImageView addMacro;
+    private ImageView editMacro;
+    private ImageView deleteMacro;
+    private ImageView doneMacro;
+
 
     boolean isActivated;
     boolean isLandscape;
@@ -45,7 +52,12 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
         Toolbar toolbar = findViewById(R.id.toolbarEdit);
-        textView = (EditText) findViewById(R.id.profileEditTextView);
+
+        profileName = (EditText) findViewById(R.id.profileEditTextView);
+        addMacro = (ImageView) findViewById(R.id.addMacro);
+        editMacro = (ImageView) findViewById(R.id.editMacro);
+        deleteMacro = (ImageView) findViewById(R.id.deleteMacro);
+        doneMacro = (ImageView) findViewById(R.id.doneMacro);
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
@@ -58,19 +70,14 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
 
         Log.d(TAG, "onCreate: edit started");
 
-
         retrieveProfileData();
 
-        ImageButton add = findViewById(R.id.addMacro);
-        ImageButton delete = findViewById(R.id.deleteMacro);
-        ImageButton edit = findViewById(R.id.editMacro);
-        ImageButton done = findViewById(R.id.doneEdit);
-
+        //TODO replace with custom button type [+], so the nav button can be removed
         //add a new macro, it should direct to the macro activity
-        add.setOnClickListener(v -> {
-            //TODO add global check to allow for button hiding
+        addMacro.setOnClickListener(v -> {
             if (profile.hasSpace()) {
-//                Intent intent = new Intent(getApplicationContext(), MacroSelector.class); //TODO add selection activity
+                //TODO add selection activity
+//                Intent intent = new Intent(getApplicationContext(), MacroSelector.class);
 //                startActivity(intent);
             } else {
                 Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
@@ -78,15 +85,16 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         });
 
         //edit a macro, it should direct to the macro activity
-        add.setOnClickListener(v -> {
+        editMacro.setOnClickListener(v -> {
             long macroID = selectedButton.getMacro().getID();
             Intent intent = new Intent(getApplicationContext(), MacroActivity.class);
             intent.putExtra("macro id", macroID);
+            intent.putExtra("profile id", profile.getID());
             startActivity(intent);
         });
 
         //delete a selected macro
-        delete.setOnClickListener(v -> {
+        deleteMacro.setOnClickListener(v -> {
             //TODO generalize index with macroID
             int index = mButton.indexOf(selectedButton);
 
@@ -103,7 +111,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         });
 
         //finish edit
-        done.setOnClickListener(v -> {
+        doneMacro.setOnClickListener(v -> {
             for (byte i = 0; i < mButton.size(); i++ ) {
                 mButton.get(i).setIndex(i);
             }
@@ -112,7 +120,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
                 button.delete();
             }
 
-            profile.setName(textView.getText().toString());
+            profile.setName(profileName.getText().toString());
 
             profile.save(()->{
                 runOnUiThread(()-> {
@@ -126,12 +134,12 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
 
     //still retrieves the data on edit page as well
     public void retrieveProfileData() {
-        Long profileId = getIntent().getLongExtra("profile id", 0);
-        Log.w(TAG, "retrieveData: " + profileId);
+        Long profileID = getIntent().getLongExtra("profile id", 0);
+        Log.w(TAG, "retrieveData: " + profileID);
 
-        Profile.getByID(profileId, (profile)-> {
+        Profile.getByID(profileID, (profile)-> {
             runOnUiThread(() -> {
-                textView.setText(profile.getName());
+                profileName.setText(profile.getName());
                 mButton = (profile.getButtons());
                 this.profile = profile;
 

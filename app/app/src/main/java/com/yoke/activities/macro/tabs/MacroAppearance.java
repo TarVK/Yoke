@@ -478,37 +478,34 @@ public class MacroAppearance extends Fragment {
     }
 
     public void retrieveData() {
-        Long macroId = getActivity().getIntent().getLongExtra("macro id", -1);
+        long macroId = getActivity().getIntent().getLongExtra("macro id", -1);
         Log.w(TAG, "retrieveData: " + macroId);
 
         if (macroId == -1) {
             //TODO createMacro
             Log.d(TAG, "Macro should be created: " + macroId);
-        } else if (macroId > -1 && macroId < 6) {
+        } else {
             Macro.getByID(macroId, (macro) -> {
                 if (macro != null) {
-                    Log.w(TAG, "here: " + macroId);
                     textEnabled = macro.isTextEnabled();
 
                     //TODO add exceptions in Macro.java (e.g. no foregroundimage selected use default) and backgroundcolor instead of backgroundImage)
-                    foregroundImage.setImageBitmap(macro.getForegroundImage()); //TODO replace with macro.getForeground()
+                    foregroundImage.setImageBitmap(macro.getForegroundImage());
 //                    foregroundAlpha = macro.getForegroundAlpha();
                     foregroundSize = macro.resolution;
 //                    foregroundAspectRatio = macro.getForegroundApectRatio();
 
-                    backgroundImage.setImageBitmap(macro.getBackgroundImage()); //TODO replace with macro.getBackground()
-//                    backgroundAlpha = macro.getBackgroundALpha();
+                    backgroundImage.setImageBitmap(macro.getBackgroundImage());
+//                    backgroundAlpha = macro.getBackgroundAlpha();
                     backgroundSize = macro.resolution;
 //                    backgroundAspectRatio = macro.getBackgroundApectRatio();
 
 
                     previewImage.setImageBitmap(macro.getCombinedImage());
                 } else {
-                    Log.e(TAG, "macro is null" + macroId);
+                    Log.e(TAG, "macro is not initialized: " + macroId);
                 }
             });
-        } else {
-            Log.e(TAG, "MacroActivity incorrectly called; wrong macroId: " + macroId);
         }
     }
 
