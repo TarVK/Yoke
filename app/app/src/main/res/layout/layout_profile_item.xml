@@ -17,7 +17,7 @@
         android:layout_marginTop="8dp"
         android:background="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/trash"
+        android:src="@drawable/delete_button"
         android:text="Button"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
