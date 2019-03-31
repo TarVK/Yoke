@@ -1,5 +1,6 @@
 package com.yoke.activities.macro.tabs;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -10,7 +11,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import com.example.yoke.R;
 import com.yoke.connection.Connection;
@@ -18,8 +23,6 @@ import com.yoke.connection.client.MultiClientConnection;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MacroSequenceRecyclerViewAdapter extends RecyclerView.Adapter<MacroSequenceRecyclerViewAdapter.MyViewHolder> implements MacroSequenceItemMoveCallback.ItemTouchHelperContract {

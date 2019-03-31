@@ -9,8 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+
 
 import com.example.yoke.R;
 
@@ -21,7 +21,7 @@ import com.yoke.database.types.Profile;
 
 public class HomeActivity extends AppCompatActivity {
     FloatingActionButton button;
-    ImageButton settings;
+    ImageView settings;
     Toolbar toolbar;
     private ArrayList<Profile> mDataset = new ArrayList<>();
     RecyclerView recyclerView2;
@@ -45,26 +45,20 @@ public class HomeActivity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView2.setLayoutManager(llm);
 
-        Context mContext = this;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Profile profile = new Profile("Some Cool {Profile");
-                profile.save(() -> {
-                    long ID = profile.getID();
-                    Log.w("COOL ID ", ID+"");
-                    Intent intent = new Intent(mContext, ProfileEditActivity.class);
-                    intent.putExtra("profile id", ID);
-                    mContext.startActivity(intent);
-                });
-            }
+        Context mContext = this; //TODO add fab implementation and replace with extended text fab
+        button.setOnClickListener(v -> {
+            Profile profile = new Profile("Some Cool {Profile");
+            profile.save(() -> {
+                long ID = profile.getID();
+                Log.w("COOL ID ", ID+"");
+                Intent intent = new Intent(mContext, ProfileEditActivity.class);
+                intent.putExtra("profile id", ID);
+                mContext.startActivity(intent);
+            });
         });
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(), Settings.class));
-            }
+        settings.setOnClickListener(settingsView -> {
+            //startActivity(new Intent(getApplicationContext(), Settings.class));
         });
 
         initData();

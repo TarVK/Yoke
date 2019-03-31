@@ -8,12 +8,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
+
+import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.example.yoke.R;
+import android.support.v7.widget.RecyclerView;
+
+import com.yoke.activities.splash.SplashActivity;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
+import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
