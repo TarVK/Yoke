@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.yoke.R;
+import com.yoke.activities.macro.MacroActivity;
 import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.database.types.Profile;
 
@@ -66,70 +67,60 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         ImageButton done = findViewById(R.id.doneEdit);
 
         //add a new macro, it should direct to the macro activity
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (profile.hasSpace()) {
-                    long macroID = selectedButton.getMacro().getID();
-                    // TODO: create intent
-                } else {
-                    Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
-                }
+        add.setOnClickListener(v -> {
+            //TODO add global check to allow for button hiding
+            if (profile.hasSpace()) {
+//                Intent intent = new Intent(getApplicationContext(), MacroSelector.class); //TODO add selection activity
+//                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
             }
         });
 
         //edit a macro, it should direct to the macro activity
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long macroID = selectedButton.getMacro().getID();
-                // TODO: create intent
-            }
+        add.setOnClickListener(v -> {
+            long macroID = selectedButton.getMacro().getID();
+            Intent intent = new Intent(getApplicationContext(), MacroActivity.class);
+            intent.putExtra("macro id", macroID);
+            startActivity(intent);
         });
 
         //delete a selected macro
-        delete.setOnClickListener(new View.OnClickListener() {
+        delete.setOnClickListener(v -> {
+            //TODO generalize index with macroID
+            int index = mButton.indexOf(selectedButton);
 
-            @Override
-            public void onClick(View v) {
-                int index = mButton.indexOf(selectedButton);
-
-                profile.removeButton(selectedButton);
+            profile.removeButton(selectedButton);
 //                selectedButton.delete();
-                deletedButtons.add(selectedButton);
-                mButton.remove(selectedButton);
-                Log.w(TAG, "onClick: " + index);
+            deletedButtons.add(selectedButton);
+            mButton.remove(selectedButton);
+            Log.w(TAG, "onClick: " + index);
 
-                adapter.notifyItemRangeChanged(index, mButton.size());
-                adapter.notifyItemRemoved(index);
+            adapter.notifyItemRangeChanged(index, mButton.size());
+            adapter.notifyItemRemoved(index);
 //                adapter.notifyDataSetChanged();
 
-            }
         });
 
         //finish edit
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (byte i = 0; i < mButton.size(); i++ ) {
-                    mButton.get(i).setIndex(i);
+        done.setOnClickListener(v -> {
+            for (byte i = 0; i < mButton.size(); i++ ) {
+                mButton.get(i).setIndex(i);
+            }
 
-                }
+            for (com.yoke.database.types.Button button : deletedButtons) {
+                button.delete();
+            }
 
-                for (com.yoke.database.types.Button button : deletedButtons) {
-                    button.delete();
-                }
+            profile.setName(textView.getText().toString());
 
-                profile.setName(textView.getText().toString());
-
-                profile.save(()->{
-                    runOnUiThread(()-> {
-                        onBackPressed();
-                    });
-
+            profile.save(()->{
+                runOnUiThread(()-> {
+                    onBackPressed();
                 });
 
-            }
+            });
+
         });
     }
 

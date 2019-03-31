@@ -52,4 +52,15 @@ dependencies {
     testImplementation 'android.arch.persistence.room:testing:1.1.1'
     implementation 'com.android.support:gridlayout-v7:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+    // Override libraries against version incompatibility for cropping library
+    implementation 'com.android.support:exifinterface:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+
+    // Cropping library
+    //noinspection GradleDependency
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+
+    // Color picker library
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
 }
