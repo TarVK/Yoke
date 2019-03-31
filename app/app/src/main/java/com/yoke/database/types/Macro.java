@@ -326,6 +326,24 @@ public class Macro extends DataObject<Macro.MacroData> {
         @ColumnInfo(name = "foregroundColor")
         public int foregroundColor;
 
+//        @ColumnInfo(name = "backgroundAlpha")
+//        public int backgroundAlpha;
+//
+//        @ColumnInfo(name = "foregroundAlpha")
+//        public int foregroundAlpha;
+//
+//        @ColumnInfo(name = "backgroundSize")
+//        public int backgroundSize;
+//
+//        @ColumnInfo(name = "foregroundSize")
+//        public int foregroundSize;
+//
+//        @ColumnInfo(name = "backgroundAspectRatio")
+//        public int backgroundAspectRatio;
+//
+//        @ColumnInfo(name = "foregroundAspectRatio")
+//        public int foregroundAspectRatio;
+
         @ColumnInfo(name = "text")
         public String text;
 

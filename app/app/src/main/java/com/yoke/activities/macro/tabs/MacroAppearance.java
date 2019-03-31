@@ -3,8 +3,14 @@ package com.yoke.activities.macro.tabs;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -24,12 +30,15 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.yoke.database.types.Macro;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class MacroAppearance extends Fragment {
 
     private static final String TAG = "MacroAppearance";
+
+    private Long macroID;
 
     private ImageView foregroundColorPicker;
     private ImageView backgroundColorPicker;
@@ -63,10 +72,6 @@ public class MacroAppearance extends Fragment {
 
     private int foregroundAspectRatio;
     private int backgroundAspectRatio;
-
-
-    private Macro macro;
-
 
     public MacroAppearance() {
         // Required empty public constructor
@@ -109,21 +114,21 @@ public class MacroAppearance extends Fragment {
 
         // Foreground Image OnclickListener
         foregroundImage
-                .setOnClickListener(viewFGImage -> {
+                .setOnClickListener(v -> {
                     imageOption = 0;
                     pickFromGallery();
                 });
 
         // Background Image OnclickListener
         backgroundImage
-                .setOnClickListener(viewBGImage -> {
+                .setOnClickListener(v -> {
                     imageOption = 1;
                     pickFromGallery();
                 });
 
         // Foreground Solid Color Picker OnclickListener
         foregroundColorPicker
-                .setOnClickListener(viewBGColorPicker -> {
+                .setOnClickListener(v -> {
                     if (hasSolidBackgroundColor) {
                         imageOption = 0;
                         pickFromGallery();
@@ -136,7 +141,7 @@ public class MacroAppearance extends Fragment {
 
         // Background Solid Color Picker OnclickListener
         backgroundColorPicker
-                .setOnClickListener(viewBGColorPicker -> {
+                .setOnClickListener(v -> {
                     if (hasSolidBackgroundColor) {
                         imageOption = 1;
                         pickFromGallery();
@@ -149,7 +154,7 @@ public class MacroAppearance extends Fragment {
 
         // Background Solid Color Picker OnclickListener
         descriptionColorPicker
-                .setOnClickListener(viewBGColorPicker -> {
+                .setOnClickListener(v -> {
                     imageOption = 2;
                     openColorPicker();
                 });
@@ -157,18 +162,14 @@ public class MacroAppearance extends Fragment {
         //Check if switch is pressed
         descriptionSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             descriptionValue.setEnabled(isChecked);
-            macro.setTextEnabled(isChecked);
+            descriptionColorPicker.setEnabled(isChecked);
+            Macro.getByID(macroID, (macro) -> macro.setTextEnabled(isChecked));
         });
 
         // EditText Change Listener (sets macro.text and updates preview)
         descriptionValue.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                macro.createCombinedImage((combBitmap) -> {
-                    String text = s.toString();
-                    macro.setText(text);
-                    previewImage.setImageBitmap(combBitmap);
-                });
             }
 
             @Override
@@ -177,6 +178,11 @@ public class MacroAppearance extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                Macro.getByID(macroID, (macro) -> {
+                    macro.setText(text);
+                    macro.createCombinedImage(combBitmap -> previewImage.setImageBitmap(combBitmap));
+                });
             }
         });
 
@@ -186,9 +192,13 @@ public class MacroAppearance extends Fragment {
         seekAlphaForeground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                macro.createCombinedImage((combBitmap) -> {
+                Macro.getByID(macroID, (macro) -> {
+                    macro.createCombinedImage((combBitmap) -> {
+                        foregroundAlpha = progress;
+                        foregroundImage.setImageAlpha(foregroundAlpha);
 //                    macro.setForegroundAlpha(progress); //TODO add alpha to macro.java
-                    previewImage.setImageBitmap(combBitmap);
+                        previewImage.setImageBitmap(combBitmap);
+                    });
                 });
             }
 
@@ -212,15 +222,23 @@ public class MacroAppearance extends Fragment {
         seekSizeForeground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                macro.createCombinedImage((combBitmap) -> {
-//                    int height = macro.getForegroundHeight();//TODO add size
-//                    int width = macro.getForegroundWidth();
-//                    int sHeight = height * (progress / 100);
-//                    int sWidth = width * (progress / 100);
-//                    macro.setForegroundHeight(sHeight);
-//                    macro.setForeGroundWidth(sWidth);
-                    previewImage.setImageBitmap(combBitmap);
-                });
+//                Macro.getByID(macroID, (macro) -> {
+//                    macro.createCombinedImage((combBitmap) -> {
+//                        Bitmap oldBitmap = macro.getForegroundImage();
+//
+//                        int width = oldBitmap.getWidth();
+//                        int height = oldBitmap.getHeight();
+//
+//                        int dWidth = Math.round(width * (progress / 100));
+//                        int dHeight = Math.round(height * (progress / 100));
+//
+//                        Bitmap newBitmap = Bitmap.createScaledBitmap(oldBitmap, dWidth, dHeight, false);
+//
+//                        foregroundImage.setImageBitmap(newBitmap);
+//                        macro.setForegroundImage(newBitmap);
+//                        previewImage.setImageBitmap(combBitmap);
+//                    });
+//                });
             }
 
             @Override
@@ -243,7 +261,8 @@ public class MacroAppearance extends Fragment {
         seekAspectForeground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                macro.createCombinedImage((combBitmap) -> {
+                Macro.getByID(macroID, (macro) -> {
+                    macro.createCombinedImage((combBitmap) -> {
 //                    int height = macro.getForegroundHeight();//TODO add size
 //                    int width = macro.getForegroundWidth();
 //                    int aspectRatio = width / height * (progress / 100);
@@ -256,7 +275,8 @@ public class MacroAppearance extends Fragment {
 //                    }
 //                    macro.setForegroundHeight(sHeight);
 //                    macro.setForeGroundWidth(sWidth);
-                    previewImage.setImageBitmap(combBitmap);
+                        previewImage.setImageBitmap(combBitmap);
+                    });
                 });
             }
 
@@ -281,9 +301,13 @@ public class MacroAppearance extends Fragment {
         seekAlphaBackground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                macro.createCombinedImage((combBitmap) -> {
+                Macro.getByID(macroID, (macro) -> {
+                    macro.createCombinedImage((combBitmap) -> {
+                        backgroundAlpha = progress;
+                        backgroundImage.setImageAlpha(backgroundAlpha);
 //                    macro.setBackgroundAlpha(progress); //TODO add alpha to macro.java
-                    previewImage.setImageBitmap(combBitmap);
+                        previewImage.setImageBitmap(combBitmap);
+                    });
                 });
             }
 
@@ -307,14 +331,16 @@ public class MacroAppearance extends Fragment {
         seekSizeBackground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                macro.createCombinedImage((combBitmap) -> {
+                Macro.getByID(macroID, (macro) -> {
+                    macro.createCombinedImage((combBitmap) -> {
 //                    int height = macro.getBackgroundHeight();//TODO add size
 //                    int width = macro.getBackgroundWidth();
 //                    int sHeight = height * (progress / 100);
 //                    int sWidth = width * (progress / 100);
 //                    macro.setBackgroundHeight(sHeight);
 //                    macro.setBackGroundWidth(sWidth);
-                    previewImage.setImageBitmap(combBitmap);
+                        previewImage.setImageBitmap(combBitmap);
+                    });
                 });
             }
 
@@ -338,7 +364,8 @@ public class MacroAppearance extends Fragment {
         seekAspectBackground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                macro.createCombinedImage((combBitmap) -> {
+                Macro.getByID(macroID, (macro) -> {
+                    macro.createCombinedImage((combBitmap) -> {
 //                    int height = macro.getBackgroundHeight();//TODO add size
 //                    int width = macro.getBackgroundWidth();
 //                    int aspectRatio = width / height * (progress / 100);
@@ -351,7 +378,8 @@ public class MacroAppearance extends Fragment {
 //                    }
 //                    macro.setBackgroundHeight(sHeight);
 //                    macro.setBackGroundWidth(sWidth);
-                    previewImage.setImageBitmap(combBitmap);
+                        previewImage.setImageBitmap(combBitmap);
+                    });
                 });
             }
 
@@ -368,6 +396,7 @@ public class MacroAppearance extends Fragment {
 
         view.findViewById(R.id.seekAspectBackgroundDefault)
                 .setOnClickListener(viewAspectBGDefault -> seekAspectBackground.setProgress(backgroundAspectRatio));
+
 
 
         // Inflate the layout for this fragment
@@ -417,23 +446,35 @@ public class MacroAppearance extends Fragment {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
                         switch (imageOption) {
                             case 0:
-                                macro.createCombinedImage((combBitmap) -> {
-                                    macro.setForegroundImage(bitmap);
-                                    foregroundImage.setImageBitmap(bitmap);
-                                    previewImage.setImageBitmap(combBitmap);
+                                Macro.getByID(macroID, (macro) -> {
+                                    macro.createCombinedImage((combBitmap) -> {
+
+                                        // Remove solid color and reset color picker image and its color
+                                        macro.setForegroundColor(0x00000000);
+                                        foregroundColorPicker.setImageResource(R.drawable.color_picker);
+
+                                        // Set appropriate images
+                                        macro.setForegroundImage(bitmap);
+                                        foregroundImage.setImageBitmap(bitmap);
+                                        Bitmap newb = macro.getCombinedImage();
+                                        previewImage.setImageBitmap(newb);
+                                    });
                                 });
+
                                 break;
                             case 1:
-                                macro.createCombinedImage((combBitmap) -> {
+                                Macro.getByID(macroID, (macro) -> {
+                                    macro.createCombinedImage((combBitmap) -> {
 
-                                    // Remove solid color and reset color picker image and its color
-                                    macro.setBackgroundColor(0x00000000);
-                                    backgroundColorPicker.setImageResource(R.drawable.color_picker);
-                                    backgroundColorPicker.setColorFilter(R.color.colorSecondary);
+                                        // Remove solid color and reset color picker image and its color
+                                        macro.setBackgroundColor(0x00000000);
+                                        backgroundColorPicker.setImageResource(R.drawable.color_picker);
 
-                                    macro.setBackgroundImage(bitmap);
-                                    backgroundImage.setImageBitmap(bitmap);
-                                    previewImage.setImageBitmap(combBitmap);
+                                        // Set appropriate images
+                                        macro.setBackgroundImage(bitmap);
+                                        backgroundImage.setImageBitmap(bitmap);
+                                        previewImage.setImageBitmap(combBitmap);
+                                    });
                                 });
                                 break;
                             default:
@@ -467,29 +508,36 @@ public class MacroAppearance extends Fragment {
 
                 //IF foreground
                 if (imageOption == 0) {
-                    macro.createCombinedImage((combBitmap) -> {
-                        foregroundColorPicker.setImageResource(R.drawable.reset_button);
-                        hasSolidBackgroundColor = true;
+                    Macro.getByID(macroID, (macro) -> {
+                        macro.createCombinedImage((combBitmap) -> {
+                            foregroundColorPicker.setImageResource(R.drawable.reset_button);
+                            hasSolidBackgroundColor = true;
 
-                        macro.setForegroundColor(color);
-                        foregroundImage.setImageResource(R.drawable.default_image);
-                        previewImage.setImageBitmap(combBitmap);
+                            macro.setForegroundColor(color);
+                            foregroundImage.setImageResource(R.drawable.default_image);
+                            previewImage.setImageBitmap(combBitmap);
+                        });
                     });
+
                 //IF background
                 } else if (imageOption == 1) {
-                    macro.createCombinedImage((combBitmap) -> {
-                        backgroundColorPicker.setImageResource(R.drawable.reset_button);
-                        hasSolidBackgroundColor = true;
+                    Macro.getByID(macroID, (macro) -> {
+                        macro.createCombinedImage((combBitmap) -> {
+                            backgroundColorPicker.setImageResource(R.drawable.reset_button);
+                            hasSolidBackgroundColor = true;
 
-                        macro.setBackgroundColor(color);
-                        backgroundImage.setImageResource(R.drawable.default_image);
-                        previewImage.setImageBitmap(combBitmap);
+                            macro.setBackgroundColor(color);
+                            backgroundImage.setImageResource(R.drawable.default_image);
+                            previewImage.setImageBitmap(combBitmap);
+                        });
                     });
                 //IF text
                 } else if (imageOption == 2) {
-                    macro.createCombinedImage((combBitmap) -> {
-                        macro.setTextColor(color);
-                        previewImage.setImageBitmap(combBitmap);
+                    Macro.getByID(macroID, (macro) -> {
+                        macro.createCombinedImage((combBitmap) -> {
+                            macro.setTextColor(color);
+                            previewImage.setImageBitmap(combBitmap);
+                        });
                     });
                 } else {
                     Log.e(TAG, "Color Picker imageOption not set correctly: " + imageOption);
@@ -500,14 +548,14 @@ public class MacroAppearance extends Fragment {
     }
 
     public void retrieveData() {
-        long macroId = getActivity().getIntent().getLongExtra("macro id", -1);
-        Log.w(TAG, "retrieveData: " + macroId);
+        macroID = getActivity().getIntent().getLongExtra("macro id", -1);
+        Log.w(TAG, "retrieveData: " + macroID);
 
-        if (macroId == -1) {
+        if (macroID == -1) {
             //TODO createMacro
-            Log.d(TAG, "Macro should be created: " + macroId);
+            Log.d(TAG, "Macro should be created: " + macroID);
         } else {
-            Macro.getByID(macroId, (macro) -> {
+            Macro.getByID(macroID, (macro) -> {
                 if (macro != null) {
 
                     textEnabled = macro.isTextEnabled();
@@ -526,7 +574,7 @@ public class MacroAppearance extends Fragment {
 
                     previewImage.setImageBitmap(macro.getCombinedImage());
                 } else {
-                    Log.e(TAG, "macro is not initialized: " + macroId);
+                    Log.e(TAG, "macro is not initialized: " + macroID);
                 }
             });
         }

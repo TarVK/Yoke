@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yoke.R;
@@ -25,12 +26,14 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
     private long profileID;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        public ImageView selectionImage;
+        public TextView selectionText;
         public ConstraintLayout parentLayout;
 
         public MyViewHolder(View v) {
             super(v);
-            textView = v.findViewById(R.id.textview);
+            selectionImage = v.findViewById(R.id.selectionImage);
+            selectionText = v.findViewById(R.id.selectionText);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }

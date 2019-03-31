@@ -53,7 +53,7 @@
                 <ImageView
                     android:id="@+id/foregroundImage"
                     android:src="@drawable/default_image"
-                    android:scaleType="center"
+                    android:scaleType="centerInside"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     app:layout_constraintBottom_toBottomOf="@+id/foregroundDivider"
@@ -197,7 +197,7 @@
                 <ImageView
                     android:id="@+id/backgroundImage"
                     android:src="@drawable/default_image"
-                    android:scaleType="center"
+                    android:scaleType="centerInside"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     app:layout_constraintBottom_toBottomOf="@+id/backgroundDivider"

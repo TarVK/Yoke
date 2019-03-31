@@ -16,6 +16,7 @@ import com.example.yoke.R;
 import com.yoke.activities.macro.tabs.MacroAppearance;
 import com.yoke.activities.macro.tabs.MacroSequence;
 import com.yoke.activities.profile.ProfileActivity;
+import com.yoke.activities.profileEdit.ProfileEditActivity;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 
@@ -62,7 +63,7 @@ public class MacroActivity extends AppCompatActivity {
             Macro.getByID(macroID, (macro) -> {
                 macro.save(() -> {
                     runOnUiThread(() -> {
-                        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
                         intent.putExtra("profile id", profileID);
                         startActivity(intent);
                         finish();
