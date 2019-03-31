@@ -4,10 +4,11 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
-import android.util.Log;
 
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
+import com.yoke.utils.Callback;
+import com.yoke.utils.DataCallback;
 
 import java.util.ArrayList;
 import java.util.List;

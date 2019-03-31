@@ -26,11 +26,11 @@ import com.yoke.connection.messages.computerCmds.NextTrackCmd;
 import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
 import com.yoke.database.DataBase;
-import com.yoke.database.DataObject;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 import com.yoke.database.types.Settings;
+import com.yoke.utils.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,9 +142,9 @@ public class MainActivity extends AppCompatActivity {
      * @param writeData  Whether to write data to the device, or read data from it
      * @param initialized  A callback that gets called once the database has been initialized
      */
-    protected void databaseTest(boolean writeData, final DataObject.Callback initialized) {
+    protected void databaseTest(boolean writeData, final Callback initialized) {
         // Initialize the database
-        DataBase.initialize(this, new DataObject.Callback() {
+        DataBase.initialize(this, new Callback() {
             public void call() {
                 if (writeData) {
                     // Change some data in the settings

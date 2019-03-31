@@ -15,7 +15,7 @@ import com.yoke.database.types.Settings;
         Settings.SettingsData.class,
         Profile.ProfileData.class,
         Button.ButtonData.class
-}, version = 15)
+}, version = 17)
 public abstract class DataBase extends RoomDatabase {
     // All daos
     public abstract Macro.MacroDataDao macroDataDao();
@@ -32,7 +32,7 @@ public abstract class DataBase extends RoomDatabase {
      * @param context  The context to keep an association with the specific app
      * @param done  The callback to be called once initialization has finished
      */
-    public static void initialize(Context context, DataObject.Callback done){
+    public static void initialize(Context context, com.yoke.utils.Callback done){
         if (instance == null) {
             instance = Room.databaseBuilder(context,
                     DataBase.class, "data").fallbackToDestructiveMigration().build();

@@ -1,6 +1,5 @@
 package com.yoke.activities.splash;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -24,7 +23,6 @@ import com.yoke.connection.messages.PressKeysCmd;
 import com.yoke.connection.messages.app.AppCmd;
 import com.yoke.connection.messages.app.OpenProfileCmd;
 import com.yoke.connection.messages.app.OpenTrackpadCmd;
-import com.yoke.connection.messages.computerCmds.NextTrackCmd;
 import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
 import com.yoke.connection.messages.computerCmds.VolumeDownCmd;
 import com.yoke.connection.messages.computerCmds.VolumeUpCmd;
@@ -32,17 +30,18 @@ import com.yoke.connection.messages.connection.Connected;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.DataBase;
-import com.yoke.database.DataObject;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
+import com.yoke.preset.Preset;
+import com.yoke.preset.types.LaunchProgramPreset;
+import com.yoke.preset.types.MediaControlsPreset;
+import com.yoke.utils.Callback;
+import com.yoke.utils.DataCallback;
 import com.yoke.utils.Keys;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -74,7 +73,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     //initialize database
-    protected void databaseInit (boolean writeData, final DataObject.Callback initialized) {
+    protected void databaseInit (boolean writeData, final Callback initialized) {
         DataBase.initialize(this, () -> {
             createPresets(() -> {
                 runOnUiThread(() -> {
@@ -181,127 +180,20 @@ public class SplashActivity extends AppCompatActivity {
      * Checks whether presets have to be created, and if so, does so
      * @param callback  The callback that should be triggered once the preset creating finished
      */
-    protected void createPresets(DataObject.Callback callback) {
-        Profile.getAll(new DataObject.DataCallback<List<Profile>>(){
-            public void retrieve(List<Profile> profiles) {
-                // Check if any profiles have to be created
-                if (profiles.size() != 0) {
-                    callback.call();
-                    return;
-                }
-
-                // Make sure the required macros are available
-                createMacro("1", R.drawable.spotify, new PlayPauseCmd(), macroCallback);
-                createMacro("2", R.drawable.steam,
-                        new OpenProgramCmd("C:\\Program Files (x86)\\Steam\\Steam.exe"),
-                        macroCallback);
-                createMacro("3", R.drawable.twitch,
-                        new OpenURLCmd("https://www.twitch.tv/"), macroCallback);
-                createMacro("4", R.drawable.wikipedia,
-                        new OpenURLCmd("https://www.wikipedia.org/"), macroCallback);
-                createMacro("5", R.drawable.youtube, // ooops
-                        new OpenURLCmd("https://www.youtube.com"), macroCallback);
-                createMacro("6", R.drawable.spotify,
-                        new OpenTrackpadCmd(), macroCallback);
-
-                createMacro("7", R.drawable.spotify, new VolumeUpCmd(), macroCallback);
-                createMacro("8", R.drawable.steam, new VolumeDownCmd(), macroCallback);
-                createMacro("9", R.drawable.twitch, new PressKeysCmd(new int[]{
-                    Keys.VK_CONTROL, Keys.VK_A
-                }), macroCallback);
-                createMacro("10", R.drawable.wikipedia,
-                        new MoveMouseCmd(100, 100), macroCallback);
-                createMacro("11", R.drawable.youtube,
-                        new ClickMouseCmd(ClickMouseCmd.LEFTCLICK), macroCallback);
-                createMacro("12", R.drawable.spotify,
-                        new OpenProfileCmd(0), macroCallback);
-
-
-            }
-
-            // The number of profiles that remain to be saved
-            protected int remainingProfiles = 2;
-
-            // A callback that checks whether all profiles have been saved
-            protected DataObject.Callback profileSaveCallback = () -> {
-                // Check if both profiles finished saving
-                if (--remainingProfiles == 0) {
-                    callback.call();
-                }
-            };
-
-            // Track the macros that have been retrieved
-            protected HashMap<String, Macro> macros = new HashMap<>();
-
-            // A callback that continues setting up the profile,
-            // once all macro callbacks have been received
-            protected DataObject.DataCallback<Macro> macroCallback = (macro) -> {
-                macros.put(macro.getName(), macro);
-
-                // Check if all of the macros have been created/retrieved
-                if (macros.size() == 12) {
-                    // Create the profiles
-                    Profile profile1 = new Profile("test1");
-                    Profile profile2 = new Profile("test2");
-
-                    // Save profile 2 such that it gets an ID
-                    profile1.save(() -> {
-                        // Fill the profiles with their buttons TODO; think of proper names
-                        profile1.addButton(new Button(macros.get("1")));
-                        profile1.addButton(new Button(macros.get("2")));
-                        profile1.addButton(new Button(macros.get("3")));
-                        profile1.addButton(new Button(macros.get("4")));
-                        profile1.addButton(new Button(macros.get("5")));
-                        profile1.addButton(new Button(macros.get("6")));
-
-                        profile2.addButton(new Button(macros.get("7")));
-                        profile2.addButton(new Button(macros.get("8")));
-                        profile2.addButton(new Button(macros.get("9")));
-                        profile2.addButton(new Button(macros.get("10")));
-                        profile2.addButton(new Button(macros.get("11")));
-
-                        // Assign the correct profileID to the openProfile macro
-                        Macro openProfileMacro = macros.get("12");
-                        openProfileMacro.setAction(new OpenProfileCmd(profile1.getID()));
-                        profile2.addButton(new Button(openProfileMacro));
-
-                        // Save the openProfileMacro
-                        openProfileMacro.save(() -> {
-                            // Save the profiles
-                            profile1.save(profileSaveCallback);
-                            profile2.save(profileSaveCallback);
-                        });
-                    });
-
-                }
-            };
-        });
-
-    }
-
-    /**
-     * Creates a macro using the specified data, unless a macro with the given name already exists
-     * @param name  The name of the macro
-     * @param imageResourceID  The id of the image resource for the button
-     * @param action  The action to perform once the button is pressed
-     * @param callback  The callback that should be triggered once the macro has been created
-     */
-    protected void createMacro(String name, int imageResourceID,
-                               Message action, DataObject.DataCallback<Macro> callback) {
-        // Check if the macro already exists
-        Macro.getByName(name, (macro) -> {
-            if (macro != null) {
-                callback.retrieve(macro);
+    protected void createPresets(Callback callback) {
+        Profile.getAll((profiles) -> {
+            // Check if any profiles have to be created
+            if (profiles.size() != 0) {
+                callback.call();
                 return;
             }
 
-            // If the macro doesn't exist yet, create it
-            final Macro newMacro = new Macro(name);
-            newMacro.setAction(action);
-            newMacro.setBackgroundImage(BitmapFactory.decodeResource(this.getResources(), imageResourceID));
-
-            // Save the newly created macro
-            newMacro.save(() -> callback.retrieve(newMacro));
+            // Create new presets
+            LaunchProgramPreset launchPreset = new LaunchProgramPreset(this);
+            Preset.onFinish(callback,
+                    launchPreset,
+                    new MediaControlsPreset(this, launchPreset)
+            );
         });
     }
 }
