@@ -36,7 +36,7 @@ public class MouseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mouse);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Mouse pad");
+        getSupportActionBar().setTitle("Track Pad");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get the touchpad pane

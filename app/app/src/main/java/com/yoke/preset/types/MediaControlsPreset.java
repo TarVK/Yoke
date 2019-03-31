@@ -25,6 +25,7 @@ public class MediaControlsPreset extends Preset {
     /**
      * Creates a media controls preset
      * @param context  The context to keep an association with the specific app
+     * @param linkPreset  The preset that the last button should link to
      */
     public MediaControlsPreset(Context context, Preset linkPreset) {
         super(context);

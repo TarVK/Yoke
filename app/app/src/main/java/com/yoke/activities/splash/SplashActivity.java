@@ -2,7 +2,6 @@ package com.yoke.activities.splash;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -15,33 +14,17 @@ import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
 import com.yoke.connection.client.MultiClientConnection;
 import com.yoke.connection.client.types.BluetoothClientConnection;
-import com.yoke.connection.messages.ClickMouseCmd;
-import com.yoke.connection.messages.MoveMouseCmd;
-import com.yoke.connection.messages.OpenProgramCmd;
-import com.yoke.connection.messages.OpenURLCmd;
-import com.yoke.connection.messages.PressKeysCmd;
 import com.yoke.connection.messages.app.AppCmd;
-import com.yoke.connection.messages.app.OpenProfileCmd;
-import com.yoke.connection.messages.app.OpenTrackpadCmd;
-import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
-import com.yoke.connection.messages.computerCmds.VolumeDownCmd;
-import com.yoke.connection.messages.computerCmds.VolumeUpCmd;
 import com.yoke.connection.messages.connection.Connected;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.DataBase;
-import com.yoke.database.types.Button;
-import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 import com.yoke.preset.Preset;
 import com.yoke.preset.types.LaunchProgramPreset;
 import com.yoke.preset.types.MediaControlsPreset;
+import com.yoke.preset.types.TestPreset;
 import com.yoke.utils.Callback;
-import com.yoke.utils.DataCallback;
-import com.yoke.utils.Keys;
-
-import java.util.HashMap;
-import java.util.List;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -190,7 +173,8 @@ public class SplashActivity extends AppCompatActivity {
             LaunchProgramPreset launchPreset = new LaunchProgramPreset(this);
             Preset.onFinish(callback,
                     launchPreset,
-                    new MediaControlsPreset(this, launchPreset)
+                    new MediaControlsPreset(this, launchPreset),
+                    new TestPreset(this)
             );
         });
     }
