@@ -25,7 +25,7 @@ public class ButtonsEditRecyclerViewAdapter extends
         RecyclerView.Adapter<ButtonsEditRecyclerViewAdapter.ViewHolder> implements
         ItemMoveCallback.ItemTouchHelperContract {
 
-    private static final String TAG = "ButtonsEditRecyclerViewAdapter";
+    private static final String TAG = "ButtonsEditRecyclerView";
 
     protected Connection connection; //establishes the connection
     private ProfileEditActivity mProfile;
@@ -83,7 +83,7 @@ public class ButtonsEditRecyclerViewAdapter extends
 
         viewHolder.buttonImage.setOnTouchListener(new View.OnTouchListener() {
 
-            //activate dragging
+            //Select macro
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {

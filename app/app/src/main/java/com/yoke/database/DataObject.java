@@ -107,7 +107,7 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
      * Saves all of the data in the database
      */
     public void save() {
-        this.save(null);
+        this.save(() -> {});
     }
 
     /**
@@ -138,7 +138,7 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
      * Deletes the data from the database
      */
     public void delete() {
-        this.delete(null);
+        this.delete(() -> {});
     }
 
     /**
