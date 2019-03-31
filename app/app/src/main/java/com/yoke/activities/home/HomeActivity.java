@@ -32,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private ArrayList<Profile> mDataset = new ArrayList<>();
     RecyclerView recyclerView;
-    MyAdapter adapter;
+    HomeAdapter adapter;
     ArrayList<Profile> profiles = new ArrayList<>();
 
     DragController dragController;
@@ -68,18 +68,15 @@ public class HomeActivity extends AppCompatActivity {
 
 
         Context mContext = this;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Profile profile = new Profile("Some Cool Profile");
-                profile.setIndex(profiles.size());
-                profile.save(() -> {
-                    long ID = profile.getID();
-                    Intent intent = new Intent(mContext, ProfileEditActivity.class);
-                    intent.putExtra("profile id", ID);
-                    mContext.startActivity(intent);
-                });
-            }
+        button.setOnClickListener(v -> {
+            Profile profile = new Profile("Some Cool Profile");
+            profile.setIndex(profiles.size());
+            profile.save(() -> {
+                long ID = profile.getID();
+                Intent intent = new Intent(mContext, ProfileEditActivity.class);
+                intent.putExtra("profile id", ID);
+                mContext.startActivity(intent);
+            });
         });
 
         settings.setOnClickListener(settingsView -> {
@@ -105,11 +102,7 @@ public class HomeActivity extends AppCompatActivity {
                 profiles.addAll(retrievedProfiles);
 
                 // Sort the profiles by index
-                Collections.sort(profiles, new Comparator<Profile>() {
-                    public int compare(Profile p1, Profile p2) {
-                        return p1.getIndex() - p2.getIndex();
-                    }
-                });
+                Collections.sort(profiles, (p1, p2) -> p1.getIndex() - p2.getIndex());
 
                 adapter.notifyDataSetChanged();
             });
