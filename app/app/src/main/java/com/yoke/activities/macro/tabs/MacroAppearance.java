@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -30,6 +31,7 @@ public class MacroAppearance extends Fragment {
 
     private static final String TAG = "MacroAppearance";
 
+    private ImageView foregroundColorPicker;
     private ImageView backgroundColorPicker;
     private ImageView descriptionColorPicker;
     private ImageView previewImage;
@@ -82,20 +84,19 @@ public class MacroAppearance extends Fragment {
         View view = inflater.inflate(R.layout.activity_macro_appearance,
                 container, false);
 
-
+        // Initialize ImageViews
         foregroundImage = (ImageView) view.findViewById(R.id.foregroundImage);
         backgroundImage = (ImageView) view.findViewById(R.id.backgroundImage);
-
-
+        previewImage = (ImageView) view.findViewById(R.id.previewImage);
 
         //get macro data
         retrieveData();
 
-
+        // Initialize Color Pickers
+        foregroundColorPicker = (ImageView) view.findViewById(R.id.foregroundColorPicker);
         backgroundColorPicker = (ImageView) view.findViewById(R.id.backgroundColorPicker);
         descriptionColorPicker = (ImageView) view.findViewById(R.id.descriptionColorPicker);
 
-        previewImage = (ImageView) view.findViewById(R.id.previewImage);
 
         //Initialize Switch and EditText
         descriptionSwitch = (Switch) view.findViewById(R.id.descriptionSwitch);
@@ -105,8 +106,6 @@ public class MacroAppearance extends Fragment {
         descriptionSwitch.setChecked(textEnabled);
         descriptionValue.setEnabled(textEnabled);
         descriptionColorPicker.setEnabled(textEnabled);
-
-
 
         // Foreground Image OnclickListener
         foregroundImage
@@ -120,6 +119,19 @@ public class MacroAppearance extends Fragment {
                 .setOnClickListener(viewBGImage -> {
                     imageOption = 1;
                     pickFromGallery();
+                });
+
+        // Foreground Solid Color Picker OnclickListener
+        foregroundColorPicker
+                .setOnClickListener(viewBGColorPicker -> {
+                    if (hasSolidBackgroundColor) {
+                        imageOption = 0;
+                        pickFromGallery();
+                    }
+                    else {
+                        imageOption = 0;
+                        openColorPicker();
+                    }
                 });
 
         // Background Solid Color Picker OnclickListener
@@ -453,8 +465,18 @@ public class MacroAppearance extends Fragment {
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 mDefaultColor = color;
 
+                //IF foreground
+                if (imageOption == 0) {
+                    macro.createCombinedImage((combBitmap) -> {
+                        foregroundColorPicker.setImageResource(R.drawable.reset_button);
+                        hasSolidBackgroundColor = true;
+
+                        macro.setForegroundColor(color);
+                        foregroundImage.setImageResource(R.drawable.default_image);
+                        previewImage.setImageBitmap(combBitmap);
+                    });
                 //IF background
-                if (imageOption == 1) {
+                } else if (imageOption == 1) {
                     macro.createCombinedImage((combBitmap) -> {
                         backgroundColorPicker.setImageResource(R.drawable.reset_button);
                         hasSolidBackgroundColor = true;
@@ -487,6 +509,7 @@ public class MacroAppearance extends Fragment {
         } else {
             Macro.getByID(macroId, (macro) -> {
                 if (macro != null) {
+
                     textEnabled = macro.isTextEnabled();
 
                     //TODO add exceptions in Macro.java (e.g. no foregroundimage selected use default) and backgroundcolor instead of backgroundImage)

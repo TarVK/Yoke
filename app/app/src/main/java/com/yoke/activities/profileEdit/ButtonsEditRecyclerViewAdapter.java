@@ -25,7 +25,7 @@ public class ButtonsEditRecyclerViewAdapter extends
         RecyclerView.Adapter<ButtonsEditRecyclerViewAdapter.ViewHolder> implements
         ItemMoveCallback.ItemTouchHelperContract {
 
-    private static final String TAG = "ButtonsEditRecyclerViewAdapter";
+    private static final String TAG = "ButtonsEditRVAdapter";
 
     protected Connection connection; //establishes the connection
     private ProfileEditActivity mProfile;

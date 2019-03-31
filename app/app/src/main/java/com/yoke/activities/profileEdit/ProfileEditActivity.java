@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.yoke.R;
 import com.yoke.activities.macro.MacroActivity;
+import com.yoke.activities.macro.select.MacroSelection;
 import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.database.types.Profile;
 
@@ -76,9 +77,9 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         //add a new macro, it should direct to the macro activity
         addMacro.setOnClickListener(v -> {
             if (profile.hasSpace()) {
-                //TODO add selection activity
-//                Intent intent = new Intent(getApplicationContext(), MacroSelector.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), MacroSelection.class);
+                intent.putExtra("profile id", profile.getID());
+                startActivity(intent);
             } else {
                 Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
             }

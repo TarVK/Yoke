@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         //when edit button is clicked send the profile id and open the edit activity
         edit.setOnClickListener(openEditView -> {
             // Make sure the profile has loaded
-            if (profile!=null) {
+            if (profile != null) {
                 Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
                 intent.putExtra("profile id", profile.getID());
                 startActivity(intent);

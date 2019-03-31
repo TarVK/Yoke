@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.example.yoke.R;
@@ -23,16 +24,17 @@ public class HomeActivity extends AppCompatActivity {
     FloatingActionButton button;
     ImageView settings;
     Toolbar toolbar;
+
     private ArrayList<Profile> mDataset = new ArrayList<>();
-    RecyclerView recyclerView2;
+    RecyclerView recyclerView;
     MyAdapter adapter;
-    ArrayList<Profile> profiles = new ArrayList<Profile>();
+    ArrayList<Profile> profiles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        recyclerView2 = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
 
         button = findViewById(R.id.createProfile);
         settings = findViewById(R.id.settingsButton);
@@ -40,10 +42,10 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         adapter = new MyAdapter(profiles, this);
-        recyclerView2.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView2.setLayoutManager(llm);
+        recyclerView.setLayoutManager(llm);
 
         Context mContext = this; //TODO add fab implementation and replace with extended text fab
         button.setOnClickListener(v -> {
@@ -77,7 +79,6 @@ public class HomeActivity extends AppCompatActivity {
                 profiles.clear();
                 profiles.addAll(retrievedProfiles);
                 adapter.notifyDataSetChanged();
-
             });
         });
 

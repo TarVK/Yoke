@@ -37,10 +37,11 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.yoke.activities.home.HomeActivity" />
         <activity android:name="com.yoke.activities.MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name="com.yoke.activities.macro.MacroActivity" />
+
+        <activity android:name="com.yoke.activities.macro.select.MacroSelection" />
 
 
         <!--Cropping Activity-->
@@ -52,10 +53,6 @@
                 <action android:name="connectionStateChanged" />
             </intent-filter>
         </receiver>
-
-        <!--Cropping Activity-->
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
 
     </application>
     <uses-permission android:name="android.permission.BLUETOOTH" />

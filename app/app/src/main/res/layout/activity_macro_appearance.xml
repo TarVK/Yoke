@@ -45,10 +45,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Foreground"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
-
 
                 <ImageView
                     android:id="@+id/foregroundImage"
@@ -60,6 +60,17 @@
                     app:layout_constraintEnd_toStartOf="@+id/foregroundDivider"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/foregroundDivider" />
+
+                <ImageView
+                    android:id="@+id/foregroundColorPicker"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/color_picker"
+                    android:tint="@color/colorGray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/foregroundDivider" />
 
                 <TextView
                     android:id="@+id/seekAlphaForegroundText"
@@ -178,6 +189,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Background"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
@@ -339,6 +351,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="Description"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

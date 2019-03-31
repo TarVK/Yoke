@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.activities.macro.tabs.MacroAppearance;
@@ -48,6 +49,13 @@ public class MacroActivity extends AppCompatActivity {
         Long profileID = getIntent().getLongExtra("profile id", 0);
         Long macroID = getIntent().getLongExtra("macro id", 0);
         Log.w(TAG, "retrieveData: mID: " + macroID + ", pID: " + profileID);
+
+        TextView macroName = findViewById(R.id.macroName);
+
+        Macro.getByID(macroID, (macro) -> {
+            String name = macro.getName();
+            macroName.setText(name);
+        });
 
         // Finish edit
         findViewById(R.id.finishEdit).setOnClickListener(v -> {
@@ -101,12 +109,9 @@ public class MacroActivity extends AppCompatActivity {
         }
     }
 
-    public void exitBuilder() {
-        //TODO Save and store data
-
-//        Intent intent = new Intent(this, ProfileEditActivity.class);
-//        startActivity(intent);
+    @Override
+    public boolean onSupportNavigateUp() {
         onBackPressed();
+        return true;
     }
-
 }
