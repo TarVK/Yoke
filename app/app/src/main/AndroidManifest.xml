@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.yoke">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -12,16 +13,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.yoke.activities.mouse.MouseActivity"
             android:label="@string/title_activity_mouse"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.yoke.activities.tutorial.TutorialActivity" />
         <activity
             android:name="com.yoke.activities.splash.SplashActivity"
             android:configChanges="orientation"
             android:windowNoTitle="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,16 +36,33 @@
             android:name="com.yoke.activities.profileEdit.ProfileEditActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.yoke.activities.home.HomeActivity" />
-        <activity
-            android:name="com.yoke.activities.MainActivity"
+        <activity android:name="com.yoke.activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name="com.yoke.activities.macro.MacroActivity" />
+
+
+        <!--Cropping Activity-->
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
 
         <receiver android:name="com.yoke.activities.splash.GlobalMessageReceiver">
             <intent-filter>
                 <action android:name="connectionStateChanged" />
             </intent-filter>
         </receiver>
-    </application>
 
+        <!--Cropping Activity-->
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+    </application>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!--Needed for cropping library-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

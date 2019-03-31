@@ -61,9 +61,7 @@ public class SplashActivity extends AppCompatActivity {
 
         gifView = (GifView) findViewById(R.id.gif_view);
 
-        this.databaseInit(true, () -> {
-            connectionInit();
-        });
+        this.databaseInit(true, this::connectionInit);
 
         // Add a 'fake loading' delay to show off the splash
         new Handler().postDelayed(() -> {

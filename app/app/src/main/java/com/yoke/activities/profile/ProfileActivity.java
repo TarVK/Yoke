@@ -8,7 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yoke.R;
@@ -41,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = findViewById(R.id.toolbar_profile);
         profileName = (TextView) findViewById(R.id.profileTextView);
+        ImageView edit = (ImageView) findViewById(R.id.beginEdit);
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
@@ -49,12 +50,10 @@ public class ProfileActivity extends AppCompatActivity {
             toolbar.setVisibility(View.GONE);
         }
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO create custom toolbar + back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         retrieveData();
-
-        ImageButton edit = findViewById(R.id.beginEdit);
 
         //when edit button is clicked send the profile id and open the edit activity
         edit.setOnClickListener(openEditView -> {
@@ -65,7 +64,6 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     /**
@@ -77,10 +75,10 @@ public class ProfileActivity extends AppCompatActivity {
         //add the profile datas to the arguments
         Profile.getByID(profileID, (profile) -> {
             runOnUiThread(() -> {
-                String name = profile.getName();
                 this.profile = profile;
-                profileName.setText(name);
 
+                String name = profile.getName();
+                profileName.setText(name);
                 buttons = profile.getButtons();
 
                 //sort the buttons so they are in order and displayed in a correct order on the layout

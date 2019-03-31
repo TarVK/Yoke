@@ -11,7 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+
 
 import com.example.yoke.R;
 
@@ -25,7 +26,7 @@ import com.yoke.database.types.Profile;
 
 public class HomeActivity extends AppCompatActivity {
     FloatingActionButton button;
-    ImageButton settings;
+    ImageView settings;
     Toolbar toolbar;
     RecyclerView recyclerView;
     HomeAdapter adapter;
@@ -78,11 +79,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(), Settings.class));
-            }
+        settings.setOnClickListener(settingsView -> {
+            //startActivity(new Intent(getApplicationContext(), Settings.class));
         });
 
         initData();
