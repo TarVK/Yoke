@@ -514,6 +514,7 @@ public class MacroAppearance extends Fragment {
                             hasSolidBackgroundColor = true;
 
                             macro.setForegroundColor(color);
+                            foregroundImage.setColorFilter(color);
                             foregroundImage.setImageResource(R.drawable.default_image);
                             previewImage.setImageBitmap(combBitmap);
                         });
@@ -527,6 +528,7 @@ public class MacroAppearance extends Fragment {
                             hasSolidBackgroundColor = true;
 
                             macro.setBackgroundColor(color);
+                            backgroundImage.setColorFilter(color);
                             backgroundImage.setImageResource(R.drawable.default_image);
                             previewImage.setImageBitmap(combBitmap);
                         });
@@ -556,26 +558,28 @@ public class MacroAppearance extends Fragment {
             Log.d(TAG, "Macro should be created: " + macroID);
         } else {
             Macro.getByID(macroID, (macro) -> {
-                if (macro != null) {
+                getActivity().runOnUiThread(() -> {
+                    if (macro != null) {
 
-                    textEnabled = macro.isTextEnabled();
+                        textEnabled = macro.isTextEnabled();
 
-                    //TODO add exceptions in Macro.java (e.g. no foregroundimage selected use default) and backgroundcolor instead of backgroundImage)
-                    foregroundImage.setImageBitmap(macro.getForegroundImage());
+                        //TODO add exceptions in Macro.java (e.g. no foregroundimage selected use default) and backgroundcolor instead of backgroundImage)
+                        foregroundImage.setImageBitmap(macro.getForegroundImage());
 //                    foregroundAlpha = macro.getForegroundAlpha();
-                    foregroundSize = macro.resolution;
+                        foregroundSize = macro.resolution;
 //                    foregroundAspectRatio = macro.getForegroundApectRatio();
 
-                    backgroundImage.setImageBitmap(macro.getBackgroundImage());
+                        backgroundImage.setImageBitmap(macro.getBackgroundImage());
 //                    backgroundAlpha = macro.getBackgroundAlpha();
-                    backgroundSize = macro.resolution;
+                        backgroundSize = macro.resolution;
 //                    backgroundAspectRatio = macro.getBackgroundApectRatio();
 
 
-                    previewImage.setImageBitmap(macro.getCombinedImage());
-                } else {
-                    Log.e(TAG, "macro is not initialized: " + macroID);
-                }
+                        previewImage.setImageBitmap(macro.getCombinedImage());
+                    } else {
+                        Log.e(TAG, "Macro is not initialized: " + macroID);
+                    }
+                });
             });
         }
     }

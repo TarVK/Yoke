@@ -74,33 +74,62 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         retrieveProfileData();
 
         //TODO replace with custom button type [+], so the nav button can be removed
-        //add a new macro, it should direct to the macro activity
+        // Add a new Macro -> MacroSelection.java
         addMacro.setOnClickListener(v -> {
             if (profile.hasSpace()) {
-                Intent intent = new Intent(getApplicationContext(), MacroSelection.class);
-                intent.putExtra("profile id", profile.getID());
-                startActivity(intent);
+                //TODO check implementation and/or create a general save() function (saveProfile(intent))
+                for (byte i = 0; i < mButton.size(); i++ ) {
+                    mButton.get(i).setIndex(i);
+                }
+                for (com.yoke.database.types.Button button : deletedButtons) {
+                    button.delete();
+                }
+                profile.setName(profileName.getText().toString());
+
+                profile.save(()-> {
+                    runOnUiThread(() -> {
+                        Intent intent = new Intent(getApplicationContext(), MacroSelection.class);
+                        intent.putExtra("profile id", profile.getID());
+                        startActivity(intent);
+                    });
+                });
             } else {
                 Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
             }
         });
 
-        //edit a macro, it should direct to the macro activity
+        // Edit selected Macro -> MacroActivity.java
         editMacro.setOnClickListener(v -> {
+
             long macroID = selectedButton.getMacro().getID();
-            Intent intent = new Intent(getApplicationContext(), MacroActivity.class);
-            intent.putExtra("macro id", macroID);
-            intent.putExtra("profile id", profile.getID());
-            startActivity(intent);
+            //TODO check implementation and/or create a general save() function (saveProfile(intent))
+            for (byte i = 0; i < mButton.size(); i++ ) {
+                mButton.get(i).setIndex(i);
+            }
+            for (com.yoke.database.types.Button button : deletedButtons) {
+                button.delete();
+            }
+            profile.setName(profileName.getText().toString());
+
+            profile.save(()->{
+                runOnUiThread(()-> {
+                    Intent intent = new Intent(getApplicationContext(), MacroActivity.class);
+                    intent.putExtra("macro id", macroID);
+                    intent.putExtra("profile id", profile.getID());
+                    startActivity(intent);
+                });
+            });
+
+
         });
 
-        //delete a selected macro
+        // Delete selected Macro
         deleteMacro.setOnClickListener(v -> {
             //TODO generalize index with macroID
             int index = mButton.indexOf(selectedButton);
 
             profile.removeButton(selectedButton);
-//                selectedButton.delete();
+//            selectedButton.delete();
             deletedButtons.add(selectedButton);
             mButton.remove(selectedButton);
             Log.w(TAG, "onClick: " + index);
@@ -111,7 +140,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
 
         });
 
-        //finish edit
+        // Finish editing profile -> ProfileActivity.java
         doneMacro.setOnClickListener(v -> {
             for (byte i = 0; i < mButton.size(); i++ ) {
                 mButton.get(i).setIndex(i);
@@ -127,7 +156,6 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
                 runOnUiThread(()-> {
                     onBackPressed();
                 });
-
             });
 
         });

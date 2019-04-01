@@ -2,6 +2,7 @@ package com.yoke.activities.macro.select;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yoke.R;
-import com.yoke.activities.profile.ProfileActivity;
+import com.yoke.activities.profileEdit.ProfileEditActivity;
+import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
+import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
 
@@ -21,25 +24,27 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
 
     private static final String TAG = "MacroSelectionAdapter";
 
-    private ArrayList<Macro> mDataset;
+    private ArrayList<Button> mDataset;
     private Context mContext;
     private long profileID;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView selectionImage;
-        public TextView selectionText;
+        public TextView selectionName;
+        public TextView selectionAction;
         public ConstraintLayout parentLayout;
 
         public MyViewHolder(View v) {
             super(v);
             selectionImage = v.findViewById(R.id.selectionImage);
-            selectionText = v.findViewById(R.id.selectionText);
+            selectionName = v.findViewById(R.id.selectionName);
+            selectionAction = v.findViewById(R.id.selectionAction);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
 
     //Constructor
-    public MacroSelectionAdapter(ArrayList<Macro> myDataset, Context context, long pID) {
+    public MacroSelectionAdapter(ArrayList<Button> myDataset, Context context, long pID) {
         mDataset = myDataset;
         mContext = context;
         profileID = pID;
@@ -58,17 +63,33 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        String text = mDataset.get(position).getAction().toString();
-        holder.textView.setText(text);
+        Macro macro = mDataset.get(position).getMacro();
+
+        String name = macro.getName();
+        String action = macro.getAction().toString();
+        Bitmap bitmap = macro.getCombinedImage();
+
+        holder.selectionName.setText(name);
+        holder.selectionAction.setText(action);
+        holder.selectionImage.setImageBitmap(bitmap);
+
         holder.parentLayout.setOnClickListener(v -> {
-            //TODO set new button
+            // Set new button to profile
+            Profile.getByID(profileID, (profile) -> {
+                profile.addButton(mDataset.get(position));
+
+                profile.save(() -> {
+                    Log.d(TAG, "Add Macro to Profile, mID: " + macro.getID() + ", pID: " + profileID);
+
+                    Intent intent = new Intent(mContext, ProfileEditActivity.class);
+                    intent.putExtra("profile id", profileID);
+                    mContext.startActivity(intent);
+                });
+            });
 
 
-            Intent intent = new Intent(mContext, ProfileActivity.class); //TODO create macro
-            intent.putExtra("profile id", profileID);
-            mContext.startActivity(intent);
+
         });
-
 
     }
 
