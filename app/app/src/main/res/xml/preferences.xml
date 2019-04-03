@@ -3,58 +3,54 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <PreferenceCategory
-        android:summary="Test"
-        android:title="Test" >
-
-        <ListPreference
-            holo:key="language"
-            android:defaultValue="@string/eng"
-
-            android:entries="@array/pref_lang_entries"
-            android:entryValues="@array/pref_lang_values"
-            android:title="@string/language">
-        </ListPreference>
 
 
-        <!--<Preference-->
-        <!--android:enabled="true"-->
-        <!--app:key="color"-->
-        <!--app:title="@string/color" />-->
+    <ListPreference
+        holo:key="language"
+        android:defaultValue="@string/eng"
+        android:entries="@array/pref_lang_entries"
+        android:entryValues="@array/pref_lang_values"
+        android:title="@string/language">
+    </ListPreference>
 
-        <SwitchPreference
-            android:background="@color/colorPrimary"
-            android:enabled="true"
-            android:foreground="@color/colorAccent"
-            holo:key="light_theme"
-            android:title="@string/light" />
 
-        <ListPreference
-            android:defaultValue="@string/blu"
-            android:entries="@array/pref_conn_entries"
-            android:entryValues="@array/pref_conn_values"
-            holo:key="connection"
-            android:summary="@string/summaryConnection"
-            android:title="@string/connection">
-        </ListPreference>
+     <!--<Preference-->
+     <!--app:key="color"-->
+     <!--app:title="@string/color" />-->
 
-        <SwitchPreference
-            android:enabled="true"
-            holo:key="auto"
-            android:title="@string/auto" />
+    <SwitchPreference
+        android:background="@color/colorPrimary"
+        android:enabled="true"
+        android:foreground="@color/colorAccent"
+        holo:key="light_theme"
+        android:title="@string/light" />
 
-        <Preference
-            holo:key="tutorial"
-            android:title="@string/tutorial">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:targetClass="com.yoke.activities.tutorial"
-                android:targetPackage="com.package.name" />
-        </Preference>
+    <ListPreference
+        android:defaultValue="@string/blu"
+        android:entries="@array/pref_conn_entries"
+        android:entryValues="@array/pref_conn_values"
+        holo:key="connection"
+        android:summary="@string/summaryConnection">
+        <!--android:title="@string/connection">-->
+    </ListPreference>
 
-        <Preference
-            holo:key="about"
-            android:title="@string/about" />
+    <!--We no longer need this-->
+    <!--<SwitchPreference
+        android:enabled="true"
+        holo:key="auto"
+        android:title="@string/auto" />-->
 
-    </PreferenceCategory>
+    <Preference
+        holo:key="tutorial"
+        android:title="@string/tutorial">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.yoke.activities.tutorial"
+            android:targetPackage="com.package.name" />
+    </Preference>
+
+    <Preference
+        holo:key="about"
+        android:title="@string/about" />
+
 </PreferenceScreen>

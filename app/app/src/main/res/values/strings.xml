@@ -20,9 +20,11 @@
     <string name="language">Language</string>
     <!-- changed summary to textview, summary no longer needed -->
     <string name="summaryLanguage">English (default)</string>
+
     <string name="eng">English</string>
     <string name="ne">Dutch</string>
     <string name="bg">Bulgarian</string>
+
     <string-array name="pref_lang_entries">
         <item>@string/eng</item>
         <item>@string/ne</item>
@@ -34,6 +36,7 @@
         <item>dutch</item>
         <item>bulg</item>
     </string-array>
+
     <string name="color">Colour</string>
     <string name="light">Light Theme</string>
     <string name="connection">Connection type</string>
@@ -127,5 +130,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
 
 </resources>

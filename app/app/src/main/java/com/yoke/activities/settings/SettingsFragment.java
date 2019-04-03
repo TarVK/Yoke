@@ -1,6 +1,8 @@
 package com.yoke.activities.settings;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
@@ -19,23 +21,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         super.onCreate(savedInstanceState);
     }
 
-    // Doesn't seem required at all and only cause bugs? would make it inflate the activity_settings withings the avtivity_settings?
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.activity_settings, container, false);
-//    }
-
-
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
-        //setPreferencesFromResource(R.xml.preferences, rootKey);
 
-        // Use this to store stuff, idk, maybe?
-        com.yoke.database.types.Settings settingsData = Settings.getInstance();
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
 
         Preference tutorial = findPreference("tutorial");
-        System.out.println(tutorial);
+        //System.out.println(tutorial);
 
         tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -59,7 +54,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                settingsData.setLanguage(language.getKey());
+                //TODO for this I need Locale
+                editor.putString(getString(R.string.language), o.toString());
+                language.setSummary(o.toString());
                 return true;
             }
         });
