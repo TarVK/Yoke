@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.yoke.activities.tutorial.TutorialActivity"></activity>
-        <activity android:name="com.yoke.activities.splash.SplashActivity">
+        <activity android:name="com.yoke.activities.splash.SplashActivity"
+            android:hardwareAccelerated="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

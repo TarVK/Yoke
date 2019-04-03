@@ -60,6 +60,9 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * runnable to start the next activity when connections have been established
+     */
     Runnable r = new Runnable() {
         @Override
         public void run() {
@@ -69,7 +72,12 @@ public class SplashActivity extends AppCompatActivity {
         }
     };
 
-    //initialize database
+    /**
+     * initializes database
+     *
+     * @param writeData
+     * @param initialized
+     */
     protected void databaseInit (boolean writeData, final DataObject.Callback initialized) {
         DataBase.initialize(this, () -> {
             createPresets(() -> {
@@ -80,6 +88,9 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Initializes bluetooth connection
+     */
     protected void connectionInit () {
         //eventually connection from preferences
         //now just starts bluetooth connection
@@ -88,7 +99,7 @@ public class SplashActivity extends AppCompatActivity {
         MultiClientConnection.initialize(bluetoothConnection);
         connection = MultiClientConnection.getInstance();
 
-        //add receiver to connection
+        //receiver in case of successful connection
         connection.addReceiver(new MessageReceiver<Connected>() {
             public void receive(Connected message) {
                 //if connected message is received, close splash
@@ -140,7 +151,9 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
-        // Initialize the bluetooth connection
+        /**
+         * Checks whether bluetooth is enabled
+         */
         boolean bluetoothEnabled = bluetoothConnection.setup(false);//returns bool whether succeeded
         if (bluetoothEnabled) {
             //proceed if bluetooth is enabled

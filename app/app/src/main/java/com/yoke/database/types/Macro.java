@@ -222,7 +222,8 @@ public class Macro extends DataObject<Macro.MacroData> {
             protected Bitmap doInBackground(Void... nothing){
                 // Create the image
                 Bitmap newImage = Bitmap.createBitmap(resolution, resolution,
-                        Bitmap.Config.ARGB_8888, true);
+                        Bitmap.Config.ARGB_8888);
+                newImage.setHasAlpha(true);
                 Canvas canvas = new Canvas(newImage);
 
                 // Get some properties

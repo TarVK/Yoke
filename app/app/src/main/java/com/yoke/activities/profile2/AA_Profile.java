@@ -16,6 +16,7 @@ import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class AA_Profile extends AppCompatActivity {
             mButton = (profile.getButtons());
 
             //sort the buttons so they are in order and displayed in a correct order on the layout
-            mButton.sort(new Comparator<Button>() {
+            Collections.sort(mButton, new Comparator<Button>() {
                 @Override
                 public int compare(Button o1, Button o2) {
                     return o1.getIndex() - o2.getIndex();

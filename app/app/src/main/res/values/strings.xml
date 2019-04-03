@@ -9,7 +9,5 @@
     <string name="description3">Coding is life</string>
     <string name="backBtn">Back</string>
     <string name="nextBtn">Next</string>
-    <string name="nextBtn2">Finish</string>
-    <string name="tutorialBtn">Tutorial</string>
-    <string name="splashBtn">Splash/Tutorial</string>
+    <string name="finishBtn">Finish</string>
 </resources>
