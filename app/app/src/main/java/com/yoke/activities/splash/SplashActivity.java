@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.home.HomeActivity;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
@@ -27,7 +28,7 @@ import com.yoke.preset.types.TestPreset;
 import com.yoke.utils.Callback;
 
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     private GifView gifView;
     Handler h = new Handler();
     protected Connection connection;

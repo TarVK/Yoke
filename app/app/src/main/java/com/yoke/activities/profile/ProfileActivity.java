@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.profileEdit.ProfileEditActivity;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
 
 //    protected Connection connection = MultiClientConnection.getInstance();
 
@@ -40,12 +41,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = findViewById(R.id.toolbar_profile);
-<<<<<<< HEAD:app/app/src/main/java/com/yoke/activities/profile2/AA_Profile.java
-        profileName = findViewById(R.id.profileTextView);
-=======
         profileName = (TextView) findViewById(R.id.profileTextView);
         ImageView edit = (ImageView) findViewById(R.id.beginEdit);
->>>>>>> 26720a6469b0d293ea6a82a98424fbad4c055b86:app/app/src/main/java/com/yoke/activities/profile/ProfileActivity.java
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;

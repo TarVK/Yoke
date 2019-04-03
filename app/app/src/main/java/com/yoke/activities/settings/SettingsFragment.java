@@ -11,8 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.yoke.R;
+import com.yoke.Helper.LocaleHelper;
+import com.yoke.Helper.MainApp;
 import com.yoke.activities.tutorial.TutorialActivity;
-import com.yoke.database.types.Settings;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -28,9 +29,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-
+        //Tutorial preference
         Preference tutorial = findPreference("tutorial");
-        //System.out.println(tutorial);
 
         tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -40,6 +40,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+        //About preference
         Preference about = findPreference("about");
         tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -50,6 +51,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+        //Language preference
+        if (findPreference("language") == null) {
+            editor.putString(getString(R.string.language), "en");
+        }
+
         Preference language = findPreference("language");
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -57,9 +63,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 //TODO for this I need Locale
                 editor.putString(getString(R.string.language), o.toString());
                 language.setSummary(o.toString());
+                updateView((String)findPreference("language").toString());
                 return true;
             }
         });
+
+
 
 
 
@@ -72,6 +81,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
+
+    }
+
+    private void updateView(String language) {
+        Context context = LocaleHelper.setLocale(getActivity().getApplicationContext(), language);
 
     }
 

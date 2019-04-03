@@ -21,11 +21,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.profileEdit.ItemMoveCallback;
 import com.yoke.activities.profileEdit.ProfileEditActivity;
 import com.yoke.database.types.Profile;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
     FloatingActionButton button;
     ImageView settings;
     Toolbar toolbar;

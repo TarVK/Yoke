@@ -14,17 +14,17 @@ public class LocaleHelper {
 
     private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
 
-    public static Context onAtach(Context context){
+    public static Context onAttach(Context context){
         String language = getPersistedData(context, Locale.getDefault().getLanguage());
         return setLocale(context, language);
     }
 
-    public static Context onAtach(Context context, String defaultLanguage){
+    public static Context onAttach(Context context, String defaultLanguage){
         String language = getPersistedData(context, defaultLanguage);
         return setLocale(context, language);
     }
 
-    private static Context setLocale(Context context, String language) {
+    public static Context setLocale(Context context, String language) {
         persist(context, language);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return updateResourses(context, language);
@@ -33,6 +33,7 @@ public class LocaleHelper {
         return updateResourcesLegacy(context, language);
     }
 
+    //API level 25
     @TargetApi(Build.VERSION_CODES.N)
     private static Context updateResourses(Context context, String language){
         Locale locale = new Locale(language);
@@ -57,6 +58,8 @@ public class LocaleHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             configuration.setLayoutDirection(locale);
         }
+
+        //if this is not okay look at bookmarks - alternative
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         return context;
     }

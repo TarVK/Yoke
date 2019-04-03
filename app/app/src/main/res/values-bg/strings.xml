@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <!-- Strings related to Settings -->
+    <string name="title_activity_settings">Настройки</string>
+    <string name="language">Език</string>
+
+    <string name="en">Английски</string>
+    <string name="ne">Холандски</string>
+    <string name="bg">Български</string>
+
+    <string-array name="pref_lang_entries">
+        <item>@string/en</item>
+        <item>@string/ne</item>
+        <item>@string/bg</item>
+    </string-array>
+
+    <string-array name="pref_lang_values">
+        <item>english</item>
+        <item>dutch</item>
+        <item>bulg</item>
+    </string-array>
+
+    <string name="color">Цвят</string>
+    <string name="light">Нощна тема</string>
+
+    <string name="connection">Вид връзка</string>
+
+    <string name="blu">Bluetooth</string>
+    <string name="wifi">WiFi</string>
+    <string name="usb">USB кабел</string>
+
+    <string-array name="pref_conn_entries">
+        <item>@string/blu</item>
+        <item>@string/wifi</item>
+        <item>@string/usb</item>
+    </string-array>
+
+    <string-array name="pref_conn_values">
+        <item>blu</item>
+        <item>wifi</item>
+        <item>usb</item>
+    </string-array>
+
+    <string name="tutorial">Виж инструкциите отново</string>
+    <string name="about">За нас</string>
+
+    <string-array name="pref_example_list_titles">
+        <item>Винаги</item>
+        <item>Когато е възможно</item>
+        <item>Никога</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+
+
+</resources>

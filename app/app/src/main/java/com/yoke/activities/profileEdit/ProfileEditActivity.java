@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.macro.MacroActivity;
 import com.yoke.activities.macro.select.MacroSelection;
 import com.yoke.activities.profile.ProfileActivity;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ProfileEditActivity extends AppCompatActivity implements StartDragListener {
+public class ProfileEditActivity extends BaseActivity implements StartDragListener {
 
     private static final String TAG = "ProfileEditActivity";
 

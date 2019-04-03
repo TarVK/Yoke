@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 
-public class Settings extends AppCompatActivity {
+public class Settings extends BaseActivity {
 
     /*Preference language;
     SwitchPreference lightTheme;

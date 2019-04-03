@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.macro.tabs.MacroAppearance;
 import com.yoke.activities.macro.tabs.MacroSequence;
 import com.yoke.activities.profile.ProfileActivity;
@@ -23,7 +24,7 @@ import com.yoke.database.types.Profile;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MacroActivity extends AppCompatActivity {
+public class MacroActivity extends BaseActivity {
 
     private static final String TAG = "MacroActivity";
 

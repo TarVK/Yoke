@@ -7,7 +7,7 @@
 
     <ListPreference
         holo:key="language"
-        android:defaultValue="@string/eng"
+        android:defaultValue="@string/en"
         android:entries="@array/pref_lang_entries"
         android:entryValues="@array/pref_lang_values"
         android:title="@string/language">
@@ -21,7 +21,7 @@
     <SwitchPreference
         android:background="@color/colorPrimary"
         android:enabled="true"
-        android:foreground="@color/colorAccent"
+        android:foreground="@color/colorPrimary"
         holo:key="light_theme"
         android:title="@string/light" />
 
@@ -29,8 +29,7 @@
         android:defaultValue="@string/blu"
         android:entries="@array/pref_conn_entries"
         android:entryValues="@array/pref_conn_values"
-        holo:key="connection"
-        android:summary="@string/summaryConnection">
+        holo:key="connection">
         <!--android:title="@string/connection">-->
     </ListPreference>
 

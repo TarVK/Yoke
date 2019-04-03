@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.connection.Connection;
 import com.yoke.connection.client.MultiClientConnection;
 import com.yoke.connection.messages.ClickMouseCmd;
@@ -19,7 +20,7 @@ import com.yoke.connection.messages.MoveMouseCmd;
 /**
  * A class to create a trackpad activity that sends mouse events to the server
  */
-public class MouseActivity extends AppCompatActivity {
+public class MouseActivity extends BaseActivity {
     // The connection to send the events through
     protected Connection connection = MultiClientConnection.getInstance();
 

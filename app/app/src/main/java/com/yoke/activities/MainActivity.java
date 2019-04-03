@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.yoke.R;
+import com.yoke.Helper.LocaleHelper;
 import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Connection;
@@ -37,9 +38,14 @@ import java.util.List;
 
 //import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     protected Connection connection;
     //private Button splashBtn;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase, "en"));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

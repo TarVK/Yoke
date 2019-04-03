@@ -5,21 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.yoke.activities.home.HomeActivity">
-<<<<<<< HEAD
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/createProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:clickable="true"
-        app:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add" />
-=======
->>>>>>> 26720a6469b0d293ea6a82a98424fbad4c055b86
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

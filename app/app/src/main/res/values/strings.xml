@@ -1,32 +1,30 @@
 <resources>
-    <string name="app_name">Yoke</string>
-    <string name="action_settings">Settings</string>
-    <string name="heading1">Eat</string>
-    <string name="heading2">Sleep</string>
-    <string name="heading3">Code</string>
-    <string name="description1">Eating is important.</string>
-    <string name="description2">Sleeping is bliss.</string>
-    <string name="description3">Coding is life</string>
-    <string name="backBtn">Back</string>
-    <string name="nextBtn">Next</string>
-    <string name="nextBtn2">Finish</string>
-    <string name="tutorialBtn">Tutorial</string>
-    <string name="splashBtn">Splash/Tutorial</string>
-    <string name="title_activity_mouse">MouseActivity</string>
+    <string name="app_name" translatable="false">Yoke</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="heading1" translatable="false">Eat</string>
+    <string name="heading2" translatable="false">Sleep</string>
+    <string name="heading3" translatable="false">Code</string>
+    <string name="description1" translatable="false">Eating is important.</string>
+    <string name="description2" translatable="false">Sleeping is bliss.</string>
+    <string name="description3" translatable="false">Coding is life</string>
+    <string name="backBtn" translatable="false">Back</string>
+    <string name="nextBtn" translatable="false">Next</string>
+    <string name="nextBtn2" translatable="false">Finish</string>
+    <string name="tutorialBtn" translatable="false">Tutorial</string>
+    <string name="splashBtn" translatable="false">Splash/Tutorial</string>
+    <string name="title_activity_mouse" translatable="false">MouseActivity</string>
 
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
     <string name="language">Language</string>
-    <!-- changed summary to textview, summary no longer needed -->
-    <string name="summaryLanguage">English (default)</string>
 
-    <string name="eng">English</string>
+    <string name="en">English</string>
     <string name="ne">Dutch</string>
     <string name="bg">Bulgarian</string>
 
     <string-array name="pref_lang_entries">
-        <item>@string/eng</item>
+        <item>@string/en</item>
         <item>@string/ne</item>
         <item>@string/bg</item>
     </string-array>
@@ -37,11 +35,12 @@
         <item>bulg</item>
     </string-array>
 
+    <string name="current_language"></string>
+
     <string name="color">Colour</string>
-    <string name="light">Light Theme</string>
+    <string name="light">Night Theme</string>
     <string name="connection">Connection type</string>
-    <!-- changed summary to textview, summary no longer needed -->
-    <string name="summaryConnection">Bluetooth (default)</string>
+
     <string name="blu">Bluetooth</string>
     <string name="wifi">WiFi</string>
     <string name="usb">USB cable</string>
@@ -57,22 +56,9 @@
         <item>usb</item>
     </string-array>
 
-    <string name="auto">Automatic Desktop Startup</string>
-
     <string name="tutorial">Replay Tutorial</string>
     <string name="about">About</string>
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
         <item>Always</item>
         <item>When possible</item>
@@ -83,53 +69,6 @@
         <item>0</item>
         <item>-1</item>
     </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
 
 
 </resources>
