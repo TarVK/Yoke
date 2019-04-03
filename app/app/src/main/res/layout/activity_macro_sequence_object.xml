@@ -7,26 +7,15 @@
     android:layout_height="wrap_content"
     tools:context="com.yoke.activities.macro.tabs.MacroAppearance">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="24dp"
-        android:background="@color/colorSecondary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
+    <ImageView
         android:id="@+id/dragObject"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/draggable"
-        android:backgroundTint="@color/colorSecondary"
-        android:elevation="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
+        android:src="@drawable/draggable"
+        app:layout_constraintBottom_toBottomOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/objectTitle"
@@ -34,90 +23,97 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Ctrl-Z"
+        android:text="Placeholder"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintBottom_toBottomOf="@+id/actionText"
         app:layout_constraintEnd_toStartOf="@+id/dragObject"
-        app:layout_constraintStart_toStartOf="@+id/view2"
-        app:layout_constraintTop_toTopOf="@+id/view2" />
+        app:layout_constraintStart_toStartOf="@+id/actionText"
+        app:layout_constraintTop_toTopOf="@+id/actionText" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/increaseRepeat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+        android:src="@drawable/arrow_down"
+        android:tint="@color/colorSecondary"
+        android:rotation="180"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/editRepetitions"
+        app:layout_constraintEnd_toEndOf="@+id/editRepetitions"
+        app:layout_constraintStart_toStartOf="@+id/editRepetitions" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/decreaseRepeat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        android:src="@drawable/arrow_down"
+        android:tint="@color/colorSecondary"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/editRepetitions"
+        app:layout_constraintStart_toStartOf="@+id/editRepetitions"
+        app:layout_constraintTop_toBottomOf="@+id/editRepetitions" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/increaseTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/arrow_down"
+        android:tint="@color/colorSecondary"
+        android:rotation="180"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/editDelay"
+        app:layout_constraintEnd_toEndOf="@+id/editDelay"
+        app:layout_constraintStart_toStartOf="@+id/editDelay" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/decreaseTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:src="@drawable/arrow_down"
+        android:tint="@color/colorSecondary"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/editDelay"
+        app:layout_constraintStart_toStartOf="@+id/editDelay"
+        app:layout_constraintTop_toBottomOf="@+id/editDelay" />
 
     <EditText
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:id="@+id/editRepetitions"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="6x"
+        android:layout_marginStart="24dp"
+        android:text="0x"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/actionText"
+        app:layout_constraintEnd_toStartOf="@+id/editDelay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/actionText" />
 
     <EditText
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        android:id="@+id/editDelay"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="4s"
+        android:text="0s"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+        app:layout_constraintBottom_toTopOf="@+id/decreaseRepeat"
+        app:layout_constraintStart_toEndOf="@+id/editRepetitions"
+        app:layout_constraintTop_toTopOf="@+id/editRepetitions" />
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/actionText"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintBottom_toBottomOf="@+id/dragObject"
         app:layout_constraintEnd_toStartOf="@+id/dragObject"
-        app:layout_constraintStart_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toTopOf="@+id/dragObject" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editDelay"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
