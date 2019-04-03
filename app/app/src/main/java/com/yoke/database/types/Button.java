@@ -7,6 +7,8 @@ import android.arch.persistence.room.Query;
 
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
+import com.yoke.utils.Callback;
+import com.yoke.utils.DataCallback;
 
 import java.util.List;
 

@@ -1,13 +1,16 @@
 <resources>
     <string name="app_name">Yoke</string>
     <string name="action_settings">Settings</string>
-    <string name="heading1">Eat</string>
-    <string name="heading2">Sleep</string>
-    <string name="heading3">Code</string>
-    <string name="description1">Eating is important.</string>
-    <string name="description2">Sleeping is bliss.</string>
-    <string name="description3">Coding is life</string>
+    <string name="heading1">Homescreen</string>
+    <string name="heading2">Profilescreen</string>
+    <string name="heading3">Settings</string>
+    <string name="description1">Here you can create new profiles
+      and select existing ones.</string>
+    <string name="description2">This screen contains your macros.</string>
+    <string name="description3">Here you can change the language and
+      such.</string>
     <string name="backBtn">Back</string>
     <string name="nextBtn">Next</string>
     <string name="finishBtn">Finish</string>
+    <string name="title_activity_mouse">MouseActivity</string>
 </resources>

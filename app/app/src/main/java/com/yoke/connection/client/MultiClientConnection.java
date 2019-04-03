@@ -1,8 +1,12 @@
 package com.yoke.connection.client;
 
+import android.os.Handler;
+import android.util.Log;
+
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
+import com.yoke.connection.messages.app.AppCmd;
 import com.yoke.connection.messages.connection.Connected;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
@@ -49,6 +53,8 @@ public class MultiClientConnection extends Connection {
      * @param connection  The connection that should be used
      */
     public void setType(Connection connection) {
+
+
         // Check if the previous connection has to be disposed
         if (this.connection != null) {
             this.connection.destroy();
@@ -94,8 +100,14 @@ public class MultiClientConnection extends Connection {
     }
 
     @Override
-    public void send(Message message) {
-        this.connection.send(message);
+    public void send(Message message, boolean local) {
+        if (message instanceof AppCmd || local) {
+            // Emit message locally
+            super.send(message, true);
+        } else {
+            // Send using connection
+            this.connection.send(message);
+        }
     }
 
     @Override

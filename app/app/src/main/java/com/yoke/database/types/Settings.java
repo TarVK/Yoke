@@ -7,6 +7,8 @@ import android.arch.persistence.room.Query;
 
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
+import com.yoke.utils.Callback;
+import com.yoke.utils.DataCallback;
 
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class Settings extends DataObject<Settings.SettingsData> {
      * Sets up the singleton settings instance
      * @param done  The callback to be called once initialization has completed
      */
-    public static void initialize(DataObject.Callback done) {
+    public static void initialize(Callback done) {
         Settings.get(new DataCallback<Settings>() {
             public void retrieve(Settings settings) {
                 INSTANCE = settings;
@@ -187,7 +189,7 @@ public class Settings extends DataObject<Settings.SettingsData> {
 
 
     // Creates a method to return instances
-    protected static void get(DataObject.DataCallback<Settings> callback){
+    protected static void get(DataCallback<Settings> callback){
         new Thread(new Runnable() {
             public void run() {
                 SettingsData data = DataBase.getInstance().settingsDataDao().get();

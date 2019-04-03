@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.yoke.R;
-import com.yoke.activities.profile2.AA_Profile;
+import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
@@ -26,11 +26,11 @@ import com.yoke.connection.messages.computerCmds.NextTrackCmd;
 import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
 import com.yoke.connection.messages.computerCmds.SleepCmd;
 import com.yoke.database.DataBase;
-import com.yoke.database.DataObject;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 import com.yoke.database.types.Settings;
+import com.yoke.utils.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     builder.setItems(names, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Long id = ids.get(which);
-                            Intent intent = new Intent(context, AA_Profile.class);
+                            Intent intent = new Intent(context, ProfileActivity.class);
                             intent.putExtra("profile id", id);
                             context.startActivity(intent);
                         }
@@ -142,9 +142,9 @@ public class MainActivity extends AppCompatActivity {
      * @param writeData  Whether to write data to the device, or read data from it
      * @param initialized  A callback that gets called once the database has been initialized
      */
-    protected void databaseTest(boolean writeData, final DataObject.Callback initialized) {
+    protected void databaseTest(boolean writeData, final Callback initialized) {
         // Initialize the database
-        DataBase.initialize(this, new DataObject.Callback() {
+        DataBase.initialize(this, new Callback() {
             public void call() {
                 if (writeData) {
                     // Change some data in the settings
