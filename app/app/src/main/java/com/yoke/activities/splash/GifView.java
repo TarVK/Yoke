@@ -68,14 +68,14 @@ public class GifView extends View {
     protected void onDraw(Canvas canvas) {
         long now = SystemClock.uptimeMillis();
 
-        if(movieStart == 0) {
+        if (movieStart == 0) {
             movieStart = now;
         }
 
-        if(gifMovie != null) {
+        if (gifMovie != null) {
             int dur = gifMovie.duration();
 
-            if(dur == 0) {
+            if (dur == 0) {
                 dur = 1000;
             }
 

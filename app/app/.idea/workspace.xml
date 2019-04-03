@@ -10,12 +10,124 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44179840-a82f-4897-9e1d-71e91784427f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/10/f06a6d109b5000191ef5f1028ecb322c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/app/AppCmd.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/app/OpenProfileCmd.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/11.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/12.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/13.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/14.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/15.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/16.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/17.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/18.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/19.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/20.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/DragController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/SwipeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/MacroActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/select/MacroSelection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/select/MacroSelectionAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroAppearance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroSequence.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroSequenceItemMoveCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroSequenceRecyclerViewAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroSequenceStartDragListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/ButtonsRecyclerViewAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profileEdit/ProfileEditActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profileEdit/StartDragListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/preset/Preset.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/preset/types/LaunchProgramPreset.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/preset/types/MediaControlsPreset.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/preset/types/TestPreset.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/utils/Callback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/utils/DataCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/add_button.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/color_picker.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/default_image.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/delete_button.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/done_button.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/draggable.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/edit_button.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/reset_button.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/settings_button.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_appearance.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_selection.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_selection_object.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_sequence.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_sequence_object.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/button.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/layout_profile_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.markers.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.markers.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.syncinfo.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.syncinfo.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.markers.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.markers.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.syncinfo.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.syncinfo.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/2.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/2.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/2461411560.index" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/2461411560.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/externalLibsTimeStamps" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/externalLibsTimeStamps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/savedIndexNames.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/savedIndexNames.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/0.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/6.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/version.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/version.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Receiver.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../../Receiver.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/client/OpenTrackpadCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/app/OpenTrackpadCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/xml/preferences.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/xml/preferences.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/MyAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/mouse/MouseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/mouse/MouseActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/ProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/ProfileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/AA_Profile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/AA_ProfileEdit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/ItemMoveCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profileEdit/ItemMoveCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/RecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/RecyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/RecyclerViewAdapterEdit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profileEdit/ButtonsEditRecyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/RecyclerViewDecoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/RecyclerViewDecoration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/StartDragListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/StartDragListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/ConnectionEventReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/GlobalMessageReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/GifView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/GifView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/SplashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/connection/client/MultiClientConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/connection/client/MultiClientConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/connection/client/types/BluetoothClientConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/connection/client/types/BluetoothClientConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Macro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Macro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Settings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-hdpi/yoke.gif" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/yoke.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-v24/baseline_settings_black_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/add.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/done.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/edit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/trash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/aa_layout_listitem.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile_object.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/aa_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/aa_profile_edit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile_edit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_mouse.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_mouse.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/layout_listitem.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../server/Yoke receiver/src/com/yoke/executors/MoveMouseExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../server/Yoke receiver/src/com/yoke/executors/MoveMouseExecutor.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,39 +161,39 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="1" />
-          <entry key="gradle" value="12" />
-          <entry key="java" value="49" />
+          <entry key="gradle" value="13" />
+          <entry key="java" value="50" />
           <entry key="pro" value="1" />
           <entry key="properties" value="2" />
           <entry key="version" value="1" />
-          <entry key="xml" value="30" />
+          <entry key="xml" value="31" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="Groovy" value="12" />
-          <entry key="JAVA" value="49" />
+          <entry key="Groovy" value="13" />
+          <entry key="JAVA" value="50" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="ProGuard File" value="1" />
           <entry key="Properties" value="2" />
-          <entry key="XML" value="30" />
+          <entry key="XML" value="31" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="gradle" value="516" />
-          <entry key="java" value="3389" />
+          <entry key="gradle" value="574" />
+          <entry key="java" value="3391" />
           <entry key="txt" value="30" />
-          <entry key="xml" value="3427" />
+          <entry key="xml" value="3492" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Groovy" value="516" />
-          <entry key="JAVA" value="3389" />
+          <entry key="Groovy" value="574" />
+          <entry key="JAVA" value="3391" />
           <entry key="PLAIN_TEXT" value="30" />
-          <entry key="XML" value="3427" />
+          <entry key="XML" value="3492" />
         </counts>
       </usages-collector>
     </session>
@@ -100,10 +212,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="87" column="80" selection-start-line="87" selection-start-column="80" selection-end-line="87" selection-end-column="80" />
+            <state relative-caret-position="-255">
+              <caret line="82" column="81" selection-start-line="82" selection-start-column="81" selection-end-line="82" selection-end-column="81" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3157#3158#0" expanded="true" />
+                <element signature="e#3191#3192#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -121,7 +235,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleHelper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="525">
@@ -161,17 +275,30 @@
         <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
           <provider editor-type-id="android-manifest" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="68" lean-forward="true" selection-start-line="1" selection-start-column="68" selection-end-line="1" selection-end-column="68" />
+            <state relative-caret-position="675">
+              <caret line="45" column="32" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
+              <folding>
+                <element signature="e#841#871#0" expanded="true" />
+                <element signature="e#2473#2506#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="389">
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -199,8 +326,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/MyAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_home.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/aa_profile_edit.xml" />
         <option value="$PROJECT_DIR$/src/main/res/drawable-anydpi/back.xml" />
@@ -208,7 +333,6 @@
         <option value="$PROJECT_DIR$/src/main/res/menu/toolbar_settings.xml" />
         <option value="$PROJECT_DIR$/src/main/res/xml/toolbar_settings.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/toolbar_settings.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/Settings.java" />
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
@@ -216,12 +340,15 @@
         <option value="$PROJECT_DIR$/src/main/res/xml/preferences.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/res/values/colors.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="690" />
-    <option name="y" value="4" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-1" />
     <option name="width" value="676" />
     <option name="height" value="739" />
   </component>
@@ -251,6 +378,13 @@
               <item name="app-app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app-app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="activities" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="1abcf292:AndroidViewProjectNode" />
@@ -455,10 +589,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="690" y="4" width="676" height="739" extended-state="0" />
+    <frame x="-1" y="0" width="1368" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49530515" visible="true" weight="0.2834395" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49530515" visible="true" weight="0.27954546" />
       <window_info id="Captures" order="1" sideWeight="0.5046948" side_tool="true" weight="0.13712122" />
       <window_info id="Structure" order="2" sideWeight="0.5046948" side_tool="true" weight="0.13712122" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -660,13 +794,6 @@
         <state relative-caret-position="-167" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/AA_ProfileEdit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/AA_Profile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
@@ -692,9 +819,6 @@
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/menu/toolbar.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -704,16 +828,6 @@
       <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/toolbar_settings.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="87" column="80" selection-start-line="87" selection-start-column="80" selection-end-line="87" selection-end-column="80" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -766,6 +880,29 @@
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1535#1567#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="82" column="81" selection-start-line="82" selection-start-column="81" selection-end-line="82" selection-end-column="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3157#3158#0" expanded="true" />
+            <element signature="e#3191#3192#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -776,29 +913,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
       <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="68" lean-forward="true" selection-start-line="1" selection-start-column="68" selection-end-line="1" selection-end-column="68" />
+        <state relative-caret-position="675">
+          <caret line="45" column="32" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
+          <folding>
+            <element signature="e#841#871#0" expanded="true" />
+            <element signature="e#2473#2506#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleHelper.java">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1535#1567#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="389">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/profile2/AA_ProfileEdit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="215" lean-forward="true" selection-start-line="215" selection-end-line="215" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>

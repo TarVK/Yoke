@@ -1,24 +1,33 @@
 package com.yoke.database;
 
 import android.arch.core.util.Function;
-import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
-import android.content.Context;
-import android.util.Log;
+
+import com.yoke.utils.Callback;
+import com.yoke.utils.DataCallback;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ * An abstract class that can be used to create any class to store data in the database
+ * @param <T> The data that the class should contain
+ */
 public abstract class DataObject<T extends DataObject.DataObjectData>{
+    // A reference to the actual data
     protected T data;
+
+    // A local reference to the database
     protected DataBase db;
 
+    /**
+     * Creates a data object
+     * @param data  The data to store in the object
+     */
     public DataObject(T data) {
         db = DataBase.getInstance();
         this.data = data;
@@ -26,6 +35,15 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
 
 
     // Standard methods for any data
+
+    /**
+     * Gets all of the instances for some data object type from the database
+     * @param dao  The dao to use to get the data
+     * @param getObject  The function to translate the data obtained from the database into a data object
+     * @param dataCallback  The callback to return all the data to
+     * @param <T>  The data object type to retrieve
+     * @param <D>  The data object data that the data object uses
+     */
     protected static <T extends DataObject<D>, D extends DataObject.DataObjectData> void getAll(
             final DataDao<D> dao,
             final Function<D, T> getObject,
@@ -37,6 +55,15 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
             }
         }).start();
     }
+
+    /**
+     * Maps data from one type to another
+     * @param collection  THe data to map
+     * @param mapper  The function to map the data with
+     * @param <S>  The type of the input data
+     * @param <T>  The type of the output data
+     * @return  The mapped data
+     */
     protected static <S, T> List<T> mapAll(Collection<S> collection, Function<S, T> mapper) {
         List<T> list = new ArrayList<T>();
         for (S item: collection){
@@ -44,6 +71,16 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
         }
         return list;
     }
+
+    /**
+     * Gets a specific instance of some data object type from the database
+     * @param ID The id of the item to retrieve
+     * @param dao  The dao to use to get the data
+     * @param getObject  The function to translate the data obtained from the database into a data object
+     * @param dataCallback  The callback to return all the data to
+     * @param <T>  The data object type to retrieve
+     * @param <D>  The data object data that the data object uses
+     */
     protected static <T extends DataObject, D extends DataObject.DataObjectData> void getByID(
             final long ID,
             final DataDao<D> dao,
@@ -70,7 +107,7 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
      * Saves all of the data in the database
      */
     public void save() {
-        this.save(null);
+        this.save(() -> {});
     }
 
     /**
@@ -101,7 +138,7 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
      * Deletes the data from the database
      */
     public void delete() {
-        this.delete(null);
+        this.delete(() -> {});
     }
 
     /**
@@ -119,14 +156,6 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
                 }
             }
         }).start();
-    }
-
-    // Async callback classes
-    public interface DataCallback<T> {
-        void retrieve(T data);
-    }
-    public interface Callback {
-        void call();
     }
 
     // The standard data that any object has
@@ -149,5 +178,10 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
         @Delete
         void delete(T data);
     }
+
+    /**
+     * Retrieves the dao to be used for this class
+     * @return  The class specific dao
+     */
     abstract protected DataDao<T> getDoa();
 }

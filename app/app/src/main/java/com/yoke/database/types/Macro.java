@@ -7,10 +7,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -18,6 +15,8 @@ import android.os.AsyncTask;
 import com.yoke.connection.Message;
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
+import com.yoke.utils.Callback;
+import com.yoke.utils.DataCallback;
 import com.yoke.utils.ImageTools;
 
 import java.util.List;
@@ -79,7 +78,7 @@ public class Macro extends DataObject<Macro.MacroData> {
      * @return The image as a bitmap
      */
     public Bitmap getForegroundImage() {
-        return ImageTools.getImageFromString(this.data.foregroundImage);
+        return ImageTools.getImageFromString(this.data.foregroundImage); //TODO refactor to getForeground
     }
 
     /**
@@ -96,7 +95,7 @@ public class Macro extends DataObject<Macro.MacroData> {
      */
     public int getForegroundColor() {
         return this.data.foregroundColor;
-    }
+    } //TODO remove
 
     /**
      * Retrieves the display text of the macro
@@ -326,6 +325,24 @@ public class Macro extends DataObject<Macro.MacroData> {
 
         @ColumnInfo(name = "foregroundColor")
         public int foregroundColor;
+
+//        @ColumnInfo(name = "backgroundAlpha")
+//        public int backgroundAlpha;
+//
+//        @ColumnInfo(name = "foregroundAlpha")
+//        public int foregroundAlpha;
+//
+//        @ColumnInfo(name = "backgroundSize")
+//        public int backgroundSize;
+//
+//        @ColumnInfo(name = "foregroundSize")
+//        public int foregroundSize;
+//
+//        @ColumnInfo(name = "backgroundAspectRatio")
+//        public int backgroundAspectRatio;
+//
+//        @ColumnInfo(name = "foregroundAspectRatio")
+//        public int foregroundAspectRatio;
 
         @ColumnInfo(name = "text")
         public String text;

@@ -34,7 +34,6 @@ public class MoveMouseExecutor extends RobotExecutor<MoveMouseCmd>{
         // Move the mouse to 0, 0 and then to the provided position
         MouseUtils.move(x, y);
     }
-
 }
 
 /**
@@ -70,7 +69,6 @@ class MouseUtils {
         input.input.mi.mouseData = new DWORD(0);
         input.input.mi.dwFlags = new DWORD(User32.MOUSEEVENTF_MOVE
             | User32.MOUSEEVENTF_VIRTUALDESK | User32.MOUSEEVENTF_ABSOLUTE);
-        // input.input.mi.dwFlags = new DWORD(0x8000L);
         input.input.mi.time = new DWORD(0);
 
         INPUT[] inArray = {input};

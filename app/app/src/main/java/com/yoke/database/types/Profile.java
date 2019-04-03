@@ -4,10 +4,11 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
-import android.util.Log;
 
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
+import com.yoke.utils.Callback;
+import com.yoke.utils.DataCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,9 +165,7 @@ public class Profile extends DataObject<Profile.ProfileData> {
         this.buttons.remove(button);
     }
 
-    /**
-     * Saves the profile data into the database, as well as all the added buttons
-     */
+    @Override
     public void save(Callback callback){
         Profile p = this;
 
@@ -179,13 +178,37 @@ public class Profile extends DataObject<Profile.ProfileData> {
                     button.setProfile(p);
                     button.save(() -> {
                         // If we have saved all of the buttons, perform the callback
-                        if (++completed == buttons.size() && callback != null) {
+                        if (++completed == buttons.size()) {
                             callback.call();
                         }
                     });
                 }
 
                 // If there are no buttons to save, perform the callback immediately
+                if (buttons.size() == 0) {
+                    callback.call();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void delete(Callback callback) {
+        super.delete(new Callback() {
+            // Track how many of the buttons we have deleted
+            int completed = 0;
+
+            public void call() {
+                for (Button button: buttons) {
+                    button.delete(() -> {
+                        // If we have deleted all of the buttons, perform the callback
+                        if (++completed == buttons.size()) {
+                            callback.call();
+                        }
+                    });
+                }
+
+                // If there are no buttons to be deleted, perform the callback immediately
                 if (buttons.size() == 0) {
                     callback.call();
                 }
@@ -256,6 +279,12 @@ public class Profile extends DataObject<Profile.ProfileData> {
         // A callback for the getAll method to assign the buttons
         DataCallback<Profile> getButtons = new DataCallback<Profile>() {
             public void retrieve(Profile profile) {
+                // Make sure the profile is defined before continuing
+                if (profile == null) {
+                    dataCallback.retrieve(null);
+                    return;
+                }
+
                 // Get all the buttons for the profile, and assign them
                 Button.getAll(profile.getID(), buttons -> {
                     profile.setButtons(buttons);

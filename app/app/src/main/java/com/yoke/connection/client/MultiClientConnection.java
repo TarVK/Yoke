@@ -6,6 +6,7 @@ import android.util.Log;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
+import com.yoke.connection.messages.app.AppCmd;
 import com.yoke.connection.messages.connection.Connected;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
@@ -99,12 +100,14 @@ public class MultiClientConnection extends Connection {
     }
 
     @Override
-    public void send(Message message) {
-        // Send the message to local receivers
-        emitToReceivers(message, this.sendReceivers);
-
-        // Send using connection
-        this.connection.send(message);
+    public void send(Message message, boolean local) {
+        if (message instanceof AppCmd || local) {
+            // Emit message locally
+            super.send(message, true);
+        } else {
+            // Send using connection
+            this.connection.send(message);
+        }
     }
 
     @Override
