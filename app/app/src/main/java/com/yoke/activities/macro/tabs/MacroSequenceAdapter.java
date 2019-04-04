@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MacroSequenceAdapter extends RecyclerView.Adapter<MacroSequenceAdapter.MyViewHolder> implements MacroSequenceItemMoveCallback.ItemTouchHelperContract {
 
-    private ComposedMessage.MessageDelay data;
+    private ArrayList<Macro> data;
 
     private final MacroSequenceStartDragListener mStartDragListener;
 
@@ -54,7 +54,7 @@ public class MacroSequenceAdapter extends RecyclerView.Adapter<MacroSequenceAdap
         }
     }
 
-    public MacroSequenceAdapter(ComposedMessage.MessageDelay data, MacroSequenceStartDragListener startDragListener) {
+    public MacroSequenceAdapter(ArrayList<Macro> data, MacroSequenceStartDragListener startDragListener) {
         mStartDragListener = startDragListener;
         this.data = data;
     }
@@ -69,8 +69,6 @@ public class MacroSequenceAdapter extends RecyclerView.Adapter<MacroSequenceAdap
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called. ");
-
-        data.
 
         holder.objectTitle.setText(position);
 

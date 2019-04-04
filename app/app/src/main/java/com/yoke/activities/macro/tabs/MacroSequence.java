@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.yoke.R;
 
 import com.yoke.activities.macro.select.MacroSelection;
+import com.yoke.connection.ComposedMessage;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Message;
 import com.yoke.database.types.Button;
@@ -38,8 +39,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 //    private ArrayList<String> mImageName = new ArrayList<>(); //save the name of the buttons
 //    private List<Button> mButton;
 
-    CompoundMessage mAction = new CompoundMessage();
-
+    ArrayList<Macro> mAction = new ArrayList<>();
     FloatingActionButton addAction;
 
     public MacroSequence() {
@@ -64,16 +64,16 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 
 
         addAction.setOnClickListener(v -> {
-            profile.save(()-> {
-                macro.save(() -> {
-                    runOnUiThread(() -> {
-                        Intent intent = new Intent(getActivity().getApplicationContext(), MacroSelection.class);
-                        intent.putExtra("macro id", macro.getID());
-                        startActivity(intent);
-                    });
-                })
-
-            });
+//            profile.save(()-> {
+//                macro.save(() -> {
+//                    runOnUiThread(() -> {
+//                        Intent intent = new Intent(getActivity().getApplicationContext(), MacroSelection.class);
+//                        intent.putExtra("macro id", macro.getID());
+//                        startActivity(intent);
+//                    });
+//                })
+//
+//            });
         });
 
 
@@ -95,7 +95,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
         Log.w(TAG, "retrieveData: " + macroID);
 
         Macro.getByID(macroID, (macro) -> {
-            mAction = macro.getAction();
+//            mAction = macro.getAction();
         });
 
 
@@ -159,7 +159,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 
         mAdapter = new MacroSequenceAdapter(mAction,this);
 
-        mAdapter.notifyItemInserted(mAction); //TODO MAY NOT BE NEEDED
+        mAdapter.notifyItemInserted(mAction.size() - 1);
 
         ItemTouchHelper.Callback callback =
                 new MacroSequenceItemMoveCallback(mAdapter);
