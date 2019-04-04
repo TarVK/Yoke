@@ -24,7 +24,7 @@ public class ActionSelection extends AppCompatActivity {
     private static final String TAG = "ActionSelection";
 
     private Long macroID;
-    public Message message = new Message();
+    public ArrayList<Message> message = new ArrayList<>();
 
     RecyclerView recyclerView;
     FloatingActionButton fabAction;
@@ -41,7 +41,9 @@ public class ActionSelection extends AppCompatActivity {
 
         macroID = getIntent().getLongExtra("macro id", 0);
         Macro.getByID(macroID, (macro) -> {
-            message = macro.getAction();
+            message.add(macro.getAction());
+
+
 
             adapter = new ActionSelectionAdapter(message, this, macroID);
             recyclerView.setAdapter(adapter);

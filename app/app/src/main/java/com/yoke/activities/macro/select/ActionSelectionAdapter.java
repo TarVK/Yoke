@@ -25,7 +25,7 @@ public class ActionSelectionAdapter extends RecyclerView.Adapter<ActionSelection
 
     private static final String TAG = "MacroSelectionAdapter";
 
-    private Message mDataset;
+    private ArrayList<Message> mDataset;
     private Context mContext;
     private long macroID;
 
@@ -45,7 +45,7 @@ public class ActionSelectionAdapter extends RecyclerView.Adapter<ActionSelection
     }
 
     //Constructor
-    public ActionSelectionAdapter(Message myDataset, Context context, long mID) {
+    public ActionSelectionAdapter(ArrayList<Message> myDataset, Context context, long mID) {
         mDataset = myDataset;
         mContext = context;
         macroID = mID;
@@ -70,16 +70,16 @@ public class ActionSelectionAdapter extends RecyclerView.Adapter<ActionSelection
             Macro.getByID(macroID, (macro) -> {
                 Message mAction = macro.getAction();
 
-                macro.addButton(mDataset.get(position));
+//                macro.addButton(mDataset.get(position));
 
 
-                macro.save(() -> {
-                    Log.d(TAG, "Add Action to Macro, mID: " + macro.getID());
-
-                    Intent intent = new Intent(mContext, MacroSequence.class);
-                    intent.putExtra("profile id", profileID);
-                    mContext.startActivity(intent);
-                });
+//                macro.save(() -> {
+//                    Log.d(TAG, "Add Action to Macro, mID: " + macro.getID());
+//
+//                    Intent intent = new Intent(mContext, MacroSequence.class);
+//                    intent.putExtra("profile id", profileID);
+//                    mContext.startActivity(intent);
+//                });
             });
 
 
