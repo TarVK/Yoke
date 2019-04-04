@@ -26,6 +26,7 @@
         android:title="@string/light" />
 
     <ListPreference
+        android:title="@string/connection"
         android:defaultValue="@string/blu"
         android:entries="@array/pref_conn_entries"
         android:entryValues="@array/pref_conn_values"

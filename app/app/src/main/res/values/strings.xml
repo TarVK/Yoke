@@ -35,7 +35,8 @@
         <item>bulg</item>
     </string-array>
 
-    <string name="current_language"></string>
+    <!-- TODO find a way to update this and make it translatabe-->
+    <string name="current_language" translatable="false">..</string>
 
     <string name="color">Colour</string>
     <string name="light">Night Theme</string>
