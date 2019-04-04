@@ -101,7 +101,7 @@ public class TutorialActivity extends BaseActivity {
                 mBackBtn.setEnabled(true);
                 mBackBtn.setVisibility(View.VISIBLE);
 
-                mNextBtn.setText(R.string.nextBtn2);
+                mNextBtn.setText(R.string.finishBtn);
                 mBackBtn.setText(R.string.backBtn);
 
             } else {

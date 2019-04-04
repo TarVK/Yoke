@@ -65,6 +65,9 @@ public class SplashActivity extends BaseActivity {
         });
     }
 
+    /**
+     * Initializes bluetooth connection
+     */
     protected void connectionInit () {
         //eventually connection from preferences
         //now just starts bluetooth connection
@@ -73,7 +76,7 @@ public class SplashActivity extends BaseActivity {
         MultiClientConnection.initialize(bluetoothConnection);
         connection = MultiClientConnection.getInstance();
 
-        //add receiver to connection
+        //receiver in case of successful connection
         connection.addReceiver(new MessageReceiver<Connected>() {
             public void receive(Connected message) {
             //if connected message is received, close splash
@@ -97,8 +100,9 @@ public class SplashActivity extends BaseActivity {
             }
         });
 
-
-        // Initialize the bluetooth connection
+        /**
+         * Checks whether bluetooth is enabled
+         */
         boolean bluetoothEnabled = bluetoothConnection.setup(false);//returns bool whether succeeded
         if (bluetoothEnabled) {
             //proceed if bluetooth is enabled

@@ -1,6 +1,8 @@
 package com.yoke.activities.macro.tabs;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -8,20 +10,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
-
-import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.example.yoke.R;
-import android.support.v7.widget.RecyclerView;
 
-import com.yoke.activities.splash.SplashActivity;
+import com.yoke.activities.macro.select.MacroSelection;
+import com.yoke.connection.ComposedMessage;
+import com.yoke.connection.CompoundMessage;
+import com.yoke.connection.Message;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
-import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -30,16 +29,18 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
     private static final String TAG = "MacroSequence";
 
     RecyclerView recyclerView;
-    MacroSequenceRecyclerViewAdapter mAdapter;
+    MacroSequenceAdapter mAdapter;
     //ArrayList<String> stringArrayList = new ArrayList<>();
     ItemTouchHelper touchHelper;
 
     private View view;
 
-    private ArrayList<Integer> mImageID = new ArrayList<>(); //save the index of the buttons
-    private ArrayList<String> mImageName = new ArrayList<>(); //save the name of the buttons
-    private List<Button> mButton;
-    ArrayList<Macro> mMacro = new ArrayList<>();
+//    private ArrayList<Integer> mImageID = new ArrayList<>(); //save the index of the buttons
+//    private ArrayList<String> mImageName = new ArrayList<>(); //save the name of the buttons
+//    private List<Button> mButton;
+
+    ArrayList<Macro> mAction = new ArrayList<>();
+    FloatingActionButton addAction;
 
     public MacroSequence() {
         // Required empty public constructor
@@ -61,6 +62,21 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
 
+
+        addAction.setOnClickListener(v -> {
+//            profile.save(()-> {
+//                macro.save(() -> {
+//                    runOnUiThread(() -> {
+//                        Intent intent = new Intent(getActivity().getApplicationContext(), MacroSelection.class);
+//                        intent.putExtra("macro id", macro.getID());
+//                        startActivity(intent);
+//                    });
+//                })
+//
+//            });
+        });
+
+
 //        retrieveData();
 //
 //        populateRecyclerView();
@@ -75,8 +91,15 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
      * Retrieve the data from the database and store in the arraylist
      */
     public void retrieveData() {
-        Long profileId = getActivity().getIntent().getLongExtra("profile id", 0);
-        Log.w(TAG, "retrieveData: " + profileId);
+        Long macroID = getActivity().getIntent().getLongExtra("macro id", 0);
+        Log.w(TAG, "retrieveData: " + macroID);
+
+        Macro.getByID(macroID, (macro) -> {
+//            mAction = macro.getAction();
+        });
+
+
+
 
         int i = 0;
 
@@ -131,14 +154,12 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
     }
 
     private void populateRecyclerView() {
-        mMacro.add(new Macro("name1"));
-        mMacro.add(new Macro("name2"));
-        mMacro.add(new Macro("name3"));
 
 
-        mAdapter = new MacroSequenceRecyclerViewAdapter(mMacro,this);
 
-        mAdapter.notifyItemInserted(mMacro.size() - 1); //TODO MAY NOT BE NEEDED
+        mAdapter = new MacroSequenceAdapter(mAction,this);
+
+        mAdapter.notifyItemInserted(mAction.size() - 1);
 
         ItemTouchHelper.Callback callback =
                 new MacroSequenceItemMoveCallback(mAdapter);

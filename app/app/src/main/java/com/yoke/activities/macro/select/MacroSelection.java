@@ -1,6 +1,5 @@
 package com.yoke.activities.macro.select;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 
 public class MacroSelection extends BaseActivity {
 
-    private static final String TAG = "`MacroSelection";
+    private static final String TAG = "MacroSelection";
 
     private Long profileID;
 

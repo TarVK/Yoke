@@ -1,18 +1,23 @@
 <resources>
+
     <string name="app_name" translatable="false">Yoke</string>
     <string name="action_settings" translatable="false">Settings</string>
-    <string name="heading1" translatable="false">Eat</string>
-    <string name="heading2" translatable="false">Sleep</string>
-    <string name="heading3" translatable="false">Code</string>
-    <string name="description1" translatable="false">Eating is important.</string>
-    <string name="description2" translatable="false">Sleeping is bliss.</string>
-    <string name="description3" translatable="false">Coding is life</string>
-    <string name="backBtn" translatable="false">Back</string>
-    <string name="nextBtn" translatable="false">Next</string>
-    <string name="nextBtn2" translatable="false">Finish</string>
+
+    <string name="backBtn">Back</string>
+    <string name="nextBtn">Next</string>
+    <string name="finishBtn">Finish</string>
+
     <string name="tutorialBtn" translatable="false">Tutorial</string>
     <string name="splashBtn" translatable="false">Splash/Tutorial</string>
     <string name="title_activity_mouse" translatable="false">MouseActivity</string>
+    <string name="heading1">Homescreen</string>
+    <string name="heading2">Profilescreen</string>
+    <string name="heading3">Settings</string>
+    <string name="description1">Here you can create new profiles
+      and select existing ones.</string>
+    <string name="description2">This screen contains your macros.</string>
+    <string name="description3">Here you can change the language and
+      such.</string>
 
     <string name="title_activity_settings">Settings</string>
 

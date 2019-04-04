@@ -48,9 +48,9 @@ public class MacroSequenceItemMoveCallback extends ItemTouchHelper.Callback {
 
 
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (viewHolder instanceof MacroSequenceRecyclerViewAdapter.MyViewHolder) {
-                MacroSequenceRecyclerViewAdapter.MyViewHolder myViewHolder=
-                        (MacroSequenceRecyclerViewAdapter.MyViewHolder) viewHolder;
+            if (viewHolder instanceof MacroSequenceAdapter.MyViewHolder) {
+                MacroSequenceAdapter.MyViewHolder myViewHolder=
+                        (MacroSequenceAdapter.MyViewHolder) viewHolder;
                 mAdapter.onRowSelected(myViewHolder);
             }
 
@@ -63,9 +63,9 @@ public class MacroSequenceItemMoveCallback extends ItemTouchHelper.Callback {
                           RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
 
-        if (viewHolder instanceof MacroSequenceRecyclerViewAdapter.MyViewHolder) {
-            MacroSequenceRecyclerViewAdapter.MyViewHolder myViewHolder=
-                    (MacroSequenceRecyclerViewAdapter.MyViewHolder) viewHolder;
+        if (viewHolder instanceof MacroSequenceAdapter.MyViewHolder) {
+            MacroSequenceAdapter.MyViewHolder myViewHolder=
+                    (MacroSequenceAdapter.MyViewHolder) viewHolder;
             mAdapter.onRowClear(myViewHolder);
         }
     }
@@ -73,8 +73,8 @@ public class MacroSequenceItemMoveCallback extends ItemTouchHelper.Callback {
     public interface ItemTouchHelperContract {
 
         void onRowMoved(int fromPosition, int toPosition);
-        void onRowSelected(MacroSequenceRecyclerViewAdapter.MyViewHolder myViewHolder);
-        void onRowClear(MacroSequenceRecyclerViewAdapter.MyViewHolder myViewHolder);
+        void onRowSelected(MacroSequenceAdapter.MyViewHolder myViewHolder);
+        void onRowClear(MacroSequenceAdapter.MyViewHolder myViewHolder);
 
     }
 

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <string name="backBtn">Назад</string>
+    <string name="nextBtn">Следващо</string>
+    <string name="finishBtn">Завърши</string>
+    <string name="heading1">Homescreen</string>
+    <string name="heading2">Профили</string>
+    <string name="heading3">Настройки</string>
+    <string name="description1">Тук можете да създатете нови профили или да изберете вече съществуващи такива.</string>
+    <string name="description2">Тази страница съдържа Вашите бутони.</string>
+    <string name="description3">Тук можете да промените настройките си.</string>
     <!-- Strings related to Settings -->
     <string name="title_activity_settings">Настройки</string>
     <string name="language">Език</string>
