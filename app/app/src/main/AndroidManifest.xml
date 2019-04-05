@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <service android:name="com.yoke.activities.motionDetector.ShakeService"></service>
         <activity
             android:name="com.yoke.activities.mouse.MouseActivity"
             android:label="@string/title_activity_mouse"

@@ -1,6 +1,5 @@
 package com.yoke.activities.macro.tabs;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -12,16 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.yoke.R;
-
-import com.yoke.activities.macro.select.MacroSelection;
-import com.yoke.connection.ComposedMessage;
-import com.yoke.connection.CompoundMessage;
-import com.yoke.connection.Message;
-import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MacroSequence extends Fragment implements MacroSequenceStartDragListener {
