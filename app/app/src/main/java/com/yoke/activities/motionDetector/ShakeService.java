@@ -68,7 +68,7 @@ public class ShakeService extends Service implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
        float maxAcc = calcMaxAcceleration(event);
-       Log.w(TAG, "onSensorChanged: " + shakeCount);
+//       Log.w(TAG, "onSensorChanged: " + shakeCount);
 //       Log.w(TAG, "shake " + shakeCount + " acc " + maxAcc + " first " + firstMoveTime + " second " + secondMoveTime +" third " + currentTime);
 //       Log.w(TAG, "diff1 " + (secondMoveTime-firstMoveTime) +  " diff2 " + (currentTime - secondMoveTime));
 

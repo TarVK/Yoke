@@ -78,14 +78,6 @@ public class MacroSelection extends AppCompatActivity {
                 });
             });
         });
-
-        Button.getAll(retrievedButtons -> {
-            runOnUiThread(() -> {
-                buttons.clear();
-                buttons.addAll(retrievedButtons);
-                adapter.notifyDataSetChanged();
-            });
-        });
     }
 
     @Override

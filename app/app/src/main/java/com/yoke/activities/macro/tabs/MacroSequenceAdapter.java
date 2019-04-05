@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,15 +42,28 @@ public class MacroSequenceAdapter extends RecyclerView.Adapter<MacroSequenceAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView objectTitle;
+        TextView actionText;
+        TextView editRepetitions;
+        TextView editDelay;
+        ImageView increaseRepeat;
+        ImageView decreaseRepeat;
+        ImageView increaseDelay;
+        ImageView decreaseDelay;
+
         View rowView;
-        ImageButton dragObject;
+        ImageView dragObject;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             rowView = itemView;
-            objectTitle = itemView.findViewById(R.id.objectTitle);
+            actionText = itemView.findViewById(R.id.actionText);
+            editRepetitions = itemView.findViewById(R.id.editRepetitions);
+            editDelay = itemView.findViewById(R.id.editDelay);
+            increaseRepeat = itemView.findViewById(R.id.increaseRepeat);
+            decreaseRepeat = itemView.findViewById(R.id.decreaseRepeat);
+            increaseDelay = itemView.findViewById(R.id.increaseDelay);
+            decreaseDelay = itemView.findViewById(R.id.decreaseDelay);
             dragObject = itemView.findViewById(R.id.dragObject);
         }
     }
@@ -70,7 +84,26 @@ public class MacroSequenceAdapter extends RecyclerView.Adapter<MacroSequenceAdap
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called. ");
 
-        holder.objectTitle.setText(position);
+
+
+        holder.actionText.setText(position);
+
+        holder.increaseRepeat.setOnClickListener(v -> {
+
+        });
+
+        holder.decreaseRepeat.setOnClickListener(v -> {
+
+        });
+
+        holder.increaseDelay.setOnClickListener(v -> {
+
+        });
+
+        holder.decreaseDelay.setOnClickListener(v -> {
+
+        });
+
 
         holder.dragObject.setOnTouchListener((v, event) -> {
             if (event.getAction() ==

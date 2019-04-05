@@ -55,7 +55,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 
 
 
-        addAction.setOnClickListener(v -> {
+//        addAction.setOnClickListener(v -> {
 //            profile.save(()-> {
 //                macro.save(() -> {
 //                    runOnUiThread(() -> {
@@ -66,7 +66,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 //                })
 //
 //            });
-        });
+//        });
 
 
 //        retrieveData();
@@ -87,7 +87,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
         Log.w(TAG, "retrieveData: " + macroID);
 
         Macro.getByID(macroID, (macro) -> {
-//            mAction = macro.getAction();
+            Log.d(TAG, macro.getAction().toString());
         });
 
 
