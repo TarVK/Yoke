@@ -10,7 +10,6 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.yoke.connection.client.MultiClientConnection;
 
@@ -107,7 +106,6 @@ public class ShakeService extends Service implements SensorEventListener {
                if (interval > 400 && interval < 1000) {
                    shakeCount = 3;
                    Log.w(TAG, "onSensorChanged: disconnect");
-                   Toast.makeText(this, "shaked three times", Toast.LENGTH_SHORT).show();
                    terminate();
                    return;
 
@@ -163,7 +161,7 @@ public class ShakeService extends Service implements SensorEventListener {
     private void terminate() {
         MultiClientConnection.destroyInstance();
 //        System.exit(1);
-        android.os.Process.killProcess(android.os.Process.myPid());
+//        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
 
