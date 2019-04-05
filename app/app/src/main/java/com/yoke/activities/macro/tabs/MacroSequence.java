@@ -133,10 +133,10 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 //                });
 //
 ////                Profile.getByID();
-//                for (com.yoke.database.types.Button button : mButton) {
-//                    mImageID.add((int) button.getIndex());
-//                    //add the button index for positioning buttons
-//                    mMacro.add(button.getMacro());
+//                for (com.yoke.database.types.Button layout_button : mButton) {
+//                    mImageID.add((int) layout_button.getIndex());
+//                    //add the layout_button index for positioning buttons
+//                    mMacro.add(layout_button.getMacro());
 //
 //                }
 //

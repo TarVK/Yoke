@@ -15,9 +15,13 @@ import com.yoke.database.types.Settings;
         Settings.SettingsData.class,
         Profile.ProfileData.class,
         Button.ButtonData.class
-}, version = 21)
+}, version = 25)
+
+/**
+ * A class to manage all stored data in the application
+ */
 public abstract class DataBase extends RoomDatabase {
-    // All daos
+    // All daos as per room's standard
     public abstract Macro.MacroDataDao macroDataDao();
     public abstract Settings.SettingsDataDao settingsDataDao();
     public abstract Profile.ProfileDataDao profileDataDao();

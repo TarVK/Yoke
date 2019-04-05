@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.yoke.activities.macro.select.MacroSelection">
 
     <android.support.v7.widget.Toolbar
@@ -14,15 +16,29 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+    <EditText
+        android:id="@+id/search"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:clipToPadding="false"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/macroSelection_search"
+        android:inputType="textPersonName"
+        android:lines="1"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/createMacro"

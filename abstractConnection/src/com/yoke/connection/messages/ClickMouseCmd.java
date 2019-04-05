@@ -24,12 +24,12 @@ public class ClickMouseCmd extends Message {
     // The mouse press to perform
     public int button;
 
-    // The type of button press
+    // The type of layout_button press
     public byte type;
     
     /**
      * Creates a mouse click command
-     * @param button  The mouse button that should be clicked (ClickMouseCmd.LEFTCLICK, etc)
+     * @param button  The mouse layout_button that should be clicked (ClickMouseCmd.LEFTCLICK, etc)
      */
     public ClickMouseCmd(int button) {
         this(button, BUTTONPRESS);
@@ -37,8 +37,8 @@ public class ClickMouseCmd extends Message {
     
     /**
      * Creates a mouse click command
-     * @param button  The mouse button that should be clicked (ClickMouseCmd.LEFTCLICK, etc)
-     * @param type  The type of button press (ClickMouseCmd.BUTTONDOWN, etc)
+     * @param button  The mouse layout_button that should be clicked (ClickMouseCmd.LEFTCLICK, etc)
+     * @param type  The type of layout_button press (ClickMouseCmd.BUTTONDOWN, etc)
      */
     public ClickMouseCmd(int button, byte type) {
         this.button = button;

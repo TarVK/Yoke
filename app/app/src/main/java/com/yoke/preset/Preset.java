@@ -31,11 +31,11 @@ public abstract class Preset {
     // Whether the preset has been created and initially stored
     protected boolean presetCreated = false;
 
-    // The number of macros that are currently being created
-    protected int awaitingMacroCount = 0;
+    // The number of macros that finished being created
+    protected int createdMacroCount = 0;
 
     // The number of macros in the profile
-    protected byte buttonCount = 6;
+    protected byte buttonCount = 0;
 
     // The list of macros that should be added to the profile
     protected Macro[] macros;
@@ -54,9 +54,6 @@ public abstract class Preset {
     protected Preset(Context context) {
         this.context = context;
 
-        // Create the macros list
-        macros = new Macro[buttonCount];
-
         // Create a profile
         profile = new Profile("P" + Math.random());
 
@@ -72,7 +69,7 @@ public abstract class Preset {
             // Continue creating the preset
             setupProfile(profile);
 
-            if (awaitingMacroCount == 0) {
+            if (buttonCount == 0) {
                 completeSetup();
             }
         });
@@ -132,13 +129,14 @@ public abstract class Preset {
      * and adds it to the profile
      * Should only be called from the setupProfile method
      * @param name  The name of the macro
-     * @param imageResourceID  The id of the image resource for the button
-     * @param action  The action to perform once the button is pressed
+     * @param imageResourceID  The id of the image resource for the layout_button
+     * @param action  The action to perform once the layout_button is pressed
      */
     protected void addMacro(String name, int imageResourceID,
                                Message action) {
         // Indicate that we need a callback from this macro
-        final int index = awaitingMacroCount++;
+        final int index = buttonCount++;
+        macros = new Macro[buttonCount];
 
         // Check if the macro already exists
         Macro.getByName(name, (macro) -> {
@@ -168,7 +166,7 @@ public abstract class Preset {
         macros[index] = macro;
 
         // Check if all macros have been created
-        if (--awaitingMacroCount == 0) {
+        if (++createdMacroCount == buttonCount) {
             completeSetup();
         }
     }

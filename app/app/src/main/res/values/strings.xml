@@ -13,4 +13,6 @@
     <string name="nextBtn">Next</string>
     <string name="finishBtn">Finish</string>
     <string name="title_activity_mouse">MouseActivity</string>
+    <string name="editProfile_associatedPrograms">Associated programs (csv)</string>
+    <string name="macroSelection_search">Search</string>
 </resources>

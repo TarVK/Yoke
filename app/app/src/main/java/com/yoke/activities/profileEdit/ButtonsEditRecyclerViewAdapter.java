@@ -65,8 +65,14 @@ public class ButtonsEditRecyclerViewAdapter extends
     @NonNull
     @Override
     public ButtonsEditRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.button, parent, false);
+        View view;
+        if (mProfile.isLandscape) {
+            view = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.layout_button_edit, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.layout_button, parent, false);
+        }
 
         ViewHolder holder = new ViewHolder(view);
         return holder;
@@ -97,20 +103,6 @@ public class ButtonsEditRecyclerViewAdapter extends
         if (mProfile.getSelectedButton() == null) {
             select(viewHolder, button);
         }
-
-//        Log.w(TAG, "onBindViewHolder: " + buttonViewHolders.size());
-
-//        viewHolder.buttonImage.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                viewHolder.rowView.setBackgroundColor(Color.GRAY);
-//                Toast.makeText(mContext, " long click", Toast.LENGTH_LONG).show();
-//
-//                activateDelete = true;
-//                return true;
-//            }
-//        });
-
     }
 
     @Override

@@ -21,9 +21,9 @@ public class Button extends DataObject<Button.ButtonData> {
     protected Macro macro;
 
     /**
-     * Creates a button for a profile
-     * @param macro  The macro that this button represents
-     * @pre The macro needs to be saved at least once before the button is saved
+     * Creates a layout_button for a profile
+     * @param macro  The macro that this layout_button represents
+     * @pre The macro needs to be saved at least once before the layout_button is saved
      */
     public Button(Macro macro) {
         super(new Button.ButtonData());
@@ -31,7 +31,7 @@ public class Button extends DataObject<Button.ButtonData> {
     }
 
     /**
-     * Creates a button with the data that was obtained from the database
+     * Creates a layout_button with the data that was obtained from the database
      * @param data  The data that was obtained from the database
      */
     protected Button(Button.ButtonData data) {
@@ -48,15 +48,15 @@ public class Button extends DataObject<Button.ButtonData> {
     }
 
     /**
-     * Retrieves the macro of the button
-     * @return The macro that this button represents
+     * Retrieves the macro of the layout_button
+     * @return The macro that this layout_button represents
      */
     public Macro getMacro() {
         return this.macro;
     }
 
     /**
-     * Retrieves the index in the grid of the button
+     * Retrieves the index in the grid of the layout_button
      * @return The index
      */
     public byte getIndex() {
@@ -64,16 +64,16 @@ public class Button extends DataObject<Button.ButtonData> {
     }
 
     /**
-     * Sets the macro of the button
+     * Sets the macro of the layout_button
      * @param macro  The macro
-     * @pre The macro needs to be saved at least once before the button is saved
+     * @pre The macro needs to be saved at least once before the layout_button is saved
      */
     public void setMacro(Macro macro) {
         this.macro = macro;
     }
 
     /**
-     * Sets the index of the button in the grid
+     * Sets the index of the layout_button in the grid
      * @param index  The index
      */
     public void setIndex(byte index) {
@@ -81,8 +81,8 @@ public class Button extends DataObject<Button.ButtonData> {
     }
 
     /**
-     * Sets the profile of the button
-     * @param profile  The profile to store the button in
+     * Sets the profile of the layout_button
+     * @param profile  The profile to store the layout_button in
      * @pre The profile needs to be saved at least once before assigned
      */
     protected void setProfile(Profile profile) {
@@ -91,7 +91,7 @@ public class Button extends DataObject<Button.ButtonData> {
 
 
     /**
-     * Saves the button data into the database
+     * Saves the layout_button data into the database
      */
     public void save(Callback callback){
         // Assign the id from the macro
@@ -128,7 +128,7 @@ public class Button extends DataObject<Button.ButtonData> {
             int completed = 0;
             public void retrieve(List<Button> buttons) {
                 for (Button button: buttons) {
-                    // Get the macro of the button, and assign it
+                    // Get the macro of the layout_button, and assign it
                     Macro.getByID(button.getMacroID(), macro -> {
                         button.setMacro(macro);
 
@@ -176,15 +176,15 @@ public class Button extends DataObject<Button.ButtonData> {
 
 
     /**
-     * Retrieves a specific button
-     * @param ID  The ID of the button to retrieve
+     * Retrieves a specific layout_button
+     * @param ID  The ID of the layout_button to retrieve
      * @param dataCallback  The callback to make once the data has been retrieved
      */
     public static void getByID(long ID, DataCallback<Button> dataCallback){
         // A callback for the getAll method to assign the macro
         DataCallback<Button> macroAssigner = new DataCallback<Button>() {
             public void retrieve(Button button) {
-                // Get the macro of the button, and assign it
+                // Get the macro of the layout_button, and assign it
                 Macro.getByID(button.getMacroID(), macro -> {
                     button.setMacro(macro);
 

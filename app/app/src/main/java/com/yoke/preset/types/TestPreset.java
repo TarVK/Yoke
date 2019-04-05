@@ -25,7 +25,6 @@ public class TestPreset extends Preset {
      */
     public TestPreset(Context context) {
         super(context);
-        buttonCount = 3;
     }
 
     @Override

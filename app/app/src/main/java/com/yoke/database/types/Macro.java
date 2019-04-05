@@ -6,6 +6,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -26,10 +27,13 @@ import java.util.List;
  */
 public class Macro extends DataObject<Macro.MacroData> {
     // Define a resolution for the macro images
-    public static final int resolution = 400;
+    public static final int resolution = 200;
 
     // Define the font size relative to the resolution, e.g. 0.25 is 1/4th of resolution in height
     public static final double fontScale = 0.1;
+
+    // Store cached version of the final image
+    protected Bitmap image;
 
     /**
      * Creates a new macro with a certain name
@@ -62,7 +66,13 @@ public class Macro extends DataObject<Macro.MacroData> {
      * @return The image representing all of the visual data
      */
     public Bitmap getCombinedImage() {
-        return ImageTools.getImageFromString(this.data.combinedImage);
+        // Load the image once
+        if (image == null) {
+            image = ImageTools.getImageFromString(this.data.combinedImage);
+        }
+
+        // Return the image
+        return image;
     }
 
     /**
@@ -175,7 +185,7 @@ public class Macro extends DataObject<Macro.MacroData> {
     }
 
     /**
-     * Sets the display text of the button
+     * Sets the display text of the layout_button
      * @param text The text
      */
     public void setText(String text) {
