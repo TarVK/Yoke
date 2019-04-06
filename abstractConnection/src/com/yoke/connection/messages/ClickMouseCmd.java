@@ -44,4 +44,34 @@ public class ClickMouseCmd extends Message {
         this.button = button;
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        String out = "Mouse";
+
+        // Add the button
+        if (type == LEFTCLICK) {
+            out += " left";
+        } else if (type == RIGHTCLICK) {
+            out += " right";
+        } else if (type == MIDDLECLICK) {
+            out += " middle";
+        } else if (type == SCROLLDOWN) {
+            out += " scroll down";
+        } else if (type == SCROLLUP) {
+            out += " scroll up";
+        }
+
+        // Add the type
+        if (type == BUTTONDOWN) {
+            out += " down";
+        } else if (type == BUTTONUP) {
+            out += " up";
+        } else if (type == BUTTONPRESS) {
+            out += " press";
+        }
+
+        // Return the result
+        return out;
+    }
 }

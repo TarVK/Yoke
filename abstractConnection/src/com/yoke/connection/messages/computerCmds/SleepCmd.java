@@ -10,7 +10,7 @@ public class SleepCmd extends ComputerCmd {
     private static final long serialVersionUID = -6259637821869646630L;
 
     @Override
-    public String getName() {
+    public String toString() {
         return "Sleep";
     }
 }

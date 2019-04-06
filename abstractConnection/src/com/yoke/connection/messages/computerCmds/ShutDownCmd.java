@@ -10,7 +10,7 @@ public class ShutDownCmd extends ComputerCmd {
     private static final long serialVersionUID = 7663898149656611444L;
 
     @Override
-    public String getName() {
+    public String toString() {
         return "Shutdown";
     }
 }

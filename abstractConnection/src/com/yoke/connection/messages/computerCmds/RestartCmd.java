@@ -10,7 +10,7 @@ public class RestartCmd extends ComputerCmd {
     private static final long serialVersionUID = -8379999244226975157L;
 
     @Override
-    public String getName() {
+    public String toString() {
         return "Restart";
     }
 }

@@ -1,6 +1,7 @@
 package com.yoke.connection.messages;
 
 import com.yoke.connection.Message;
+import com.yoke.utils.Keys;
 
 
 /**
@@ -37,5 +38,30 @@ public class PressKeysCmd extends Message {
     public PressKeysCmd(int[] keys, int type) {
         this.keys = keys;
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        String out = "Key ";
+
+        // Add all keys
+        for (int key: keys) {
+            out += Keys.getKeyText(key) + " + ";
+        }
+
+        // Remouve the last plus
+        out = out.substring(0, out.length() - 3);
+
+        // Add the type
+        if (type == KEYDOWN) {
+            out += " down";
+        } else if (type == KEYUP) {
+            out += " up";
+        } else if (type == KEYPRESS) {
+            out += " press";
+        }
+
+        // Return the result
+        return out;
     }
 }

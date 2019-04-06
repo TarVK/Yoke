@@ -10,7 +10,7 @@ public class NextTrackCmd extends ComputerCmd {
     private static final long serialVersionUID = 76853691411453686L;
 
     @Override
-    public String getName() {
+    public String toString() {
         return "Next Track";
     }
 }

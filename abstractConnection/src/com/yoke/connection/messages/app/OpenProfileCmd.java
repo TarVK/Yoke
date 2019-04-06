@@ -17,4 +17,9 @@ public class OpenProfileCmd extends AppCmd {
     public OpenProfileCmd(long profileID){
         this.profileID = profileID;
     }
+
+    @Override
+    public String toString() {
+        return "Open profile " + this.profileID;
+    }
 }

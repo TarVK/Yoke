@@ -10,7 +10,7 @@ public class PlayPauseCmd extends ComputerCmd {
     private static final long serialVersionUID = 8298204355886298203L;
 
     @Override
-    public String getName() {
+    public String toString() {
         return "Play/Pause Music";
     }
 }

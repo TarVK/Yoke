@@ -20,4 +20,9 @@ public class OpenURLCmd extends Message {
     public OpenURLCmd(String URL) {
         this.URL = URL;
     }
+
+    @Override
+    public String toString() {
+        return "Open URL " + URL;
+    }
 }

@@ -62,7 +62,8 @@ public class Macro extends DataObject<Macro.MacroData> {
     }
 
     /**
-     * Retrieves the final image to represent all of the macro
+     * Retrieves the final image to represent all of the macro, as per last save of the macro
+     * If the macro data changed, use createCombinedImage in order to get an update to date version
      * @return The image representing all of the visual data
      */
     public Bitmap getCombinedImage() {
