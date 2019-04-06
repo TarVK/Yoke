@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name" translatable="false">Yoke</string>
+    <string name="app_name">Yoke</string>
     <string name="action_settings" translatable="false">Settings</string>
 
     <string name="backBtn">Back</string>
@@ -24,21 +24,22 @@
     <!-- Strings related to Settings -->
     <string name="language">Language</string>
 
-    <string name="en">English</string>
-    <string name="ne">Dutch</string>
-    <string name="bg">Bulgarian</string>
+    <string name="en">en</string>
+    <string name="ne">ne</string>
+    <string name="bg">bg</string>
 
     <string-array name="pref_lang_entries">
+        <item>en</item>
+        <item>ne</item>
+        <item>bg</item>
+    </string-array>
+
+    <string-array name="pref_lang_values">
         <item>@string/en</item>
         <item>@string/ne</item>
         <item>@string/bg</item>
     </string-array>
 
-    <string-array name="pref_lang_values">
-        <item>english</item>
-        <item>dutch</item>
-        <item>bulg</item>
-    </string-array>
 
     <!-- TODO find a way to update this and make it translatabe-->
     <string name="current_language" translatable="false">..</string>

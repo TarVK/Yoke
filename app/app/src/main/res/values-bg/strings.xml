@@ -19,15 +19,15 @@
     <string name="bg">Български</string>
 
     <string-array name="pref_lang_entries">
-        <item>@string/en</item>
-        <item>@string/ne</item>
-        <item>@string/bg</item>
+        <item>en</item>
+        <item>ne</item>
+        <item>bg</item>
     </string-array>
 
     <string-array name="pref_lang_values">
-        <item>english</item>
-        <item>dutch</item>
-        <item>bulg</item>
+        <item>@string/en</item>
+        <item>@string/ne</item>
+        <item>@string/bg</item>
     </string-array>
 
     <string name="color">Цвят</string>
@@ -64,7 +64,7 @@
         <item>0</item>
         <item>-1</item>
     </string-array>
-
+    <string name="app_name">пишки</string>
 
 
 </resources>

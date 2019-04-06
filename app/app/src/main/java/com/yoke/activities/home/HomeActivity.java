@@ -24,6 +24,7 @@ import java.util.Comparator;
 import com.yoke.activities.BaseActivity;
 import com.yoke.activities.profileEdit.ItemMoveCallback;
 import com.yoke.activities.profileEdit.ProfileEditActivity;
+import com.yoke.activities.settings.Settings;
 import com.yoke.database.types.Profile;
 
 public class HomeActivity extends BaseActivity {
@@ -81,7 +82,7 @@ public class HomeActivity extends BaseActivity {
         });
 
         settings.setOnClickListener(settingsView -> {
-            //startActivity(new Intent(getApplicationContext(), Settings.class));
+            startActivity(new Intent(getApplicationContext(), Settings.class));
         });
 
         initData();

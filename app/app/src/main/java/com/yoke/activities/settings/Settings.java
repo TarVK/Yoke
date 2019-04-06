@@ -14,17 +14,6 @@ import com.yoke.activities.BaseActivity;
 
 public class Settings extends BaseActivity {
 
-    /*Preference language;
-    SwitchPreference lightTheme;
-    Preference color;
-    Preference connection;
-    Preference autoStartUp;
-    Preference tutorial;
-    Preference about;*/
-
-    TextView textViewLang;
-    TextView textViewConn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

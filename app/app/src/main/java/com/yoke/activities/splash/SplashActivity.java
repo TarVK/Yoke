@@ -28,7 +28,7 @@ import com.yoke.preset.types.TestPreset;
 import com.yoke.utils.Callback;
 
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends AppCompatActivity {
     private GifView gifView;
     Handler h = new Handler();
     protected Connection connection;

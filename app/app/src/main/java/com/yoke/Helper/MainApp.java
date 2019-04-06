@@ -3,19 +3,40 @@ package com.yoke.Helper;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Bundle;
+import android.util.Log;
 
+import com.yoke.activities.settings.Settings;
 import com.yoke.activities.settings.SettingsFragment;
 
 public class MainApp extends Application {
 
+    private final String TAG = "MainApp";
+
+    public static LocaleManager localeManager;
+
+//    public MainApp() {
+//        super();
+//        localeManager = new LocaleManager(this.getApplicationContext());
+//    }
+//
+//    public MainApp(LocaleManager localeManager) {
+//        super();
+//        this.localeManager = localeManager;
+//    }
+
     @Override
     protected void attachBaseContext(Context base){
-        super.attachBaseContext(LocaleHelper.onAttach(base, "en"));
+        localeManager = new LocaleManager(base);
+        super.attachBaseContext(localeManager.setLocale(base));
+        Log.d(TAG, "attachBaseContent");
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // TODO LocaleHelper.setLocale(this, somehow get the language here);
+        localeManager.setLocale(getApplicationContext());
+        Log.d(TAG, "onConfigurationChanged");
+
     }
 }
