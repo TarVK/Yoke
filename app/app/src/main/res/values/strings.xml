@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Yoke</string>
+    <string name="app_name" translatable="false">Yoke</string>
     <string name="action_settings" translatable="false">Settings</string>
 
     <string name="backBtn">Back</string>
@@ -18,6 +18,9 @@
     <string name="description2">This screen contains your macros.</string>
     <string name="description3">Here you can change the language and
       such.</string>
+    <string name="editProfile_associatedPrograms">Associated programs (csv)</string>
+    <string name="macroSelection_search">Search</string>
+
 
     <string name="title_activity_settings">Settings</string>
 

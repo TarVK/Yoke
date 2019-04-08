@@ -62,17 +62,13 @@ public class MacroActivity extends BaseActivity {
         // Finish edit
         findViewById(R.id.finishEdit).setOnClickListener(v -> {
             Macro.getByID(macroID, (macro) -> {
-                Profile.getByID(profileID, (profile) -> {
-                    macro.save(() -> {
-                        profile.save(() -> {
-                            runOnUiThread(() -> {
-                                Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
-                                intent.putExtra("profile id", profileID);
-                                startActivity(intent);
-                                finish();
-                                onBackPressed();
-                            });
-                        });
+                macro.save(() -> {
+                    runOnUiThread(() -> {
+                        Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
+                        intent.putExtra("profile id", profileID);
+                        startActivity(intent);
+                        finish();
+                        onBackPressed();
                     });
                 });
             });

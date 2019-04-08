@@ -20,4 +20,9 @@ public class OpenProgramCmd extends Message {
     public OpenProgramCmd(String path) {
         this.path = path;
     }
+
+    @Override
+    public String toString() {
+        return "Open program " + path;
+    }
 }

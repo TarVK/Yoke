@@ -5,16 +5,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.yoke.activities.mouse.MouseActivity;
 import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.connection.Message;
+import com.yoke.connection.messages.ProgramFocused;
 import com.yoke.connection.messages.app.OpenProfileCmd;
 import com.yoke.connection.messages.app.OpenTrackpadCmd;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.types.Profile;
+import com.yoke.utils.DataCallback;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -61,6 +64,37 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
             alertDialog.show();
         }
 
+        // Manage programs focusing
+        else if (message instanceof ProgramFocused) {
+            // Only potentially switch if we are currently in a profile
+            if (activity != null && !(activity instanceof ProfileActivity)) {
+                return;
+            }
+
+            // Get the program name
+            String name = ((ProgramFocused) message).programName;
+
+            // Check if a profile exists with this associated program
+            Profile.getAssociated(name, (profile) -> {
+                if (profile != null) {
+                    // Make sure the profile isn't already opened
+                    if (((ProfileActivity) activity).profile.getID() == profile.getID()) {
+                        return;
+                    }
+
+                    // Switch to profile
+                    Intent profileIntent = new Intent(context, ProfileActivity.class);
+                    profileIntent.putExtra("profile id", profile.getID());
+                    context.startActivity(profileIntent);
+
+                    // Make sure to not store the history
+                    if (activity != null) {
+                        activity.finish();
+                    }
+                }
+            });
+        }
+
         // Also manage app messages\
 
         // Open trackpad command
@@ -74,7 +108,7 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
             // Check if the profile exists first
             Profile.getByID(cmd.profileID, (profile) -> {
                 if (profile != null) {
-                    // Switch to activity
+                    // Switch to profile
                     Intent profileIntent = new Intent(context, ProfileActivity.class);
                     profileIntent.putExtra("profile id", cmd.profileID);
                     context.startActivity(profileIntent);

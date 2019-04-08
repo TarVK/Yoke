@@ -10,7 +10,7 @@ public class VolumeUpCmd extends ComputerCmd {
     private static final long serialVersionUID = 3309191022047453317L;
 
     @Override
-    public String getName() {
+    public String toString() {
         return "Volume Up";
     }
 }

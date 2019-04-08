@@ -10,20 +10,389 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44179840-a82f-4897-9e1d-71e91784427f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/3.snap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/21.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/22.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/24.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/com.yoke.database.DataBase/25.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/motionDetector/ShakeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/layout_button_edit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/0/80f9be9f7b4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/0/9071e065934d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/1/30e164fa924d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/12/50bf87046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/13/a0456326854d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/14/5074899f3b4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/15/4032d29e3b4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/17/705b8a13424b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/17/a008e729294b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/17/a09b4533904d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/19/00430e59294b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/19/20c52f6a3b4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/1a/40bd505b7c4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/1b/309fb974464e00191a93d73242ec5924" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/41/80ace90ac957001912a7d4cf8a1138d7" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/1d/8052b6c6384b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/1e/30e1c027824d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/1e/705133bb7a4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2/6052f3046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/21/5099ed298f4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/21/a00fff168e4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/22/903ee8fc804e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/23/50b685d6434b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/23/a054e101424b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/26/30f627dd3e4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/26/805ec9df7f4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/28/00a4e8046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/28/b0375379294b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/29/c02233aa934d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/29/d0d81c293f4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2a/e01b24838d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2a/e06484e87d4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2b/e034fb063f4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2c/202f62447b4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2c/50d13bcf334b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2c/e0ab514b8a4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2d/5022c3d23e4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2d/80385081884d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2d/b0e57e046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2e/308898046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2e/7059a5046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2e/9008b481764d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/2f/805d6c6eb34900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3/808d4ca7364b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/30/30646315924d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/30/50cd538c2b4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/30/60cb767c854d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/30/806c306f424b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/31/701b16432b4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/31/f0112f96434b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/34/70669fa4794e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/37/a0249599b44900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/39/e0112b97774d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3b/10dd0eee814e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3b/90ea76c0264b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3c/7069cc046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3c/a0492b047c4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3d/3093013d7e4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3d/601ea7a6394b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3d/d0e95a8d3b4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3f/c0b9f3c48f4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/3f/d047c018424b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4/d085092d804e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4/d0e077046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/40/30fe5c9f8d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/40/50bc86c6804e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/40/90fc29af8e4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/41/70f15dae774d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/41/90522930424b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/43/d008e471794e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/45/20d344c9184b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/48/c0fdb158904d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4a/503436df814e00191a93d73242ec5924" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/99/e0689c3bc957001912a7d4cf8a1138d7" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4a/60e597d1864d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4b/20266cac804e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4d/e0a8ef046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4e/608f7d6d214b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4e/7026ec046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4e/d0655fd4414b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4f/70559dc57a4e00191a93d73242ec5924" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b4/104bdb3fc957001912a7d4cf8a1138d7" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/4f/80b9a1757b4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/5/b05ee13bb34900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/50/403268e6b44900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/50/50caccb97f4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/51/70d4e3b8804e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/51/e0de6e093d4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/52/004a5934294b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/52/707451d8294b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/52/b070b7023f4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/52/c03f35f5794d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/53/c015bc046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/54/40cfda827c4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/55/20633ea4364b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/55/80f891046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/55/902a3806824e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/57/70773b47764d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/5c/c0923f046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/5c/f05c1c82294b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/5e/407253ca3f4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/5f/b00c9ece8e4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/6/e0afd9046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/60/80a7a7538b4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/60/c0adf6046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/62/10cd31477f4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/62/c0b4e0046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/63/b09961046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/63/c0240c90784d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/64/7077a0046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/64/803707a8924d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/64/c02e0e65b44900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/65/20860582854d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/67/50c173fd414b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/6a/001d829c864d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/6a/a0f04f8e8a4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/6b/10829909214b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/6b/30802135934d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/6b/801d5cce954d00191a93d73242ec5924" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/98/804ac8b1c857001912a7d4cf8a1138d7" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/6d/30faea84824d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/6d/f0b8026a704d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/6e/002ed6267d4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/7/00335c183b4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/7/6093667c434b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/7/60b795e3904d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/7/70e01bcb414b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/70/c088fd367b4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/71/b08b81297c4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/71/b0a231d68f4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/73/a09212c1794e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/73/e06100dc7a4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/74/005e68ca384b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/75/907fa74d864d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/76/004acadc374b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/76/8021f1a57e4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/76/e02d42e52a4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/77/00f3eade2a4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/79/300e59046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/79/804f9585784d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/7b/60e73dfd7a4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/7c/30e04295934d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/7d/80b35e046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/7e/50eda8762b4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/8/10ce17ec7b4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/8/70d46544824e00191a93d73242ec5924" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/62/70f5eae4c857001912a7d4cf8a1138d7" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/80/008b84046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/80/30e4d064814e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/81/004e08b57a4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/81/d0d31e09924d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/83/1011211d8b4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/83/404c6a046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/85/f078a28d214b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/86/50984f046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/87/90316ee1924d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/88/f083d2046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/8c/c0b28d046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/8c/c0bb3cc5414b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/8f/60b17b046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/90/205614e8294b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/91/10d188fe814d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/91/3009c2046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/93/104498877b4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/95/80596d046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/96/300b15056d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/96/90d374046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/97/3037e4046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/97/b08fbbb7204b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/97/f05f0ee97e4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/99/4057fa046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/9b/007db0046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/9d/30482cdc2a4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/9e/f0cc5fc2b44900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/9f/506f5e907c4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/9f/8069efc77f4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a/909fca6eb24900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a2/800b1ec4244b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a2/f04895ff8a4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a3/50256d4b284b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a3/50e51cd92a4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a3/50f37fd62a4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a4/b079b43f774d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a4/e00dfc37874d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a7/f0490db7734d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a8/106667046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a8/309b3088754d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a8/706fb3ee294b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a8/b055485b434b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a9/60e6e0fd834d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/a9/e00e48fb8a4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/aa/90dd25806d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ab/300a364d434b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ab/90c6bb6a3d4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ab/a0d8a235374b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ad/f04765096c4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ae/b09dd1ad7c4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/af/f0e600056d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b0/102cd6e12a4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b2/a0970d262c4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b3/a01c12332c4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b4/002b7c6b2a4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b4/c0f2b5ec8f4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b5/10e7d7f4854d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b6/608e87233f4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b6/803baba13e4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b7/a06e328d7a4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b8/20ac4cfa804e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b8/30051c046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/b8/c0710316424b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ba/c08b55046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/bb/8028e35c184b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/bb/d0424504934d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/bc/70b82da3204b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/be/2097d0967a4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/c/60e4a34b364b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/c0/f0853059774d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/c3/606721b5924d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/c3/c0a9c1ac7b4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/c4/80675105b54900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/c6/b0e3ca1a284b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/c9/700d5888824d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/c9/80d444746e4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/c9/c0b03a046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ca/2078a9046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/cd/a08503cd854d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/cd/d04a7097804e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ce/50fed5fe8f4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ce/708ed6178f4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/cf/20868e25384b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/cf/8046f3a9864d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/d1/20bb396f8e4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/d1/5039c7046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/d1/60ed71046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/d4/507a2bc5184b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/d4/d08d0da3424b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/d5/604b50317c4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/d6/600bf9202b4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/d7/20915ea43d4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/d7/b0d9fd046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/db/2024242f2d4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/db/b0aa753e804e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/db/e039e750184b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/de/100bd441874d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/de/c0595bbc954d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/df/307f5b046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e/50faac17774d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e0/e040b7dd8e4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e1/70a04b2e884d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e1/a0985cd33d4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e1/d0587d677c4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e2/104366f4204b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e2/2055834ab54900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e3/50754392424b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e3/e00ba9fb904d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e4/003e4cec2a4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e4/00a83d1e434b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e4/90558cc8394b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e5/10ef7c498e4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e6/f03c4c046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e7/20ce550d8f4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e7/50d445046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e8/e0e382126e4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/e9/60ffcc46904d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ea/504db8d4174b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ec/30d0ff6a794e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ee/e0446384884d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/ef/901734f3844d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/f/30de7ab6b34900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/f/f0c5985b804e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/f0/e03083898b4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/f1/4077a533824d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/f4/d08d29247b4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/f5/702dd6046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/f6/b00a64046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/f7/2048b61d7b4e00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/f9/10c995046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/fb/00faeeaab44900191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/fd/104182046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/fe/6059dd046d4d00191a93d73242ec5924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.history/fe/d050ac6b2c4b00191c9dcdf80eb04b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.indexes/af/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.indexes/e4/81/f0/22/b4/22/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.indexes/e4/81/f0/22/b4/40/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.indexes/e4/81/f0/22/b4/71/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.indexes/e4/81/f0/22/b4/cc/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.indexes/e4/81/f0/22/b4/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.indexes/e4/81/f0/22/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.indexes/e4/e3/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.markers" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.markers" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.markers.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.markers.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.syncinfo.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/abstractConnection/.syncinfo.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/0/cc/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/0/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/22/b4/22/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/22/b4/40/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/22/b4/71/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/22/b4/cc/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/22/b4/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/22/bd/79/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/22/bd/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/22/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.indexes/ff/e4/81/f0/history.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.markers" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.markers" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.markers.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.markers.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.syncinfo.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.projects/server/.syncinfo.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.root/2.tree" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.root/3.tree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.core.resources/2.snap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/2461411560.index" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/2461411560.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/4248239116.index" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/4248239116.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/externalLibsTimeStamps" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/externalLibsTimeStamps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/savedIndexNames.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.core/savedIndexNames.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/0.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.jdt.ui/jdt-images/1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.pde.core/.cache/clean-cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/.plugins/org.eclipse.pde.core/.cache/clean-cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.metadata/version.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../../.metadata/version.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/ClickMouseCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/ClickMouseCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/ComputerCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/ComputerCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/MoveMouseCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/MoveMouseCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/OpenProgramCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/OpenProgramCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/OpenURLCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/OpenURLCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/PressKeysCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/PressKeysCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/ProgramFocused.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/ProgramFocused.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/SoftwareCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/SoftwareCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/app/OpenProfileCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/app/OpenProfileCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/app/OpenTrackpadCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/app/OpenTrackpadCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/LogOffCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/LogOffCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/NextTrackCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/NextTrackCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/PlayPauseCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/PlayPauseCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/PreviousTrackCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/PreviousTrackCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/RestartCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/RestartCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/ShutDownCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/ShutDownCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/SleepCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/SleepCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/VolumeDownCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/VolumeDownCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/VolumeUpCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/computerCmds/VolumeUpCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/softwareCmds/ToggleRecordingCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/connection/messages/softwareCmds/ToggleRecordingCmd.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/Helper/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/Helper/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/BaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/BaseActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/Settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/SwipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/SwipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/MacroActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/MacroActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/select/ActionSelectionAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/select/ActionSelectionAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/select/MacroSelection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/select/MacroSelection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/select/MacroSelectionAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/select/MacroSelectionAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroAppearance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroAppearance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroSequenceAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/macro/tabs/MacroSequenceAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/ButtonsRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/ButtonsRecyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/ProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/ProfileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/RecyclerViewAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/RecyclerViewDecoration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profile/StartDragListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profileEdit/ButtonsEditRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profileEdit/ButtonsEditRecyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profileEdit/ProfileEditActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/profileEdit/ProfileEditActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/GlobalMessageReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/GlobalMessageReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/SplashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/DataBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Macro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Macro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/database/types/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/preset/Preset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/preset/Preset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/preset/types/MediaControlsPreset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/preset/types/MediaControlsPreset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/preset/types/TestPreset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/preset/types/TestPreset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/utils/Keys.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../abstractConnection/src/com/yoke/utils/Keys.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_macro_action_selection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_action_selection.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_macro_selection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_selection.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_macro_selection_object.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_selection_object.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_macro_sequence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_sequence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_macro_sequence_object.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_macro_sequence_object.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_profile_edit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile_edit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/layout_button.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/values-bg/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-bg/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../server/Yoke receiver/src/com/yoke/LocalSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../server/Yoke receiver/src/com/yoke/LocalSettings.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +422,8 @@
           <entry key="project.open.time.34" value="2" />
           <entry key="project.open.time.36" value="2" />
           <entry key="project.open.time.38" value="1" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.open.time.55" value="1" />
+          <entry key="project.opened" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -61,7 +431,7 @@
           <entry key="Translations Editor" value="3" />
           <entry key="class" value="1" />
           <entry key="gradle" value="16" />
-          <entry key="java" value="106" />
+          <entry key="java" value="107" />
           <entry key="pro" value="1" />
           <entry key="properties" value="2" />
           <entry key="version" value="1" />
@@ -73,7 +443,7 @@
           <entry key="" value="3" />
           <entry key="CLASS" value="1" />
           <entry key="Groovy" value="16" />
-          <entry key="JAVA" value="106" />
+          <entry key="JAVA" value="107" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="ProGuard File" value="1" />
           <entry key="Properties" value="2" />
@@ -85,7 +455,7 @@
           <entry key="gradle" value="870" />
           <entry key="java" value="8537" />
           <entry key="txt" value="30" />
-          <entry key="xml" value="5070" />
+          <entry key="xml" value="5096" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -93,7 +463,7 @@
           <entry key="Groovy" value="870" />
           <entry key="JAVA" value="8537" />
           <entry key="PLAIN_TEXT" value="30" />
-          <entry key="XML" value="5070" />
+          <entry key="XML" value="5096" />
         </counts>
       </usages-collector>
     </session>
@@ -101,27 +471,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="111" column="41" selection-start-line="111" selection-start-column="41" selection-end-line="111" selection-end-column="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2878#2906#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
+            <state relative-caret-position="405">
               <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1201#1202#0" expanded="true" />
-                <element signature="e#1277#1278#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -130,8 +485,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/values-bg/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="195">
+              <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -139,21 +494,33 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
+            <state relative-caret-position="-1220">
+              <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1875">
+              <caret line="127" column="58" selection-start-line="127" selection-start-column="58" selection-end-line="127" selection-end-column="58" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_home.xml">
           <provider selected="true" editor-type-id="android-designer2" />
           <provider editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="49" column="40" selection-start-line="49" selection-start-column="40" selection-end-line="49" selection-end-column="40" />
-              <folding>
-                <element signature="e#1062#1080#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="705">
+              <caret line="47" column="40" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -162,20 +529,17 @@
         <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
           <provider editor-type-id="android-manifest" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="59" column="73" selection-start-line="59" selection-start-column="73" selection-end-line="59" selection-end-column="73" />
-              <folding>
-                <element signature="e#2600#2633#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="885">
+              <caret line="60" column="73" selection-start-line="60" selection-start-column="73" selection-end-line="60" selection-end-column="73" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="31" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
+            <state relative-caret-position="1230">
+              <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
             </state>
           </provider>
         </entry>
@@ -188,8 +552,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/preset/types/TestPreset.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
+            <state relative-caret-position="270">
+              <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -198,7 +562,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/preset/types/LaunchProgramPreset.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
+              <caret line="14" column="49" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -272,21 +636,21 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_macro_appearance.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/Settings.java" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/Helper/MainApp.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/SplashActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/BaseActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/values-bg/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-1" />
     <option name="width" value="684" />
     <option name="height" value="743" />
@@ -297,6 +661,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -341,6 +706,46 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="activities" type="462c0819:PsiDirectoryNode" />
+              <item name="macro" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app-app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="activities" type="462c0819:PsiDirectoryNode" />
+              <item name="motionDetector" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app-app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="activities" type="462c0819:PsiDirectoryNode" />
+              <item name="mouse" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app-app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="activities" type="462c0819:PsiDirectoryNode" />
+              <item name="profile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app-app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="activities" type="462c0819:PsiDirectoryNode" />
+              <item name="profileEdit" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app-app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="activities" type="462c0819:PsiDirectoryNode" />
               <item name="settings" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -356,12 +761,30 @@
               <item name="app-app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Helper" type="462c0819:PsiDirectoryNode" />
+              <item name="activities" type="462c0819:PsiDirectoryNode" />
+              <item name="tutorial" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app-app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="yoke" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app-app" type="feadf853:AndroidModuleNode" />
+              <item name="generatedJava" type="edd41e36:AndroidSourceTypeNode" />
             </path>
             <path>
               <item name="app" type="1abcf292:AndroidViewProjectNode" />
               <item name="app-app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app-app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="app" type="1abcf292:AndroidViewProjectNode" />
@@ -384,7 +807,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane" />
     </panes>
@@ -583,8 +1005,8 @@
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32903227" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.41774192" />
-      <window_info anchor="bottom" id="Android Profiler" order="8" />
+      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.06451613" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.4516129" />
       <window_info anchor="right" id="StringPreview" order="0" />
       <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
@@ -829,16 +1251,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="58" column="53" lean-forward="true" selection-start-line="58" selection-start-column="53" selection-end-line="58" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleHelper.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/Settings.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -853,16 +1266,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-225">
-          <caret line="78" column="88" selection-start-line="78" selection-start-column="88" selection-end-line="78" selection-end-column="88" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/splash/SplashActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -874,9 +1277,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -884,92 +1284,93 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
           <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
+        <state relative-caret-position="1395">
           <caret line="111" column="41" selection-start-line="111" selection-start-column="41" selection-end-line="111" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2878#2906#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/preset/types/TestPreset.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="59" column="73" selection-start-line="59" selection-start-column="73" selection-end-line="59" selection-end-column="73" />
-          <folding>
-            <element signature="e#2600#2633#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="android-dummy:///home/kary/Documents/UNI/App Development/Yoke/app/app/app-app/Translations Editor">
-      <provider selected="true" editor-type-id="string-resource-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/preset/types/LaunchProgramPreset.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="31" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/Helper/LocaleManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
+        <state relative-caret-position="405">
           <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1201#1202#0" expanded="true" />
-            <element signature="e#1277#1278#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values-bg/strings.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="885">
+          <caret line="60" column="73" selection-start-line="60" selection-start-column="73" selection-end-line="60" selection-end-column="73" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/preset/types/TestPreset.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/preset/types/LaunchProgramPreset.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
+        <state relative-caret-position="105">
+          <caret line="14" column="49" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_home.xml">
       <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="49" column="40" selection-start-line="49" selection-start-column="40" selection-end-line="49" selection-end-column="40" />
+        <state relative-caret-position="705">
+          <caret line="47" column="40" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="android-dummy:///home/kary/Documents/UNI/App Development/Yoke/app/app/app-app/Translations Editor">
+      <provider selected="true" editor-type-id="string-resource-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values-bg/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1875">
+          <caret line="127" column="58" selection-start-line="127" selection-start-column="58" selection-end-line="127" selection-end-column="58" />
           <folding>
-            <element signature="e#1062#1080#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/home/HomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1220">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
         </state>
       </provider>
     </entry>

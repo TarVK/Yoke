@@ -40,4 +40,10 @@ public class MoveMouseCmd extends Message {
         this.y = y;
         this.absolute = absolute;
     }
+
+
+    @Override
+    public String toString() {
+        return "Move mouse " + (absolute ? "to ": "") + x + ", " + y;
+    }
 }

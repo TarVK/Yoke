@@ -1,6 +1,5 @@
 package com.yoke.activities.macro.tabs;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -12,16 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.yoke.R;
-
-import com.yoke.activities.macro.select.MacroSelection;
-import com.yoke.connection.ComposedMessage;
-import com.yoke.connection.CompoundMessage;
-import com.yoke.connection.Message;
-import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MacroSequence extends Fragment implements MacroSequenceStartDragListener {
@@ -63,7 +55,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 
 
 
-        addAction.setOnClickListener(v -> {
+//        addAction.setOnClickListener(v -> {
 //            profile.save(()-> {
 //                macro.save(() -> {
 //                    runOnUiThread(() -> {
@@ -74,7 +66,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 //                })
 //
 //            });
-        });
+//        });
 
 
 //        retrieveData();
@@ -95,7 +87,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
         Log.w(TAG, "retrieveData: " + macroID);
 
         Macro.getByID(macroID, (macro) -> {
-//            mAction = macro.getAction();
+            Log.d(TAG, macro.getAction().toString());
         });
 
 
@@ -141,10 +133,10 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 //                });
 //
 ////                Profile.getByID();
-//                for (com.yoke.database.types.Button button : mButton) {
-//                    mImageID.add((int) button.getIndex());
-//                    //add the button index for positioning buttons
-//                    mMacro.add(button.getMacro());
+//                for (com.yoke.database.types.Button layout_button : mButton) {
+//                    mImageID.add((int) layout_button.getIndex());
+//                    //add the layout_button index for positioning buttons
+//                    mMacro.add(layout_button.getMacro());
 //
 //                }
 //

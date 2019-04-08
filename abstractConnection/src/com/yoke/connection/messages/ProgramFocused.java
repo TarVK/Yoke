@@ -14,7 +14,7 @@ public class ProgramFocused extends Message {
     
     /**
      * Creates a program focused message
-     * @param programPath  The path of the program that received focus
+     * @param programName  The name of the program that received focus
      */
     public ProgramFocused(String programName) {
         this.programName = programName;

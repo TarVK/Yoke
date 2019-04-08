@@ -15,6 +15,7 @@ import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
 import com.yoke.connection.client.MultiClientConnection;
 import com.yoke.connection.client.types.BluetoothClientConnection;
+import com.yoke.connection.messages.ProgramFocused;
 import com.yoke.connection.messages.app.AppCmd;
 import com.yoke.connection.messages.connection.Connected;
 import com.yoke.connection.messages.connection.ConnectionFailed;
@@ -30,7 +31,6 @@ import com.yoke.utils.Callback;
 
 public class SplashActivity extends AppCompatActivity {
     private GifView gifView;
-    Handler h = new Handler();
     protected Connection connection;
     boolean connected = false;
 
@@ -124,13 +124,20 @@ public class SplashActivity extends AppCompatActivity {
         }
 
 
-        //receivers for navigation within the app
+        // Receivers for navigation within the app
         // TODO: move all listener setup to 'GlobalMessageReceiver'
         connection.addReceiver(new MessageReceiver<AppCmd>() {
             public void receive(AppCmd message) {
                 forwardGlobalMessage(message);
             }
         }, true);
+
+        // Receiver for when desktop focus changed
+        connection.addReceiver(new MessageReceiver<ProgramFocused>() {
+            public void receive(ProgramFocused message) {
+                forwardGlobalMessage(message);
+            }
+        });
     }
 
     /**

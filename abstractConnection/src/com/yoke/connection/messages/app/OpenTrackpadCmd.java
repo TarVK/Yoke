@@ -9,4 +9,9 @@ import com.yoke.connection.Message;
 public class OpenTrackpadCmd extends AppCmd {
     // Serialization ID
     private static final long serialVersionUID = 4298204355886298203L;
+
+    @Override
+    public String toString() {
+        return "Open trackpad";
+    }
 }

@@ -32,7 +32,7 @@ public class ProfileActivity extends BaseActivity {
     private TextView profileName;
 //    private TextView profile_name = findViewById(R.id.textView);
 
-    private Profile profile; //declare the profile object we are going to use
+    public Profile profile; //declare the profile object we are going to use
     boolean isLandscape;
 
 
@@ -51,12 +51,12 @@ public class ProfileActivity extends BaseActivity {
             toolbar.setVisibility(View.GONE);
         }
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO create custom toolbar + back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO create custom toolbar + back layout_button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         retrieveData();
 
-        //when edit button is clicked send the profile id and open the edit activity
+        //when edit layout_button is clicked send the profile id and open the edit activity
         edit.setOnClickListener(openEditView -> {
             // Make sure the profile has loaded
             if (profile != null) {
@@ -65,6 +65,8 @@ public class ProfileActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     /**
@@ -112,10 +114,10 @@ public class ProfileActivity extends BaseActivity {
 //                });
 //
 ////                Profile.getByID();
-//                for (com.yoke.database.types.Button button : mButton) {
-//                    mImageID.add((int) button.getIndex());
-//                    //add the button index for positioning buttons
-//                    mMacro.add(button.getMacro());
+//                for (com.yoke.database.types.Button layout_button : mButton) {
+//                    mImageID.add((int) layout_button.getIndex());
+//                    //add the layout_button index for positioning buttons
+//                    mMacro.add(layout_button.getMacro());
 //
 //                }
 //

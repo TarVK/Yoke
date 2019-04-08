@@ -22,12 +22,6 @@ public abstract class SoftwareCmd extends Message {
     public SoftwareCmd() {}
     
     /**
-     * Retrieves the name of this specific command
-     * @return The command's name
-     */
-    public abstract String getName();
-    
-    /**
      * Retrieves all available software commands
      * @return All available commands
      */

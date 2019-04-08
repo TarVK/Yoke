@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editRepetitions" />
 
     <ImageView
-        android:id="@+id/increaseTime"
+        android:id="@+id/increaseDelay"
         android:src="@drawable/arrow_down"
         android:tint="@color/colorSecondary"
         android:rotation="180"
@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="@+id/editDelay" />
 
     <ImageView
-        android:id="@+id/decreaseTime"
+        android:id="@+id/decreaseDelay"
         android:src="@drawable/arrow_down"
         android:tint="@color/colorSecondary"
         android:layout_width="0dp"

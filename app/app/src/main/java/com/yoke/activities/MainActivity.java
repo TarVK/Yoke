@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //splash button
+        //splash layout_button
 //        splashBtn = (Button) findViewById(R.id.splBtn);
 //        splashBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -123,8 +123,9 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        // Send messages when clicking the button
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        // Send messages when clicking the layout_button
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,11 +170,11 @@ public class MainActivity extends BaseActivity {
                         }
                     });
 
-                    // Create some profile with a button
+                    // Create some profile with a layout_button
                     Profile p = new Profile("Test1");
                     Macro m = new Macro("ShutDown");
                     Button b = new Button(m);
-                    if (p.hasSpace()) { // Make sure there is space to add a button
+                    if (p.hasSpace()) { // Make sure there is space to add a layout_button
                         p.addButton(b);
                     }
 
@@ -185,7 +186,7 @@ public class MainActivity extends BaseActivity {
                     settings.save();
                     // The macro has to be saved before saving the profile
                     m.save(() -> {
-                        // The button will get saved by saving the profile
+                        // The layout_button will get saved by saving the profile
                         p.save(() -> {
                             if (initialized != null) {
                                 initialized.call();
@@ -205,12 +206,12 @@ public class MainActivity extends BaseActivity {
                             Log.w("DATABASE TEST", "profile name: " + profile.getName());
 
                             List<Button> buttons = profile.getButtons();
-                            Log.w("DATABASE TEST", "button count: " + buttons.size());
+                            Log.w("DATABASE TEST", "layout_button count: " + buttons.size());
                             for (Button button: buttons) {
                                 Macro macro = button.getMacro();
 
                                 if (macro==null) {
-                                    Log.w("DATABASE TEST", "button has no macro");
+                                    Log.w("DATABASE TEST", "layout_button has no macro");
                                     continue;
                                 }
 
@@ -265,7 +266,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the Home/Up layout_button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -277,7 +278,7 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //button for splash
+    //layout_button for splash
 //    public void openSplash() {
 //        Intent intent = new Intent(this, SplashActivity.class);
 //        startActivity(intent);

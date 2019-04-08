@@ -25,7 +25,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
                 android:inputType="text"
                 android:maxLines="1"
@@ -38,11 +37,9 @@
 
             <ImageView
                 android:id="@+id/addMacro"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:scaleType="centerInside"
                 android:src="@drawable/add_button"
                 android:tint="@color/colorGray"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -51,11 +48,9 @@
 
             <ImageView
                 android:id="@+id/editMacro"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
+                android:scaleType="centerInside"
                 android:src="@drawable/edit_button"
                 android:tint="@color/colorGray"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -65,10 +60,8 @@
             <ImageView
                 android:id="@+id/deleteMacro"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="0dp"
+                android:scaleType="centerInside"
                 android:src="@drawable/delete_button"
                 android:tint="@color/colorGray"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -77,11 +70,9 @@
 
             <ImageView
                 android:id="@+id/doneMacro"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:scaleType="centerInside"
                 android:src="@drawable/done_button"
                 android:tint="@color/colorGray"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -94,17 +85,32 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_edit"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:overScrollMode="never"
         android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarEdit">
+        app:layout_constraintTop_toBottomOf="@+id/associatedPrograms">
 
     </android.support.v7.widget.RecyclerView>
+
+    <EditText
+        android:id="@+id/associatedPrograms"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/editProfile_associatedPrograms"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarEdit" />
 
 
 </android.support.constraint.ConstraintLayout>

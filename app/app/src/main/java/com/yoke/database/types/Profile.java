@@ -1,5 +1,6 @@
 package com.yoke.database.types;
 
+import android.arch.core.util.Function;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
@@ -50,6 +51,14 @@ public class Profile extends DataObject<Profile.ProfileData> {
     }
 
     /**
+     * Retrieves the associated programs of the profile
+     * @return The assoiciated programs
+     */
+    public String getAssociatedPrograms() {
+        return this.data.associatedPrograms == null ? "" : this.data.associatedPrograms;
+    }
+
+    /**
      * Retrieves the list of buttons of the profile
      * @return The buttons
      */
@@ -90,6 +99,14 @@ public class Profile extends DataObject<Profile.ProfileData> {
     }
 
     /**
+     * Sets the associated programs of the profile
+     * @param programs The associated programs (Comma separated)
+     */
+    public void setAssociatedPrograms(String programs) {
+        this.data.associatedPrograms = programs;
+    }
+
+    /**
      * Sets the grid size of the profile
      * @param width  The grid width
      * @param height  The grid height
@@ -108,8 +125,8 @@ public class Profile extends DataObject<Profile.ProfileData> {
     }
 
     /**
-     * Retrieves whether or not the is space for another button
-     * @return  Whether or not there is still space to add a button
+     * Retrieves whether or not the is space for another layout_button
+     * @return  Whether or not there is still space to add a layout_button
      */
     public boolean hasSpace(){
         return this.buttons.size() < this.getWidth() * this.getHeight();
@@ -124,14 +141,14 @@ public class Profile extends DataObject<Profile.ProfileData> {
     }
 
     /**
-     * Adds a button to the profile (a button can only be added to a single profile)
-     * @param button  The button
-     * @throws IllegalStateException if there is no more space for a button
+     * Adds a layout_button to the profile (a layout_button can only be added to a single profile)
+     * @param button  The layout_button
+     * @throws IllegalStateException if there is no more space for a layout_button
      */
     public void addButton(Button button) throws IllegalStateException {
         // Make sure the index is within the grid
         if (!this.hasSpace()) {
-            throw new IllegalStateException("Tried to add a button to a full grid");
+            throw new IllegalStateException("Tried to add a layout_button to a full grid");
         }
 
         // Check if the spot is free
@@ -153,13 +170,13 @@ public class Profile extends DataObject<Profile.ProfileData> {
         // Assign the index
         button.setIndex(index);
 
-        // Store the button
+        // Store the layout_button
         this.buttons.add(button);
     }
 
     /**
-     * Removes a button from the profile
-     * @param button  The button
+     * Removes a layout_button from the profile
+     * @param button  The layout_button
      */
     public void removeButton(Button button) {
         this.buttons.remove(button);
@@ -222,6 +239,9 @@ public class Profile extends DataObject<Profile.ProfileData> {
         @ColumnInfo(name = "name")
         public String name;
 
+        @ColumnInfo(name = "associatedPrograms")
+        public String associatedPrograms;
+
         @ColumnInfo(name = "gridWidth")
         public byte gridWidth;
 
@@ -270,14 +290,14 @@ public class Profile extends DataObject<Profile.ProfileData> {
                 getButtons);
     }
 
+
     /**
-     * Retrieves a specific profile
-     * @param ID  The ID of the profile to retrieve
-     * @param dataCallback  The callback to make once the data has been retrieved
+     * Creates a decorator that will assign the buttons to a given profile
+     * @param dataCallback  The callback to decorate
+     * @return The decorator
      */
-    public static void getByID(long ID, DataCallback<Profile> dataCallback){
-        // A callback for the getAll method to assign the buttons
-        DataCallback<Profile> getButtons = new DataCallback<Profile>() {
+    protected static DataCallback<Profile> getButtonAssigner(DataCallback<Profile> dataCallback) {
+        return new DataCallback<Profile>() {
             public void retrieve(Profile profile) {
                 // Make sure the profile is defined before continuing
                 if (profile == null) {
@@ -294,6 +314,76 @@ public class Profile extends DataObject<Profile.ProfileData> {
                 });
             }
         };
+    }
+
+    /**
+     * Retrieves an associated profile for a program, if existent
+     * @param program  The program title to get the associated profile for
+     * @param dataCallback  The callback to make once the data has been retrieved
+     */
+    public static void getAssociated(String program, DataCallback<Profile> dataCallback){
+        // A callback for the getAll method to assign the buttons
+        DataCallback<Profile> getButtons = getButtonAssigner(dataCallback);
+
+        // Get the profile and use the getButtons method before performing the callback
+        new Thread(new Runnable() {
+            public void run() {
+                // Get all the data
+                List<ProfileData> data = DataBase.getInstance().profileDataDao().getAll();
+
+                // Filter out profile data that matches the program
+                for (ProfileData pfData: data) {
+                    // Make sure the data contains associated programs
+                    if (pfData.associatedPrograms == null) {
+                        continue;
+                    }
+
+                    // Get all of the patterns
+                    String[] patterns = pfData.associatedPrograms.split(",");
+
+                    // Check each of the patterns
+                    for (String pattern: patterns) {
+                        // Check if the pattern (partially) matches (case insensitive)
+                        if (program.replaceAll("(?i)" + pattern.trim(), "").length()
+                                != program.length()) {
+                            // Return the profile
+                            getButtons.retrieve(new Profile(pfData));
+
+                            // Don't continue looking
+                            return;
+                        }
+                    }
+                }
+
+                // If no profile could be found, return null
+                getButtons.retrieve(null);
+            }
+        }).start();
+    }
+
+
+    /**
+     * Gets all of the instances for some data object type from the database
+     * @param dao  The dao to use to get the data
+     * @param getObject  The function to translate the data obtained from the database into a data object
+     * @param dataCallback  The callback to return all the data to
+     * @param <T>  The data object type to retrieve
+     * @param <D>  The data object data that the data object uses
+     */
+    protected static <T extends DataObject<D>, D extends DataObject.DataObjectData> void getAll(
+            final DataDao<D> dao,
+            final Function<D, T> getObject,
+            final DataCallback<List<T>> dataCallback) {
+    }
+
+    /**
+     * Retrieves a specific profile
+     * @param ID  The ID of the profile to retrieve
+     * @param dataCallback  The callback to make once the data has been retrieved
+     */
+    public static void getByID(long ID, DataCallback<Profile> dataCallback){
+        // A callback for the getAll method to assign the buttons
+        DataCallback<Profile> getButtons = getButtonAssigner(dataCallback);
 
         // Get the profile and use the getButtons method before performing the callback
         DataObject.getByID(

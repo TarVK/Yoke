@@ -18,7 +18,7 @@ import java.util.HashMap;
  * Source of partially followed guide: https://codeburst.io/android-swipe-menu-with-recyclerview-8f28a235ff28
  */
 public class SwipeController extends ItemTouchHelper.Callback {
-    // The width that a button should have
+    // The width that a layout_button should have
     protected static float buttonWidth = -1;
 
     // The initial x position of the card view
@@ -27,10 +27,10 @@ public class SwipeController extends ItemTouchHelper.Callback {
     // Whether the item should move back to it's original position (instead of going off the screen)
     protected boolean swipeBack = false;
 
-    // Track whether an viewholder's button has been swiped right
+    // Track whether an viewholder's layout_button has been swiped right
     protected HashMap<RecyclerView.ViewHolder, Boolean> buttonSwiped = new HashMap<>();
 
-    // Whether or not the item is resetting after the button having been visible
+    // Whether or not the item is resetting after the layout_button having been visible
     protected HashMap<RecyclerView.ViewHolder, Boolean> buttonOffset = new HashMap<>();
 
     // Store a reference to the activity
@@ -78,7 +78,7 @@ public class SwipeController extends ItemTouchHelper.Callback {
         // Get the card view to move
         CardView cv = viewHolder.itemView.findViewById(R.id.card);
 
-        // Get the button width
+        // Get the layout_button width
         if (buttonWidth == -1) {
             ImageButton button = viewHolder.itemView.findViewById(R.id.delete);
             buttonWidth = button.getWidth();
@@ -94,7 +94,7 @@ public class SwipeController extends ItemTouchHelper.Callback {
             setTouchListener(recyclerView);
         }
 
-        // If we have swipped right far enough, make the button visible
+        // If we have swipped right far enough, make the layout_button visible
         if (dX > buttonWidth) {
             buttonSwiped.put(viewHolder, true);
             activity.dragController.isDraggable = false;
@@ -105,9 +105,9 @@ public class SwipeController extends ItemTouchHelper.Callback {
             if (isCurrentlyActive) {
                 buttonSwiped.put(viewHolder, false);
 
-            // If we swiped right far enough, we should lock the button to being visible
+            // If we swiped right far enough, we should lock the layout_button to being visible
             } else if(buttonSwiped.get(viewHolder) != null && buttonSwiped.get(viewHolder)) {
-                // We should also indicate the item has an offset of the button's width when starting swipping back
+                // We should also indicate the item has an offset of the layout_button's width when starting swipping back
                 buttonOffset.put(viewHolder, true);
 
                 cv.setX(xOffset + buttonWidth);

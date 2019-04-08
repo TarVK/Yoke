@@ -10,6 +10,8 @@
     <string name="description1">Тук можете да създатете нови профили или да изберете вече съществуващи такива.</string>
     <string name="description2">Тази страница съдържа Вашите бутони.</string>
     <string name="description3">Тук можете да промените настройките си.</string>
+    <string name="editProfile_associatedPrograms">Свързани програми</string>
+    <string name="macroSelection_search">Търси</string>
     <!-- Strings related to Settings -->
     <string name="title_activity_settings">Настройки</string>
     <string name="language">Език</string>
@@ -64,7 +66,6 @@
         <item>0</item>
         <item>-1</item>
     </string-array>
-    <string name="app_name">пишки</string>
 
 
 </resources>

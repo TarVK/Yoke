@@ -10,7 +10,7 @@ public class VolumeDownCmd extends ComputerCmd {
     private static final long serialVersionUID = -3014987900311099524L;
 
     @Override
-    public String getName() {
+    public String toString() {
         return "Volume Down";
     }
 }

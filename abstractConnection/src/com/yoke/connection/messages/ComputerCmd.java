@@ -37,12 +37,6 @@ public abstract class ComputerCmd extends Message {
     public ComputerCmd() {}
     
     /**
-     * Retrieves the name of this specific command
-     * @return The command's name
-     */
-    public abstract String getName();
-    
-    /**
      * Retrieves all available computer commands
      * @return All available commands
      */

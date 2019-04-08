@@ -24,12 +24,12 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
 
     private static final String TAG = "MacroSelectionAdapter";
 
-    private ArrayList<Button> mDataset;
+    private ArrayList<Macro> mDataset;
     private Context mContext;
     private long profileID;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public ImageView selectionImage;
+        ImageView selectionImage;
         public TextView selectionName;
         public TextView selectionAction;
         public ConstraintLayout parentLayout;
@@ -44,7 +44,7 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
     }
 
     //Constructor
-    public MacroSelectionAdapter(ArrayList<Button> myDataset, Context context, long pID) {
+    public MacroSelectionAdapter(ArrayList<Macro> myDataset, Context context, long pID) {
         mDataset = myDataset;
         mContext = context;
         profileID = pID;
@@ -63,32 +63,31 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        Macro macro = mDataset.get(position).getMacro();
+        Macro macro = mDataset.get(position);
 
         String name = macro.getName();
-        String action = macro.getAction().toString();
+        String action;
+        try {
+            action = macro.getAction().toString();
+        } catch (IllegalStateException e) {
+            // If no valid action was stored
+            action = "Undefined";
+        }
+
         Bitmap bitmap = macro.getCombinedImage();
+
+        holder.selectionImage.setImageBitmap(bitmap);
 
         holder.selectionName.setText(name);
         holder.selectionAction.setText(action);
-        holder.selectionImage.setImageBitmap(bitmap);
-
         holder.parentLayout.setOnClickListener(v -> {
-            // Set new button to profile
-            Profile.getByID(profileID, (profile) -> {
-                profile.addButton(mDataset.get(position));
+            Log.d(TAG, "Add Macro to Profile, mID: " + macro.getID() + ", pID: " + profileID);
 
-                profile.save(() -> {
-                    Log.d(TAG, "Add Macro to Profile, mID: " + macro.getID() + ", pID: " + profileID);
+            Intent intent = new Intent(mContext, ProfileEditActivity.class);
+            intent.putExtra("profile id", profileID);
+            intent.putExtra("macro id", macro.getID());
 
-                    Intent intent = new Intent(mContext, ProfileEditActivity.class);
-                    intent.putExtra("profile id", profileID);
-                    mContext.startActivity(intent);
-                });
-            });
-
-
-
+            mContext.startActivity(intent);
         });
 
     }

@@ -45,7 +45,7 @@ public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecy
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.button, parent, false);
+                inflate(R.layout.layout_button, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -76,7 +76,7 @@ public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecy
         //THIS IS DRAWABLE SOURCES
 //        viewHolder.buttonImage.setImageResource(mImage.get(i));
 
-        //it should retrieve the action of the button
+        //it should retrieve the action of the layout_button
         viewHolder.buttonImage.setOnClickListener(new View.OnClickListener() {
 
             @Override

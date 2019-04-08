@@ -10,7 +10,7 @@ public class LogOffCmd extends ComputerCmd {
     private static final long serialVersionUID = -9010951738387914577L;
 
     @Override
-    public String getName() {
-        return "Logoff";
+    public String toString() {
+        return "Log off";
     }
 }

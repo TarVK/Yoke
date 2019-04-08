@@ -1,8 +1,6 @@
 package com.yoke.activities.macro.select;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,11 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yoke.R;
-import com.yoke.activities.macro.tabs.MacroSequence;
 import com.yoke.connection.Message;
-import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
-import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
 
