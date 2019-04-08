@@ -8,9 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yoke.R;
+import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
+import com.yoke.connection.client.MultiClientConnection;
+import com.yoke.connection.messages.prompts.RequestKeyPress;
 import com.yoke.database.types.Macro;
 import com.yoke.utils.Callback;
 
@@ -18,6 +22,9 @@ import com.yoke.utils.Callback;
 public class MacroSequence extends Fragment {
 
     private static final String TAG = "MacroSequence";
+
+    protected Connection connection =
+            MultiClientConnection.getInstance(); // Gets the connection
 
     private Long macroID;
     private Macro macro;
@@ -57,8 +64,22 @@ public class MacroSequence extends Fragment {
         loadMacro(() -> {
             editAction.setOnClickListener(v -> {
                 Macro.getByID(macroID, (macro) -> {
-                    //TODO send create action request to receiver via Message
                     Log.d(TAG, "Request Action");
+                    if (connection.getState() == Connection.CONNECTED) {
+                        try {
+                            //TODO send request
+//                            connection.send();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(),
+                                    "Something went wrong while trying to perform this action",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Command could not be sent. " +
+                                        "\n Please make sure you are connected",
+                                Toast.LENGTH_LONG).show();
+                    }
                 });
             });
 
