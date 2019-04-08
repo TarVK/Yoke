@@ -1,38 +1,35 @@
 package com.yoke.activities.macro.tabs;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.example.yoke.R;
+import com.yoke.connection.Message;
 import com.yoke.database.types.Macro;
+import com.yoke.utils.Callback;
 
-import java.util.ArrayList;
 
-
-public class MacroSequence extends Fragment implements MacroSequenceStartDragListener {
+public class MacroSequence extends Fragment {
 
     private static final String TAG = "MacroSequence";
 
-    RecyclerView recyclerView;
-    MacroSequenceAdapter mAdapter;
-    //ArrayList<String> stringArrayList = new ArrayList<>();
-    ItemTouchHelper touchHelper;
+    private Long macroID;
+    private Macro macro;
 
-    private View view;
+    private int delayAmount;
+    private int repeatAmount;
 
-//    private ArrayList<Integer> mImageID = new ArrayList<>(); //save the index of the buttons
-//    private ArrayList<String> mImageName = new ArrayList<>(); //save the name of the buttons
-//    private List<Button> mButton;
+    private SeekBar seekbarDelay;
+    private SeekBar seekbarRepeat;
 
-    ArrayList<Macro> mAction = new ArrayList<>();
-    FloatingActionButton addAction;
+    private TextView editAction;
+
 
     public MacroSequence() {
         // Required empty public constructor
@@ -47,123 +44,94 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_macro_sequence,
+        View view = inflater.inflate(R.layout.activity_macro_sequence,
                 container, false);
 
+        editAction = view.findViewById(R.id.editAction);
+        seekbarDelay = view.findViewById(R.id.seekBarDelay);
+        seekbarRepeat = view.findViewById(R.id.seekbarRepeat);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        TextView delayObserver = view.findViewById(R.id.delayObserver);
+        TextView repeatObserver = view.findViewById(R.id.repeatObserver);
 
+        loadMacro(() -> {
+            editAction.setOnClickListener(v -> {
+                Macro.getByID(macroID, (macro) -> {
+                    //TODO send create action request to receiver via Message
+                    Log.d(TAG, "Request Action");
+                });
+            });
 
+            seekbarDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    delayAmount = progress;
+                    String text = progress + "s";
+                    delayObserver.setText(text);
+                }
 
-//        addAction.setOnClickListener(v -> {
-//            profile.save(()-> {
-//                macro.save(() -> {
-//                    runOnUiThread(() -> {
-//                        Intent intent = new Intent(getActivity().getApplicationContext(), MacroSelection.class);
-//                        intent.putExtra("macro id", macro.getID());
-//                        startActivity(intent);
-//                    });
-//                })
-//
-//            });
-//        });
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
 
+                }
 
-//        retrieveData();
-//
-//        populateRecyclerView();
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
+            seekbarRepeat.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    repeatAmount = progress;
+                    String text = progress + "x";
+                    repeatObserver.setText(text);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+        });
 
         // Inflate the layout for this fragment
         return view;
     }
 
-
-
     /**
-     * Retrieve the data from the database and store in the arraylist
+     * Retrieves the macro and stores it
+     * @param callback  Gets called once the macro has been loaded
      */
-    public void retrieveData() {
-        Long macroID = getActivity().getIntent().getLongExtra("macro id", 0);
+    protected void loadMacro(Callback callback) {
+        macroID = getActivity().getIntent().getLongExtra("macro id", -1);
         Log.w(TAG, "retrieveData: " + macroID);
 
-        Macro.getByID(macroID, (macro) -> {
-            Log.d(TAG, macro.getAction().toString());
+        // Check macroID
+        if (macroID == -1) {
+            Log.e(TAG, "MacroActivity has not been called properly: " + macroID);
+            return;
+        }
+
+        Macro.getByID(macroID, macro -> {
+            getActivity().runOnUiThread(() -> {
+                MacroSequence.this.macro = macro;
+
+                if (macro != null) {
+                    Message action = macro.getAction();
+                    editAction.setText(action.toString());
+
+                    callback.call();
+                } else {
+                    Log.e(TAG, "Macro is not initialized: " + macroID);
+                }
+            });
         });
-
-
-
-
-        int i = 0;
-
-        //add the profile datas to the arguments
-//        Profile.getByID(profileId, (profile)-> {
-//            mButton = (profile.getButtons());
-//
-//            //sort the buttons so they are in order and displayed in a correct order on the layout
-//            mButton.sort(new Comparator<Button>() {
-//                @Override
-//                public int compare(Button o1, Button o2) {
-//                    return o1.getIndex() - o2.getIndex();
-//                }
-//            });
-//            profile.getName();
-//            profile.getIndex();
-//        });
-
-
-        //not sure which way is better
-//        DataBase.initialize(this, new DataObject.Callback() {
-//            @Override
-//            public void call() {
-//                Profile.getAll(profiles -> {
-//                    for (Profile profile : profiles) {
-//                        profile.getID();
-//                        profile.getIndex();
-//                        profile.getWidth();
-//                        profile.getHeight();
-//                        mButton.addAll(profile.getButtons());
-////                        profile_name.setText(profile.getName());
-//
-//                    }
-//                });
-//
-//                Profile.getAll(profiles -> {
-//                    profile = profiles.get(i);
-//                    mButton.addAll(profile.getButtons());
-//                });
-//
-////                Profile.getByID();
-//                for (com.yoke.database.types.Button layout_button : mButton) {
-//                    mImageID.add((int) layout_button.getIndex());
-//                    //add the layout_button index for positioning buttons
-//                    mMacro.add(layout_button.getMacro());
-//
-//                }
-//
-//            }
-//        });
-
     }
-
-    private void populateRecyclerView() {
-
-
-
-        mAdapter = new MacroSequenceAdapter(mAction,this);
-
-        mAdapter.notifyItemInserted(mAction.size() - 1);
-
-        ItemTouchHelper.Callback callback =
-                new MacroSequenceItemMoveCallback(mAdapter);
-        touchHelper  = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
-
-        recyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    public void requestDrag(RecyclerView.ViewHolder viewHolder) {
-        touchHelper.startDrag(viewHolder);
-    }
-
 }

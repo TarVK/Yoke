@@ -53,12 +53,8 @@ public class MacroAppearance extends Fragment {
     private Switch descriptionSwitch;
     private EditText descriptionValue;
 
-    private SeekBar seekAlphaForeground,
-            seekSizeForeground,
-            seekAspectForeground,
-            seekAlphaBackground,
-            seekSizeBackground,
-            seekAspectBackground;
+    private SeekBar seekAlphaForeground;
+    private SeekBar seekAlphaBackground;
 
     private int imageOption;
     private int mDefaultColor = 0x00000000; //TODO Check if this works, else declare in onCreateView
@@ -69,11 +65,6 @@ public class MacroAppearance extends Fragment {
     private int foregroundAlpha;
     private int backgroundAlpha;
 
-    private int foregroundSize;
-    private int backgroundSize;
-
-    private int foregroundAspectRatio;
-    private int backgroundAspectRatio;
 
     public MacroAppearance() {
         // Required empty public constructor
@@ -158,16 +149,18 @@ public class MacroAppearance extends Fragment {
                     openColorPicker();
                 });
 
-        //Check if switch is pressed
-        descriptionSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            descriptionValue.setEnabled(isChecked);
-            descriptionColorPicker.setEnabled(isChecked);
-            macro.setTextEnabled(isChecked);
-            updateImage();
-        });
-
         // Load the macro, and afterwards assign all UI listeners
         loadMacro(() -> {
+            //Check if switch is pressed
+            descriptionSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                Macro.getByID(macroID, (macro) -> {
+                    descriptionValue.setEnabled(isChecked);
+                    descriptionColorPicker.setEnabled(isChecked);
+                    macro.setTextEnabled(isChecked);
+                    updateImage();
+                });
+            });
+
             // EditText Change Listener (sets macro.text and updates preview)
             descriptionValue.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -180,9 +173,11 @@ public class MacroAppearance extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String text = s.toString();
-                    macro.setText(text);
-                    updateImage();
+                    Macro.getByID(macroID, (macro) -> {
+                        String text = s.toString();
+                        macro.setText(text);
+                        updateImage();
+                    });
                 }
             });
 
@@ -193,7 +188,7 @@ public class MacroAppearance extends Fragment {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     foregroundAlpha = progress;
-                    // Can't just do this, need to edit the actual image as well at least.
+                    //TODO Can't just do this, need to edit the actual image as well at least.
                     foregroundImage.setImageAlpha(foregroundAlpha);
                     updateImage();
                 }
@@ -211,77 +206,6 @@ public class MacroAppearance extends Fragment {
 
             view.findViewById(R.id.seekAlphaForegroundDefault)
                     .setOnClickListener(viewAlphaFGDefault -> seekAlphaForeground.setProgress(foregroundAlpha));
-
-
-            // Foreground image Size
-            seekSizeForeground = (SeekBar) view.findViewById(R.id.seekSizeForeground);
-            seekSizeForeground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                        Bitmap oldBitmap = macro.getForegroundImage();
-//
-//                        int width = oldBitmap.getWidth();
-//                        int height = oldBitmap.getHeight();
-//
-//                        int dWidth = Math.round(width * (progress / 100));
-//                        int dHeight = Math.round(height * (progress / 100));
-//
-//                        Bitmap newBitmap = Bitmap.createScaledBitmap(oldBitmap, dWidth, dHeight, false);
-//
-//                        foregroundImage.setImageBitmap(newBitmap);
-//                        macro.setForegroundImage(newBitmap);
-                    updateImage();
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-
-            view.findViewById(R.id.seekSizeForegroundDefault)
-                    .setOnClickListener(viewSizeFGDefault -> seekSizeForeground.setProgress(foregroundSize));
-
-
-            // Foreground image Aspect Ratio
-            seekAspectForeground = (SeekBar) view.findViewById(R.id.seekAspectForeground);
-            seekAspectForeground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                    int height = macro.getForegroundHeight();//TODO add size
-//                    int width = macro.getForegroundWidth();
-//                    int aspectRatio = width / height * (progress / 100);
-//                    if (progress < 100) {
-//                        int sHeight = height + height * (progress / 50);
-//                        int sWidth = width - width * (progress / 50);
-//                    } else {
-//                        int sHeight = height - height * (progress / 50);
-//                        int sWidth = width + width * (progress / 50);
-//                    }
-//                    macro.setForegroundHeight(sHeight);
-//                    macro.setForeGroundWidth(sWidth);
-                    updateImage();
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-
-
-            view.findViewById(R.id.seekAspectForegroundDefault)
-                    .setOnClickListener(viewAspectFGDefault -> seekAspectForeground.setProgress(foregroundAspectRatio));
 
 
             // Background image alpha
@@ -308,70 +232,8 @@ public class MacroAppearance extends Fragment {
             view.findViewById(R.id.seekAlphaBackgroundDefault)
                     .setOnClickListener(viewAlphaBGDefault -> seekAlphaBackground.setProgress(backgroundAlpha));
 
-
-            // Background image Size
-            seekSizeBackground = (SeekBar) view.findViewById(R.id.seekSizeBackground);
-            seekSizeBackground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                    int height = macro.getBackgroundHeight();//TODO add size
-//                    int width = macro.getBackgroundWidth();
-//                    int sHeight = height * (progress / 100);
-//                    int sWidth = width * (progress / 100);
-//                    macro.setBackgroundHeight(sHeight);
-//                    macro.setBackGroundWidth(sWidth);
-                    updateImage();
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-
-            view.findViewById(R.id.seekSizeBackgroundDefault)
-                    .setOnClickListener(viewSizeBGDefault -> seekSizeBackground.setProgress(backgroundSize));
-
-
-            // Background image Aspect Ratio
-            seekAspectBackground = (SeekBar) view.findViewById(R.id.seekAspectBackground);
-            seekAspectBackground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                    int height = macro.getBackgroundHeight();//TODO add size
-//                    int width = macro.getBackgroundWidth();
-//                    int aspectRatio = width / height * (progress / 100);
-//                    if (progress < 100) {
-//                        int sHeight = height + height * (progress / 50);
-//                        int sWidth = width - width * (progress / 50);
-//                    } else {
-//                        int sHeight = height - height * (progress / 50);
-//                        int sWidth = width + width * (progress / 50);
-//                    }
-//                    macro.setBackgroundHeight(sHeight);
-//                    macro.setBackGroundWidth(sWidth);
-                    updateImage();
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-
-            view.findViewById(R.id.seekAspectBackgroundDefault)
-                    .setOnClickListener(viewAspectBGDefault -> seekAspectBackground.setProgress(backgroundAspectRatio));
         });
+
 
 
         // Inflate the layout for this fragment
@@ -386,39 +248,29 @@ public class MacroAppearance extends Fragment {
         macroID = getActivity().getIntent().getLongExtra("macro id", -1);
         Log.w(TAG, "retrieveData: " + macroID);
 
-
+        // Check macroID
         if (macroID == -1) {
-            //TODO createMacro
-            Log.d(TAG, "Macro should be created: " + macroID);
-        } else {
-            Macro.getByID(macroID, macro -> {
-                getActivity().runOnUiThread(() -> {
-                    MacroAppearance.this.macro = macro;
-
-                    if (macro != null) {
-
-                        textEnabled = macro.isTextEnabled();
-
-                        //TODO add exceptions in Macro.java (e.g. no foregroundimage selected use default) and backgroundcolor instead of backgroundImage)
-                        foregroundImage.setImageBitmap(macro.getForegroundImage());
-//                    foregroundAlpha = macro.getForegroundAlpha();
-                        foregroundSize = macro.resolution;
-//                    foregroundAspectRatio = macro.getForegroundApectRatio();
-
-                        backgroundImage.setImageBitmap(macro.getBackgroundImage());
-//                    backgroundAlpha = macro.getBackgroundAlpha();
-                        backgroundSize = macro.resolution;
-//                    backgroundAspectRatio = macro.getBackgroundApectRatio();
-
-                        previewImage.setImageBitmap(macro.getCombinedImage());
-
-                        callback.call();
-                    } else {
-                        Log.e(TAG, "Macro is not initialized: " + macroID);
-                    }
-                });
-            });
+            Log.e(TAG, "MacroActivity has not been called properly: " + macroID);
+            return;
         }
+
+        Macro.getByID(macroID, macro -> {
+            getActivity().runOnUiThread(() -> {
+                MacroAppearance.this.macro = macro;
+
+                if (macro != null) {
+                    textEnabled = macro.isTextEnabled();
+
+                    foregroundImage.setImageBitmap(macro.getForegroundImage());
+                    backgroundImage.setImageBitmap(macro.getBackgroundImage());
+                    previewImage.setImageBitmap(macro.getCombinedImage());
+
+                    callback.call();
+                } else {
+                    Log.e(TAG, "Macro is not initialized: " + macroID);
+                }
+            });
+        });
     }
 
     /**

@@ -17,363 +17,199 @@
         app:layout_constraintTop_toTopOf="parent"
         android:focusableInTouchMode="true" />
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scrollContainer"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/foregroundLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/previewImage">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/foregroundHeader"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="16dp"
+            android:text="Foreground"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/foregroundLayout"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/foregroundImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/default_image"
+            app:layout_constraintEnd_toStartOf="@+id/foregroundDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/foregroundHeader" />
 
-                <TextView
-                    android:id="@+id/foregroundHeader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Foreground"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
+        <ImageView
+            android:id="@+id/foregroundColorPicker"
+            android:layout_width="39dp"
+            android:layout_height="40dp"
+            android:src="@drawable/color_picker"
+            android:tint="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="@+id/foregroundImage"
+            app:layout_constraintEnd_toEndOf="@+id/foregroundImage" />
 
-                <ImageView
-                    android:id="@+id/foregroundImage"
-                    android:src="@drawable/default_image"
-                    android:scaleType="centerInside"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/foregroundDivider"
-                    app:layout_constraintEnd_toStartOf="@+id/foregroundDivider"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/foregroundDivider" />
+        <TextView
+            android:id="@+id/seekAlphaForegroundText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Transparency"
+            app:layout_constraintStart_toStartOf="@+id/foregroundImage"
+            app:layout_constraintTop_toBottomOf="@+id/foregroundImage" />
 
-                <ImageView
-                    android:id="@+id/foregroundColorPicker"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:src="@drawable/color_picker"
-                    android:tint="@color/colorGray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/foregroundDivider" />
+        <SeekBar
+            android:id="@+id/seekAlphaForeground"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:max="255"
+            android:progress="255"
+            app:layout_constraintEnd_toEndOf="@+id/foregroundImage"
+            app:layout_constraintStart_toStartOf="@+id/foregroundImage"
+            app:layout_constraintTop_toBottomOf="@+id/seekAlphaForegroundText" />
 
-                <TextView
-                    android:id="@+id/seekAlphaForegroundText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Transparency"
-                    app:layout_constraintStart_toStartOf="@+id/seekAlphaForeground"
-                    app:layout_constraintTop_toTopOf="@+id/foregroundDivider" />
-
-                <SeekBar
-                    android:id="@+id/seekAlphaForeground"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:max="255"
-                    android:progress="255"
-                    app:layout_constraintEnd_toStartOf="@+id/seekSizeForegroundDefault"
-                    app:layout_constraintStart_toEndOf="@+id/foregroundDivider"
-                    app:layout_constraintTop_toBottomOf="@+id/seekAlphaForegroundText" />
-
-                <ImageButton
-                    android:id="@+id/seekAlphaForegroundDefault"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/reset_button"
-                    app:layout_constraintBottom_toBottomOf="@+id/seekAlphaForeground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/seekAlphaForeground" />
-
-                <TextView
-                    android:id="@+id/seekSizeForegroundText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Size"
-                    app:layout_constraintBottom_toTopOf="@+id/seekSizeForeground"
-                    app:layout_constraintStart_toStartOf="@+id/seekSizeForeground" />
+        <ImageButton
+            android:id="@+id/seekAlphaForegroundDefault"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/reset_button"
+            app:layout_constraintBottom_toBottomOf="@+id/seekAlphaForeground"
+            app:layout_constraintStart_toEndOf="@+id/seekAlphaForeground"
+            app:layout_constraintTop_toTopOf="@+id/seekAlphaForeground" />
 
 
-                <SeekBar
-                    android:id="@+id/seekSizeForeground"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:max="100"
-                    android:progress="100"
-                    app:layout_constraintBottom_toTopOf="@+id/seekAspectForeground"
-                    app:layout_constraintEnd_toStartOf="@+id/seekAlphaForegroundDefault"
-                    app:layout_constraintStart_toEndOf="@+id/foregroundDivider"
-                    app:layout_constraintTop_toBottomOf="@+id/seekAlphaForeground" />
-
-                <ImageButton
-                    android:id="@+id/seekSizeForegroundDefault"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/reset_button"
-                    app:layout_constraintBottom_toBottomOf="@+id/seekSizeForeground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/seekSizeForeground" />
-
-                <TextView
-                    android:id="@+id/seekAspectForegroundText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Aspect Ratio"
-                    app:layout_constraintBottom_toTopOf="@+id/seekAspectForeground"
-                    app:layout_constraintStart_toStartOf="@+id/seekAspectForeground" />
+        <View
+            android:id="@+id/foregroundDivider"
+            android:layout_width="1dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="@+id/seekAlphaForeground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-                <SeekBar
-                    android:id="@+id/seekAspectForeground"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:max="200"
-                    android:progress="100"
-                    app:layout_constraintBottom_toBottomOf="@+id/foregroundDivider"
-                    app:layout_constraintEnd_toStartOf="@+id/seekAspectForegroundDefault"
-                    app:layout_constraintStart_toEndOf="@+id/foregroundDivider" />
+        <TextView
+            android:id="@+id/backgroundHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Background"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/foregroundDivider"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-                <ImageButton
-                    android:id="@+id/seekAspectForegroundDefault"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/reset_button"
-                    app:layout_constraintBottom_toBottomOf="@+id/seekAspectForeground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/seekAspectForeground" />
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/default_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/foregroundDivider"
+            app:layout_constraintTop_toBottomOf="@+id/backgroundHeader" />
 
-                <View
-                    android:id="@+id/foregroundDivider"
-                    android:layout_width="1dp"
-                    android:layout_height="120dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/backgroundLayout"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/foregroundLayout">
-
-                <TextView
-                    android:id="@+id/backgroundHeader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Background"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
-
-                <ImageView
-                    android:id="@+id/backgroundImage"
-                    android:src="@drawable/default_image"
-                    android:scaleType="centerInside"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/backgroundDivider"
-                    app:layout_constraintEnd_toStartOf="@+id/backgroundDivider"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/backgroundDivider" />
-
-                <ImageView
-                    android:id="@+id/backgroundColorPicker"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:src="@drawable/color_picker"
-                    android:tint="@color/colorGray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/backgroundDivider" />
+        <ImageView
+            android:id="@+id/backgroundColorPicker"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/color_picker"
+            android:tint="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="@+id/backgroundImage"
+            app:layout_constraintEnd_toEndOf="@+id/backgroundImage" />
 
 
-                <TextView
-                    android:id="@+id/seekAlphaBackgroundText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Transparency"
-                    app:layout_constraintStart_toStartOf="@+id/seekAlphaBackground"
-                    app:layout_constraintTop_toTopOf="@+id/backgroundDivider" />
+        <TextView
+            android:id="@+id/seekAlphaBackgroundText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Transparency"
+            app:layout_constraintStart_toStartOf="@+id/backgroundImage"
+            app:layout_constraintTop_toBottomOf="@+id/backgroundImage" />
 
-                <SeekBar
-                    android:id="@+id/seekAlphaBackground"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:max="255"
-                    android:progress="255"
-                    app:layout_constraintEnd_toStartOf="@+id/seekSizeBackgroundDefault"
-                    app:layout_constraintStart_toEndOf="@+id/backgroundDivider"
-                    app:layout_constraintTop_toBottomOf="@+id/seekAlphaBackgroundText" />
+        <SeekBar
+            android:id="@+id/seekAlphaBackground"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:max="255"
+            android:progress="255"
+            app:layout_constraintEnd_toEndOf="@+id/backgroundImage"
+            app:layout_constraintStart_toStartOf="@+id/backgroundImage"
+            app:layout_constraintTop_toBottomOf="@+id/seekAlphaBackgroundText" />
 
-                <ImageButton
-                    android:id="@+id/seekAlphaBackgroundDefault"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/reset_button"
-                    app:layout_constraintBottom_toBottomOf="@+id/seekAlphaBackground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/seekAlphaBackground" />
-
-                <TextView
-                    android:id="@+id/seekSizeBackgroundText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Size"
-                    app:layout_constraintBottom_toTopOf="@+id/seekSizeBackground"
-                    app:layout_constraintStart_toStartOf="@+id/seekSizeBackground" />
+        <ImageButton
+            android:id="@+id/seekAlphaBackgroundDefault"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/reset_button"
+            app:layout_constraintBottom_toBottomOf="@+id/seekAlphaBackground"
+            app:layout_constraintStart_toEndOf="@+id/seekAlphaBackground"
+            app:layout_constraintTop_toTopOf="@+id/seekAlphaBackground" />
 
 
-                <SeekBar
-                    android:id="@+id/seekSizeBackground"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:max="100"
-                    android:progress="100"
-                    app:layout_constraintBottom_toTopOf="@+id/seekAspectBackground"
-                    app:layout_constraintEnd_toStartOf="@+id/seekAlphaBackgroundDefault"
-                    app:layout_constraintStart_toEndOf="@+id/backgroundDivider"
-                    app:layout_constraintTop_toBottomOf="@+id/seekAlphaBackground" />
+        <ImageView
+            android:id="@+id/descriptionColorPicker"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/color_picker"
+            android:tint="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="@+id/descriptionValue"
+            app:layout_constraintStart_toEndOf="@+id/descriptionValue"
+            app:layout_constraintTop_toTopOf="@+id/descriptionValue" />
 
-                <ImageButton
-                    android:id="@+id/seekSizeBackgroundDefault"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/reset_button"
-                    app:layout_constraintBottom_toBottomOf="@+id/seekSizeBackground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/seekSizeBackground" />
+        <Switch
+            android:id="@+id/descriptionSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/descriptionText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/descriptionText" />
 
-                <TextView
-                    android:id="@+id/seekAspectBackgroundText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Aspect Ratio"
-                    app:layout_constraintBottom_toTopOf="@+id/seekAspectBackground"
-                    app:layout_constraintStart_toStartOf="@+id/seekAspectBackground" />
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Description"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekAlphaForeground" />
 
+        <EditText
+            android:id="@+id/descriptionValue"
+            style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:ems="10"
+            android:hint="Macro text"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
-                <SeekBar
-                    android:id="@+id/seekAspectBackground"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:max="200"
-                    android:progress="100"
-                    app:layout_constraintBottom_toBottomOf="@+id/backgroundDivider"
-                    app:layout_constraintEnd_toStartOf="@+id/seekAspectBackgroundDefault"
-                    app:layout_constraintStart_toEndOf="@+id/backgroundDivider" />
-
-                <ImageButton
-                    android:id="@+id/seekAspectBackgroundDefault"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/reset_button"
-                    app:layout_constraintBottom_toBottomOf="@+id/seekAspectBackground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/seekAspectBackground" />
-
-                <View
-                    android:id="@+id/backgroundDivider"
-                    android:layout_width="1dp"
-                    android:layout_height="120dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/descriptionColorPicker"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:src="@drawable/color_picker"
-                    android:tint="@color/colorGray"
-                    app:layout_constraintBottom_toBottomOf="@+id/descriptionValue"
-                    app:layout_constraintStart_toEndOf="@+id/descriptionValue"
-                    app:layout_constraintTop_toTopOf="@+id/descriptionValue" />
-
-                <Switch
-                    android:id="@+id/descriptionSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/descriptionText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Description"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/descriptionValue"
-                    style="@style/Base.Widget.MaterialComponents.TextInputEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="32dp"
-                    android:ems="10"
-                    android:hint="Macro text"
-                    android:inputType="text"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
-
-            </android.support.constraint.ConstraintLayout>
-
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

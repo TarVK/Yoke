@@ -82,7 +82,6 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
 
         retrieveProfileData();
 
-        //TODO replace with custom layout_button type [+], so the nav layout_button can be removed
         // Add a new Macro -> MacroSelection.java
         addMacro.setOnClickListener(v -> {
             if (profile.hasSpace()) {
@@ -114,7 +113,6 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
 
         // Delete selected Macro
         deleteMacro.setOnClickListener(v -> {
-            //TODO generalize index with macroID
             int index = mButton.indexOf(selectedButton);
 
             profile.removeButton(selectedButton);
