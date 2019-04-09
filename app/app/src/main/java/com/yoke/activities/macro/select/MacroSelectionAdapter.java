@@ -14,9 +14,7 @@ import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.activities.profileEdit.ProfileEditActivity;
-import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
-import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
 
@@ -82,6 +80,7 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
         holder.selectionAction.setText(action);
         holder.parentLayout.setOnClickListener(v -> {
             Log.d(TAG, "Add Macro to Profile, mID: " + macro.getID() + ", pID: " + profileID);
+
 
             Intent intent = new Intent(mContext, ProfileEditActivity.class);
             intent.putExtra("profile id", profileID);
