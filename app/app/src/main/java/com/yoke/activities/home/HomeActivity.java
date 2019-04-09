@@ -130,10 +130,6 @@ public class HomeActivity extends AppCompatActivity {
 
         // Make sure to refresh the data
         initRecyclerView();
-        //activate shake service
-
-
-
     }
 
 

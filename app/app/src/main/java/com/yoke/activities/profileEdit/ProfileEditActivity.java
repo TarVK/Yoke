@@ -91,6 +91,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
                     Intent intent = new Intent(getApplicationContext(), MacroSelection.class);
                     intent.putExtra("profile id", profile.getID());
                     startActivity(intent);
+                    finish();
                 });
             } else {
                 Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
@@ -108,6 +109,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
                 intent.putExtra("macro id", macroID);
                 intent.putExtra("profile id", profile.getID());
                 startActivity(intent);
+                finish();
             });
         });
 

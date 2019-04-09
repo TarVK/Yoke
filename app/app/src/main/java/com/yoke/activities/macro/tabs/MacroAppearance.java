@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.yoke.activities.macro.MacroActivity;
 import com.yoke.database.types.Macro;
 import com.yoke.utils.Callback;
 
@@ -38,9 +39,6 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 public class MacroAppearance extends Fragment {
 
     private static final String TAG = "MacroAppearance";
-
-    private Long macroID;
-    private Macro macro;
 
     private ImageView foregroundColorPicker;
     private ImageView backgroundColorPicker;
@@ -65,6 +63,8 @@ public class MacroAppearance extends Fragment {
     private int foregroundAlpha;
     private int backgroundAlpha;
 
+    // A reference to the macro activity
+    private MacroActivity activity;
 
     public MacroAppearance() {
         // Required empty public constructor
@@ -78,7 +78,7 @@ public class MacroAppearance extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        activity = (MacroActivity) getActivity();
         View view = inflater.inflate(R.layout.activity_macro_appearance,
                 container, false);
 
@@ -150,15 +150,20 @@ public class MacroAppearance extends Fragment {
                 });
 
         // Load the macro, and afterwards assign all UI listeners
-        loadMacro(() -> {
+        activity.loadMacro(() -> {
+            // Initialize values
+            textEnabled = activity.macro.isTextEnabled();
+
+            foregroundImage.setImageBitmap(activity.macro.getForegroundImage());
+            backgroundImage.setImageBitmap(activity.macro.getBackgroundImage());
+            previewImage.setImageBitmap(activity.macro.getCombinedImage());
+
             //Check if switch is pressed
             descriptionSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                Macro.getByID(macroID, (macro) -> {
-                    descriptionValue.setEnabled(isChecked);
-                    descriptionColorPicker.setEnabled(isChecked);
-                    macro.setTextEnabled(isChecked);
-                    updateImage();
-                });
+                descriptionValue.setEnabled(isChecked);
+                descriptionColorPicker.setEnabled(isChecked);
+                activity.macro.setTextEnabled(isChecked);
+                updateImage();
             });
 
             // EditText Change Listener (sets macro.text and updates preview)
@@ -173,11 +178,9 @@ public class MacroAppearance extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    Macro.getByID(macroID, (macro) -> {
-                        String text = s.toString();
-                        macro.setText(text);
-                        updateImage();
-                    });
+                    String text = s.toString();
+                    activity.macro.setText(text);
+                    updateImage();
                 }
             });
 
@@ -241,43 +244,10 @@ public class MacroAppearance extends Fragment {
     }
 
     /**
-     * Retrieves the macro and stores it
-     * @param callback  Gets called once the macro has been loaded
-     */
-    protected void loadMacro(Callback callback) {
-        macroID = getActivity().getIntent().getLongExtra("macro id", -1);
-        Log.w(TAG, "retrieveData: " + macroID);
-
-        // Check macroID
-        if (macroID == -1) {
-            Log.e(TAG, "MacroActivity has not been called properly: " + macroID);
-            return;
-        }
-
-        Macro.getByID(macroID, macro -> {
-            getActivity().runOnUiThread(() -> {
-                MacroAppearance.this.macro = macro;
-
-                if (macro != null) {
-                    textEnabled = macro.isTextEnabled();
-
-                    foregroundImage.setImageBitmap(macro.getForegroundImage());
-                    backgroundImage.setImageBitmap(macro.getBackgroundImage());
-                    previewImage.setImageBitmap(macro.getCombinedImage());
-
-                    callback.call();
-                } else {
-                    Log.e(TAG, "Macro is not initialized: " + macroID);
-                }
-            });
-        });
-    }
-
-    /**
      * Updates the combined image preview
      */
     protected void updateImage() {
-        macro.createCombinedImage((combBitmap) -> {
+        activity.macro.createCombinedImage((combBitmap) -> {
             getActivity().runOnUiThread(() -> {
                 previewImage.setImageBitmap(combBitmap);
             });
@@ -307,7 +277,7 @@ public class MacroAppearance extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Don't do anything if no macro is present for whatever reason
-        if (macro == null) {
+        if (activity.macro == null) {
             Log.w("Detect", "Detect");
             return;
         }
@@ -334,11 +304,11 @@ public class MacroAppearance extends Fragment {
                         switch (imageOption) {
                             case 0:
                                 // Remove solid color and reset color picker image and its color
-                                macro.setForegroundColor(0x00000000);
+                                activity.macro.setForegroundColor(0x00000000);
                                 foregroundColorPicker.setImageResource(R.drawable.color_picker);
 
                                 // Set appropriate images
-                                macro.setForegroundImage(bitmap);
+                                activity.macro.setForegroundImage(bitmap);
                                 foregroundImage.setImageBitmap(bitmap);
 
                                 // Update the preview
@@ -347,11 +317,11 @@ public class MacroAppearance extends Fragment {
                                 break;
                             case 1:
                                 // Remove solid color and reset color picker image and its color
-                                macro.setBackgroundColor(0x00000000);
+                                activity.macro.setBackgroundColor(0x00000000);
                                 backgroundColorPicker.setImageResource(R.drawable.color_picker);
 
                                 // Set appropriate images
-                                macro.setBackgroundImage(bitmap);
+                                activity.macro.setBackgroundImage(bitmap);
                                 backgroundImage.setImageBitmap(bitmap);
 
                                 // Update the preview
@@ -386,7 +356,7 @@ public class MacroAppearance extends Fragment {
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 // Don't do anything if no macro is present for whatever reason
-                if (macro == null) {
+                if (activity.macro == null) {
                     Log.w("Detect2", "Detect2");
                     return;
                 }
@@ -398,7 +368,7 @@ public class MacroAppearance extends Fragment {
                     foregroundColorPicker.setImageResource(R.drawable.reset_button);
                     hasSolidBackgroundColor = true;
 
-                    macro.setForegroundColor(color);
+                    activity.macro.setForegroundColor(color);
                     foregroundImage.setColorFilter(color);
                     foregroundImage.setImageResource(R.drawable.default_image);
 
@@ -410,7 +380,7 @@ public class MacroAppearance extends Fragment {
                     backgroundColorPicker.setImageResource(R.drawable.reset_button);
                     hasSolidBackgroundColor = true;
 
-                    macro.setBackgroundColor(color);
+                    activity.macro.setBackgroundColor(color);
                     backgroundImage.setColorFilter(color);
                     backgroundImage.setImageResource(R.drawable.default_image);
 
@@ -418,7 +388,7 @@ public class MacroAppearance extends Fragment {
                     updateImage();
                 //IF text
                 } else if (imageOption == 2) {
-                    macro.setTextColor(color);
+                    activity.macro.setTextColor(color);
 
                     // Update the preview
                     updateImage();
