@@ -76,6 +76,7 @@ public class MacroSelection extends AppCompatActivity {
                 intent.putExtra("macro id", newMacro.getID());
                 intent.putExtra("isNewMacro", true);
                 startActivity(intent);
+                finish();
             });
         });
 

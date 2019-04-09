@@ -25,22 +25,23 @@
 
                 <EditText
                     android:id="@+id/macroName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:singleLine="true"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/finishEdit"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/finishEdit"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="0dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/done_button"
                     android:tint="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="parent"

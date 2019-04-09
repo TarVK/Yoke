@@ -1,5 +1,6 @@
 package com.yoke.activities.macro.select;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,7 +24,7 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
     private static final String TAG = "MacroSelectionAdapter";
 
     private ArrayList<Macro> mDataset;
-    private Context mContext;
+    private Activity mContext;
     private long profileID;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -42,7 +43,7 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
     }
 
     //Constructor
-    public MacroSelectionAdapter(ArrayList<Macro> myDataset, Context context, long pID) {
+    public MacroSelectionAdapter(ArrayList<Macro> myDataset, Activity context, long pID) {
         mDataset = myDataset;
         mContext = context;
         profileID = pID;
@@ -87,6 +88,7 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
             intent.putExtra("macro id", macro.getID());
 
             mContext.startActivity(intent);
+            mContext.finish();
         });
 
     }
