@@ -15,7 +15,7 @@ import com.yoke.database.types.Settings;
         Settings.SettingsData.class,
         Profile.ProfileData.class,
         Button.ButtonData.class
-}, version = 26)
+}, version = 27)
 
 /**
  * A class to manage all stored data in the application

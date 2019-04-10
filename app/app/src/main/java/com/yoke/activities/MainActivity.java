@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.w("Detect", "this");
-                connection.send(new OpenURLCmd("youtube.com"));
+                connection.send(new OpenURLCmd("macro_youtube.com"));
                 CompoundMessage cm = new CompoundMessage();
                 cm.add(new PlayPauseCmd(), 0);
                 cm.add(new NextTrackCmd(), 2000);

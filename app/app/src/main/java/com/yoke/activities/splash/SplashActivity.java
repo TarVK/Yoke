@@ -191,10 +191,9 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             // Create new presets
-            LaunchProgramPreset launchPreset = new LaunchProgramPreset(this);
             Preset.onFinish(callback,
-                    launchPreset,
-                    new MediaControlsPreset(this, launchPreset),
+                    new LaunchProgramPreset(this),
+                    new MediaControlsPreset(this),
                     new TestPreset(this)
             );
         });
