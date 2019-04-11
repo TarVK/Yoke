@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Foreground"
+            android:text="@string/MacroAppearanceForeground"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -56,44 +56,13 @@
             app:layout_constraintBottom_toBottomOf="@+id/foregroundImage"
             app:layout_constraintEnd_toEndOf="@+id/foregroundImage" />
 
-        <TextView
-            android:id="@+id/seekAlphaForegroundText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Transparency"
-            app:layout_constraintStart_toStartOf="@+id/foregroundImage"
-            app:layout_constraintTop_toBottomOf="@+id/foregroundImage" />
-
-        <SeekBar
-            android:id="@+id/seekAlphaForeground"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:max="255"
-            android:progress="255"
-            app:layout_constraintEnd_toEndOf="@+id/foregroundImage"
-            app:layout_constraintStart_toStartOf="@+id/foregroundImage"
-            app:layout_constraintTop_toBottomOf="@+id/seekAlphaForegroundText" />
-
-        <ImageButton
-            android:id="@+id/seekAlphaForegroundDefault"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/reset_button"
-            app:layout_constraintBottom_toBottomOf="@+id/seekAlphaForeground"
-            app:layout_constraintStart_toEndOf="@+id/seekAlphaForeground"
-            app:layout_constraintTop_toTopOf="@+id/seekAlphaForeground" />
-
-
         <View
             android:id="@+id/foregroundDivider"
             android:layout_width="1dp"
             android:layout_height="150dp"
             android:layout_marginTop="16dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toBottomOf="@+id/seekAlphaForeground"
+            app:layout_constraintBottom_toBottomOf="@+id/foregroundImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -104,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Background"
+            android:text="@string/MacroAppearanceBackground"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/foregroundDivider"
             app:layout_constraintTop_toTopOf="parent"
@@ -132,71 +101,39 @@
             app:layout_constraintBottom_toBottomOf="@+id/backgroundImage"
             app:layout_constraintEnd_toEndOf="@+id/backgroundImage" />
 
-
-        <TextView
-            android:id="@+id/seekAlphaBackgroundText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Transparency"
-            app:layout_constraintStart_toStartOf="@+id/backgroundImage"
-            app:layout_constraintTop_toBottomOf="@+id/backgroundImage" />
-
-        <SeekBar
-            android:id="@+id/seekAlphaBackground"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:max="255"
-            android:progress="255"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundImage"
-            app:layout_constraintStart_toStartOf="@+id/backgroundImage"
-            app:layout_constraintTop_toBottomOf="@+id/seekAlphaBackgroundText" />
-
-        <ImageButton
-            android:id="@+id/seekAlphaBackgroundDefault"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/reset_button"
-            app:layout_constraintBottom_toBottomOf="@+id/seekAlphaBackground"
-            app:layout_constraintStart_toEndOf="@+id/seekAlphaBackground"
-            app:layout_constraintTop_toTopOf="@+id/seekAlphaBackground" />
-
-
         <ImageView
-            android:id="@+id/descriptionColorPicker"
+            android:id="@+id/textColorPicker"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:src="@drawable/color_picker"
             android:tint="@color/colorGray"
-            app:layout_constraintBottom_toBottomOf="@+id/descriptionValue"
-            app:layout_constraintStart_toEndOf="@+id/descriptionValue"
-            app:layout_constraintTop_toTopOf="@+id/descriptionValue" />
+            app:layout_constraintBottom_toBottomOf="@+id/textValue"
+            app:layout_constraintStart_toEndOf="@+id/textValue"
+            app:layout_constraintTop_toTopOf="@+id/textValue" />
 
         <Switch
-            android:id="@+id/descriptionSwitch"
+            android:id="@+id/textSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/descriptionText"
+            app:layout_constraintBottom_toBottomOf="@+id/textTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/descriptionText" />
+            app:layout_constraintTop_toTopOf="@+id/textTitle" />
 
         <TextView
-            android:id="@+id/descriptionText"
+            android:id="@+id/textTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Description"
+            android:text="@string/MacroAppearanceText"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seekAlphaForeground" />
+            app:layout_constraintTop_toBottomOf="@+id/foregroundImage" />
 
         <EditText
-            android:id="@+id/descriptionValue"
+            android:id="@+id/textValue"
             style="@style/Base.Widget.MaterialComponents.TextInputEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -204,11 +141,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
             android:ems="10"
-            android:hint="Macro text"
+            android:hint="@string/MacroAppearanceTextHint"
             android:inputType="text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
+            app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     </android.support.constraint.ConstraintLayout>
 

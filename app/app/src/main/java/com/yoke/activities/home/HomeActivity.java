@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +25,6 @@ public class HomeActivity extends AppCompatActivity {
     ImageView settings;
     Toolbar toolbar;
 
-    private ArrayList<Profile> mDataset = new ArrayList<>();
     RecyclerView recyclerView;
     HomeAdapter adapter;
     ArrayList<Profile> profiles = new ArrayList<>();

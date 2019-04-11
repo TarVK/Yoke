@@ -16,6 +16,11 @@
     <string name="editProfile_associatedPrograms">Associated programs (csv)</string>
     <string name="macroSelection_search">Search</string>
 
+    <string name="MacroAppearanceForeground">Foreground</string>
+    <string name="MacroAppearanceBackground">Background</string>
+    <string name="MacroAppearanceText">Description</string>
+    <string name="MacroAppearanceTextHint">Macro name</string>
+
     <string name="selectMacroMain">Please choose an action type</string>
     <string name="selectMacroMainProfile">Profile</string>
     <string name="selectMacroMainMouse">Mouse</string>

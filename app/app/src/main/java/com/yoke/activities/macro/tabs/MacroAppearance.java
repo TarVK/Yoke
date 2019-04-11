@@ -3,14 +3,8 @@ package com.yoke.activities.macro.tabs;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -21,18 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.yoke.activities.macro.MacroActivity;
-import com.yoke.database.types.Macro;
-import com.yoke.utils.Callback;
+import com.yoke.utils.DataCallback;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -49,19 +39,10 @@ public class MacroAppearance extends Fragment {
     private ImageView backgroundImage;
 
     private Switch descriptionSwitch;
-    private EditText descriptionValue;
-
-    private SeekBar seekAlphaForeground;
-    private SeekBar seekAlphaBackground;
-
-    private int imageOption;
-    private int mDefaultColor = 0x00000000; //TODO Check if this works, else declare in onCreateView
+    private EditText textValue;
 
     private boolean textEnabled;
-    private boolean hasSolidBackgroundColor;
-
-    private int foregroundAlpha;
-    private int backgroundAlpha;
+    private boolean isForeground;
 
     // A reference to the macro activity
     private MacroActivity activity;
@@ -90,84 +71,119 @@ public class MacroAppearance extends Fragment {
         // Initialize Color Pickers
         foregroundColorPicker = (ImageView) view.findViewById(R.id.foregroundColorPicker);
         backgroundColorPicker = (ImageView) view.findViewById(R.id.backgroundColorPicker);
-        descriptionColorPicker = (ImageView) view.findViewById(R.id.descriptionColorPicker);
-
+        descriptionColorPicker = (ImageView) view.findViewById(R.id.textColorPicker);
 
         //Initialize Switch and EditText
-        descriptionSwitch = (Switch) view.findViewById(R.id.descriptionSwitch);
-        descriptionValue = (EditText) view.findViewById(R.id.descriptionValue);
+        descriptionSwitch = (Switch) view.findViewById(R.id.textSwitch);
+        textValue = (EditText) view.findViewById(R.id.textValue);
 
-        //Set default enabled values for text
-        descriptionSwitch.setChecked(textEnabled);
-        descriptionValue.setEnabled(textEnabled);
-        descriptionColorPicker.setEnabled(textEnabled);
-
-        // Foreground Image OnclickListener
-        foregroundImage
-                .setOnClickListener(v -> {
-                    imageOption = 0;
-                    pickFromGallery();
-                });
-
-        // Background Image OnclickListener
-        backgroundImage
-                .setOnClickListener(v -> {
-                    imageOption = 1;
-                    pickFromGallery();
-                });
-
-        // Foreground Solid Color Picker OnclickListener
-        foregroundColorPicker
-                .setOnClickListener(v -> {
-                    if (hasSolidBackgroundColor) {
-                        imageOption = 0;
-                        pickFromGallery();
-                    }
-                    else {
-                        imageOption = 0;
-                        openColorPicker();
-                    }
-                });
-
-        // Background Solid Color Picker OnclickListener
-        backgroundColorPicker
-                .setOnClickListener(v -> {
-                    if (hasSolidBackgroundColor) {
-                        imageOption = 1;
-                        pickFromGallery();
-                    }
-                    else {
-                        imageOption = 1;
-                        openColorPicker();
-                    }
-                });
-
-        // Background Solid Color Picker OnclickListener
-        descriptionColorPicker
-                .setOnClickListener(v -> {
-                    imageOption = 2;
-                    openColorPicker();
-                });
 
         // Load the macro, and afterwards assign all UI listeners
         activity.loadMacro(() -> {
-            // Initialize values
-            textEnabled = activity.macro.isTextEnabled();
 
-            foregroundImage.setImageBitmap(activity.macro.getForegroundImage());
-            backgroundImage.setImageBitmap(activity.macro.getBackgroundImage());
+            // Set default Foreground Image
+            if (activity.macro.getForegroundImage() != null) {
+                foregroundImage.setImageBitmap(activity.macro.getForegroundImage());
+            } else {
+                // Create new colored bitmap to reset the old
+                Bitmap bitmap = Bitmap.createBitmap(300,300, Bitmap.Config.ARGB_8888);
+                bitmap.eraseColor(activity.macro.getForegroundColor());
+                foregroundImage.setImageBitmap(bitmap);
+            }
+
+            // Set default Background Image
+            if (activity.macro.getBackgroundImage() != null) {
+                backgroundImage.setImageBitmap(activity.macro.getBackgroundImage());
+            } else {
+                // Create new colored bitmap to reset the old
+                Bitmap bitmap = Bitmap.createBitmap(300,300, Bitmap.Config.ARGB_8888);
+                bitmap.eraseColor(activity.macro.getBackgroundColor());
+                backgroundImage.setImageBitmap(bitmap);
+            }
+
+            // Set default Preview Image
             previewImage.setImageBitmap(activity.macro.getCombinedImage());
 
-            //Check if switch is pressed
+            //Set default enabled values for text
+            descriptionSwitch.setChecked(activity.macro.isTextEnabled());
+            descriptionColorPicker.setEnabled(activity.macro.isTextEnabled());
+            textValue.setEnabled(activity.macro.isTextEnabled());
+            textValue.setText(activity.macro.getText());
+            textValue.setTextColor(activity.macro.getTextColor());
+
+            // Set Foreground Image
+            foregroundImage
+                    .setOnClickListener(v -> {
+                        CropImage.activity()
+                                .setFixAspectRatio(true)
+                                .start(getContext(), this);
+                        isForeground = true;
+                    });
+
+            // Set Background Image
+            backgroundImage
+                    .setOnClickListener(v -> {
+                        CropImage.activity()
+                                .setFixAspectRatio(true)
+                                .start(getContext(), this);
+                        isForeground = false;
+                    });
+
+            // Set Foreground Color
+            foregroundColorPicker
+                    .setOnClickListener(v -> {
+                        openColorPicker(activity.macro.getForegroundColor(), (color) -> {
+                            // Create new colored bitmap to reset the old
+                            Bitmap bitmap = Bitmap.createBitmap(300,300, Bitmap.Config.ARGB_8888);
+                            bitmap.eraseColor(color);
+                            foregroundImage.setImageBitmap(bitmap);
+                            activity.macro.setForegroundImage(null);
+
+                            // Set new color
+                            foregroundImage.setColorFilter(color);
+                            activity.macro.setForegroundColor(color);
+                            updateImage();
+                        });
+                    });
+
+            // Set Background Color
+            backgroundColorPicker
+                    .setOnClickListener(v -> {
+                        openColorPicker(activity.macro.getBackgroundColor(), (color) -> {
+                            // Create new colored bitmap to reset the old
+                            Bitmap bitmap = Bitmap.createBitmap(300,300, Bitmap.Config.ARGB_8888);
+                            bitmap.eraseColor(color);
+                            backgroundImage.setImageBitmap(bitmap);
+                            activity.macro.setBackgroundImage(null);
+
+                            // Set new color
+                            backgroundImage.setColorFilter(color);
+                            activity.macro.setBackgroundColor(color);
+                            updateImage();
+                        });
+                    });
+
+            // Set Text Color
+            descriptionColorPicker
+                    .setOnClickListener(v -> {
+                        openColorPicker(0x00000000, (color) -> {
+                            // Set text color
+                            textValue.setTextColor(color);
+                            activity.macro.setTextColor(color);
+                            updateImage();
+                        });
+                    });
+
+            // Check if (isTextEnabled) switch is pressed
             descriptionSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                descriptionValue.setEnabled(isChecked);
+                textValue.setEnabled(isChecked);
                 descriptionColorPicker.setEnabled(isChecked);
                 activity.macro.setTextEnabled(isChecked);
                 updateImage();
             });
 
-            // EditText Change Listener (sets macro.text and updates preview)
-            descriptionValue.addTextChangedListener(new TextWatcher() {
+            // Set Text value
+            textValue.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                 }
@@ -183,61 +199,7 @@ public class MacroAppearance extends Fragment {
                     updateImage();
                 }
             });
-
-
-            // Foreground image Alpha
-            seekAlphaForeground = (SeekBar) view.findViewById(R.id.seekAlphaForeground);
-            seekAlphaForeground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    foregroundAlpha = progress;
-                    //TODO Can't just do this, need to edit the actual image as well at least.
-                    foregroundImage.setImageAlpha(foregroundAlpha);
-                    updateImage();
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-
-            view.findViewById(R.id.seekAlphaForegroundDefault)
-                    .setOnClickListener(viewAlphaFGDefault -> seekAlphaForeground.setProgress(foregroundAlpha));
-
-
-            // Background image alpha
-            seekAlphaBackground = (SeekBar) view.findViewById(R.id.seekAlphaBackground);
-            seekAlphaBackground.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    backgroundAlpha = progress;
-                    backgroundImage.setImageAlpha(backgroundAlpha);
-                    updateImage();
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-
-            view.findViewById(R.id.seekAlphaBackgroundDefault)
-                    .setOnClickListener(viewAlphaBGDefault -> seekAlphaBackground.setProgress(backgroundAlpha));
-
         });
-
-
 
         // Inflate the layout for this fragment
         return view;
@@ -248,156 +210,63 @@ public class MacroAppearance extends Fragment {
      */
     protected void updateImage() {
         activity.macro.createCombinedImage((combBitmap) -> {
-            getActivity().runOnUiThread(() -> {
+            activity.runOnUiThread(() -> {
                 previewImage.setImageBitmap(combBitmap);
             });
         });
     }
 
-    public void pickFromGallery() {
-        //Create an Intent with action as ACTION_PICK
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-
-        //  Only show openable files (such as Image files)
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-
-        // Launching the Intent
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Don't do anything if no macro is present for whatever reason
-        if (activity.macro == null) {
-            Log.w("Detect", "Detect");
-            return;
-        }
-
-        switch (requestCode) {
-
-            // Get (Uri) image and start cropping activity
-            case CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE:
-                Uri imageUri = CropImage.getPickImageResultUri(getContext(), data);
-                CropImage.activity(imageUri)
-                        .setFixAspectRatio(true)
-                        .start(getContext(), this);
-                break;
-
-            // Get (CropImage.ActivityResult) image and replace current image based on (int) imageOption
-            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                if (resultCode == Activity.RESULT_OK) {
-                    Uri resultUri = result.getUri();
-                    try {
-
-                        // Get path from Uri and retrieve bitmap
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
-                        switch (imageOption) {
-                            case 0:
-                                // Remove solid color and reset color picker image and its color
-                                activity.macro.setForegroundColor(0x00000000);
-                                foregroundColorPicker.setImageResource(R.drawable.color_picker);
-
-                                // Set appropriate images
-                                activity.macro.setForegroundImage(bitmap);
-                                foregroundImage.setImageBitmap(bitmap);
-
-                                // Update the preview
-                                updateImage();
-
-                                break;
-                            case 1:
-                                // Remove solid color and reset color picker image and its color
-                                activity.macro.setBackgroundColor(0x00000000);
-                                backgroundColorPicker.setImageResource(R.drawable.color_picker);
-
-                                // Set appropriate images
-                                activity.macro.setBackgroundImage(bitmap);
-                                backgroundImage.setImageBitmap(bitmap);
-
-                                // Update the preview
-                                updateImage();
-
-                                break;
-                            default:
-                                Log.e(TAG, "imageOption unintentionally changed");
-                                break;
-                        }
-                    } catch (IOException e) {
-                        Log.e(TAG, "Crop resultCode error: ", e);
-                    }
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Exception e = result.getError(); // Skip if 'failed to load sampled bitmap'
-                    Log.e(TAG, "Crop Activity error: ", e);
-                }
-                break;
-            default:
-                Log.e(TAG, "Crop Activity incorrectly called, rqCode: " + requestCode);
-                break;
-        }
-    }
-
-    public void openColorPicker() {
-        AmbilWarnaDialog dialog = new AmbilWarnaDialog(getContext(), mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+    /**
+     * Creates a new Color Picker to choose a color from
+     * @param callback color that will be returned by the color picker
+     */
+    public void openColorPicker(int defaultColor, DataCallback<Integer> callback) {
+        AmbilWarnaDialog dialog = new AmbilWarnaDialog(getContext(), defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
-                Log.d(TAG, "Color Picker action cancelled, dialog closed");
+
             }
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                // Don't do anything if no macro is present for whatever reason
-                if (activity.macro == null) {
-                    Log.w("Detect2", "Detect2");
-                    return;
-                }
-
-                mDefaultColor = color;
-
-                //IF foreground
-                if (imageOption == 0) {
-                    foregroundColorPicker.setImageResource(R.drawable.reset_button);
-                    hasSolidBackgroundColor = true;
-
-                    activity.macro.setForegroundColor(color);
-                    foregroundImage.setColorFilter(color);
-                    foregroundImage.setImageResource(R.drawable.default_image);
-
-                    // Update the preview
-                    updateImage();
-
-                //IF background
-                } else if (imageOption == 1) {
-                    backgroundColorPicker.setImageResource(R.drawable.reset_button);
-                    hasSolidBackgroundColor = true;
-
-                    activity.macro.setBackgroundColor(color);
-                    backgroundImage.setColorFilter(color);
-                    backgroundImage.setImageResource(R.drawable.default_image);
-
-                    // Update the preview
-                    updateImage();
-                //IF text
-                } else if (imageOption == 2) {
-                    activity.macro.setTextColor(color);
-
-                    // Update the preview
-                    updateImage();
-                } else {
-                    Log.e(TAG, "Color Picker imageOption not set correctly: " + imageOption);
-                }
+                callback.retrieve(color);
             }
         });
         dialog.show();
     }
+    /**
+     * Creates a new Color Picker to choose a color from
+     * @param requestCode code needed to check from which object the method is called
+     * @param resultCode code to check if result is valid
+     * @param data result from the image cropper
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            Log.d(TAG, "Start ImageCropper: " + requestCode);
+
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == Activity.RESULT_OK) {
+                Uri resultUri = result.getUri();
+                try {
+                    // Get path from Uri and retrieve bitmap
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), resultUri);
+                    if (isForeground) {
+                        foregroundImage.setColorFilter(null);
+                        foregroundImage.setImageBitmap(bitmap);
+                        activity.macro.setForegroundImage(bitmap);
+                    } else {
+                        backgroundImage.setColorFilter(null);
+                        backgroundImage.setImageBitmap(bitmap);
+                        activity.macro.setBackgroundImage(bitmap);
+                    }
+                    updateImage();
+                } catch (IOException e) {
+                    Log.e(TAG, "Crop resultCode error: ", e);
+                }
+            }
+        }
+    }
 }
