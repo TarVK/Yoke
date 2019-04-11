@@ -30,7 +30,7 @@ public class Macro extends DataObject<Macro.MacroData> {
     public static final int resolution = 200;
 
     // Define the font size relative to the resolution, e.g. 0.25 is 1/4th of resolution in height
-    public static final double fontScale = 0.1;
+    public static final double fontScale = 0.2;
 
     // Store cached version of the final image
     protected Bitmap image;
@@ -280,11 +280,11 @@ public class Macro extends DataObject<Macro.MacroData> {
                 }
 
                 // Draw text
-                if (useText) {
+                if (useText && text != null) {
                     // Determine the y level for the tezt
-                    int y = resolution/2;
+                    int y = resolution / 2;
                     if (foregroundImage != null || backgroundImage != null) {
-                        y = resolution/5;
+                        y = resolution / 5 * 4;
                     }
 
                     // Create the font
