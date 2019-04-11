@@ -23,6 +23,7 @@ import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.DataBase;
 import com.yoke.database.types.Profile;
 import com.yoke.preset.Preset;
+import com.yoke.preset.types.ComputerCommandPreset;
 import com.yoke.preset.types.GamerPreset;
 import com.yoke.preset.types.MediaControlsPreset;
 import com.yoke.preset.types.SocialMediaPreset;
@@ -199,7 +200,8 @@ public class SplashActivity extends AppCompatActivity {
                     new SocialMediaPreset(this),
                     new GamerPreset(this),
                     new MediaControlsPreset(this),
-                    new TuePreset(this)
+                    new TuePreset(this),
+                    new ComputerCommandPreset(this)
 //                    new TestPreset(this),
 
 
