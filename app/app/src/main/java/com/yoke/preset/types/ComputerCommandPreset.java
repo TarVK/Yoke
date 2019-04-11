@@ -3,6 +3,7 @@ package com.yoke.preset.types;
 import android.content.Context;
 
 import com.example.yoke.R;
+import com.yoke.connection.messages.app.OpenTrackpadCmd;
 import com.yoke.connection.messages.computerCmds.LogOffCmd;
 import com.yoke.connection.messages.computerCmds.RestartCmd;
 import com.yoke.connection.messages.computerCmds.ShutDownCmd;
@@ -28,6 +29,7 @@ public class ComputerCommandPreset extends Preset {
         addMacro("Log off", R.drawable.macro_logoff,new LogOffCmd());
         addMacro("Sleep", R.drawable.macro_sleep, new SleepCmd());
         addMacro("Restart", R.drawable.macro_restart, new RestartCmd());
+        addMacro("Mouse", R.drawable.macro_mouse, new OpenTrackpadCmd());
                 
 
     }
