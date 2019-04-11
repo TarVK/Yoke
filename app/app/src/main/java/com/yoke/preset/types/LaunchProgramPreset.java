@@ -25,11 +25,11 @@ public class LaunchProgramPreset extends Preset {
         profile.setName("Launch");
 
         addMacro("Steam", R.drawable.macro_steam, new OpenProgramCmd("C:\\Program Files (x86)\\Steam\\Steam.exe"));
-        addMacro("Spotify", R.drawable.macro_spotify, new OpenURLCmd("https://www.macro_spotify.com/"));
-        addMacro("Twitch", R.drawable.macro_twitch, new OpenURLCmd("https://www.macro_twitch.tv/"));
-        addMacro("Wikipedia", R.drawable.macro_wikipedia, new OpenURLCmd("https://www.macro_wikipedia.org/"));
-        addMacro("Youtube", R.drawable.macro_youtube, new OpenURLCmd("https://www.macro_youtube.com/"));
-        addMacro("Pornhub", R.drawable.macro_pornhub, new OpenURLCmd("https://www.pornhub.com/"));
+        addMacro("Spotify", R.drawable.macro_spotify, new OpenURLCmd("https://www.spotify.com/"));
+        addMacro("Twitch", R.drawable.macro_twitch, new OpenURLCmd("https://www.twitch.tv/"));
+        addMacro("Wikipedia", R.drawable.macro_wikipedia, new OpenURLCmd("https://www.wikipedia.org/"));
+        addMacro("Youtube", R.drawable.macro_youtube, new OpenURLCmd("https://www.youtube.com/"));
+//        addMacro("Pornhub", R.drawable.macro_pornhub, new OpenURLCmd("https://www.pornhub.com/"));
 
         // Create any additional default launcher macro's that aren't in any profile:
 //        createMacro("Something", R.drawable.macro_pornhub, new OpenURLCmd("https://www.something.com/"));

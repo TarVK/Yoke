@@ -26,8 +26,8 @@ public class TestPreset extends Preset {
         profile.setName("Test Profile");
 
         // TODO: remove this whole preset
-        addMacro("Select File", R.drawable.macro_steam, new RequestFilePath());
-        addMacro("Select shortcut", R.drawable.macro_spotify, new RequestKeyPress());
-        addMacro("Open Trackpad", R.drawable.macro_twitch, new OpenTrackpadCmd());
+        addMacro("Select File", R.drawable.macro_filepath, new RequestFilePath());
+        addMacro("Select shortcut", R.drawable.macro_keyboard, new RequestKeyPress());
+        addMacro("Open Trackpad", R.drawable.macro_mouse, new OpenTrackpadCmd());
     }
 }

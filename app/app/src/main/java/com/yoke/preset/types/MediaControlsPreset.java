@@ -30,8 +30,8 @@ public class MediaControlsPreset extends Preset {
     protected void setupProfile(Profile profile) {
         profile.setName("Media Controls");
 
-        addMacro("Volume Up", R.drawable.macro_volum_up, new VolumeUpCmd());
-        addMacro("Volume Down", R.drawable.macro_volume_down, new VolumeDownCmd());
+        addMacro("Volume Down", R.drawable.macro_volum_up, new VolumeDownCmd());
+        addMacro("Volume Up", R.drawable.macro_volume_down, new VolumeUpCmd());
         addMacro("Previous Track", R.drawable.macro_prev_track, new PreviousTrackCmd());
         addMacro("Next Track", R.drawable.macro_next_track, new NextTrackCmd());
         addMacro("Play/Pause", R.drawable.macro_play, new PlayPauseCmd());
