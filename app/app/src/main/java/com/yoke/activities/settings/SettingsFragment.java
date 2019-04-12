@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.util.Log;
 
 import com.example.yoke.R;
 import com.yoke.Helper.MainApp;
@@ -30,7 +31,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         Resources res = getContext().getResources();
         android.content.res.Configuration conf = res.getConfiguration();
-
+        //addPreferencesFromResource(R.xml.preferences);
     }
 
     @Override
@@ -38,6 +39,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.preferences);
         //System.out.println("whatevs");
         if (getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE) == null) {
+            Log.e("preferences empty", "true");
             preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         }
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
@@ -62,13 +64,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         Preference language = findPreference("language");
+        Log.e("is language a pref", Boolean.toString(preferences.contains("language")));
+        editor.putString("language", "en");
+        editor.apply();
+        Log.e("is language a pref", Boolean.toString(preferences.contains("language")));
         setLanguageSummary(language);
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference language, Object o) {
                 editor.putString(getString(R.string.language), o.toString());
-                //System.out.println("=======================================================");
-                //System.out.println("Language: " + o.toString());
+                editor.apply();
+                Log.e("o.toString after change", o.toString());
                 setLanguageSummary(language);
                 setNewLocale(o.toString());
 

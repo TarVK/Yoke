@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44179840-a82f-4897-9e1d-71e91784427f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -109,14 +110,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="273" />
+          <entry key="java" value="461" />
           <entry key="txt" value="29" />
           <entry key="xml" value="322" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="273" />
+          <entry key="JAVA" value="461" />
           <entry key="PLAIN_TEXT" value="29" />
           <entry key="XML" value="322" />
         </counts>
@@ -133,8 +134,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="113" column="33" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="33" />
+            <state relative-caret-position="358">
+              <caret line="76" column="63" selection-start-line="76" selection-start-column="63" selection-end-line="76" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -530,14 +531,14 @@
       <window_info id="Image Layers" order="5" />
       <window_info id="Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.18399169" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.43866944" />
       <window_info anchor="bottom" id="Logcat" order="1" weight="0.3951613" />
       <window_info anchor="bottom" id="Debug" order="2" />
       <window_info anchor="bottom" id="TODO" order="3" weight="0.32848233" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32903227" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.1891892" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.3035343" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.4516129" />
       <window_info active="true" anchor="bottom" id="Messages" order="10" visible="true" weight="0.99376297" />
@@ -896,8 +897,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yoke/activities/settings/SettingsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="113" column="33" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="33" />
+        <state relative-caret-position="358">
+          <caret line="76" column="63" selection-start-line="76" selection-start-column="63" selection-end-line="76" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
