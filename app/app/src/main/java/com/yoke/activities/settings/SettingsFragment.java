@@ -62,6 +62,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         Preference language = findPreference("language");
+        setLanguageSummary(language);
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference language, Object o) {
@@ -102,13 +103,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 
     private void setLanguageSummary(Preference language) {
-        String value = preferences.getString("language", "en");
+        String value = preferences.getString("language", "default");
         if (value.equals("en")) {
             language.setSummary("English (default)");
         } else if (value.equals("ne")) {
             language.setSummary("Nederlands");
-        } else {
+        } else if (value.equals("bg")){
             language.setSummary("Български");
+        } else {
+            language.setSummary("");
         }
     }
 
