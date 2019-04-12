@@ -69,6 +69,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             setLanguageSummary(language, "en");
         }
         Log.e("does getString work", preferences.getString("language", "default"));
+        setLanguageSummary(language, preferences.getString("language", "default"));
         //editor.putString("language", "en");
         //editor.apply();
         //Log.e("is language a pref", Boolean.toString(preferences.contains("language")));
