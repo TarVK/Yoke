@@ -30,12 +30,9 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
         Message message = (Message) intent.getSerializableExtra("message");
 
         Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
 
         // If the event was a connection failed event
-        if (message instanceof ConnectionFailed) {
+        if (message instanceof ConnectionFailed && activity != null) {
             final AlertDialog.Builder builder1 =
                     new AlertDialog.Builder(activity);
             builder1.setTitle("Connection Failed");
@@ -47,7 +44,7 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
         }
 
         // If the event was an disconnect event
-        else if (message instanceof Disconnected) {
+        else if (message instanceof Disconnected && activity != null) {
             final AlertDialog.Builder builder2 =
                     new AlertDialog.Builder(activity);
             builder2.setTitle("Your phone is disconnected");
@@ -78,7 +75,8 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
             Profile.getAssociated(name, (profile) -> {
                 if (profile != null) {
                     // Make sure the profile isn't already opened
-                    if (((ProfileActivity) activity).profile.getID() == profile.getID()) {
+                    if (activity != null &&
+                            ((ProfileActivity) activity).profile.getID() == profile.getID()) {
                         return;
                     }
 

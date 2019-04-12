@@ -8,17 +8,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.yoke.R;
-import com.yoke.Helper.LocaleManager;
 import com.yoke.Helper.MainApp;
-import com.yoke.activities.MainActivity;
 import com.yoke.activities.home.HomeActivity;
-import com.yoke.activities.splash.SplashActivity;
 import com.yoke.activities.tutorial.TutorialActivity;
+
+import static com.yoke.activities.splash.GlobalMessageReceiver.getActivity;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -40,7 +36,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
-        System.out.println("whatevs");
+        //System.out.println("whatevs");
         if (getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE) == null) {
             preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         }
@@ -60,41 +56,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-
-        //Tutorial preference
-        /*Preference tutorial = findPreference("tutorial");
-        //System.out.println("===============================" + findPreference("tutorial"));
-        tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-
-            public boolean onPreferenceClick(Preference preference) {
-                System.out.println("===============================" + findPreference("tutorial"));
-                startActivity(new Intent(getActivity(), TutorialActivity.class));
-                return true;
-            }
-        });*/
-
-        /*Preference.OnPreferenceClickListener clickListener = new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                System.out.println("whatevs");
-                return false;
-            }
-        };*/
-
-
-
-
-        /*//About preference
-        Preference about = findPreference("about");
-        about.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                //link to github README.txt
-                return true;
-            }
-        });*/
-
         //Language preference
         if (findPreference("language") == null) {
             editor.putString(getString(R.string.language), "en");
@@ -103,23 +64,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference language = findPreference("language");
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                //TODO for this I need Locale
+            public boolean onPreferenceChange(Preference language, Object o) {
                 editor.putString(getString(R.string.language), o.toString());
-                System.out.println("=======================================================");
-                System.out.println("Language: " + o.toString());
-                language.setSummary(o.toString());
+                //System.out.println("=======================================================");
+                //System.out.println("Language: " + o.toString());
+                setLanguageSummary(language);
                 setNewLocale(o.toString());
-                /*if (o.toString().equals("english")) {
-                    language.setSummary("English");
-                } else if (o.toString().equals("bulg")) {
-                    language.setSummary("Български");
-                } else {
-                    language.setSummary("Nederlands");
-                }*/
-                //LocaleHelper.setLocale(getContext(), o.toString());
-                //updateView((String)findPreference("language").toString());
-                //updateResources();
+
                 return true;
             }
         });
@@ -149,11 +100,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 //        System.exit(0);
     }
 
-    /*private void updateView(String language) {
-        Context context = LocaleHelper.setLocale(getActivity().getApplicationContext(), language);
 
-    }*/
-
-
+    private void setLanguageSummary(Preference language) {
+        String value = preferences.getString("language", "en");
+        if (value.equals("en")) {
+            language.setSummary("English (default)");
+        } else if (value.equals("ne")) {
+            language.setSummary("Nederlands");
+        } else {
+            language.setSummary("Български");
+        }
+    }
 
 }

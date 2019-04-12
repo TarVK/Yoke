@@ -3,20 +3,14 @@ package com.yoke.preset.types;
 import android.content.Context;
 
 import com.example.yoke.R;
-import com.yoke.connection.messages.app.OpenProfileCmd;
 import com.yoke.connection.messages.app.OpenTrackpadCmd;
-import com.yoke.connection.messages.computerCmds.NextTrackCmd;
-import com.yoke.connection.messages.computerCmds.PlayPauseCmd;
-import com.yoke.connection.messages.computerCmds.PreviousTrackCmd;
-import com.yoke.connection.messages.computerCmds.VolumeDownCmd;
-import com.yoke.connection.messages.computerCmds.VolumeUpCmd;
 import com.yoke.connection.messages.prompts.RequestFilePath;
 import com.yoke.connection.messages.prompts.RequestKeyPress;
 import com.yoke.database.types.Profile;
 import com.yoke.preset.Preset;
 
 /**
- * A preset for testing some presets
+ * A preset for testing some presets, initialized in the splash activity
  */
 public class TestPreset extends Preset {
     /**
@@ -32,8 +26,8 @@ public class TestPreset extends Preset {
         profile.setName("Test Profile");
 
         // TODO: remove this whole preset
-        addMacro("Select File", R.drawable.steam, new RequestFilePath());
-        addMacro("Select shortcut", R.drawable.spotify, new RequestKeyPress());
-        addMacro("Open Trackpad", R.drawable.twitch, new OpenTrackpadCmd());
+        addMacro("Select File", R.drawable.macro_filepath, new RequestFilePath());
+        addMacro("Select shortcut", R.drawable.macro_keyboard, new RequestKeyPress());
+        addMacro("Open Trackpad", R.drawable.macro_mouse, new OpenTrackpadCmd());
     }
 }

@@ -3,9 +3,10 @@ package com.yoke.activities.home;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -21,6 +22,9 @@ import java.util.Collections;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> implements
         DragController.ItemTouchHelperContract {
+
+    private static final String TAG = "HomeAdapter";
+
     private ArrayList<Profile> profiles = new ArrayList<>();
     private HomeActivity activity;
 
@@ -29,11 +33,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         public ConstraintLayout parentLayout;
         public ImageButton removeButton;
 
+        final RecyclerView gridView;
+
         public MyViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.my_textview);
             parentLayout = itemView.findViewById(R.id.parent_layout);
             removeButton = itemView.findViewById(R.id.delete);
+
+            gridView = v.findViewById(R.id.home_button_list);
         }
     }
 
@@ -57,32 +65,36 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         Profile profile = profiles.get(position);
         holder.textView.setText(profile.getName());
 
-        // Listen for opening
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, ProfileActivity.class);
-                intent.putExtra("profile id", profile.getID());
-                activity.startActivity(intent);
-            }
+        HomeGridViewAdapter adapter =
+                new HomeGridViewAdapter(activity, profile);
+
+        holder.gridView.setAdapter(adapter);
+        holder.gridView.setLayoutManager(new GridLayoutManager(activity, 3));
+
+        // Listen for opening of profile
+        holder.parentLayout.setOnClickListener(v -> {
+            Log.d(TAG, "Open profile: " + profile.getID());
+
+            Intent intent = new Intent(activity, ProfileActivity.class);
+            intent.putExtra("profile id", profile.getID());
+            activity.startActivity(intent);
         });
 
-        // Listen for deletion
-        holder.removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final AlertDialog.Builder builder2 =
-                        new AlertDialog.Builder(activity);
-                builder2.setTitle("Delete profile");
-                builder2.setMessage("Are you sure you want to remove this profile?")
-                        .setPositiveButton("Yes",
-                                (dialog, id) -> {
-                                    deleteProfile(profile);
-                                })
-                        .setNegativeButton("No", (dialog, id) -> dialog.dismiss());
-                AlertDialog alertDialog = builder2.create();
-                alertDialog.show();
-            }
+        // Listen for deletion of profile
+        holder.removeButton.setOnClickListener(v -> {
+            Log.d(TAG, "Delete profile: " + profile.getID());
+
+            final AlertDialog.Builder builder2 =
+                    new AlertDialog.Builder(activity);
+            builder2.setTitle("Delete profile");
+            builder2.setMessage("Are you sure you want to remove this profile?")
+                    .setPositiveButton("Yes",
+                            (dialog, id) -> {
+                                deleteProfile(profile);
+                            })
+                    .setNegativeButton("No", (dialog, id) -> dialog.dismiss());
+            AlertDialog alertDialog = builder2.create();
+            alertDialog.show();
         });
 
     }
@@ -93,12 +105,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
      */
     protected void deleteProfile(Profile profile) {
         long profileID = profile.getID();
-        int profileListIndex = profiles.indexOf(profile);
+        int profileAtIndex = profiles.indexOf(profile);
 
         profile.delete();
-        profiles.remove(profileListIndex);
-        notifyItemRemoved(profileListIndex);
-        notifyItemRangeChanged(profileListIndex, profiles.size());
+        profiles.remove(profileAtIndex);
+        notifyItemRemoved(profileAtIndex);
+        notifyItemRangeChanged(profileAtIndex, profiles.size());
     }
 
     @Override

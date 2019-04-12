@@ -15,7 +15,7 @@ import com.yoke.database.types.Settings;
         Settings.SettingsData.class,
         Profile.ProfileData.class,
         Button.ButtonData.class
-}, version = 25)
+}, version = 38)
 
 /**
  * A class to manage all stored data in the application
@@ -41,6 +41,8 @@ public abstract class DataBase extends RoomDatabase {
             instance = Room.databaseBuilder(context,
                     DataBase.class, "data").fallbackToDestructiveMigration().build();
             Settings.initialize(done);
+        } else {
+            done.call();
         }
     }
 

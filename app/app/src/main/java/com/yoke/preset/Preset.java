@@ -68,10 +68,6 @@ public abstract class Preset {
 
             // Continue creating the preset
             setupProfile(profile);
-
-            if (buttonCount == 0) {
-                completeSetup();
-            }
         });
     }
 
@@ -124,6 +120,20 @@ public abstract class Preset {
      */
     abstract protected void setupProfile(Profile profile);
 
+
+    /**
+     * Creates a macro using the specified data, unless a macro with the given name already exists
+     * but doesn't add it to the profile
+     * Should only be called from the setupProfile method
+     * @param name  The name of the macro
+     * @param imageResourceID  The id of the image resource for the layout_button
+     * @param action  The action to perform once the layout_button is pressed
+     */
+    protected void createMacro(String name, int imageResourceID,
+                            Message action) {
+        this.addMacro(name, imageResourceID, action, false);
+    }
+
     /**
      * Creates a macro using the specified data, unless a macro with the given name already exists
      * and adds it to the profile
@@ -133,15 +143,34 @@ public abstract class Preset {
      * @param action  The action to perform once the layout_button is pressed
      */
     protected void addMacro(String name, int imageResourceID,
-                               Message action) {
+                            Message action) {
+        this.addMacro(name, imageResourceID, action, true);
+    }
+
+    /**
+     * Creates a macro using the specified data, unless a macro with the given name already exists
+     * and adds it to the profile
+     * Should only be called from the setupProfile method
+     * @param name  The name of the macro
+     * @param imageResourceID  The id of the image resource for the layout_button
+     * @param action  The action to perform once the layout_button is pressed
+     * @param save  Whether the macro should be added to the profile or not
+     */
+    protected void addMacro(String name, int imageResourceID,
+                               Message action, boolean save) {
         // Indicate that we need a callback from this macro
-        final int index = buttonCount++;
-        macros = new Macro[buttonCount];
+        final int index = buttonCount;
+
+        if (save) {
+            macros = new Macro[++buttonCount];
+        }
 
         // Check if the macro already exists
         Macro.getByName(name, (macro) -> {
             if (macro != null) {
-                addMacroCallback(macro, index);
+                if (save) {
+                    addMacroCallback(macro, index);
+                }
                 return;
             }
 
@@ -152,7 +181,11 @@ public abstract class Preset {
                     BitmapFactory.decodeResource(context.getResources(), imageResourceID));
 
             // Save the newly created macro
-            newMacro.save(() -> addMacroCallback(newMacro, index));
+            newMacro.save(() -> {
+                if (save) {
+                    addMacroCallback(newMacro, index);
+                }
+            });
         });
     }
 

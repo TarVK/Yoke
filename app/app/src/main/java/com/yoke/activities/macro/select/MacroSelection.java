@@ -75,7 +75,9 @@ public class MacroSelection extends BaseActivity {
                 Intent intent = new Intent(this, MacroActivity.class);
                 intent.putExtra("profile id", profileID);
                 intent.putExtra("macro id", newMacro.getID());
+                intent.putExtra("isNewMacro", true);
                 startActivity(intent);
+                finish();
             });
         });
 

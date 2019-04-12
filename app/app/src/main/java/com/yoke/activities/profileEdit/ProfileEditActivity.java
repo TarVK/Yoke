@@ -11,12 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,9 +22,8 @@ import com.example.yoke.R;
 import com.yoke.activities.BaseActivity;
 import com.yoke.activities.macro.MacroActivity;
 import com.yoke.activities.macro.select.MacroSelection;
-import com.yoke.activities.profile.ProfileActivity;
+import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
-import com.yoke.utils.Callback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,7 +79,6 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
 
         retrieveProfileData();
 
-        //TODO replace with custom layout_button type [+], so the nav layout_button can be removed
         // Add a new Macro -> MacroSelection.java
         addMacro.setOnClickListener(v -> {
             if (profile.hasSpace()) {
@@ -93,6 +88,7 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
                     Intent intent = new Intent(getApplicationContext(), MacroSelection.class);
                     intent.putExtra("profile id", profile.getID());
                     startActivity(intent);
+                    finish();
                 });
             } else {
                 Toast.makeText(getApplicationContext(),"cant be added", Toast.LENGTH_LONG).show();
@@ -104,18 +100,18 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
             long macroID = selectedButton.getMacro().getID();
 
             // Save the profile before continuing
-            // TODO: add prompt asking whether you are sure you want to asve the profile
+            // TODO: add prompt asking whether you are sure you want to save the profile
             saveProfile(()->{
                 Intent intent = new Intent(getApplicationContext(), MacroActivity.class);
                 intent.putExtra("macro id", macroID);
                 intent.putExtra("profile id", profile.getID());
                 startActivity(intent);
+                finish();
             });
         });
 
         // Delete selected Macro
         deleteMacro.setOnClickListener(v -> {
-            //TODO generalize index with macroID
             int index = mButton.indexOf(selectedButton);
 
             profile.removeButton(selectedButton);
@@ -180,7 +176,9 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
     //still retrieves the data on edit page as well
     public void retrieveProfileData() {
         Long profileID = getIntent().getLongExtra("profile id", 0);
-        Log.w(TAG, "retrieveData: " + profileID);
+        long macroID = getIntent().getLongExtra("macro id", -1);
+        Log.w(TAG, "retrieveData: pID" + profileID);
+        Log.w(TAG, "retrieveData: mID" + macroID );
 
         Profile.getByID(profileID, (profile)-> {
             runOnUiThread(() -> {
@@ -189,14 +187,23 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
                 mButton = (profile.getButtons());
                 this.profile = profile;
 
+                //receives the data of newly added macro
+                if (macroID !=  -1) {
+                    Macro.getByID(macroID, (macro) ->{
+                        com.yoke.database.types.Button button = new
+                                com.yoke.database.types.Button(macro);
+                        mButton.add(button);
+                    });
+                }
+
                 //sort the buttons so they are in order and displayed in a correct order on the layout
                 Collections.sort(mButton, (o1, o2) -> o1.getIndex() - o2.getIndex());
 
                 initializeRecyclerView();
             });
         });
-
     }
+
 
     /**
      * Initializes the recycler view

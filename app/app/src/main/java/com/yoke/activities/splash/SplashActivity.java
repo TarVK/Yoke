@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.yoke.R;
 import com.yoke.activities.BaseActivity;
@@ -23,9 +24,12 @@ import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.DataBase;
 import com.yoke.database.types.Profile;
 import com.yoke.preset.Preset;
-import com.yoke.preset.types.LaunchProgramPreset;
+import com.yoke.preset.types.ComputerCommandPreset;
+import com.yoke.preset.types.GamerPreset;
 import com.yoke.preset.types.MediaControlsPreset;
-import com.yoke.preset.types.TestPreset;
+import com.yoke.preset.types.SocialMediaPreset;
+import com.yoke.preset.types.StreamerPreset;
+import com.yoke.preset.types.TuePreset;
 import com.yoke.utils.Callback;
 
 
@@ -45,8 +49,6 @@ public class SplashActivity extends AppCompatActivity {
 
         gifView = findViewById(R.id.gif_view);
 
-        this.databaseInit(true, this::connectionInit);
-
         // Add a 'fake loading' delay to show off the splash
         new Handler().postDelayed(() -> {
             timerFinished = true;
@@ -54,11 +56,20 @@ public class SplashActivity extends AppCompatActivity {
         }, 2400);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        this.databaseInit(true, this::connectionInit);
+    }
+
     //initialize database
     protected void databaseInit (boolean writeData, final Callback initialized) {
         DataBase.initialize(this, () -> {
+            Log.w("SPLASH" , "Database initialized");
             createPresets(() -> {
                 runOnUiThread(() -> {
+                    Log.w("SPLASH" , "Presets initialized");
                     initialized.call();
                 });
             });
@@ -79,9 +90,10 @@ public class SplashActivity extends AppCompatActivity {
         //receiver in case of successful connection
         connection.addReceiver(new MessageReceiver<Connected>() {
             public void receive(Connected message) {
-            //if connected message is received, close splash
-            setupFinished = true;
-            continueApp();
+                //if connected message is received, close splash
+                setupFinished = true;
+                continueApp();
+                Log.w("SPLASH" , "Connection initialized");
             }
         });
 
@@ -175,6 +187,7 @@ public class SplashActivity extends AppCompatActivity {
      */
     protected void createPresets(Callback callback) {
         Profile.getAll((profiles) -> {
+            Log.w("SPLASH", "Profiles returned "+profiles.size());
             // Check if any profiles have to be created
             if (profiles.size() != 0) {
                 callback.call();
@@ -182,11 +195,17 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             // Create new presets
-            LaunchProgramPreset launchPreset = new LaunchProgramPreset(this);
             Preset.onFinish(callback,
-                    launchPreset,
-                    new MediaControlsPreset(this, launchPreset),
-                    new TestPreset(this)
+//                    new LaunchProgramPreset(this),
+                    new StreamerPreset(this),
+                    new SocialMediaPreset(this),
+                    new GamerPreset(this),
+                    new MediaControlsPreset(this),
+                    new TuePreset(this),
+                    new ComputerCommandPreset(this)
+//                    new TestPreset(this),
+
+
             );
         });
     }

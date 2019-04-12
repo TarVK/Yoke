@@ -81,4 +81,34 @@
     </string-array>
 
 
+    <string name="MacroAppearanceForeground">Foreground</string>
+    <string name="MacroAppearanceBackground">Background</string>
+    <string name="MacroAppearanceText">Description</string>
+    <string name="MacroAppearanceTextHint">Macro name</string>
+
+    <string name="selectMacroMain">Please choose an action type</string>
+    <string name="selectMacroMainProfile">Profile</string>
+    <string name="selectMacroMainMouse">Mouse</string>
+    <string name="selectMacroMainKeyboard">Keyboard</string>
+    <string name="selectMacroMainProgram">Program</string>
+    <string name="selectMacroMainSite">Site</string>
+
+    <string name="selectMacroMouse">Please select the mouse action</string>
+    <string name="selectMacroMouseOpenTrackpad">Open trackpad</string>
+    <string name="selectMacroMouseLeftClick">Left click</string>
+    <string name="selectMacroMouseRightClick">Right click</string>
+    <string name="selectMacroMouseMiddleClick">Middle click</string>
+    <string name="selectMacroMouseScrollUp">Scroll up</string>
+    <string name="selectMacroMouseScrollDown">Scroll down</string>
+
+    <string name="selectMacroProfile">Please select a profile</string>
+
+    <string name="selectMacroSite">Please input a site</string>
+    <string name="selectMacroSiteMessage">Please input a site to be opened</string>
+    <string name="selectMacroSiteAccept">Ok</string>
+
+    <string name="selectMacroConnectionRequired">Configuring this action requires a connection to be present</string>
+    <string name="selectMacroPrompted">A prompt was send to your computer</string>
+    <string name="selectMacroFailed">Something went wrong while selecting your action</string>
+
 </resources>
