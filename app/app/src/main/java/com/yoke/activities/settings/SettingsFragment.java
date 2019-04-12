@@ -94,7 +94,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void setNewLocale(String language) {
         MainApp.localeManager.setNewLocale(getContext(), language);
 
-        Intent i = new Intent(getContext(), HomeActivity.class);
+        Intent i = new Intent(getContext(), Settings.class);
         startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 
 //        System.exit(0);

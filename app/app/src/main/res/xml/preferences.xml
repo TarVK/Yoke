@@ -13,11 +13,6 @@
         android:title="@string/language">
     </ListPreference>
 
-
-     <!--<Preference-->
-     <!--app:key="color"-->
-     <!--app:title="@string/color" />-->
-
     <SwitchPreference
         android:background="@color/colorPrimary"
         android:enabled="true"
@@ -31,14 +26,7 @@
         android:entries="@array/pref_conn_entries"
         android:entryValues="@array/pref_conn_values"
         holo:key="connection">
-        <!--android:title="@string/connection">-->
     </ListPreference>
-
-    <!--We no longer need this-->
-    <!--<SwitchPreference
-        android:enabled="true"
-        holo:key="auto"
-        android:title="@string/auto" />-->
 
     <Preference
         holo:key="tutorial"

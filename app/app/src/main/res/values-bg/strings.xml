@@ -21,15 +21,15 @@
     <string name="bg">Български</string>
 
     <string-array name="pref_lang_entries">
-        <item>en</item>
-        <item>ne</item>
-        <item>bg</item>
-    </string-array>
-
-    <string-array name="pref_lang_values">
         <item>@string/en</item>
         <item>@string/ne</item>
         <item>@string/bg</item>
+    </string-array>
+
+    <string-array name="pref_lang_values">
+        <item>en</item>
+        <item>ne</item>
+        <item>bg</item>
     </string-array>
 
     <string name="color">Цвят</string>
