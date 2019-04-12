@@ -19,8 +19,8 @@ public class LocaleManager {
 
     public static final String LANGUAGE_ENGLISH = "en";
     public static final String LANGUAGE_DUTCH = "ne";
-    public static final String LANGUAGE_BULGARIAN = "bulgarian";
-    public static final String LANGUAGE_KEY = "language_key";
+    public static final String LANGUAGE_BULGARIAN = "bg";
+    public static final String LANGUAGE_KEY = "language";
 
     private final SharedPreferences preferences;
 

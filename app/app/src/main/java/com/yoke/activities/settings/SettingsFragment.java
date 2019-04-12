@@ -62,6 +62,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         Preference language = findPreference("language");
         Log.e("is language a pref", Boolean.toString(preferences.contains("language")));
+        Log.e("does getString work", preferences.getString("language", ""));
         if (!preferences.contains("language")) {
             editor.putString(getString(R.string.language), "en");
             editor.apply();
