@@ -59,25 +59,28 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
 
         //Language preference
-        if (findPreference("language") == null) {
-            editor.putString(getString(R.string.language), "en");
-        }
 
         Preference language = findPreference("language");
         Log.e("is language a pref", Boolean.toString(preferences.contains("language")));
-        editor.putString("language", "en");
-        editor.apply();
-        Log.e("is language a pref", Boolean.toString(preferences.contains("language")));
-        setLanguageSummary(language);
+        if (!preferences.contains("language")) {
+            editor.putString(getString(R.string.language), "en");
+            editor.apply();
+            setLanguageSummary(language, "en");
+        }
+        Log.e("does getString work", preferences.getString("language", "default"));
+        //editor.putString("language", "en");
+        //editor.apply();
+        //Log.e("is language a pref", Boolean.toString(preferences.contains("language")));
+
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference language, Object o) {
                 editor.putString(getString(R.string.language), o.toString());
                 editor.apply();
                 Log.e("o.toString after change", o.toString());
-                setLanguageSummary(language);
+                //setLanguageSummary(language, o.toString());
                 setNewLocale(o.toString());
-
+                //setLanguageSummary(language, o.toString());
                 return true;
             }
         });
@@ -104,20 +107,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Intent i = new Intent(getContext(), Settings.class);
         startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 
-//        System.exit(0);
     }
 
 
-    private void setLanguageSummary(Preference language) {
-        String value = preferences.getString("language", "default");
-        if (value.equals("en")) {
+    private void setLanguageSummary(Preference language, String newLang) {
+        if (newLang.equals("en")) {
             language.setSummary("English (default)");
-        } else if (value.equals("ne")) {
+        } else if (newLang.equals("ne")) {
             language.setSummary("Nederlands");
-        } else if (value.equals("bg")){
+        } else if (newLang.equals("bg")){
             language.setSummary("Български");
         } else {
-            language.setSummary("");
+            language.setSummary("something went wrong");
         }
     }
 
