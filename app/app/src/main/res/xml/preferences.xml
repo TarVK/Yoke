@@ -13,6 +13,15 @@
         android:title="@string/language">
     </ListPreference>
 
+    <ListPreference
+        holo:key="color"
+        android:defaultValue="@color/colorPrimary"
+        android:entries="@array/pref_color_entries"
+        android:entryValues="@array/pref_color_values"
+        android:title="@string/color">
+
+    </ListPreference>
+
     <SwitchPreference
         android:background="@color/colorPrimary"
         android:enabled="true"

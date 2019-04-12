@@ -45,6 +45,17 @@
 
 
     <string name="color">Colour</string>
+
+    <string-array name="pref_color_entries">
+        <!--the colours themselves-->
+
+    </string-array>
+
+    <string-array name="pref_color_values">
+        <!--the colour's names-->
+
+    </string-array>
+
     <string name="light">Night Theme</string>
     <string name="connection">Connection type</string>
 

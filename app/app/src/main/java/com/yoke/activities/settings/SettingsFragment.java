@@ -59,30 +59,24 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
 
         //Language preference
-
         Preference language = findPreference("language");
-        Log.e("is language a pref", Boolean.toString(preferences.contains("language")));
-        Log.e("does getString work", preferences.getString("language", ""));
+
         if (!preferences.contains("language")) {
             editor.putString(getString(R.string.language), "en");
             editor.apply();
             setLanguageSummary(language, "en");
         }
-        Log.e("does getString work", preferences.getString("language", "default"));
+
         setLanguageSummary(language, preferences.getString("language", "default"));
-        //editor.putString("language", "en");
-        //editor.apply();
-        //Log.e("is language a pref", Boolean.toString(preferences.contains("language")));
+
 
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference language, Object o) {
                 editor.putString("language", o.toString());
                 editor.apply();
-                Log.e("o.toString after change", o.toString());
-                //setLanguageSummary(language, o.toString());
                 setNewLocale(o.toString());
-                //setLanguageSummary(language, o.toString());
+
                 return true;
             }
         });
@@ -90,18 +84,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 
 
-
+        //Connection preference
         Preference connection = findPreference("connection");
         connection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                //connection type stored as byte?
-                //settingsData.setConnectionType(??);
+                editor.putString("connection", o.toString());
+                editor.apply();
+
                 return true;
             }
         });
 
     }
+
 
     private void setNewLocale(String language) {
         MainApp.localeManager.setNewLocale(getContext(), language);
