@@ -48,12 +48,34 @@
 
     <string-array name="pref_color_entries">
         <!--the colours themselves-->
-
+        <item>@color/colorLilac</item>
+        <item>@color/colorPrimary</item>
+        <item>@color/colorSkyBlue</item>
+        <item>@color/colorJeanBlue</item>
+        <item>@color/colorForestGreen</item>
+        <item>@color/colorPistachioGreen</item>
+        <item>@color/colorYellow</item>
+        <item>@color/colorLightOrange</item>
+        <item>@color/colorDarkOrange</item>
+        <item>@color/colorRed</item>
+        <item>@color/colorDarkRed</item>
+        <item>@color/colorBlack</item>
     </string-array>
 
     <string-array name="pref_color_values">
         <!--the colour's names-->
-
+        <item>lil</item>
+        <item>pri</item>
+        <item>sb</item>
+        <item>jb</item>
+        <item>fg</item>
+        <item>pg</item>
+        <item>y</item>
+        <item>lo</item>
+        <item>do</item>
+        <item>r</item>
+        <item>dr</item>
+        <item>bl</item>
     </string-array>
 
     <string name="light">Night Theme</string>
