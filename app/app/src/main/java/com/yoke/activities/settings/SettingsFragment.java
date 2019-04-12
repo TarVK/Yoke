@@ -76,7 +76,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference language, Object o) {
-                editor.putString(getString(R.string.language), o.toString());
+                editor.putString("language", o.toString());
                 editor.apply();
                 Log.e("o.toString after change", o.toString());
                 //setLanguageSummary(language, o.toString());

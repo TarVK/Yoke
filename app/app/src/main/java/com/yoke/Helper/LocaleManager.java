@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v7.preference.Preference;
 import android.util.Log;
 
 import static android.os.Build.VERSION_CODES.N;
@@ -23,9 +24,11 @@ public class LocaleManager {
     public static final String LANGUAGE_KEY = "language";
 
     private final SharedPreferences preferences;
+    private final SharedPreferences.Editor editor;
 
     public LocaleManager(Context context) {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        editor = preferences.edit();
     }
 
 
@@ -46,7 +49,8 @@ public class LocaleManager {
 
     @SuppressLint("ApplySharedPref")
     private void persistLanguage(String language) {
-        preferences.edit().putString(LANGUAGE_KEY, language).commit();
+        editor.putString(LANGUAGE_KEY, language);
+        editor.apply();
     }
 
     private Context updateResources(Context context, String language) {
