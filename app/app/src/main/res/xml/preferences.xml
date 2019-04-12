@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:holo="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
 
@@ -13,14 +13,21 @@
         android:title="@string/language">
     </ListPreference>
 
-    <ListPreference
+   <!-- <ListPreference
         holo:key="color"
         android:defaultValue="@color/colorPrimary"
         android:entries="@array/pref_color_entries"
         android:entryValues="@array/pref_color_values"
         android:title="@string/color">
 
-    </ListPreference>
+
+
+    </ListPreference> -->
+
+    <yuku.ambilwarna.widget.AmbilWarnaPreference
+        android:key="color"
+        android:defaultValue="@color/colorPrimary"
+        android:title="@string/color" />
 
     <SwitchPreference
         android:background="@color/colorPrimary"
