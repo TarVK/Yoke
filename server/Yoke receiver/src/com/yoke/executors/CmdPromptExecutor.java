@@ -17,10 +17,9 @@ public abstract class CmdPromptExecutor<T extends Message> extends MessageReceiv
         // Simple code to execute cmd line arguments
         try {
             Runtime.getRuntime().exec(
-                    new String[] { "bash", "-c", command});
+                    new String[] { "cmd.exe", "/c", command});
         } catch (IOException e) {
             e.printStackTrace();
-            // TODO: handle errors
         }
     }
     
@@ -34,7 +33,6 @@ public abstract class CmdPromptExecutor<T extends Message> extends MessageReceiv
         try {
             builder.start();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
