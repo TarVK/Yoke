@@ -4,25 +4,26 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 
+import com.example.yoke.R;
 import com.yoke.Helper.LocaleManager;
 import com.yoke.Helper.MainApp;
+import com.yoke.activities.settings.SettingsFragment;
+
+//import static com.yoke.activities.settings.SettingsFragment.preferences;
 
 public class BaseActivity extends AppCompatActivity {
 
-//    LocaleManager localeManager;
-//
-//    public BaseActivity() {
-//        localeManager = new LocaleManager(this);
-//    }
-//
-//    public BaseActivity(LocaleManager localeManager) {
-//        this.localeManager = localeManager;
-//    }
+    Toolbar toolbar;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -33,20 +34,26 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         System.out.println(MainApp.localeManager.getLocale(getResources()));
-//        localeManager.setNewLocale(getApplicationContext(), localeManager.getLanguage());
         resetTitle();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        updateView(sharedPreferences.getString("language", "en"));
-
+        sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE); //PreferenceManager.getDefaultSharedPreferences(this);
 
     }
 
-//    private void updateView(String language) {
-//        Context context = localeManager.setLocale(this);
-//        Resources resources = context.getResources();
-//    }
 
-//    private void updateInfo()
+    public final void setNewToolbarColour(int toolbarID) {
+        toolbar = findViewById(toolbarID);
+        Log.e("setNew toolbar =", String.valueOf(toolbarID));
+        int colorPrimary = ContextCompat.getColor(this, R.color.colorPrimary);
+        Log.e("primary", String.valueOf(colorPrimary));
+
+        int color = sharedPreferences.getInt("color", colorPrimary);//SettingsFragment.getColor(); //sharedPreferences.getInt("color", colorPrimary);
+        Log.e("color is", String.valueOf(color));
+        toolbar.setBackgroundColor(color);
+        //toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPistachioGreen));
+        //toolbar.setBackgroundResource(R.color.colorPistachioGreen);
+        Log.e("setBGColour called", "lets see");
+        //setItemColor
+    }
 
     private void resetTitle() {
         try {

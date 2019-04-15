@@ -48,10 +48,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
 
-        if (getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE) == null) {
-            Log.e("preferences empty", "true");
-            preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        }
+//        if (getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE) == null) {
+//            Log.e("preferences empty", "true");
+//            preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+//        }
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
@@ -121,6 +121,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         resetColor();
                         Log.e("new color applied", "color is supposed to be" + color);
                         Log.e("new color applied", "color is " + preferences.getInt("color", 0));
+
+                        Intent i = new Intent(getContext(), Settings.class);
+                        startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
 
                     @Override
@@ -146,6 +149,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+    }
+
+//    public static int getColor() {
+//        return preferences.getInt("color", ContextCompat.getColor(getContext(), R.color.colorPrimary));
+//    }
+
+    public static SharedPreferences preferences() {
+        return preferences;
     }
 
     private void resetColor() {
