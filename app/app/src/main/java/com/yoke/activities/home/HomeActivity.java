@@ -50,6 +50,7 @@ public class HomeActivity extends BaseActivity {
         button = findViewById(R.id.createProfile);
         settings = findViewById(R.id.settingsButton);
         toolbar = findViewById(R.id.toolbar);
+        this.setNewToolbarColour(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Intent shake = new Intent(this, ShakeService.class);

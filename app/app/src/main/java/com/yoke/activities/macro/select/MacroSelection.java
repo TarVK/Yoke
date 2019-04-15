@@ -52,6 +52,7 @@ public class MacroSelection extends BaseActivity {
         fabMacro = findViewById(R.id.createMacro);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        this.setNewToolbarColour(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         profileID = getIntent().getLongExtra("profile id", 0);

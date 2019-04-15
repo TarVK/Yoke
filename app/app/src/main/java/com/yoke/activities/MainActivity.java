@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.setNewToolbarColour(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //splash layout_button

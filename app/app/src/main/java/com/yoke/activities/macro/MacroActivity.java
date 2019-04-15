@@ -47,6 +47,7 @@ public class MacroActivity extends BaseActivity {
         setContentView(R.layout.activity_macro);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.setNewToolbarColour(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

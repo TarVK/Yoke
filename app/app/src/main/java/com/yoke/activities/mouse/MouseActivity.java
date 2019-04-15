@@ -36,6 +36,7 @@ public class MouseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mouse);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        this.setNewToolbarColour(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Track Pad");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
