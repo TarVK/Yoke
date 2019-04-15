@@ -24,7 +24,8 @@
 
     </ListPreference> -->
 
-    <yuku.ambilwarna.widget.AmbilWarnaPreference
+    <!--<yuku.ambilwarna.widget.AmbilWarnaPreference-->
+    <Preference
         android:key="color"
         android:defaultValue="@color/colorPrimary"
         android:title="@string/color" />
@@ -47,11 +48,11 @@
     <Preference
         holo:key="tutorial"
         android:title="@string/tutorial">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="com.yoke.activities.tutorial"
-            android:targetPackage="com.package.name" />
     </Preference>
+    <!--<intent-->
+        <!--android:action="android.intent.action.VIEW"-->
+        <!--android:targetClass="com.yoke.activities.tutorial"-->
+        <!--android:targetPackage="com.package.name" />-->
 
     <Preference
         holo:key="about"

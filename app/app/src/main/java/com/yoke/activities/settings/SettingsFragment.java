@@ -9,12 +9,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
+import android.widget.Toolbar;
 
 import com.example.yoke.R;
 import com.yoke.Helper.MainApp;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.home.HomeActivity;
 import com.yoke.activities.tutorial.TutorialActivity;
 
@@ -25,8 +28,9 @@ import static com.yoke.activities.splash.GlobalMessageReceiver.getActivity;
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     public static SharedPreferences preferences;
-    TypedArray colorTypedArray;
+    //TypedArray colorTypedArray;
     AmbilWarnaDialog colorPicker;
+//    Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         Resources res = getContext().getResources();
         android.content.res.Configuration conf = res.getConfiguration();
+        //toolbar = BaseActivity.get
         //addPreferencesFromResource(R.xml.preferences);
         //ListPreference colorPicker = new ColorPickerDialog(getContext());
     }
@@ -50,20 +55,24 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
-        getPreferenceScreen().setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                if (preference.getKey() == "tutorial") {
-                    startActivity(new Intent((getActivity()), TutorialActivity.class));
-                } else if (preference.getKey() == "about") {
-                    //github README.txt
-                } else if (preference.getKey() == "color") {
-                    Log.e("clicked", "so far so good");
-                }
-
-                return true;
-            }
-        });
+//        getPreferenceScreen().setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//            @Override
+//            public boolean onPreferenceClick(Preference preference) {
+//                System.out.println(preference.getKey());
+//                if (preference.getKey() == "tutorial") {
+////                    startActivity(new Intent((getActivity()), TutorialActivity.class));
+//                    System.out.println("Tutorial clicked");
+//                } else if (preference.getKey() == "about") {
+//                    //github README.txt
+//                } else if (preference.getKey() == "color") {
+//                    Log.e("clicked", "so far so good");
+//
+//                    colorPicker.show();
+//                }
+//
+//                return true;
+//            }
+//        });
 
         //Language preference
         Preference language = findPreference("language");
@@ -91,42 +100,39 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 
         //Colour Preference
-
-        int colorPrimary = Color.parseColor("@color/colorPrimary");
-        if (!preferences.contains("color")) {
-            editor.putInt("color", colorPrimary);
-            editor.apply();
-        }
-
-        colorPicker = new AmbilWarnaDialog(getContext(), colorPrimary, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+        Preference color = findPreference("color");
+        color.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
-            public void onOk(AmbilWarnaDialog dialog, int color) {
-                editor.putInt("color", color);
-                editor.apply();
-                Log.e("new color applied", "color is " + color);
-            }
+            public boolean onPreferenceClick(Preference preference) {
+                int colorPrimary = ContextCompat.getColor(getContext(), R.color.colorPrimary);
+                if (!preferences.contains("color")) {
+                    System.out.println("No color set");
+                    editor.putInt("color", colorPrimary);
+                    editor.apply();
+                }
 
-            @Override
-            public void onCancel(AmbilWarnaDialog dialog) {
-                // cancel was selected by the user
+                int currentColor = preferences.getInt("color", 0);
+                colorPicker = new AmbilWarnaDialog(getContext(), currentColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                    @Override
+                    public void onOk(AmbilWarnaDialog dialog, int color) {
+
+                        Log.e("old color ", "is " + preferences.getInt("color", 0));
+                        editor.putInt("color", color).apply();
+                        resetColor();
+                        Log.e("new color applied", "color is supposed to be" + color);
+                        Log.e("new color applied", "color is " + preferences.getInt("color", 0));
+                    }
+
+                    @Override
+                    public void onCancel(AmbilWarnaDialog dialog) {
+                        //nothing needed here
+                    }
+                });
+
+                colorPicker.show();
+                return false;
             }
         });
-
-        colorPicker.show();
-        //Preference color = findPreference("color");
-        //colorTypedArray = getContext().getResources().obtainTypedArray(R.array.pref_color_entries);
-
-
-        /*color.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                editor.putString("color", o.toString());
-                editor.commit();
-                setNewColor(o.toString());
-
-                return true;
-            }
-        });*/
 
         //Connection preference
         Preference connection = findPreference("connection");
@@ -142,6 +148,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
+    private void resetColor() {
+         Intent i = new Intent(getContext(), Settings.class);
+         startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
 
     private void setNewLocale(String language) {
         MainApp.localeManager.setNewLocale(getContext(), language);
