@@ -69,7 +69,7 @@ public class MacroActivity extends AppCompatActivity {
 
         EditText macroName = findViewById(R.id.macroName);
 
-        Macro.getByID(macroID, (macro) -> {
+        Macro.getByID(this, macroID, (macro) -> {
             String name = macro.getName();
             macroName.setText(name);
         });
@@ -86,7 +86,7 @@ public class MacroActivity extends AppCompatActivity {
             }
             macro.setAction(cm);
 
-            macro.save(() -> {
+            macro.save(this, () -> {
                 runOnUiThread(() -> {
                     Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
                     intent.putExtra("profile id", profileID);
@@ -137,7 +137,7 @@ public class MacroActivity extends AppCompatActivity {
                 return;
             }
 
-            Macro.getByID(macroID, macro -> {
+            Macro.getByID(this, macroID, macro -> {
                 runOnUiThread(() -> {
                     MacroActivity.this.macro = macro;
 

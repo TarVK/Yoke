@@ -139,7 +139,7 @@ public class CommandRequester extends Activity {
      * @param callback The callback to trigger once an action has been selected
      */
     protected void requestProfileCommand(DataCallback<Message> callback) {
-        Profile.getAll(profiles -> {
+        Profile.getAll(this, profiles -> {
             // Obtain the list of profile names
             String[] profileNames = new String[profiles.size()];
             for (int i = 0; i < profiles.size(); i++){

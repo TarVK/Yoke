@@ -75,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         Long profileID = getIntent().getLongExtra("profile id", 0);
 
         //add the profile datas to the arguments
-        Profile.getByID(profileID, (profile) -> {
+        Profile.getByID(this, profileID, (profile) -> {
             runOnUiThread(() -> {
                 this.profile = profile;
 

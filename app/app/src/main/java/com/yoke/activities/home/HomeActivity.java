@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(v -> {
             Profile profile = new Profile("Some Cool Profile");
             profile.setIndex(profiles.size());
-            profile.save(() -> {
+            profile.save(this, () -> {
                 long ID = profile.getID();
                 Intent intent = new Intent(mContext, ProfileEditActivity.class);
                 intent.putExtra("profile id", ID);
@@ -94,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     private void initRecyclerView() {
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        Profile.getAll(retrievedProfiles -> {
+        Profile.getAll(this, retrievedProfiles -> {
             runOnUiThread(() -> {
                 profiles.clear();
                 profiles.addAll(retrievedProfiles);
@@ -117,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
             for (int i = 0; i < profiles.size(); i++) {
                 Profile profile = profiles.get(i);
                 profile.setIndex(i);
-                profile.save();
+                profile.save(this);
             }
         }
 

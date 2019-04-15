@@ -65,7 +65,7 @@ public class MacroSelection extends AppCompatActivity {
             // Create new macro
             Macro newMacro = new Macro("Untitled");
 
-            newMacro.save(() -> {
+            newMacro.save(this, () -> {
                 Log.d(TAG, "FAB: create new Macro, mID: " + newMacro.getID());
 
                 Intent intent = new Intent(this, MacroActivity.class);
@@ -138,7 +138,7 @@ public class MacroSelection extends AppCompatActivity {
      * Retrieves all of the available macros
      */
     public void initData() {
-        Macro.getAll(loadedMacros -> {
+        Macro.getAll(this, loadedMacros -> {
             runOnUiThread(() -> {
                 allMacros.clear();
                 allMacros.addAll(loadedMacros);
