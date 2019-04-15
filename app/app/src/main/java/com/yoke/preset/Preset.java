@@ -58,7 +58,7 @@ public abstract class Preset {
         profile = new Profile("P" + Math.random());
 
         // Save the profile (such that it has an ID)
-        profile.save(() -> {
+        profile.save(context, () -> {
             presetCreated = true;
 
             // Trigger all callbacks
@@ -166,7 +166,7 @@ public abstract class Preset {
         }
 
         // Check if the macro already exists
-        Macro.getByName(name, (macro) -> {
+        Macro.getByName(context, name, (macro) -> {
             if (macro != null) {
                 if (save) {
                     addMacroCallback(macro, index);
@@ -181,7 +181,7 @@ public abstract class Preset {
                     BitmapFactory.decodeResource(context.getResources(), imageResourceID));
 
             // Save the newly created macro
-            newMacro.save(() -> {
+            newMacro.save(context, () -> {
                 if (save) {
                     addMacroCallback(newMacro, index);
                 }
@@ -214,7 +214,7 @@ public abstract class Preset {
         }
 
         // Save the profile
-        profile.save(() -> {
+        profile.save(context, () -> {
             presetFinished = true;
 
             // Trigger all listeners

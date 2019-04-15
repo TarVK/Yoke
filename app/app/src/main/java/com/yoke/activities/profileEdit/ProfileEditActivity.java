@@ -159,7 +159,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
 
         // Delete any deleted buttons permanently
         for (com.yoke.database.types.Button button : deletedButtons) {
-            button.delete();
+            button.delete(this);
         }
 
         // Update the name and associated programs
@@ -167,7 +167,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         profile.setAssociatedPrograms(associatedPrograms.getText().toString());
 
         // Save the profile and run callback in UI thread
-        profile.save(()->{
+        profile.save(this, ()->{
             runOnUiThread(callback);
         });
     }
@@ -179,7 +179,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
         Log.w(TAG, "retrieveData: pID" + profileID);
         Log.w(TAG, "retrieveData: mID" + macroID );
 
-        Profile.getByID(profileID, (profile)-> {
+        Profile.getByID(this, profileID, (profile)-> {
             runOnUiThread(() -> {
                 profileName.setText(profile.getName());
                 associatedPrograms.setText(profile.getAssociatedPrograms());
@@ -188,7 +188,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
 
                 //receives the data of newly added macro
                 if (macroID !=  -1) {
-                    Macro.getByID(macroID, (macro) ->{
+                    Macro.getByID(this, macroID, (macro) ->{
                         com.yoke.database.types.Button button = new
                                 com.yoke.database.types.Button(macro);
                         mButton.add(button);

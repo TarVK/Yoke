@@ -66,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
 
     //initialize database
     protected void databaseInit (boolean writeData, final Callback initialized) {
-        DataBase.initialize(this, () -> {
+        DataBase.getInstance(this, (db) -> {
             Log.w("SPLASH" , "Database initialized");
             createPresets(() -> {
                 runOnUiThread(() -> {
@@ -187,8 +187,8 @@ public class SplashActivity extends AppCompatActivity {
      * @param callback  The callback that should be triggered once the preset creating finished
      */
     protected void createPresets(Callback callback) {
-        Profile.getAll((profiles) -> {
-            Log.w("SPLASH", "Profiles returned "+profiles.size());
+        Profile.getAll(this, (profiles) -> {
+            Log.w("SPLASH", "Profiles returned " + profiles.size());
             // Check if any profiles have to be created
             if (profiles.size() != 0) {
                 callback.call();

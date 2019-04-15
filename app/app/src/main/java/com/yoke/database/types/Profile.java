@@ -5,6 +5,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
+import android.content.Context;
 
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
@@ -183,17 +184,17 @@ public class Profile extends DataObject<Profile.ProfileData> {
     }
 
     @Override
-    public void save(Callback callback){
+    public void save(Context context, Callback callback){
         Profile p = this;
 
-        super.save(new Callback() {
+        super.save(context, new Callback() {
             // Track how many of the buttons we have saved
             int completed = 0;
 
             public void call() {
                 for (Button button: buttons) {
                     button.setProfile(p);
-                    button.save(() -> {
+                    button.save(context, () -> {
                         // If we have saved all of the buttons, perform the callback
                         if (++completed == buttons.size()) {
                             callback.call();
@@ -210,14 +211,14 @@ public class Profile extends DataObject<Profile.ProfileData> {
     }
 
     @Override
-    public void delete(Callback callback) {
-        super.delete(new Callback() {
+    public void delete(Context context, Callback callback) {
+        super.delete(context, new Callback() {
             // Track how many of the buttons we have deleted
             int completed = 0;
 
             public void call() {
                 for (Button button: buttons) {
-                    button.delete(() -> {
+                    button.delete(context, () -> {
                         // If we have deleted all of the buttons, perform the callback
                         if (++completed == buttons.size()) {
                             callback.call();
@@ -256,9 +257,10 @@ public class Profile extends DataObject<Profile.ProfileData> {
     // Creates a method to return instances
     /**
      * Retrieves all of the profiles
+     * @param context  The context to keep an association with the specific app
      * @param dataCallback  The callback to make once the data has been retrieved
      */
-    public static void getAll(DataCallback<List<Profile>> dataCallback){
+    public static void getAll(Context context, DataCallback<List<Profile>> dataCallback){
         // A callback for the getAll method to assign the buttons
         DataCallback<List<Profile>> getButtons = new DataCallback<List<Profile>>() {
             // Keep track of how many callbacks have been received
@@ -266,7 +268,7 @@ public class Profile extends DataObject<Profile.ProfileData> {
             public void retrieve(List<Profile> data) {
                 for (Profile profile: data) {
                     // Get all the buttons for the profile, and assign them
-                    Button.getAll(profile.getID(), buttons -> {
+                    Button.getAll(context, profile.getID(), buttons -> {
                         profile.setButtons(buttons);
 
                         // Check if this was the last assignment, and if so perform the callback
@@ -284,19 +286,22 @@ public class Profile extends DataObject<Profile.ProfileData> {
         };
 
         // Get the profiles and use the getButtons method before performing the callback
-        DataObject.getAll(
-                DataBase.getInstance().profileDataDao(),
-                (profileData) -> new Profile(profileData),
-                getButtons);
+        DataBase.getInstance(context, (db) -> {
+            DataObject.getAll(
+                    db.profileDataDao(),
+                    (profileData) -> new Profile(profileData),
+                    getButtons);
+        });
     }
 
 
     /**
      * Creates a decorator that will assign the buttons to a given profile
+     * @param context  The context to keep an association with the specific app
      * @param dataCallback  The callback to decorate
      * @return The decorator
      */
-    protected static DataCallback<Profile> getButtonAssigner(DataCallback<Profile> dataCallback) {
+    protected static DataCallback<Profile> getButtonAssigner(Context context, DataCallback<Profile> dataCallback) {
         return new DataCallback<Profile>() {
             public void retrieve(Profile profile) {
                 // Make sure the profile is defined before continuing
@@ -306,7 +311,7 @@ public class Profile extends DataObject<Profile.ProfileData> {
                 }
 
                 // Get all the buttons for the profile, and assign them
-                Button.getAll(profile.getID(), buttons -> {
+                Button.getAll(context, profile.getID(), buttons -> {
                     profile.setButtons(buttons);
 
                     // Perform the callback
@@ -318,47 +323,50 @@ public class Profile extends DataObject<Profile.ProfileData> {
 
     /**
      * Retrieves an associated profile for a program, if existent
+     * @param context  The context to keep an association with the specific app
      * @param program  The program title to get the associated profile for
      * @param dataCallback  The callback to make once the data has been retrieved
      */
-    public static void getAssociated(String program, DataCallback<Profile> dataCallback){
+    public static void getAssociated(Context context, String program, DataCallback<Profile> dataCallback){
         // A callback for the getAll method to assign the buttons
-        DataCallback<Profile> getButtons = getButtonAssigner(dataCallback);
+        DataCallback<Profile> getButtons = getButtonAssigner(context, dataCallback);
 
         // Get the profile and use the getButtons method before performing the callback
-        new Thread(new Runnable() {
-            public void run() {
-                // Get all the data
-                List<ProfileData> data = DataBase.getInstance().profileDataDao().getAll();
+        DataBase.getInstance(context, (db) -> {
+            new Thread(new Runnable() {
+                public void run() {
+                    // Get all the data
+                    List<ProfileData> data = db.profileDataDao().getAll();
 
-                // Filter out profile data that matches the program
-                for (ProfileData pfData: data) {
-                    // Make sure the data contains associated programs
-                    if (pfData.associatedPrograms == null) {
-                        continue;
-                    }
+                    // Filter out profile data that matches the program
+                    for (ProfileData pfData: data) {
+                        // Make sure the data contains associated programs
+                        if (pfData.associatedPrograms == null) {
+                            continue;
+                        }
 
-                    // Get all of the patterns
-                    String[] patterns = pfData.associatedPrograms.split(",");
+                        // Get all of the patterns
+                        String[] patterns = pfData.associatedPrograms.split(",");
 
-                    // Check each of the patterns
-                    for (String pattern: patterns) {
-                        // Check if the pattern (partially) matches (case insensitive)
-                        if (program.replaceAll("(?i)" + pattern.trim(), "").length()
-                                != program.length()) {
-                            // Return the profile
-                            getButtons.retrieve(new Profile(pfData));
+                        // Check each of the patterns
+                        for (String pattern: patterns) {
+                            // Check if the pattern (partially) matches (case insensitive)
+                            if (program.replaceAll("(?i)" + pattern.trim(), "").length()
+                                    != program.length()) {
+                                // Return the profile
+                                getButtons.retrieve(new Profile(pfData));
 
-                            // Don't continue looking
-                            return;
+                                // Don't continue looking
+                                return;
+                            }
                         }
                     }
-                }
 
-                // If no profile could be found, return null
-                getButtons.retrieve(null);
-            }
-        }).start();
+                    // If no profile could be found, return null
+                    getButtons.retrieve(null);
+                }
+            }).start();
+        });
     }
 
 
@@ -378,19 +386,22 @@ public class Profile extends DataObject<Profile.ProfileData> {
 
     /**
      * Retrieves a specific profile
+     * @param context  The context to keep an association with the specific app
      * @param ID  The ID of the profile to retrieve
      * @param dataCallback  The callback to make once the data has been retrieved
      */
-    public static void getByID(long ID, DataCallback<Profile> dataCallback){
+    public static void getByID(Context context, long ID, DataCallback<Profile> dataCallback){
         // A callback for the getAll method to assign the buttons
-        DataCallback<Profile> getButtons = getButtonAssigner(dataCallback);
+        DataCallback<Profile> getButtons = getButtonAssigner(context, dataCallback);
 
         // Get the profile and use the getButtons method before performing the callback
-        DataObject.getByID(
-                ID,
-                DataBase.getInstance().profileDataDao(),
-                (profileData)->new Profile(profileData),
-                getButtons);
+        DataBase.getInstance(context, (db) -> {
+            DataObject.getByID(
+                    ID,
+                    db.profileDataDao(),
+                    (profileData)->new Profile(profileData),
+                    getButtons);
+        });
     }
 
     // Defines the associated queries
@@ -404,7 +415,7 @@ public class Profile extends DataObject<Profile.ProfileData> {
     }
 
     // Attaches the dao
-    protected DataDao<Profile.ProfileData> getDoa() {
+    protected DataDao<Profile.ProfileData> getDoa(DataBase db) {
         return db.profileDataDao();
     }
 }

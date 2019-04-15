@@ -208,7 +208,7 @@ public class BluetoothClientConnection extends Connection {
             // Store the device name for the next time you are connecting
             Settings settings = Settings.getInstance();
             settings.setBluetoothServer(device.getName());
-            settings.save();
+            settings.save(context);
         }
 
         public void run() {

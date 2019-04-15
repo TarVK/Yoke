@@ -72,7 +72,7 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
             String name = ((ProgramFocused) message).programName;
 
             // Check if a profile exists with this associated program
-            Profile.getAssociated(name, (profile) -> {
+            Profile.getAssociated(context, name, (profile) -> {
                 if (profile != null) {
                     // Make sure the profile isn't already opened
                     if (activity != null &&
@@ -104,7 +104,7 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
             OpenProfileCmd cmd = (OpenProfileCmd) message;
 
             // Check if the profile exists first
-            Profile.getByID(cmd.profileID, (profile) -> {
+            Profile.getByID(context, cmd.profileID, (profile) -> {
                 if (profile != null) {
                     // Switch to profile
                     Intent profileIntent = new Intent(context, ProfileActivity.class);

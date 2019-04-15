@@ -22,11 +22,16 @@ import com.yoke.activities.macro.tabs.MacroAppearance;
 import com.yoke.activities.macro.tabs.MacroSequence;
 import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.activities.profileEdit.ProfileEditActivity;
+import com.yoke.connection.ComposedMessage;
+import com.yoke.connection.CompoundMessage;
+import com.yoke.connection.Message;
+import com.yoke.connection.RepeatMessage;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
 import com.yoke.utils.Callback;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MacroActivity extends AppCompatActivity {
@@ -39,6 +44,7 @@ public class MacroActivity extends AppCompatActivity {
     private Long macroID;
     public Macro macro;
     private List<Callback> callbacks;
+    public ArrayList<RepeatMessage> mRepeatMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +69,7 @@ public class MacroActivity extends AppCompatActivity {
 
         EditText macroName = findViewById(R.id.macroName);
 
-        Macro.getByID(macroID, (macro) -> {
+        Macro.getByID(this, macroID, (macro) -> {
             String name = macro.getName();
             macroName.setText(name);
         });
@@ -71,7 +77,16 @@ public class MacroActivity extends AppCompatActivity {
         // Finish edit
         findViewById(R.id.finishEdit).setOnClickListener(v -> {
             macro.setName(macroName.getText().toString());
-            macro.save(() -> {
+
+            CompoundMessage cm = new CompoundMessage();
+            for (RepeatMessage rm : mRepeatMessage) {
+                for (ComposedMessage.MessageDelay md : rm) {
+                    cm.add(md.message, (int) rm.frequency);
+                }
+            }
+            macro.setAction(cm);
+
+            macro.save(this, () -> {
                 runOnUiThread(() -> {
                     Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
                     intent.putExtra("profile id", profileID);
@@ -122,7 +137,7 @@ public class MacroActivity extends AppCompatActivity {
                 return;
             }
 
-            Macro.getByID(macroID, macro -> {
+            Macro.getByID(this, macroID, macro -> {
                 runOnUiThread(() -> {
                     MacroActivity.this.macro = macro;
 

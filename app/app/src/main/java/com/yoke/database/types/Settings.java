@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
+import android.content.Context;
 
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
@@ -40,10 +41,11 @@ public class Settings extends DataObject<Settings.SettingsData> {
 
     /**
      * Sets up the singleton settings instance
+     * @param db  The database to get the data from
      * @param done  The callback to be called once initialization has completed
      */
-    public static void initialize(Callback done) {
-        Settings.get(new DataCallback<Settings>() {
+    public static void initialize(DataBase db, Callback done) {
+        Settings.get(db, new DataCallback<Settings>() {
             public void retrieve(Settings settings) {
                 INSTANCE = settings;
                 done.call();
@@ -188,11 +190,15 @@ public class Settings extends DataObject<Settings.SettingsData> {
     }
 
 
-    // Creates a method to return instances
-    protected static void get(DataCallback<Settings> callback){
+    /**
+     * A method to retrieve the instance
+     * @param db  The database to get the data from
+     * @param callback  The callback to get the setting object
+     */
+    protected static void get(DataBase db, DataCallback<Settings> callback){
         new Thread(new Runnable() {
             public void run() {
-                SettingsData data = DataBase.getInstance().settingsDataDao().get();
+                SettingsData data = db.settingsDataDao().get();
                 if (data == null) {
                     callback.retrieve(new Settings());
                 } else {
@@ -217,7 +223,7 @@ public class Settings extends DataObject<Settings.SettingsData> {
     }
 
     // Attaches the dao
-    protected DataObject.DataDao<Settings.SettingsData> getDoa() {
+    protected DataObject.DataDao<Settings.SettingsData> getDoa(DataBase db) {
         return db.settingsDataDao();
     }
 }

@@ -2,8 +2,10 @@ package com.yoke.database.types;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
+import android.content.Context;
 
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;
@@ -93,12 +95,12 @@ public class Button extends DataObject<Button.ButtonData> {
     /**
      * Saves the layout_button data into the database
      */
-    public void save(Callback callback){
+    public void save(Context context, Callback callback){
         // Assign the id from the macro
         this.data.macroID = this.macro.getID();
 
         // Save the data
-        super.save(callback);
+        super.save(context, callback);
     }
 
 
@@ -119,17 +121,18 @@ public class Button extends DataObject<Button.ButtonData> {
     // Creates a method to return instances
     /**
      * Creates a 'decorator' to assign buttons their macros
+     * @param context  The context to keep an association with the specific app
      * @param dataCallback The callback to call after performing the action
      * @returns The decorator
      */
-    protected static DataCallback<List<Button>> getMacroAssigner(DataCallback<List<Button>> dataCallback) {
+    protected static DataCallback<List<Button>> getMacroAssigner(Context context, DataCallback<List<Button>> dataCallback) {
         return new DataCallback<List<Button>>() {
             // Keep track of how many callbacks have been received
             int completed = 0;
             public void retrieve(List<Button> buttons) {
                 for (Button button: buttons) {
                     // Get the macro of the layout_button, and assign it
-                    Macro.getByID(button.getMacroID(), macro -> {
+                    Macro.getByID(context, button.getMacroID(), macro -> {
                         button.setMacro(macro);
 
                         // Check if this was the last assignment, and if so perform the callback
@@ -149,43 +152,50 @@ public class Button extends DataObject<Button.ButtonData> {
 
     /**
      * Retrieves all of the buttons
+     * @param context  The context to keep an association with the specific app
      * @param dataCallback  The callback to make once the data has been retrieved
      */
-    public static void getAll(DataCallback<List<Button>> dataCallback){
-        DataObject.getAll(
-                DataBase.getInstance().buttonDataDao(),
-                (buttonData)->new Button(buttonData),
-                getMacroAssigner(dataCallback));
+    public static void getAll(Context context, DataCallback<List<Button>> dataCallback){
+        DataBase.getInstance(context, (db) -> {
+            DataObject.getAll(
+                    db.buttonDataDao(),
+                    (buttonData)->new Button(buttonData),
+                    getMacroAssigner(context, dataCallback));
+        });
     }
 
     /**
      * Retrieves all of the buttons belonging to a specific profile
+     * @param context  The context to keep an association with the specific app
      * @param profileID  The ID of the profile to get the buttons for
      * @param dataCallback  The callback to make once the data has been retrieved
      */
-    public static void getAll(final long profileID, DataCallback<List<Button>> dataCallback){
-        DataCallback<List<Button>> macroAssigner = getMacroAssigner(dataCallback);
+    public static void getAll(Context context, final long profileID, DataCallback<List<Button>> dataCallback){
+        DataCallback<List<Button>> macroAssigner = getMacroAssigner(context, dataCallback);
 
-        new Thread(new Runnable() {
-            public void run() {
-                List<ButtonData> data = DataBase.getInstance().buttonDataDao().getAll(profileID);
-                macroAssigner.retrieve(mapAll(data, (buttonData)->new Button(buttonData)));
-            }
-        }).start();
+        DataBase.getInstance(context, (db) -> {
+            new Thread(new Runnable() {
+                public void run() {
+                    List<ButtonData> data = db.buttonDataDao().getAll(profileID);
+                    macroAssigner.retrieve(mapAll(data, (buttonData) -> new Button(buttonData)));
+                }
+            }).start();
+        });
     }
 
 
     /**
      * Retrieves a specific layout_button
+     * @param context  The context to keep an association with the specific app
      * @param ID  The ID of the layout_button to retrieve
      * @param dataCallback  The callback to make once the data has been retrieved
      */
-    public static void getByID(long ID, DataCallback<Button> dataCallback){
+    public static void getByID(Context context, long ID, DataCallback<Button> dataCallback){
         // A callback for the getAll method to assign the macro
         DataCallback<Button> macroAssigner = new DataCallback<Button>() {
             public void retrieve(Button button) {
                 // Get the macro of the layout_button, and assign it
-                Macro.getByID(button.getMacroID(), macro -> {
+                Macro.getByID(context, button.getMacroID(), macro -> {
                     button.setMacro(macro);
 
                     // Perform the callback
@@ -196,11 +206,13 @@ public class Button extends DataObject<Button.ButtonData> {
 
 
         // Get the profile and use the macroAssigner method before performing the callback
-        DataObject.getByID(
-                ID,
-                DataBase.getInstance().buttonDataDao(),
-                (buttonData)->new Button(buttonData),
-                dataCallback);
+        DataBase.getInstance(context, (db) -> {
+            DataObject.getByID(
+                    ID,
+                    db.buttonDataDao(),
+                    (buttonData) -> new Button(buttonData),
+                    dataCallback);
+        });
     }
 
     // Defines the associated queries
@@ -218,7 +230,7 @@ public class Button extends DataObject<Button.ButtonData> {
     }
 
     // Attaches the dao
-    protected DataDao<Button.ButtonData> getDoa() {
+    protected DataDao<Button.ButtonData> getDoa(DataBase db) {
         return db.buttonDataDao();
     }
 }

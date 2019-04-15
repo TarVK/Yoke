@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Update;
+import android.content.Context;
 
 import com.yoke.utils.Callback;
 import com.yoke.utils.DataCallback;
@@ -21,15 +22,11 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
     // A reference to the actual data
     protected T data;
 
-    // A local reference to the database
-    protected DataBase db;
-
     /**
      * Creates a data object
      * @param data  The data to store in the object
      */
     public DataObject(T data) {
-        db = DataBase.getInstance();
         this.data = data;
     }
 
@@ -105,57 +102,65 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
 
     /**
      * Saves all of the data in the database
+     * @param context  The context to keep an association with the specific app
      */
-    public void save() {
-        this.save(() -> {});
+    public void save(Context context) {
+        this.save(context, () -> {});
     }
 
     /**
      * Saves all of the data in the database
+     * @param context  The context to keep an association with the specific app
      * @param callback  The callback to be called once saving has finished
      */
-    public void save(Callback callback) {
-        new Thread(new Runnable() {
-            public void run() {
-                DataDao<T> dao = getDoa();
+    public void save(Context context, Callback callback) {
+        DataBase.getInstance(context, (db) -> {
+            new Thread(new Runnable() {
+                public void run() {
+                    DataDao<T> dao = getDoa(db);
 
-                // Check whether data should be inserted or updated
-                if (data.uid == 0) {
-                    data.uid = dao.insert(data);
-                } else {
-                    dao.update(data);
-                }
+                    // Check whether data should be inserted or updated
+                    if (data.uid == 0) {
+                        data.uid = dao.insert(data);
+                    } else {
+                        dao.update(data);
+                    }
 
-                // Perform teh callback
-                if (callback != null) {
-                    callback.call();
+                    // Perform teh callback
+                    if (callback != null) {
+                        callback.call();
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        });
     }
 
     /**
      * Deletes the data from the database
+     * @param context  The context to keep an association with the specific app
      */
-    public void delete() {
-        this.delete(() -> {});
+    public void delete(Context context) {
+        this.delete(context, () -> {});
     }
 
     /**
      * Deletes the data from the database
+     * @param context  The context to keep an association with the specific app
      * @param callback  The callback to be called once deletion has finished
      */
-    public void delete(Callback callback) {
-        T data = this.data;
-        new Thread(new Runnable() {
-            public void run() {
-                DataDao<T> dao = getDoa();
-                dao.delete(data);
-                if (callback != null) {
-                    callback.call();
+    public void delete(Context context, Callback callback) {
+        DataBase.getInstance(context, (db) -> {
+            T data = this.data;
+            new Thread(new Runnable() {
+                public void run() {
+                    DataDao<T> dao = getDoa(db);
+                    dao.delete(data);
+                    if (callback != null) {
+                        callback.call();
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        });
     }
 
     // The standard data that any object has
@@ -181,7 +186,8 @@ public abstract class DataObject<T extends DataObject.DataObjectData>{
 
     /**
      * Retrieves the dao to be used for this class
+     * @param db The database to get the dao from
      * @return  The class specific dao
      */
-    abstract protected DataDao<T> getDoa();
+    abstract protected DataDao<T> getDoa(DataBase db);
 }

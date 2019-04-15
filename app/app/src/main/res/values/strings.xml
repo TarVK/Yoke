@@ -21,6 +21,9 @@
     <string name="MacroAppearanceText">Description</string>
     <string name="MacroAppearanceTextHint">Macro name</string>
 
+    <string name="MacroSequenceRepeat">Repeat</string>
+    <string name="MacroSequenceDelay">Delay</string>
+
     <string name="selectMacroMain">Please choose an action type</string>
     <string name="selectMacroMainProfile">Profile</string>
     <string name="selectMacroMainMouse">Mouse</string>

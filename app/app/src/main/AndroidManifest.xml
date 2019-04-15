@@ -38,8 +38,6 @@
             android:name="com.yoke.activities.profileEdit.ProfileEditActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.yoke.activities.home.HomeActivity" />
-        <activity android:name="com.yoke.activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name="com.yoke.activities.macro.MacroActivity" />
 
