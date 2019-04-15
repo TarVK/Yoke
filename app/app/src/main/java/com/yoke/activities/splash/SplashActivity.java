@@ -25,9 +25,11 @@ import com.yoke.database.types.Profile;
 import com.yoke.preset.Preset;
 import com.yoke.preset.types.ComputerCommandPreset;
 import com.yoke.preset.types.GamerPreset;
+import com.yoke.preset.types.KeyboardPreset;
 import com.yoke.preset.types.MediaControlsPreset;
 import com.yoke.preset.types.SocialMediaPreset;
 import com.yoke.preset.types.StreamerPreset;
+import com.yoke.preset.types.TestPreset;
 import com.yoke.preset.types.TuePreset;
 import com.yoke.utils.Callback;
 
@@ -201,8 +203,9 @@ public class SplashActivity extends AppCompatActivity {
                     new GamerPreset(this),
                     new MediaControlsPreset(this),
                     new TuePreset(this),
-                    new ComputerCommandPreset(this)
-//                    new TestPreset(this),
+                    new ComputerCommandPreset(this),
+                    new TestPreset(this),
+                    new KeyboardPreset(this)
 
 
             );
