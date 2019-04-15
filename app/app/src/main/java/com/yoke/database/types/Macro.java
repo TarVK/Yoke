@@ -5,6 +5,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -308,10 +309,10 @@ public class Macro extends DataObject<Macro.MacroData> {
     }
 
     @Override
-    public void save(Callback callback) {
+    public void save(Context context, Callback callback) {
         createCombinedImage((image) -> {
             data.combinedImage = ImageTools.getStringFromImage(image);
-            super.save(callback);
+            super.save(context, callback);
         });
     }
 
@@ -372,42 +373,51 @@ public class Macro extends DataObject<Macro.MacroData> {
     // Creates a method to return instances
     /**
      * Retrieves all of the macros
+     * @param context  The context to keep an association with the specific app
      * @param dataCallback  The callback to make once the data has been retrieved
      */
-    public static void getAll(DataCallback<List<Macro>> dataCallback){
-        DataObject.getAll(
-                DataBase.getInstance().macroDataDao(),
-                (macroData)->new Macro(macroData),
-                dataCallback);
+    public static void getAll(Context context, DataCallback<List<Macro>> dataCallback){
+        DataBase.getInstance(context, (db) -> {
+            DataObject.getAll(
+                    db.macroDataDao(),
+                    (macroData) -> new Macro(macroData),
+                    dataCallback);
+        });
     }
 
 
     /**
      * Retrieves a specific macro
+     * @param context  The context to keep an association with the specific app
      * @param ID  The ID of the macro to retrieve
      * @param dataCallback  The callback to make once the data has been retrieved
      */
-    public static void getByID(long ID, DataCallback<Macro> dataCallback){
-        DataObject.getByID(
-                ID,
-                DataBase.getInstance().macroDataDao(),
-                (macroData)->new Macro(macroData),
-                dataCallback);
+    public static void getByID(Context context, long ID, DataCallback<Macro> dataCallback){
+        DataBase.getInstance(context, (db) -> {
+            DataObject.getByID(
+                    ID,
+                    db.macroDataDao(),
+                    (macroData)->new Macro(macroData),
+                    dataCallback);
+        });
     }
 
     /**
      * Retrieves a specific macro
+     * @param context  The context to keep an association with the specific app
      * @param name  The name of the macro to retrieve
      * @param dataCallback  The callback to make once the data has been retrieved
      */
-    public static void getByName(String name, DataCallback<Macro> dataCallback){
-        final MacroDataDao dao = DataBase.getInstance().macroDataDao();
-        new Thread(new Runnable() {
-            public void run() {
-                MacroData data = dao.getByName(name);
-                dataCallback.retrieve(data != null ? new Macro(data) : null);
-            }
-        }).start();
+    public static void getByName(Context context, String name, DataCallback<Macro> dataCallback){
+        DataBase.getInstance(context, (db) -> {
+            final MacroDataDao dao = db.macroDataDao();
+            new Thread(new Runnable() {
+                public void run() {
+                    MacroData data = dao.getByName(name);
+                    dataCallback.retrieve(data != null ? new Macro(data) : null);
+                }
+            }).start();
+        });
     }
 
     // Defines the associated queries
@@ -424,7 +434,7 @@ public class Macro extends DataObject<Macro.MacroData> {
     }
 
     // Attaches the dao
-    protected DataDao<MacroData> getDoa() {
+    protected DataDao<MacroData> getDoa(DataBase db) {
         return db.macroDataDao();
     }
 }

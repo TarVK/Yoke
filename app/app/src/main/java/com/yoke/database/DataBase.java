@@ -32,30 +32,20 @@ public abstract class DataBase extends RoomDatabase {
     private static DataBase instance;
 
     /**
-     * Initializes the database
+     * Retrieves the singleton instance of the database
      * @param context  The context to keep an association with the specific app
-     * @param done  The callback to be called once initialization has finished
+     * @param callback callback to be return the database has finished
      */
-    public static void initialize(Context context, com.yoke.utils.Callback done){
+    public static void getInstance(Context context, com.yoke.utils.DataCallback<DataBase> callback){
         if (instance == null) {
             instance = Room.databaseBuilder(context,
                     DataBase.class, "data").fallbackToDestructiveMigration().build();
-            Settings.initialize(done);
+            Settings.initialize(instance, () -> {
+                callback.retrieve(instance);
+            });
         } else {
-            done.call();
+            callback.retrieve(instance);
         }
-    }
-
-    /**
-     * Retrieves the singleton instance of the database
-     * @return  The database
-     */
-    public static DataBase getInstance(){
-        if (instance == null) {
-            throw new ExceptionInInitializerError("The class hasn't been initialized yet");
-        }
-
-        return instance;
     }
 
     /**

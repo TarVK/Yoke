@@ -107,7 +107,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         long profileID = profile.getID();
         int profileAtIndex = profiles.indexOf(profile);
 
-        profile.delete();
+        profile.delete(activity);
         profiles.remove(profileAtIndex);
         notifyItemRemoved(profileAtIndex);
         notifyItemRangeChanged(profileAtIndex, profiles.size());

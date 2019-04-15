@@ -51,10 +51,6 @@ public class MacroSelection extends BaseActivity {
         search = findViewById(R.id.search);
         fabMacro = findViewById(R.id.createMacro);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        this.setNewToolbarColour(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         profileID = getIntent().getLongExtra("profile id", 0);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -70,7 +66,7 @@ public class MacroSelection extends BaseActivity {
             // Create new macro
             Macro newMacro = new Macro("Untitled");
 
-            newMacro.save(() -> {
+            newMacro.save(this, () -> {
                 Log.d(TAG, "FAB: create new Macro, mID: " + newMacro.getID());
 
                 Intent intent = new Intent(this, MacroActivity.class);
@@ -98,17 +94,14 @@ public class MacroSelection extends BaseActivity {
 
 
         // Hide keyboard after done
-        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    InputMethodManager imm = (InputMethodManager)v.getContext()
-                            .getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    search.clearFocus();
-                }
-                return false;
+        search.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                InputMethodManager imm = (InputMethodManager)v.getContext()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                search.clearFocus();
             }
+            return false;
         });
 
         initData();
@@ -146,7 +139,7 @@ public class MacroSelection extends BaseActivity {
      * Retrieves all of the available macros
      */
     public void initData() {
-        Macro.getAll(loadedMacros -> {
+        Macro.getAll(this, loadedMacros -> {
             runOnUiThread(() -> {
                 allMacros.clear();
                 allMacros.addAll(loadedMacros);

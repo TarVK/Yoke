@@ -26,9 +26,11 @@ import com.yoke.database.types.Profile;
 import com.yoke.preset.Preset;
 import com.yoke.preset.types.ComputerCommandPreset;
 import com.yoke.preset.types.GamerPreset;
+import com.yoke.preset.types.KeyboardPreset;
 import com.yoke.preset.types.MediaControlsPreset;
 import com.yoke.preset.types.SocialMediaPreset;
 import com.yoke.preset.types.StreamerPreset;
+import com.yoke.preset.types.TestPreset;
 import com.yoke.preset.types.TuePreset;
 import com.yoke.utils.Callback;
 
@@ -65,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
 
     //initialize database
     protected void databaseInit (boolean writeData, final Callback initialized) {
-        DataBase.initialize(this, () -> {
+        DataBase.getInstance(this, (db) -> {
             Log.w("SPLASH" , "Database initialized");
             createPresets(() -> {
                 runOnUiThread(() -> {
@@ -186,8 +188,8 @@ public class SplashActivity extends AppCompatActivity {
      * @param callback  The callback that should be triggered once the preset creating finished
      */
     protected void createPresets(Callback callback) {
-        Profile.getAll((profiles) -> {
-            Log.w("SPLASH", "Profiles returned "+profiles.size());
+        Profile.getAll(this, (profiles) -> {
+            Log.w("SPLASH", "Profiles returned " + profiles.size());
             // Check if any profiles have to be created
             if (profiles.size() != 0) {
                 callback.call();
@@ -202,8 +204,9 @@ public class SplashActivity extends AppCompatActivity {
                     new GamerPreset(this),
                     new MediaControlsPreset(this),
                     new TuePreset(this),
-                    new ComputerCommandPreset(this)
-//                    new TestPreset(this),
+                    new ComputerCommandPreset(this),
+                    new TestPreset(this),
+                    new KeyboardPreset(this)
 
 
             );
