@@ -77,6 +77,8 @@ public class MacroSelectionAdapter extends RecyclerView.Adapter<MacroSelectionAd
 
         holder.selectionImage.setImageBitmap(bitmap);
 
+        //TODO Add support for compoundactions
+
         holder.selectionName.setText(name);
         holder.selectionAction.setText(action);
         holder.parentLayout.setOnClickListener(v -> {
