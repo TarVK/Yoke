@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.profileEdit.ProfileEditActivity;
 import com.yoke.database.types.Macro;
 import com.yoke.database.types.Profile;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
 
 //    protected Connection connection = MultiClientConnection.getInstance();
 

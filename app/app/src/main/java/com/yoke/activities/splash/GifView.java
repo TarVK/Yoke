@@ -42,8 +42,8 @@ public class GifView extends View {
         gifInputStream = context.getResources().openRawResource(R.drawable.yoke);
 
         gifMovie = Movie.decodeStream(gifInputStream);
-        movieWidth = (int) (gifMovie.width());
-        movieHeight = (int) (gifMovie.height());
+        movieWidth = gifMovie.width();
+        movieHeight = gifMovie.height();
         movieDuration = gifMovie.duration();
     }
 

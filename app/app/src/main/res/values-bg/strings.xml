@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="backBtn">Назад</string>
+    <string name="nextBtn">Следващо</string>
+    <string name="finishBtn">Завърши</string>
+    <string name="heading1">Homescreen</string>
+    <string name="heading2">Профили</string>
+    <string name="heading3">Настройки</string>
+    <string name="description1">Тук можете да създатете нови профили или да изберете вече съществуващи такива.</string>
+    <string name="description2">Тази страница съдържа Вашите бутони.</string>
+    <string name="description3">Тук можете да промените настройките си.</string>
+    <string name="editProfile_associatedPrograms">Свързани програми</string>
+    <string name="macroSelection_search">Търси</string>
+    <!-- Strings related to Settings -->
+    <string name="title_activity_settings">Настройки</string>
+    <string name="language">Език</string>
+
+    <string name="en">Английски</string>
+    <string name="nl">Холандски</string>
+    <string name="bg">Български</string>
+
+    <string-array name="pref_lang_entries">
+        <item>@string/en</item>
+        <item>@string/nl</item>
+        <item>@string/bg</item>
+    </string-array>
+
+    <string-array name="pref_lang_values">
+        <item>en</item>
+        <item>nl</item>
+        <item>bg</item>
+    </string-array>
+
+    <string name="color">Цвят</string>
+    <string name="light">Нощна тема</string>
+
+    <string name="connection">Вид връзка</string>
+
+    <string name="blu">Bluetooth</string>
+    <string name="wifi">WiFi</string>
+    <string name="usb">USB кабел</string>
+
+    <string-array name="pref_conn_entries">
+        <item>@string/blu</item>
+        <item>@string/wifi</item>
+        <item>@string/usb</item>
+    </string-array>
+
+    <string-array name="pref_conn_values">
+        <item>blu</item>
+        <item>wifi</item>
+        <item>usb</item>
+    </string-array>
+
+    <string name="tutorial">Виж инструкциите отново</string>
+    <string name="about">За нас</string>
+
+    <string-array name="pref_example_list_titles">
+        <item>Винаги</item>
+        <item>Когато е възможно</item>
+        <item>Никога</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="MacroAppearanceForeground">Преден план</string>
+    <string name="MacroAppearanceBackground">Фон</string>
+    <string name="MacroAppearanceText">Описание</string>
+    <string name="MacroAppearanceTextHint">Име макро</string>
+
+    <string name="selectMacroMain">Изберете вид действие</string>
+    <string name="selectMacroMainProfile">Профил</string>
+    <string name="selectMacroMainMouse">Мишка</string>
+    <string name="selectMacroMainKeyboard">Клавиатура</string>
+    <string name="selectMacroMainProgram">Програма</string>
+    <string name="selectMacroMainSite">Страница</string>
+
+    <string name="selectMacroMouse">Моля изберете действие на мишката</string>
+    <string name="selectMacroMouseOpenTrackpad">Отвори тракпад</string>
+    <string name="selectMacroMouseLeftClick">Клик ляв бутон на мишката</string>
+    <string name="selectMacroMouseRightClick">Клик десен бутон на мишката</string>
+    <string name="selectMacroMouseMiddleClick">Клик среден бутон на мишката</string>
+    <string name="selectMacroMouseScrollUp">Превъртете нагоре</string>
+    <string name="selectMacroMouseScrollDown">Превъртете надолу</string>
+
+    <string name="selectMacroProfile">Моля изберете профил</string>
+
+    <string name="selectMacroSite">Моля въведете уеб страница</string>
+    <string name="selectMacroSiteMessage">Моля въведете уеб страница</string>
+    <string name="selectMacroSiteAccept">Oк</string>
+
+    <string name="selectMacroConnectionRequired">Настройката на това действие изисква присъствието на връзка с компютъра</string>
+    <string name="selectMacroPrompted">Съобщението е изпратено до компютъра</string>
+    <string name="selectMacroFailed">Възникна грешка при избирането на действие</string>
+
+
+</resources>

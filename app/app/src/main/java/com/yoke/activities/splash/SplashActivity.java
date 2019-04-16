@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.home.HomeActivity;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
@@ -48,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        gifView = (GifView) findViewById(R.id.gif_view);
+        gifView = findViewById(R.id.gif_view);
 
         // Add a 'fake loading' delay to show off the splash
         new Handler().postDelayed(() -> {

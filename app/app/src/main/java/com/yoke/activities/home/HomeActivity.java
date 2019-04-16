@@ -20,7 +20,15 @@ import com.yoke.database.types.Profile;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class HomeActivity extends AppCompatActivity {
+import java.util.Comparator;
+
+import com.yoke.activities.BaseActivity;
+import com.yoke.activities.profileEdit.ItemMoveCallback;
+import com.yoke.activities.profileEdit.ProfileEditActivity;
+import com.yoke.activities.settings.Settings;
+import com.yoke.database.types.Profile;
+
+public class HomeActivity extends BaseActivity {
     FloatingActionButton button;
     ImageView settings;
     Toolbar toolbar;
@@ -42,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         button = findViewById(R.id.createProfile);
         settings = findViewById(R.id.settingsButton);
         toolbar = findViewById(R.id.toolbar);
+        this.setNewToolbarColour(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Intent shake = new Intent(this, ShakeService.class);
@@ -78,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         settings.setOnClickListener(settingsView -> {
-            //startActivity(new Intent(getApplicationContext(), Settings.class));
+            startActivity(new Intent(getApplicationContext(), Settings.class));
         });
 
         initData();

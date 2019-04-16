@@ -11,9 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.splash.SplashActivity;
 
-public class TutorialActivity extends AppCompatActivity {
+public class TutorialActivity extends BaseActivity {
 
     private ViewPager mSlideViewPager;
     private LinearLayout mDotLayout;
@@ -32,11 +33,11 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 
-        mSlideViewPager = (ViewPager) findViewById(R.id.slideViewPager);
-        mDotLayout = (LinearLayout) findViewById(R.id.dotsLayout);
+        mSlideViewPager = findViewById(R.id.slideViewPager);
+        mDotLayout = findViewById(R.id.dotsLayout);
 
-        mNextBtn = (Button) findViewById(R.id.nextBtn);
-        mBackBtn = (Button) findViewById(R.id.prevBtn);
+        mNextBtn = findViewById(R.id.nextBtn);
+        mBackBtn = findViewById(R.id.prevBtn);
 
         sliderAdapter = new SliderAdapter(this);
 

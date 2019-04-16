@@ -9,7 +9,7 @@ public interface ComposedMessage extends Iterable<ComposedMessage.MessageDelay>{
     /**
      * A class to store the combination of messages and their delays
      */
-    public static class MessageDelay implements Serializable {
+    class MessageDelay implements Serializable {
         // Serialization ID
         private static final long serialVersionUID = 719043628021174700L;
         
