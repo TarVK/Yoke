@@ -17,18 +17,18 @@
     <string name="language">Език</string>
 
     <string name="en">Английски</string>
-    <string name="ne">Холандски</string>
+    <string name="nl">Холандски</string>
     <string name="bg">Български</string>
 
     <string-array name="pref_lang_entries">
         <item>@string/en</item>
-        <item>@string/ne</item>
+        <item>@string/nl</item>
         <item>@string/bg</item>
     </string-array>
 
     <string-array name="pref_lang_values">
         <item>en</item>
-        <item>ne</item>
+        <item>nl</item>
         <item>bg</item>
     </string-array>
 

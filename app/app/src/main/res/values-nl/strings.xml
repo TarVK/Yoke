@@ -1,13 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name" translatable="false">Yoke</string>
-    <string name="action_settings" translatable="false">Settings</string>
-
     <string name="backBtn">Back</string>
     <string name="nextBtn">Next</string>
     <string name="finishBtn">Finish</string>
 
-    <!-- Do these really not need to be translated?-->
+    <!--Do these reakky not need to be translated?-->
     <string name="tutorialBtn" translatable="false">Tutorial</string>
     <string name="splashBtn" translatable="false">Splash/Tutorial</string>
     <string name="title_activity_mouse" translatable="false">MouseActivity</string>
@@ -28,9 +25,9 @@
     <!-- Strings related to Settings -->
     <string name="language">Language</string>
 
-    <string name="en">English</string>
-    <string name="nl">Dutch</string>
-    <string name="bg">Bulgarian</string>
+    <string name="en">Engels</string>
+    <string name="nl">Nederlands</string>
+    <string name="bg">Bulgaars</string>
 
     <string-array name="pref_lang_entries">
         <item>@string/en</item>
@@ -46,8 +43,8 @@
 
 
     <string name="color">Colour</string>
-    <string name="light">Night Theme</string>
 
+    <string name="light">Night Theme</string>
     <string name="connection">Connection type</string>
 
     <string name="blu">Bluetooth</string>

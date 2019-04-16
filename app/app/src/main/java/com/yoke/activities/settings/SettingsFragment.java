@@ -176,7 +176,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void setLanguageSummary(Preference language, String newLang) {
         if (newLang.equals("en")) {
             language.setSummary("English (default)");
-        } else if (newLang.equals("ne")) {
+        } else if (newLang.equals("nl")) {
             language.setSummary("Nederlands");
         } else if (newLang.equals("bg")){
             language.setSummary("Български");
