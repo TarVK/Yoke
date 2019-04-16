@@ -1,8 +1,11 @@
 package com.yoke.connection.client;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 
+import com.yoke.activities.splash.SplashActivity;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
@@ -27,7 +30,12 @@ public class MultiClientConnection extends Connection {
      * Retrieves an instance of this class, initialize must have been called first
      * @return an instance of the MultiClientConnection class
      */
-    public static MultiClientConnection getInstance() {
+    public static MultiClientConnection getInstance(Context context) {
+        if (INSTANCE == null) {
+            Intent intent = new Intent(context, SplashActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(intent);
+        }
         return INSTANCE;
     }
 

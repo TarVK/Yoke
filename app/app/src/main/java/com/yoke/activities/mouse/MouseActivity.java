@@ -21,7 +21,7 @@ import com.yoke.connection.messages.MoveMouseCmd;
  */
 public class MouseActivity extends AppCompatActivity {
     // The connection to send the events through
-    protected Connection connection = MultiClientConnection.getInstance();
+    protected Connection connection;
 
     // Keep track of the previous values
     protected float lastX = 0;
@@ -34,6 +34,7 @@ public class MouseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mouse);
+        connection = MultiClientConnection.getInstance(this); // Gets the connection
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Track Pad");

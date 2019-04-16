@@ -1,6 +1,7 @@
 package com.yoke.activities.macro.tabs;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -31,7 +32,7 @@ public class MacroSequenceAdapter extends RecyclerView.Adapter<MacroSequenceAdap
     private static final String TAG = "MacroSequenceAdapter";
 
     private final MacroSequenceStartDragListener mStartDragListener;
-    protected Connection connection = MultiClientConnection.getInstance(); //establishes the connection
+    protected Connection connection;
 
     private ArrayList<RepeatMessage> mRepeatMessage;
 
@@ -63,9 +64,10 @@ public class MacroSequenceAdapter extends RecyclerView.Adapter<MacroSequenceAdap
         }
     }
 
-    public MacroSequenceAdapter(ArrayList<RepeatMessage> mRepeatMessage, MacroSequenceStartDragListener startDragListener) {
+    public MacroSequenceAdapter(ArrayList<RepeatMessage> mRepeatMessage, MacroSequenceStartDragListener startDragListener, Context context) {
         mStartDragListener = startDragListener;
         this.mRepeatMessage = mRepeatMessage;
+        connection = MultiClientConnection.getInstance(context); // Gets the connection
     }
 
     @NonNull

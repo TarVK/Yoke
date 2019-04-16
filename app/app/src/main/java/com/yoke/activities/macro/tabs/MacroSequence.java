@@ -18,6 +18,7 @@ import com.yoke.activities.macro.MacroActivity;
 import com.yoke.connection.ComposedMessage;
 import com.yoke.connection.CompoundMessage;
 import com.yoke.connection.Connection;
+import com.yoke.connection.Message;
 import com.yoke.connection.RepeatMessage;
 import com.yoke.connection.client.MultiClientConnection;
 
@@ -28,8 +29,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 
     private static final String TAG = "MacroSequence";
 
-    protected Connection connection =
-            MultiClientConnection.getInstance(); // Gets the connection
+    protected Connection connection;
 
     RecyclerView recyclerView;
     ItemTouchHelper dragHelper;
@@ -57,6 +57,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         activity = (MacroActivity) getActivity();
+        connection = MultiClientConnection.getInstance(activity); // Gets the connection
         View view = inflater.inflate(R.layout.activity_macro_sequence,
                 container, false);
 
@@ -92,8 +93,17 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 
     private void constructSequence() {
         mRepeatMessage = new ArrayList<>();
-        if (activity.macro.getAction() instanceof CompoundMessage) {
-            for (ComposedMessage.MessageDelay md : ((CompoundMessage) activity.macro.getAction())) {
+
+        // Check if any action is stored at all
+        Message action;
+        try {
+            action = activity.macro.getAction();
+        } catch (Exception e){
+            return;
+        }
+
+        if (action instanceof CompoundMessage) {
+            for (ComposedMessage.MessageDelay md : ((CompoundMessage) action)) {
                 mRepeatMessage.add(new RepeatMessage(md.message, 1, md.delay));
             }
 
@@ -111,7 +121,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
             tempArray.add(new RepeatMessage(mRepeatMessage.get(mRepeatMessage.size() - 1).message, count, mRepeatMessage.get(mRepeatMessage.size() - 1).frequency));
             mRepeatMessage = tempArray;
         } else {
-            mRepeatMessage.add(new RepeatMessage(activity.macro.getAction()));
+            mRepeatMessage.add(new RepeatMessage(action));
         }
     }
 
@@ -119,7 +129,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 
     private void populateRecyclerView() {
 
-        adapter = new MacroSequenceAdapter(mRepeatMessage,this);
+        adapter = new MacroSequenceAdapter(mRepeatMessage,this, activity);
 
         adapter.notifyItemInserted(mRepeatMessage.size() - 1);
 

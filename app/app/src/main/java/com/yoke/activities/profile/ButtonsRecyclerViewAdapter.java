@@ -24,8 +24,7 @@ import java.util.List;
 public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecyclerViewAdapter.ViewHolder>{
 
     private static final String TAG = "ButtonsRecyclerViewAdapter";
-    protected Connection connection =
-            MultiClientConnection.getInstance(); // Gets the connection
+    protected Connection connection;
     private List<com.yoke.database.types.Button> buttons;
     private Context context;
 
@@ -35,6 +34,7 @@ public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecy
      * @param buttons list of buttons of the selected profile
      */
     public ButtonsRecyclerViewAdapter(Context context, List<Button> buttons) {
+        connection = MultiClientConnection.getInstance(context); // Gets the connection
         this.context = context;
         this.buttons = buttons;
     }

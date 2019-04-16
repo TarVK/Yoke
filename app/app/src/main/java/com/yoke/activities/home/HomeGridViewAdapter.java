@@ -23,8 +23,7 @@ import com.yoke.database.types.Profile;
 public class HomeGridViewAdapter extends RecyclerView.Adapter<HomeGridViewAdapter.ViewHolder>{
 
     private static final String TAG = "HomeGridViewAdapter";
-    protected Connection connection =
-            MultiClientConnection.getInstance(); // Gets the connection
+    protected Connection connection;
     private Context context;
     private Profile profile;
 
@@ -34,6 +33,7 @@ public class HomeGridViewAdapter extends RecyclerView.Adapter<HomeGridViewAdapte
      */
     public HomeGridViewAdapter(Context context, Profile profile) {
         this.context = context;
+        connection = MultiClientConnection.getInstance(context); // Gets the connection
         this.profile = profile;
     }
 
@@ -57,7 +57,7 @@ public class HomeGridViewAdapter extends RecyclerView.Adapter<HomeGridViewAdapte
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        Log.d(TAG, "onBindViewHolder: called. ");
+//        Log.d(TAG, "onBindViewHolder: called. ");
 
         //put the image in the viewHolder
         holder.buttonImage.setImageBitmap(profile.getButtons().get(i).getMacro().getCombinedImage());

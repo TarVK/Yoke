@@ -50,7 +50,7 @@ public class MacroSelection extends AppCompatActivity {
         search = findViewById(R.id.search);
         fabMacro = findViewById(R.id.createMacro);
 
-        profileID = getIntent().getLongExtra("profile id", 0);
+        profileID = getIntent().getLongExtra("profile id", -1);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);

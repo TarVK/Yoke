@@ -104,6 +104,7 @@ public class ProfileEditActivity extends AppCompatActivity implements StartDragL
                 Intent intent = new Intent(getApplicationContext(), MacroActivity.class);
                 intent.putExtra("macro id", macroID);
                 intent.putExtra("profile id", profile.getID());
+                Log.w("REACHED", "MACRO CREATED");
                 startActivity(intent);
                 finish();
             });

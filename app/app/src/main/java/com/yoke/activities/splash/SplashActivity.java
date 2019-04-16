@@ -86,7 +86,7 @@ public class SplashActivity extends AppCompatActivity {
         final BluetoothClientConnection bluetoothConnection =
                 new BluetoothClientConnection(SplashActivity.this);
         MultiClientConnection.initialize(bluetoothConnection);
-        connection = MultiClientConnection.getInstance();
+        connection = MultiClientConnection.getInstance(this);
 
         //receiver in case of successful connection
         connection.addReceiver(new MessageReceiver<Connected>() {

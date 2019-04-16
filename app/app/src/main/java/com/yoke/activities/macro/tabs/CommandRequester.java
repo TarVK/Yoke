@@ -28,8 +28,7 @@ public class CommandRequester extends Activity {
 
     private static final String TAG = "CommandRequester";
 
-    protected Connection connection =
-            MultiClientConnection.getInstance(); // Gets the connection
+    protected Connection connection;
 
     // A receiver that listens for pc callbacks
     private MessageReceiver receiver;
@@ -37,7 +36,8 @@ public class CommandRequester extends Activity {
     private Context context;
 
     public CommandRequester(Context context) {
-        this.context = context;
+        this.context = context;connection =
+        MultiClientConnection.getInstance(context); // Gets the connection
     }
 
     /**

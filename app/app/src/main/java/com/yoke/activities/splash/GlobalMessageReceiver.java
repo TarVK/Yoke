@@ -70,7 +70,6 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
 
             // Get the program name
             String name = ((ProgramFocused) message).programName;
-
             // Check if a profile exists with this associated program
             Profile.getAssociated(context, name, (profile) -> {
                 if (profile != null) {
@@ -82,6 +81,7 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
 
                     // Switch to profile
                     Intent profileIntent = new Intent(context, ProfileActivity.class);
+                    profileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     profileIntent.putExtra("profile id", profile.getID());
                     context.startActivity(profileIntent);
 
@@ -97,7 +97,9 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
 
         // Open trackpad command
         else if (message instanceof OpenTrackpadCmd) {
-            context.startActivity(new Intent(context, MouseActivity.class));
+            Intent trackpadIntent = new Intent(context, MouseActivity.class);
+            trackpadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(trackpadIntent);
         }
         // Switch profile command
         else if (message instanceof OpenProfileCmd) {
@@ -108,6 +110,7 @@ public class GlobalMessageReceiver extends BroadcastReceiver {
                 if (profile != null) {
                     // Switch to profile
                     Intent profileIntent = new Intent(context, ProfileActivity.class);
+                    profileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     profileIntent.putExtra("profile id", cmd.profileID);
                     context.startActivity(profileIntent);
 
