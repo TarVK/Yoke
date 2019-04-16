@@ -1,6 +1,16 @@
 <resources>
-    <string name="app_name">Yoke</string>
-    <string name="action_settings">Settings</string>
+
+    <string name="app_name" translatable="false">Yoke</string>
+    <string name="action_settings" translatable="false">Settings</string>
+
+    <string name="backBtn">Back</string>
+    <string name="nextBtn">Next</string>
+    <string name="finishBtn">Finish</string>
+
+    <!-- Do these really not need to be translated?-->
+    <string name="tutorialBtn" translatable="false">Tutorial</string>
+    <string name="splashBtn" translatable="false">Splash/Tutorial</string>
+    <string name="title_activity_mouse" translatable="false">MouseActivity</string>
     <string name="heading1">Homescreen</string>
     <string name="heading2">Profilescreen</string>
     <string name="heading3">Settings</string>
@@ -9,12 +19,66 @@
     <string name="description2">This screen contains your macros.</string>
     <string name="description3">Here you can change the language and
       such.</string>
-    <string name="backBtn">Back</string>
-    <string name="nextBtn">Next</string>
-    <string name="finishBtn">Finish</string>
-    <string name="title_activity_mouse">MouseActivity</string>
     <string name="editProfile_associatedPrograms">Associated programs (csv)</string>
     <string name="macroSelection_search">Search</string>
+
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+    <string name="language">Language</string>
+
+    <string name="en">English</string>
+    <string name="nl">Dutch</string>
+    <string name="bg">Bulgarian</string>
+
+    <string-array name="pref_lang_entries">
+        <item>@string/en</item>
+        <item>@string/nl</item>
+        <item>@string/bg</item>
+    </string-array>
+
+    <string-array name="pref_lang_values">
+        <item>en</item>
+        <item>nl</item>
+        <item>bg</item>
+    </string-array>
+
+
+    <string name="color">Colour</string>
+    <string name="light">Night Theme</string>
+
+    <string name="connection">Connection type</string>
+
+    <string name="blu">Bluetooth</string>
+    <string name="wifi">WiFi</string>
+    <string name="usb">USB cable</string>
+    <string-array name="pref_conn_entries">
+        <item>@string/blu</item>
+        <item>@string/wifi</item>
+        <item>@string/usb</item>
+    </string-array>
+
+    <string-array name="pref_conn_values">
+        <item>blu</item>
+        <item>wifi</item>
+        <item>usb</item>
+    </string-array>
+
+    <string name="tutorial">Replay Tutorial</string>
+    <string name="about">About</string>
+
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
 
     <string name="MacroAppearanceForeground">Foreground</string>
     <string name="MacroAppearanceBackground">Background</string>
@@ -48,4 +112,5 @@
     <string name="selectMacroConnectionRequired">Configuring this action requires a connection to be present</string>
     <string name="selectMacroPrompted">A prompt was send to your computer</string>
     <string name="selectMacroFailed">Something went wrong while selecting your action</string>
+
 </resources>

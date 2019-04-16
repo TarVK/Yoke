@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#f2545b</color>
     <color name="colorPrimaryDark">#b91832</color>
     <color name="colorPrimaryLight">#ff8788</color>
@@ -8,4 +9,25 @@
     <color name="colorTransparentWhite">#CCCCCC</color>
     <color name="colorGray">#424242</color>
     <color name="colorGrayLight">#E7E7E7</color>
+
+
+    <color name="colorLilac">#86608E</color>
+    <!--primary is here-->
+    <color name="colorSkyBlue">#77CCEE</color>
+    <color name="colorJeanBlue">#40648c</color>
+    <color name="colorForestGreen">#0D6924</color>
+    <color name="colorPistachioGreen">#54BB21</color>
+    <color name="colorYellow">#EEDB00</color>
+    <color name="colorLightOrange">#FF9933</color>
+    <color name="colorDarkOrange">#FF5900</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorDarkRed">#9E0B0F</color>
+    <color name="colorBlack">#000000</color>
+
+
+
+
+
+
+
 </resources>

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.macro.MacroActivity;
 import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-public class MacroSelection extends AppCompatActivity {
+public class MacroSelection extends BaseActivity {
 
     private static final String TAG = "MacroSelection";
 
