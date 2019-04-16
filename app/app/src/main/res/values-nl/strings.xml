@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="backBtn">Back</string>
-    <string name="nextBtn">Next</string>
-    <string name="finishBtn">Finish</string>
+    <string name="backBtn">Terug</string>
+    <string name="nextBtn">Volgende</string>
+    <string name="finishBtn">Klaar</string>
 
     <!--Do these reakky not need to be translated?-->
     <string name="tutorialBtn" translatable="false">Tutorial</string>
     <string name="splashBtn" translatable="false">Splash/Tutorial</string>
     <string name="title_activity_mouse" translatable="false">MouseActivity</string>
-    <string name="heading1">Homescreen</string>
-    <string name="heading2">Profilescreen</string>
-    <string name="heading3">Settings</string>
-    <string name="description1">Here you can create new profiles
-      and select existing ones.</string>
-    <string name="description2">This screen contains your macros.</string>
-    <string name="description3">Here you can change the language and
-      such.</string>
-    <string name="editProfile_associatedPrograms">Associated programs (csv)</string>
-    <string name="macroSelection_search">Search</string>
+    <string name="heading1">Thuis scherm</string>
+    <string name="heading2">Profielen scherm</string>
+    <string name="heading3">Instellingen</string>
+    <string name="description1">Hier kan je nieuwe profielen maken en bestaande
+        profielen selecteren.</string>
+    <string name="description2">Dit scherm bevat je macros</string>
+    <string name="description3">Hier kan je onder andere de taal aanpassen.</string>
+    <string name="editProfile_associatedPrograms">Geassocieerd programma (csv)</string>
+    <string name="macroSelection_search">Zoeken</string>
 
 
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">Instellingen</string>
 
     <!-- Strings related to Settings -->
-    <string name="language">Language</string>
+    <string name="language">Taal</string>
 
     <string name="en">Engels</string>
     <string name="nl">Nederlands</string>
@@ -42,14 +41,14 @@
     </string-array>
 
 
-    <string name="color">Colour</string>
+    <string name="color">Kleur</string>
 
-    <string name="light">Night Theme</string>
-    <string name="connection">Connection type</string>
+    <string name="light">Nacht thema</string>
+    <string name="connection">Connectie type</string>
 
     <string name="blu">Bluetooth</string>
     <string name="wifi">WiFi</string>
-    <string name="usb">USB cable</string>
+    <string name="usb">USB kabel</string>
     <string-array name="pref_conn_entries">
         <item>@string/blu</item>
         <item>@string/wifi</item>
@@ -62,13 +61,13 @@
         <item>usb</item>
     </string-array>
 
-    <string name="tutorial">Replay Tutorial</string>
-    <string name="about">About</string>
+    <string name="tutorial">Open tutorial</string>
+    <string name="about">Over ons</string>
 
     <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
+        <item>Altijd</item>
+        <item>Wanneer mogelijk</item>
+        <item>Nooit</item>
     </string-array>
     <string-array name="pref_example_list_values">
         <item>1</item>
@@ -77,37 +76,39 @@
     </string-array>
 
 
-    <string name="MacroAppearanceForeground">Foreground</string>
-    <string name="MacroAppearanceBackground">Background</string>
-    <string name="MacroAppearanceText">Description</string>
-    <string name="MacroAppearanceTextHint">Macro name</string>
+    <string name="MacroAppearanceForeground">Voorgrond</string>
+    <string name="MacroAppearanceBackground">Achtergrond</string>
+    <string name="MacroAppearanceText">Beschrijving</string>
+    <string name="MacroAppearanceTextHint">Macro naam</string>
 
-    <string name="MacroSequenceRepeat">Repeat</string>
-    <string name="MacroSequenceDelay">Delay</string>
+    <string name="MacroSequenceRepeat">Herhaling</string>
+    <string name="MacroSequenceDelay">Pauze</string>
 
-    <string name="selectMacroMain">Please choose an action type</string>
-    <string name="selectMacroMainProfile">Profile</string>
-    <string name="selectMacroMainMouse">Mouse</string>
-    <string name="selectMacroMainKeyboard">Keyboard</string>
-    <string name="selectMacroMainProgram">Program</string>
+    <string name="selectMacroMain">Kies een actie type</string>
+    <string name="selectMacroMainProfile">Profiel</string>
+    <string name="selectMacroMainMouse">Muis</string>
+    <string name="selectMacroMainKeyboard">Toetsenbord</string>
+    <string name="selectMacroMainProgram">Programma</string>
     <string name="selectMacroMainSite">Site</string>
 
-    <string name="selectMacroMouse">Please select the mouse action</string>
+    <string name="selectMacroMouse">Kies een muis actie</string>
     <string name="selectMacroMouseOpenTrackpad">Open trackpad</string>
-    <string name="selectMacroMouseLeftClick">Left click</string>
-    <string name="selectMacroMouseRightClick">Right click</string>
-    <string name="selectMacroMouseMiddleClick">Middle click</string>
-    <string name="selectMacroMouseScrollUp">Scroll up</string>
-    <string name="selectMacroMouseScrollDown">Scroll down</string>
+    <string name="selectMacroMouseLeftClick">Linker muisknop</string>
+    <string name="selectMacroMouseRightClick">Rechter muisknop</string>
+    <string name="selectMacroMouseMiddleClick">Middelste muisknop</string>
+    <string name="selectMacroMouseScrollUp">Scroll omhoog</string>
+    <string name="selectMacroMouseScrollDown">Scroll omlaag</string>
 
-    <string name="selectMacroProfile">Please select a profile</string>
+    <string name="selectMacroProfile">Kies een profiel</string>
 
-    <string name="selectMacroSite">Please input a site</string>
-    <string name="selectMacroSiteMessage">Please input a site to be opened</string>
-    <string name="selectMacroSiteAccept">Ok</string>
+    <string name="selectMacroSite">Voer een site naam in</string>
+    <string name="selectMacroSiteMessage">Voer de naam van de site in die geopend moet
+        worden</string>
+    <string name="selectMacroSiteAccept">Oké</string>
 
-    <string name="selectMacroConnectionRequired">Configuring this action requires a connection to be present</string>
-    <string name="selectMacroPrompted">A prompt was send to your computer</string>
-    <string name="selectMacroFailed">Something went wrong while selecting your action</string>
+    <string name="selectMacroConnectionRequired">Om deze actie te configureren, moet een
+        connectie aanwezig zijn</string>
+    <string name="selectMacroPrompted">Een prompt is naar je computer verzonden</string>
+    <string name="selectMacroFailed">Er is iets misgegaan met het selecteren van je actie</string>
 
 </resources>
