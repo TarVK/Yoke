@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.activities.BaseActivity;
+import com.yoke.activities.settings.Settings;
 import com.yoke.activities.splash.SplashActivity;
 
 public class TutorialActivity extends BaseActivity {
@@ -47,6 +48,9 @@ public class TutorialActivity extends BaseActivity {
 
         mSlideViewPager.addOnPageChangeListener(viewListener);
 
+        /**
+         * The onClickListener for the next button
+         */
         mNextBtn.setOnClickListener(closeTutView -> {
             if( mCurrentPage == mDots.length - 1) {
                 closeTutorial();
@@ -55,9 +59,18 @@ public class TutorialActivity extends BaseActivity {
             }
         });
 
+        /**
+         * The onClickListener for the back button
+         */
         mBackBtn.setOnClickListener(goBackView -> mSlideViewPager.setCurrentItem(mCurrentPage - 1));
     }
 
+    /**
+     * Creates the dots that represent the slides.
+     * The dot for the current page is in a different colour.
+     *
+     * @param position current slide
+     */
     public void addDotsIndicator(int position) {
         mDotLayout.removeAllViews();
         mDots = new TextView[3];
@@ -75,12 +88,19 @@ public class TutorialActivity extends BaseActivity {
         }
     }
 
+    /**
+     * Create new viewListener for the viewPager
+     */
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int i, float v, int i1) {
 
         }
 
+        /**
+         * Gives the buttons the correct text and visibility depending on the current slide
+         * @param i current slide
+         */
         @Override
         public void onPageSelected(int i) {
             addDotsIndicator(i);
@@ -122,8 +142,11 @@ public class TutorialActivity extends BaseActivity {
         }
     };
 
+    /**
+     * Closes the tutorial
+     */
     public void closeTutorial() {
-        Intent intent = new Intent(this, SplashActivity.class);
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 }

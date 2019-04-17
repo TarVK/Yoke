@@ -123,7 +123,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         Log.e("new color applied", "color is " + preferences.getInt("color", 0));
 
                         Intent i = new Intent(getContext(), Settings.class);
-                        startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                        startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
 
                     @Override
@@ -161,7 +161,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private void resetColor() {
          Intent i = new Intent(getContext(), Settings.class);
-         startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+         startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     private void setNewLocale(String language) {
