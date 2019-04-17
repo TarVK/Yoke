@@ -19,7 +19,6 @@ public class Settings extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        // Doesn't seem to be required?
         Toolbar toolbar = findViewById(R.id.toolbarSettings);
         setSupportActionBar(toolbar);
         this.setNewThemeColour(R.id.toolbarSettings, Toolbar.class);
@@ -35,23 +34,8 @@ public class Settings extends BaseActivity {
                     new SettingsFragment()).commit();
 
         }
-//
+
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
-
-
-        // Definitely don't do this: can't just put android layout components in the settings xml
-        // That's also why you shouldn't place it in the layout's folder, it isn't a layout
-        // It is a different type of xml file, that just stores settings data
-        // Changing values should be done from the fragment
-
-//        textViewLang = findViewById(R.id.currLanguage);
-//        textViewLang.setText(com.yoke.database.types.Settings.getInstance().getLanguage());
-//
-//        textViewConn = findViewById(R.id.currConn);
-//        textViewConn.setText(com.yoke.database.types.Settings.getInstance().getConnectionType());
-
-
 
     }
 }

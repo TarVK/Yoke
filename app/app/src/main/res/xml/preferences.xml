@@ -28,8 +28,15 @@
     <Preference
         android:key="color"
         android:defaultValue="@color/colorPrimary"
+        android:disableDependentsState="true"
         android:title="@string/color" />
 
+    <CheckBoxPreference
+        android:key="primary"
+        android:title="@string/backToMain">
+        <!--android:summaryOff=""-->
+
+    </CheckBoxPreference>
     <SwitchPreference
         android:background="@color/colorPrimary"
         android:enabled="true"

@@ -33,6 +33,7 @@
     </string-array>
 
     <string name="color">Цвят</string>
+    <string name="backToMain">Тема по подразбиране</string>
     <string name="light">Нощна тема</string>
 
     <string name="connection">Вид връзка</string>

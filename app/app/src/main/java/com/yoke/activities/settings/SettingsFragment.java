@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
@@ -28,33 +29,28 @@ import static com.yoke.activities.splash.GlobalMessageReceiver.getActivity;
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     public static SharedPreferences preferences;
-    //TypedArray colorTypedArray;
     AmbilWarnaDialog colorPicker;
-//    Toolbar toolbar;
+    int colorPrimary;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        localeManager = new LocaleManager(getContext());
 
         Resources res = getContext().getResources();
         android.content.res.Configuration conf = res.getConfiguration();
-        //toolbar = BaseActivity.get
-        //addPreferencesFromResource(R.xml.preferences);
-        //ListPreference colorPicker = new ColorPickerDialog(getContext());
     }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
 
-//        if (getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE) == null) {
-//            Log.e("preferences empty", "true");
-//            preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-//        }
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
+        Preference language = findPreference("language");
+        Preference color = findPreference("color");
+        CheckBoxPreference mainColor = (CheckBoxPreference)findPreference("primary");
+        Preference connection = findPreference("connection");
 //        getPreferenceScreen().setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 //            @Override
 //            public boolean onPreferenceClick(Preference preference) {
@@ -75,10 +71,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 //        });
 
         //Language preference
-        Preference language = findPreference("language");
 
         if (!preferences.contains("language")) {
-            //the following line was changed since i last checked that language change works
             editor.putString("language", "en");
             editor.apply();
             setLanguageSummary(language, "en");
@@ -100,11 +94,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 
         //Colour Preference
-        Preference color = findPreference("color");
+        colorPrimary = ContextCompat.getColor(getContext(), R.color.colorPrimary);
         color.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                int colorPrimary = ContextCompat.getColor(getContext(), R.color.colorPrimary);
                 if (!preferences.contains("color")) {
                     System.out.println("No color set");
                     editor.putInt("color", colorPrimary);
@@ -118,12 +111,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                         Log.e("old color ", "is " + preferences.getInt("color", 0));
                         editor.putInt("color", color).apply();
+                        editor.putBoolean("default", false).apply();
+                        mainColor.setChecked(false);
                         resetColor();
-                        Log.e("new color applied", "color is supposed to be" + color);
-                        Log.e("new color applied", "color is " + preferences.getInt("color", 0));
+//                        Log.e("new color applied", "color is supposed to be" + color);
+//                        Log.e("new color applied", "color is " + preferences.getInt("color", 0));
 
-                        Intent i = new Intent(getContext(), Settings.class);
-                        startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+
+//                        Intent i = new Intent(getContext(), Settings.class);
+//                        startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
 
                     @Override
@@ -137,8 +133,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+        //back to default theme
+        mainColor.setDefaultValue(true);
+        if (!preferences.contains("default")) {
+            editor.putBoolean("default", true);
+            editor.apply();
+            mainColor.setChecked(true);
+        }
+
+        if (mainColor.isChecked()) {
+            mainColor.setEnabled(false);
+        }
+        mainColor.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                editor.putBoolean("default", (Boolean) o);
+                editor.apply();
+                editor.putInt("color", colorPrimary);
+                editor.apply();
+                resetColor();
+                return true;
+            }
+        });
         //Connection preference
-        Preference connection = findPreference("connection");
         connection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -155,9 +172,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 //        return preferences.getInt("color", ContextCompat.getColor(getContext(), R.color.colorPrimary));
 //    }
 
-    public static SharedPreferences preferences() {
-        return preferences;
-    }
+//    public static SharedPreferences preferences() {
+//        return preferences;
+//    }
 
     private void resetColor() {
          Intent i = new Intent(getContext(), Settings.class);
