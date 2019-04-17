@@ -4,8 +4,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import com.yoke.activities.profileEdit.ButtonsEditRecyclerViewAdapter;
-
+/**
+ * src: https://www.journaldev.com/23208/android-recyclerview-drag-and-drop
+ */
 public class ItemMoveCallback extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperContract mAdapter;
@@ -26,6 +27,7 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
 
     }
 
+    //set the code to drag and drop
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView,
                           @NonNull RecyclerView.ViewHolder viewHolder,
@@ -35,7 +37,7 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
         return true;
     }
 
-    //only move the activated items
+    //only move the activated/selected items
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
@@ -49,6 +51,8 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
         super.onSelectedChanged(viewHolder, actionState);
     }
 
+    //this method gets triggered when the user interaction stops
+    //it changes the background color when it stops moving but this function is not used now
     @Override
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);

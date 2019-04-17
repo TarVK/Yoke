@@ -19,7 +19,7 @@ import com.yoke.database.types.Button;
 import java.util.List;
 
 /**
- *
+ *  Recyclerview makes each data to be formed in an uniform way
  */
 public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecyclerViewAdapter.ViewHolder>{
 
@@ -70,7 +70,7 @@ public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecy
 //        viewHolder.buttonImage.setImageResource(mMacro.get(i).getForegroundColor());
 //        viewHolder.buttonImage.setImageResource(mMacro.get(i).getBackgroundColor());
 
-        //ACTUAL BUTTON IMAGE SOURCES
+        //SET THE ACTUAL BUTTON IMAGE SOURCES
         viewHolder.buttonImage.setImageBitmap(buttons.get(i).getMacro().getCombinedImage());
 
         //THIS IS DRAWABLE SOURCES
@@ -81,11 +81,10 @@ public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecy
 
             @Override
             public void onClick(View v) {
-//                Toast.makeText(mContext, mName.get(i), Toast.LENGTH_LONG).show();
-//                String path = mMacro.get(i).getAction().toString();
 
                 if (connection.getState() == Connection.CONNECTED) {
                     try {
+                        //if connection is active pressing button can send an action to computer
                         connection.send(buttons.get(i).getMacro().getAction());
                     } catch (Exception e) {
                         e.printStackTrace();
