@@ -59,6 +59,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         editor = preferences.edit();
 
+        //sets the value of the preference variables to their corresponding preferences from preferences.xml
         language = findPreference("language");
         color = findPreference("color");
         mainColor = (CheckBoxPreference)findPreference("primary");
@@ -72,6 +73,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
+    /** Set up for the language preference - Creates language preference if it does not exist yet,
+     *  sets summary to current language
+     * @pre true
+     * @modifies {@code preferences.getString("language");
+     *                  language.getSummary()}
+     * @returns void
+     * @post {@code preferences.contains("language");
+     *              language.getSummary() <> null;
+     *              language.getSummary().equals(currentLanguage) }
+     */
     private void setUpLanguage() {
         //Language preference
         if (!preferences.contains("language")) {
@@ -83,6 +94,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setLanguageSummary(language, preferences.getString("language", "default"));
     }
 
+    /** Sets an OnClickListener on language preference, that updates preference value
+     * and application language
+     * @pre {@code language <> null} (setUpLanguage ensures it holds - no need to check here)
+     * @modifies onPreferenceChange() method
+     * @returns void
+     * @post {@code preferences.getString("language").equals(o.toString())
+     *              locale.getLanguage().equals(o.toString)}
+     */
     private void setOnClickListenerLanguage() {
         setUpLanguage();
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -98,27 +117,48 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
+    /** Updates language
+     * @pre {@code language <> null}
+     * @param language - new language
+     * @returns void
+     * @post locale.getLanguage().equals(o.toString())
+     * @throws NullPointerException if language == null
+     */
     private void setNewLocale(String language) {
+        if (language == null) {
+            throw new NullPointerException("language cannot be null");
+        }
         MainApp.localeManager.setNewLocale(getContext(), language);
         resetActivity();
     }
 
-
+    /** Sets the summary for the Language Preference depending on the current language value
+     * @pre {@code language <> null && (newLang.equals("en") || newLang.equals("nl") || newLang.equals("bg"))}
+     * @param language preference
+     * @param newLang new language string
+     * @throws NullPointerException if language == null
+     * @throws IllegalArgumentException if {@code !(newLang.equals("en") || newLang.equals("nl") || newLang.equals("bg"))}
+     */
     private void setLanguageSummary(Preference language, String newLang) {
-        if (newLang.equals("en")) {
+        if (language == null) {
+            throw new IllegalArgumentException("laguage cannot be null");
+        } else if(newLang.equals("en")) {
             language.setSummary("English (default)");
         } else if (newLang.equals("nl")) {
             language.setSummary("Nederlands");
         } else if (newLang.equals("bg")){
             language.setSummary("Български");
         } else {
-            language.setSummary("something went wrong");
+            throw new IllegalArgumentException("This language is not supported yet");
         }
     }
 
-    //Colour Preference
+    /** Makes sure the color preference exists
+     * @pre true
+     * @modifies preferences
+     * @post {@code preferences.contains("color")}
+     */
     private void setUpColor() {
-
         colorPrimary = ContextCompat.getColor(getContext(), R.color.colorPrimary);
         if (!preferences.contains("color")) {
             System.out.println("No color set");
@@ -127,8 +167,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-
-    //Colour Preference
+    /** Sets an OnClickListener on color preference that updates preference value
+     * @pre {@code color <> null} (setUpColor ensures it holds - no need to check here)
+     * @modifies onPreferenceClick() method && color
+     * @returns false
+     * @post {@code preferences.getString("color") == color)}
+     */
     private void setOnClickListenerColor() {
         setUpColor();
         int currentColor = preferences.getInt("color", 0);
@@ -157,8 +201,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
+    /** Makes sure default preference exists
+     * @pre {@code mainColor <> null}
+     * @modifies preferences
+     * @returns void
+     * @post {@code preferences.contains("default")}
+     * @throws NullPointerException if {@code mainColor == null}
+     */
     private void setUpMainColor() {
         //back to default theme
+        if (mainColor == null) {
+            throw new NullPointerException("mainColor cannot be null");
+        }
         mainColor.setDefaultValue(true);
         if (!preferences.contains("default")) {
             editor.putBoolean("default", true);
@@ -171,6 +225,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
+    /** Sets an OnClickListener on default preference that updates preference value;
+     * Sets the colour theme to the default one
+     * @pre {@code mainColor <> null} (setUpMainColor ensures it holds - no need to check here)
+     * @modifies onPreferenceChange() method && default
+     * @returns true
+     * @post {@code preferences.getBoolean("default") == true
+     *              preferences.getInt("color") == colorPrimary}
+     */
     private void setOnClickListenerMainColor() {
         setUpMainColor();
         mainColor.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -187,8 +249,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     //for future versions
+
+    /** Sets an onClickListener on the connection preference that updates the preference's value
+     * @pre {@code connection <> null}
+     * @modifies onPreferenceChange() method and connection
+     * @returns true
+     * @post {@code preferences.getString("connection").equals(o.toString())}
+     * @throws NullPointerException if connection == null
+     */
     private void setOnClickListenerConnection() {
         //Connection preference
+        if (connection == null) {
+            throw new NullPointerException("connection cannot be null");
+        }
         connection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -201,7 +274,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
+    /** Sets an onClickListener on about that links to our README.md
+     * @pre {@code about <> null}
+     * @modifies onPreferenceClick() method and connection
+     * @returns true
+     * @post a message is sent to computer that opens a browser showing out README.md
+     * @throws NullPointerException if about == null
+     */
     private void setOnClickListenerAbout() {
+        if (about == null) {
+            throw new NullPointerException("about cannot be null");
+        }
         about.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {

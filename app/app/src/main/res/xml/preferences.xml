@@ -37,14 +37,19 @@
         <!--android:summaryOff=""-->
 
     </CheckBoxPreference>
-    <!--<SwitchPreference-->
-        <!--android:background="@color/colorPrimary"-->
-        <!--android:enabled="true"-->
-        <!--android:foreground="@color/colorPrimary"-->
-        <!--holo:key="light_theme"-->
-        <!--android:title="@string/light" />-->
 
+    <!-- for future versions-->
+    <SwitchPreference
+        app:isPreferenceVisible="false"
+        android:background="@color/colorPrimary"
+        android:enabled="true"
+        android:foreground="@color/colorPrimary"
+        holo:key="light_theme"
+        android:title="@string/light" />
+
+    <!-- for future version-->
     <ListPreference
+        app:isPreferenceVisible="false"
         android:title="@string/connection"
         android:defaultValue="@string/blu"
         android:entries="@array/pref_conn_entries"
@@ -55,11 +60,11 @@
     <Preference
         holo:key="tutorial"
         android:title="@string/tutorial">
+         <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.yoke.activities.tutorial"
+            android:targetPackage="com.package.name" />
     </Preference>
-    <!--<intent-->
-        <!--android:action="android.intent.action.VIEW"-->
-        <!--android:targetClass="com.yoke.activities.tutorial"-->
-        <!--android:targetPackage="com.package.name" />-->
 
     <Preference
         holo:key="about"
