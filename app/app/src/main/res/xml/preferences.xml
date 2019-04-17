@@ -37,12 +37,12 @@
         <!--android:summaryOff=""-->
 
     </CheckBoxPreference>
-    <SwitchPreference
-        android:background="@color/colorPrimary"
-        android:enabled="true"
-        android:foreground="@color/colorPrimary"
-        holo:key="light_theme"
-        android:title="@string/light" />
+    <!--<SwitchPreference-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--android:enabled="true"-->
+        <!--android:foreground="@color/colorPrimary"-->
+        <!--holo:key="light_theme"-->
+        <!--android:title="@string/light" />-->
 
     <ListPreference
         android:title="@string/connection"

@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.yoke.R;
@@ -21,6 +22,10 @@ import com.yoke.Helper.MainApp;
 import com.yoke.activities.BaseActivity;
 import com.yoke.activities.home.HomeActivity;
 import com.yoke.activities.tutorial.TutorialActivity;
+import com.yoke.connection.Message;
+import com.yoke.connection.messages.OpenURLCmd;
+import com.yoke.connection.Connection;
+import com.yoke.connection.client.MultiClientConnection;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -51,24 +56,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference color = findPreference("color");
         CheckBoxPreference mainColor = (CheckBoxPreference)findPreference("primary");
         Preference connection = findPreference("connection");
-//        getPreferenceScreen().setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//            @Override
-//            public boolean onPreferenceClick(Preference preference) {
-//                System.out.println(preference.getKey());
-//                if (preference.getKey() == "tutorial") {
-////                    startActivity(new Intent((getActivity()), TutorialActivity.class));
-//                    System.out.println("Tutorial clicked");
-//                } else if (preference.getKey() == "about") {
-//                    //github README.txt
-//                } else if (preference.getKey() == "color") {
-//                    Log.e("clicked", "so far so good");
-//
-//                    colorPicker.show();
-//                }
-//
-//                return true;
-//            }
-//        });
+        Preference about = findPreference("about");
 
         //Language preference
 
@@ -114,12 +102,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         editor.putBoolean("default", false).apply();
                         mainColor.setChecked(false);
                         resetColor();
-//                        Log.e("new color applied", "color is supposed to be" + color);
-//                        Log.e("new color applied", "color is " + preferences.getInt("color", 0));
 
-
-//                        Intent i = new Intent(getContext(), Settings.class);
-//                        startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
 
                     @Override
@@ -166,15 +149,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+        about.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Log.e("about", "is clicked");
+                MultiClientConnection connection = MultiClientConnection.getInstance(getContext());
+                Message readMe = new OpenURLCmd("https://github.com/TarVK/Yoke/blob/master/README.md");
+                if (connection.getState() == Connection.CONNECTED) {
+                    connection.send(readMe);
+                } else {
+                    Toast.makeText(getContext(), "Command could not be sent. " + "\n Please make sure you are connected", Toast.LENGTH_LONG).show();
+                }
+                return true;
+            }
+        });
+
+
     }
-
-//    public static int getColor() {
-//        return preferences.getInt("color", ContextCompat.getColor(getContext(), R.color.colorPrimary));
-//    }
-
-//    public static SharedPreferences preferences() {
-//        return preferences;
-//    }
 
     private void resetColor() {
          Intent i = new Intent(getContext(), Settings.class);
