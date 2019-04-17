@@ -25,16 +25,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
 
     private static final String TAG = "HomeAdapter";
 
-    private ArrayList<Profile> profiles = new ArrayList<>();
-    private HomeActivity activity;
+    private ArrayList<Profile> profiles = new ArrayList<>(); // List for the profiles
+    private HomeActivity activity; // The home activity
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
-        public ConstraintLayout parentLayout;
-        public ImageButton removeButton;
+        public TextView textView; // The textView that will be inflated by the RecyclerView
+        public ConstraintLayout parentLayout; // The layout of the activity
+        public ImageButton removeButton; // The delete profile button
 
         final RecyclerView gridView;
 
+        // Constructor
         public MyViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.my_textview);
