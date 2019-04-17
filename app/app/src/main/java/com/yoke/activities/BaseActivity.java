@@ -3,10 +3,13 @@ package com.yoke.activities;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +26,10 @@ import com.yoke.activities.settings.SettingsFragment;
 public class BaseActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    TabLayout tabLayout;
+    FloatingActionButton fab;
     SharedPreferences sharedPreferences;
+    Class type;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -40,19 +46,33 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    public final void setNewToolbarColour(int toolbarID) {
-        toolbar = findViewById(toolbarID);
-        Log.e("setNew toolbar =", String.valueOf(toolbarID));
+    public final void setNewThemeColour(int ID, Class type) {
+        this.type = type;
         int colorPrimary = ContextCompat.getColor(this, R.color.colorPrimary);
-        Log.e("primary", String.valueOf(colorPrimary));
+        int color = sharedPreferences.getInt("color", colorPrimary);
+        //maybe there is a better way to do this, abstracting from the type?
+        if (type == Toolbar.class) {
+            Log.e("toolbar", "yes");
+            toolbar = findViewById(ID);
+            toolbar.setBackgroundColor(color);
+        } else if (type == TabLayout.class) {
+            Log.e("tabs", "yes");
+            tabLayout = findViewById(ID);
+            tabLayout.setBackgroundColor(color);
+        } else if (type == FloatingActionButton.class){
+            Log.e("fab called", "yes");
+            fab = findViewById(ID);
+            fab.setBackgroundTintList(ColorStateList.valueOf(darkenColor(color)));
+        }
+    }
 
-        int color = sharedPreferences.getInt("color", colorPrimary);//SettingsFragment.getColor(); //sharedPreferences.getInt("color", colorPrimary);
-        Log.e("color is", String.valueOf(color));
-        toolbar.setBackgroundColor(color);
-        //toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPistachioGreen));
-        //toolbar.setBackgroundResource(R.color.colorPistachioGreen);
-        Log.e("setBGColour called", "lets see");
-        //setItemColor
+    private int darkenColor(int color) {
+        float[] hsv = new float[3];
+        //int color = getColor();
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= 0.8f; // value component
+        color = Color.HSVToColor(hsv);
+        return color;
     }
 
     private void resetTitle() {

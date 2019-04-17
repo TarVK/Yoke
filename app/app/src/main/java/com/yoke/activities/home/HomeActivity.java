@@ -49,9 +49,10 @@ public class HomeActivity extends BaseActivity {
 
         // Add all ids to their variable
         button = findViewById(R.id.createProfile);
+        this.setNewThemeColour(R.id.createProfile, FloatingActionButton.class);
         settings = findViewById(R.id.settingsButton);
         toolbar = findViewById(R.id.toolbar);
-        this.setNewToolbarColour(R.id.toolbar);
+        this.setNewThemeColour(R.id.toolbar, Toolbar.class);
         setSupportActionBar(toolbar);
 
         Intent shake = new Intent(this, ShakeService.class);

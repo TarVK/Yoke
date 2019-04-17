@@ -53,8 +53,9 @@ public class MacroActivity extends BaseActivity {
         setContentView(R.layout.activity_macro);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        this.setNewToolbarColour(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //following line necessary in order to allow colour change
+        this.setNewThemeColour(R.id.toolbar, Toolbar.class);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -64,6 +65,8 @@ public class MacroActivity extends BaseActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        //following line necessary in order to allow colour change
+        this.setNewThemeColour(R.id.tabs, TabLayout.class);
 
         Long profileID = getIntent().getLongExtra("profile id", 0);
         Long macroID = getIntent().getLongExtra("macro id", 0);
