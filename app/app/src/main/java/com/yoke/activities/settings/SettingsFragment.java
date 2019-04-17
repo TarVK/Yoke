@@ -36,6 +36,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public static SharedPreferences preferences;
     AmbilWarnaDialog colorPicker;
     int colorPrimary;
+    SharedPreferences.Editor editor;
+
+    Preference language;
+    Preference color;
+    CheckBoxPreference mainColor;
+    Preference connection;
+    Preference about;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,16 +57,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.preferences);
 
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        editor = preferences.edit();
 
-        Preference language = findPreference("language");
-        Preference color = findPreference("color");
-        CheckBoxPreference mainColor = (CheckBoxPreference)findPreference("primary");
-        Preference connection = findPreference("connection");
-        Preference about = findPreference("about");
+        language = findPreference("language");
+        color = findPreference("color");
+        mainColor = (CheckBoxPreference)findPreference("primary");
+        connection = findPreference("connection");
+        about = findPreference("about");
 
+        setOnClickListenerLanguage();
+        setOnClickListenerColor();
+        setOnClickListenerMainColor();
+        setOnClickListenerAbout();
+
+    }
+
+    private void setUpLanguage() {
         //Language preference
-
         if (!preferences.contains("language")) {
             editor.putString("language", "en");
             editor.apply();
@@ -67,8 +81,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         setLanguageSummary(language, preferences.getString("language", "default"));
+    }
 
-
+    private void setOnClickListenerLanguage() {
+        setUpLanguage();
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference language, Object o) {
@@ -80,29 +96,53 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+    }
 
-        //Colour Preference
+    private void setNewLocale(String language) {
+        MainApp.localeManager.setNewLocale(getContext(), language);
+        resetActivity();
+    }
+
+
+    private void setLanguageSummary(Preference language, String newLang) {
+        if (newLang.equals("en")) {
+            language.setSummary("English (default)");
+        } else if (newLang.equals("nl")) {
+            language.setSummary("Nederlands");
+        } else if (newLang.equals("bg")){
+            language.setSummary("Български");
+        } else {
+            language.setSummary("something went wrong");
+        }
+    }
+
+    //Colour Preference
+    private void setUpColor() {
+
         colorPrimary = ContextCompat.getColor(getContext(), R.color.colorPrimary);
+        if (!preferences.contains("color")) {
+            System.out.println("No color set");
+            editor.putInt("color", colorPrimary);
+            editor.apply();
+        }
+    }
+
+
+    //Colour Preference
+    private void setOnClickListenerColor() {
+        setUpColor();
+        int currentColor = preferences.getInt("color", 0);
         color.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if (!preferences.contains("color")) {
-                    System.out.println("No color set");
-                    editor.putInt("color", colorPrimary);
-                    editor.apply();
-                }
-
-                int currentColor = preferences.getInt("color", 0);
                 colorPicker = new AmbilWarnaDialog(getContext(), currentColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
-
                         Log.e("old color ", "is " + preferences.getInt("color", 0));
                         editor.putInt("color", color).apply();
                         editor.putBoolean("default", false).apply();
                         mainColor.setChecked(false);
-                        resetColor();
-
+                        resetActivity();
                     }
 
                     @Override
@@ -110,12 +150,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         //nothing needed here
                     }
                 });
-
                 colorPicker.show();
                 return false;
             }
         });
 
+    }
+
+    private void setUpMainColor() {
         //back to default theme
         mainColor.setDefaultValue(true);
         if (!preferences.contains("default")) {
@@ -127,6 +169,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (mainColor.isChecked()) {
             mainColor.setEnabled(false);
         }
+    }
+
+    private void setOnClickListenerMainColor() {
+        setUpMainColor();
         mainColor.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -134,10 +180,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 editor.apply();
                 editor.putInt("color", colorPrimary);
                 editor.apply();
-                resetColor();
+                resetActivity();
                 return true;
             }
         });
+    }
+
+    //for future versions
+    private void setOnClickListenerConnection() {
         //Connection preference
         connection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -149,6 +199,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+    }
+
+    private void setOnClickListenerAbout() {
         about.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -164,33 +217,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-
     }
 
-    private void resetColor() {
+    private void resetActivity() {
          Intent i = new Intent(getContext(), Settings.class);
          startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
-    private void setNewLocale(String language) {
-        MainApp.localeManager.setNewLocale(getContext(), language);
-
-        Intent i = new Intent(getContext(), Settings.class);
-        startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-
-    }
-
-
-    private void setLanguageSummary(Preference language, String newLang) {
-        if (newLang.equals("en")) {
-            language.setSummary("English (default)");
-        } else if (newLang.equals("nl")) {
-            language.setSummary("Nederlands");
-        } else if (newLang.equals("bg")){
-            language.setSummary("Български");
-        } else {
-            language.setSummary("something went wrong");
-        }
-    }
 
 }
