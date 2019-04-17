@@ -22,7 +22,7 @@ public class Settings extends BaseActivity {
         // Doesn't seem to be required?
         Toolbar toolbar = findViewById(R.id.toolbarSettings);
         setSupportActionBar(toolbar);
-        this.setNewToolbarColour(R.id.toolbarSettings);
+        this.setNewThemeColour(R.id.toolbarSettings, Toolbar.class);
         ActionBar actionBar = getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);

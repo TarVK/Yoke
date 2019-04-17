@@ -29,17 +29,17 @@ import com.yoke.activities.settings.Settings;
 import com.yoke.database.types.Profile;
 
 public class HomeActivity extends BaseActivity {
-    FloatingActionButton button;
-    ImageView settings;
-    Toolbar toolbar;
+    FloatingActionButton button; // The add profile button
+    ImageView settings; // The settings icon
+    Toolbar toolbar; // The toolbar that contains some of the buttons
 
-    RecyclerView recyclerView;
-    HomeAdapter adapter;
-    ArrayList<Profile> profiles = new ArrayList<>();
+    RecyclerView recyclerView; // The RecyclerView that contains a list of profiles
+    HomeAdapter adapter; // The adapter of the RecyclerView
+    ArrayList<Profile> profiles = new ArrayList<>(); // The list that contains all the profiles
 
-    DragController dragController;
-    ItemTouchHelper dragHelper;
-    boolean orderChanged = false;
+    DragController dragController; // The dragController
+    ItemTouchHelper dragHelper; // The dragHelper
+    boolean orderChanged = false; // A boolean value to check if the order is changed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +47,18 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         recyclerView = findViewById(R.id.recyclerView);
 
+        // Add all ids to their variable
         button = findViewById(R.id.createProfile);
+        this.setNewThemeColour(R.id.createProfile, FloatingActionButton.class);
         settings = findViewById(R.id.settingsButton);
         toolbar = findViewById(R.id.toolbar);
-        this.setNewToolbarColour(R.id.toolbar);
+        this.setNewThemeColour(R.id.toolbar, Toolbar.class);
         setSupportActionBar(toolbar);
 
         Intent shake = new Intent(this, ShakeService.class);
         startService(shake);
 
-
+        // Set up the adapter and the RecyclerView
         adapter = new HomeAdapter(profiles, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -73,7 +75,7 @@ public class HomeActivity extends BaseActivity {
         dragHelper = new ItemTouchHelper(dragController);
         dragHelper.attachToRecyclerView(recyclerView);
 
-
+        // onClickListener for the add profile button
         Context mContext = this;
         button.setOnClickListener(v -> {
             Profile profile = new Profile("Some Cool Profile");
@@ -86,20 +88,20 @@ public class HomeActivity extends BaseActivity {
             });
         });
 
+        // onClickListener for the settings button
         settings.setOnClickListener(settingsView -> {
             startActivity(new Intent(getApplicationContext(), Settings.class));
         });
 
         initData();
     }
-    // initialize the date for the RecyclerView
-    // This should be all the profiles
+    // initialize the data for the RecyclerView
     public void initData() {
         initRecyclerView();
     }
 
     /**
-     * Initializes the recycler view
+     * Initializes the data for the RecyclerView
      */
     private void initRecyclerView() {
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -121,6 +123,7 @@ public class HomeActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
 
+        // If the order is Changed rearrange it into the right order
         if (orderChanged) {
             orderChanged = false;
             for (int i = 0; i < profiles.size(); i++) {

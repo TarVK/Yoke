@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -50,6 +51,8 @@ public class MacroSelection extends BaseActivity {
         recyclerView = findViewById(R.id.recyclerView);
         search = findViewById(R.id.search);
         fabMacro = findViewById(R.id.createMacro);
+        this.setNewThemeColour(R.id.createMacro, FloatingActionButton.class);
+        this.setNewThemeColour(-1, Window.class);
 
         profileID = getIntent().getLongExtra("profile id", -1);
 
