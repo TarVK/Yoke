@@ -64,6 +64,8 @@ public class BaseActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= 21) {
                 window.setStatusBarColor(darkenColor(color));
             }
+        } else if (type == Window.class && Build.VERSION.SDK_INT >= 21) {
+            window.setStatusBarColor(darkenColor(color));
         } else if (type == TabLayout.class) {
             Log.e("tabs", "yes");
             tabLayout = findViewById(ID);
