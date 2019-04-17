@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * Implement longClick, drag, add, delete, done
+ * src: https://www.journaldev.com/23208/android-recyclerview-drag-and-drop
  */
 public class ButtonsEditRecyclerViewAdapter extends
         RecyclerView.Adapter<ButtonsEditRecyclerViewAdapter.ViewHolder> implements
@@ -32,7 +33,6 @@ public class ButtonsEditRecyclerViewAdapter extends
     private List<com.yoke.database.types.Button> mButton;
     private final StartDragListener mStartDragListener;
     private Context mContext ;
-//    private List<ViewHolder> buttonViewHolders = new ArrayList<>();
     private RecyclerView mRecyclerView;
 
     public boolean activateDelete = false;
@@ -78,7 +78,7 @@ public class ButtonsEditRecyclerViewAdapter extends
         return holder;
     }
 
-    //implement drag
+    //implement drag and stop
     @Override
     public void onBindViewHolder(@NonNull ButtonsEditRecyclerViewAdapter.ViewHolder viewHolder, int i) {
         Log.d(TAG, "onBindViewHolder: called");
@@ -87,6 +87,7 @@ public class ButtonsEditRecyclerViewAdapter extends
 
 //        buttonViewHolders.add(viewHolder);
 
+        //each button with image is subject to dragging interaction
         viewHolder.buttonImage.setOnTouchListener(new View.OnTouchListener() {
 
             //Select macro
@@ -116,7 +117,7 @@ public class ButtonsEditRecyclerViewAdapter extends
         return mButton.size();
     }
 
-    //need to optimize dragging, swaps in a sequence
+    //It correctly swaps the position of button when it is dragged to a target position
     @Override
     public void onRowMoved(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
@@ -131,13 +132,14 @@ public class ButtonsEditRecyclerViewAdapter extends
         notifyItemMoved(fromPosition, toPosition);
     }
 
+    //selected button will be displayed in gray
     @Override
     public void onRowSelected(ViewHolder myViewHolder) {
         myViewHolder.rowView.setBackgroundColor(Color.GRAY);
     }
 
-
-
+    //defines an action when dragging interaction is stopped
+    //currently commented out as it was not used
     @Override
     public void onRowClear(ViewHolder myViewHolder) {
 //        myViewHolder.rowView.setBackgroundColor(Color.WHITE);

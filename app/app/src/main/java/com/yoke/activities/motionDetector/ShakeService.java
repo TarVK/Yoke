@@ -9,12 +9,12 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.yoke.connection.client.MultiClientConnection;
 
-import static android.support.constraint.Constraints.TAG;
-
+/**
+ * src: https://demonuts.com/android-shake-detection/
+ */
 public class ShakeService extends Service implements SensorEventListener {
 
     private SensorManager mSensorManager;
@@ -32,7 +32,6 @@ public class ShakeService extends Service implements SensorEventListener {
     }
 
     //registers the motion sensor
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -46,7 +45,7 @@ public class ShakeService extends Service implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    //Calculate the maximum acceleration value on the three axis
+    //Calculate the maximum acceleration value on the three axis: x, y and z
     private float calcMaxAcceleration(SensorEvent event) {
         gravity[0] = calcGravityForce(event.values[0], 0);
         gravity[1] = calcGravityForce(event.values[1], 1);
@@ -60,6 +59,7 @@ public class ShakeService extends Service implements SensorEventListener {
         return Math.max(max1, accZ);
     }
 
+    //calculate the current acceleration
     private float calcGravityForce(float currentVal, int index) {
         return 0.8F * gravity[index] + (1 - 0.8F) * currentVal;
     }
@@ -68,9 +68,6 @@ public class ShakeService extends Service implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
        float maxAcc = calcMaxAcceleration(event);
-//       Log.w(TAG, "onSensorChanged: " + shakeCount);
-//       Log.w(TAG, "shake " + shakeCount + " acc " + maxAcc + " first " + firstMoveTime + " second " + secondMoveTime +" third " + currentTime);
-//       Log.w(TAG, "diff1 " + (secondMoveTime-firstMoveTime) +  " diff2 " + (currentTime - secondMoveTime));
 
         //first shake
        if (maxAcc > 10) {
@@ -105,7 +102,6 @@ public class ShakeService extends Service implements SensorEventListener {
                long interval = Math.abs(currentTime - secondMoveTime);
                if (interval > 400 && interval < 1000) {
                    shakeCount = 3;
-                   Log.w(TAG, "onSensorChanged: disconnect");
                    terminate();
                    return;
 
@@ -117,38 +113,17 @@ public class ShakeService extends Service implements SensorEventListener {
        }
 
 
-//       if (shakeCount >= 1) {
-//           if (maxAcc > 8) {
-//               long currentTime = System.currentTimeMillis();
-//               if (currentTime - firstMoveTime < 500) {
-//                   shakeCount++;
-//               } else if (currentTime - firstMoveTime > 500) {
-//                   reset();
-//                   return;
-//               }
-//               Log.w(TAG, "onSensorChanged: " + shakeCount );
-//
-//               if (shakeCount == 3) {
-//                   reset();
-//                   Toast.makeText(this, "disconnect", Toast.LENGTH_SHORT).show();
-//               }
-//           }
-//               //check if the current time and last shaking time has an interval less than 500
-//       }
     }
 
-    //reset the count and measured time
+    //reset the count and records of measured time
     private void reset() {
-        Log.w(TAG, "reset: resetting the count from" + shakeCount );
         shakeCount = 0;
         firstMoveTime = 0;
         secondMoveTime = 0;
         currentTime = 0;
-        Log.w(TAG, "reset: count is resetted to :" + shakeCount);
     }
 
     public void deregister() {
-
         mSensorManager.unregisterListener(this);
     }
 
@@ -160,8 +135,6 @@ public class ShakeService extends Service implements SensorEventListener {
     //if shaked three times, disconnect and terminate the application
     private void terminate() {
         MultiClientConnection.destroyInstance();
-//        System.exit(1);
-//        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
 
