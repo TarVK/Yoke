@@ -4,32 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.yoke.R;
+
 import com.yoke.Helper.MainApp;
-import com.yoke.activities.BaseActivity;
-import com.yoke.activities.home.HomeActivity;
-import com.yoke.activities.tutorial.TutorialActivity;
 import com.yoke.connection.Message;
 import com.yoke.connection.messages.OpenURLCmd;
 import com.yoke.connection.Connection;
 import com.yoke.connection.client.MultiClientConnection;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
-
-import static com.yoke.activities.splash.GlobalMessageReceiver.getActivity;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -84,7 +75,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
      *              language.getSummary().equals(currentLanguage) }
      */
     private void setUpLanguage() {
-        //Language preference
         if (!preferences.contains("language")) {
             editor.putString("language", "en");
             editor.apply();
@@ -128,6 +118,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (language == null) {
             throw new NullPointerException("language cannot be null");
         }
+        //call to the app's localeManager
         MainApp.localeManager.setNewLocale(getContext(), language);
         resetActivity();
     }
@@ -182,7 +173,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 colorPicker = new AmbilWarnaDialog(getContext(), currentColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
-                        Log.e("old color ", "is " + preferences.getInt("color", 0));
                         editor.putInt("color", color).apply();
                         editor.putBoolean("default", false).apply();
                         mainColor.setChecked(false);
@@ -209,7 +199,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
      * @throws NullPointerException if {@code mainColor == null}
      */
     private void setUpMainColor() {
-        //back to default theme
         if (mainColor == null) {
             throw new NullPointerException("mainColor cannot be null");
         }
@@ -220,6 +209,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             mainColor.setChecked(true);
         }
 
+        //makes sure the checkbox doesn't behave in an unexpected way
         if (mainColor.isChecked()) {
             mainColor.setEnabled(false);
         }
@@ -238,10 +228,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mainColor.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                editor.putBoolean("default", (Boolean) o);
-                editor.apply();
-                editor.putInt("color", colorPrimary);
-                editor.apply();
+                editor.putBoolean("default", (Boolean) o).apply();
+                editor.putInt("color", colorPrimary).apply();
                 resetActivity();
                 return true;
             }
@@ -249,7 +237,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     //for future versions
-
     /** Sets an onClickListener on the connection preference that updates the preference's value
      * @pre {@code connection <> null}
      * @modifies onPreferenceChange() method and connection
@@ -258,7 +245,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
      * @throws NullPointerException if connection == null
      */
     private void setOnClickListenerConnection() {
-        //Connection preference
         if (connection == null) {
             throw new NullPointerException("connection cannot be null");
         }
@@ -288,9 +274,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         about.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Log.e("about", "is clicked");
                 MultiClientConnection connection = MultiClientConnection.getInstance(getContext());
                 Message readMe = new OpenURLCmd("https://github.com/TarVK/Yoke/blob/master/README.md");
+                //ensures the connection is active
                 if (connection.getState() == Connection.CONNECTED) {
                     connection.send(readMe);
                 } else {
@@ -302,6 +288,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
+    /** Restarts activity - needed so that changes in settings can be observed
+     * @post settings activity is restarted
+     */
     private void resetActivity() {
          Intent i = new Intent(getContext(), Settings.class);
          startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
