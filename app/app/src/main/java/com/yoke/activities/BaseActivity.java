@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 
 import com.example.yoke.R;
@@ -50,11 +53,17 @@ public class BaseActivity extends AppCompatActivity {
         this.type = type;
         int colorPrimary = ContextCompat.getColor(this, R.color.colorPrimary);
         int color = sharedPreferences.getInt("color", colorPrimary);
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         //maybe there is a better way to do this, abstracting from the type?
         if (type == Toolbar.class) {
             Log.e("toolbar", "yes");
             toolbar = findViewById(ID);
             toolbar.setBackgroundColor(color);
+            if (Build.VERSION.SDK_INT >= 21) {
+                window.setStatusBarColor(darkenColor(color));
+            }
         } else if (type == TabLayout.class) {
             Log.e("tabs", "yes");
             tabLayout = findViewById(ID);
