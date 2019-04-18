@@ -4,32 +4,33 @@
     <string name="backBtn">Назад</string>
     <string name="nextBtn">Следващо</string>
     <string name="finishBtn">Завърши</string>
-    <string name="heading1">Home Screen</string>
-    <string name="heading2">Profile Screen</string>
-    <string name="heading3">Profile Edit Screen</string>
-    <string name="heading4">Associated Program</string>
-    <string name="heading5">Macro Appearance</string>
-    <string name="heading6">Macro Action</string>
-    <string name="heading7">Settings</string>
-    <string name="description1">n the home screen, you can select one of the
-        pre-existing profiles or create a new profile.</string>
-    <string name="description2">A profile screen contains multiple
-        buttons that each have their own function. You can also edit a profile
-        by clicking on the “pencil” icon.</string>
-    <string name="description3">When editing a profile, you can change its name,
-        the order of the buttons and you can add and remove buttons. By typing the name of a program
-        in the “Associated programs” text field, you can connect a profile to a program. When you
-        have another profile open, and you open the associated program of another profile,
-        that associated profile will open.</string>
-    <string name="description4">You can change the name, picture/colour and description of
-        any macro.</string>
-    <string name="description5">You can edit the amount of repetitions and the delay between those
-        repetitions for each action. You can also create a new action by pressing the plus
-        button.</string>
-    <string name="description6">After pressing the plus button, you have to choose an action type.
-        After that you have to follow the instructions on the screen.</string>
-    <string name="description7">In the settings you can change the language and colour of the app.
-        And you can replay this tutorial.</string>
+    <string name="heading1">Начална страница</string>
+    <string name="heading2">Профили</string>
+    <string name="heading3">Редактиране на профил</string>
+    <string name="heading4">Вид макро</string>
+    <string name="heading5">Вид действие макро</string>
+    <string name="heading6">Действие макро</string>
+    <string name="heading7">Настройки</string>
+    <string name="description1">На началната страница можете да изберете
+        вече съществуващ профил или да създадете нов.</string>
+    <string name="description2">Всеки профил съдържа няколко бутона,
+        всеки от които има различна функция. Можете да редактирате
+        профила като кликнете на "молива".</string>
+    <string name="description3">Докато редактирате профил можете да смените името му
+        и реда на бутоните в него, както и да добавите или премахнете бутони.
+        Ако добавите името на програма в полето с текст "Свързана програма",
+        можете да свържете профила с програма. Ако сте отворили някой профил и
+        фокусирате програма свързана с друг такъв на компютъра си, профила свързан с
+        програмата ще стартира. </string>
+    <string name="description4">Можете да смените името, картинката или цвета,
+        както и описанието на всяко макро.</string>
+    <string name="description5">За всяко действие можете да редактирате броя на повторенията му,
+        както и времето между повторенията. Можете също така да създадете ново действие като
+        кликнете на бутона със знак плюс.</string>
+    <string name="description6">След като кликнете на бутона със знак плюс трябва да изберете
+        вид действие. След това следвайте инструкциите на екрана.</string>
+    <string name="description7">От настройките можете да промените езика и цвета на приложението,
+        както и да видите инструкциите отново.</string>
     <string name="editProfile_associatedPrograms">Свързани програми</string>
     <string name="macroSelection_search">Търси</string>
     <!-- Strings related to Settings -->
