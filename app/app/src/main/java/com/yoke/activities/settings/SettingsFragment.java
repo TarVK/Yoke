@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.yoke.R;
 
 import com.yoke.Helper.MainApp;
+import com.yoke.activities.tutorial.TutorialActivity;
 import com.yoke.connection.Message;
 import com.yoke.connection.messages.OpenURLCmd;
 import com.yoke.connection.Connection;
@@ -35,6 +36,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     CheckBoxPreference mainColor;
     //for future versions
     Preference connection;
+    Preference tutorial;
     Preference about;
 
     @Override
@@ -57,11 +59,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         color = findPreference("color");
         mainColor = (CheckBoxPreference)findPreference("primary");
         connection = findPreference("connection");
+        tutorial = findPreference("tutorial");
         about = findPreference("about");
 
         setOnClickListenerLanguage();
         setOnClickListenerColor();
         setOnClickListenerMainColor();
+        setOnClickListenerTutorial();
         setOnClickListenerAbout();
 
     }
@@ -262,9 +266,31 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
+   /** Sets an onClickListener on tutorial that starts the tutorial activity
+     * @pre {@code tutorial <> null}
+     * @modifies onPreferenceClick() method
+     * @returns true
+     * @post tutorial activity is shown to the user
+     * @throws NullPointerException if tutorial == null
+     */
+    private void setOnClickListenerTutorial() {
+        if (tutorial == null) {
+            throw new NullPointerException("tutorial preference cannot be null");
+        }
+        tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent i = new Intent(getContext(), TutorialActivity.class);
+                startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                return true;
+            }
+        });
+
+    }
+
     /** Sets an onClickListener on about that links to our README.md
      * @pre {@code about <> null}
-     * @modifies onPreferenceClick() method and connection
+     * @modifies onPreferenceClick() method
      * @returns true
      * @post a message is sent to computer that opens a browser showing out README.md
      * @throws NullPointerException if about == null

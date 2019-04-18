@@ -17,9 +17,7 @@ import android.view.WindowManager;
 
 
 import com.example.yoke.R;
-import com.yoke.Helper.LocaleManager;
 import com.yoke.Helper.MainApp;
-import com.yoke.activities.settings.SettingsFragment;
 
 public class BaseActivity extends AppCompatActivity {
 

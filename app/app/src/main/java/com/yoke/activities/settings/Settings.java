@@ -27,6 +27,7 @@ public class Settings extends BaseActivity {
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        //adds the preference screen
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null){
                 return;
