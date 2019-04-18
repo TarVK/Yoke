@@ -44,7 +44,7 @@
         android:layout_below="@+id/slide_heading"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"

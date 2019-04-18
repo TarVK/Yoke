@@ -11,8 +11,9 @@
         android:id="@+id/slideViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="82dp">
-    </android.support.v4.view.ViewPager>
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="82dp"></android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/dotsLayout"
