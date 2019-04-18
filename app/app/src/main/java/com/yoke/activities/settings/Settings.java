@@ -3,11 +3,8 @@ package com.yoke.activities.settings;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.activities.BaseActivity;
@@ -19,13 +16,14 @@ public class Settings extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Toolbar toolbar = findViewById(R.id.toolbarSettings);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //sets the new theme colour
-        this.setNewThemeColour(R.id.toolbarSettings, Toolbar.class);
+        this.setNewThemeColour(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         //adds the preference screen
         if (findViewById(R.id.fragment_container) != null) {
@@ -34,10 +32,7 @@ public class Settings extends BaseActivity {
             }
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,
                     new SettingsFragment()).commit();
-
         }
-
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
     }
 }

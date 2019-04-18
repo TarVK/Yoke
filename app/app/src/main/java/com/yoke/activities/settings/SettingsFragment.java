@@ -5,15 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.preference.CheckBoxPreference;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.yoke.R;
-
 import com.yoke.Helper.MainApp;
 import com.yoke.activities.tutorial.TutorialActivity;
 import com.yoke.connection.Message;
@@ -273,20 +271,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
      * @post tutorial activity is shown to the user
      * @throws NullPointerException if tutorial == null
      */
-    private void setOnClickListenerTutorial() {
-        if (tutorial == null) {
-            throw new NullPointerException("tutorial preference cannot be null");
-        }
-        tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent i = new Intent(getContext(), TutorialActivity.class);
-                startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                return true;
-            }
-        });
+   private void setOnClickListenerTutorial() {
+       if (tutorial == null) {
+           throw new NullPointerException("tutorial preference cannot be null");
+       }
+       tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+           @Override
+           public boolean onPreferenceClick(Preference preference) {
+               Intent i = new Intent(getContext(), TutorialActivity.class);
+               startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+               return true;
+           }
+       });
 
-    }
+   }
 
     /** Sets an onClickListener on about that links to our README.md
      * @pre {@code about <> null}

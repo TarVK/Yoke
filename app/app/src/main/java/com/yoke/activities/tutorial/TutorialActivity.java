@@ -1,9 +1,8 @@
 package com.yoke.activities.tutorial;
 
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import com.example.yoke.R;
 import com.yoke.activities.BaseActivity;
 import com.yoke.activities.settings.Settings;
-import com.yoke.activities.splash.SplashActivity;
 
 public class TutorialActivity extends BaseActivity {
 

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import com.yoke.connection.Connection;
 import com.yoke.connection.messages.connection.Connected;

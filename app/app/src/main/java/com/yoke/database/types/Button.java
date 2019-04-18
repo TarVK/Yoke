@@ -2,7 +2,6 @@ package com.yoke.database.types;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
 import android.content.Context;

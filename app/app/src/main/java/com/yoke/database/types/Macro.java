@@ -7,7 +7,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;

@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.yoke.activities.mouse.MouseActivity;
@@ -17,7 +16,6 @@ import com.yoke.connection.messages.app.OpenTrackpadCmd;
 import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.types.Profile;
-import com.yoke.utils.DataCallback;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
