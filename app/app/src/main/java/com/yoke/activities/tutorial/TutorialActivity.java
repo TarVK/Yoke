@@ -73,7 +73,7 @@ public class TutorialActivity extends BaseActivity {
      */
     public void addDotsIndicator(int position) {
         mDotLayout.removeAllViews();
-        mDots = new TextView[3];
+        mDots = new TextView[7];
 
         for(int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
