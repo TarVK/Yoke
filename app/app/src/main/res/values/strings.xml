@@ -11,14 +11,32 @@
     <string name="tutorialBtn" translatable="false">Tutorial</string>
     <string name="splashBtn" translatable="false">Splash/Tutorial</string>
     <string name="title_activity_mouse" translatable="false">MouseActivity</string>
-    <string name="heading1">Homescreen</string>
-    <string name="heading2">Profilescreen</string>
-    <string name="heading3">Settings</string>
-    <string name="description1">Here you can create new profiles
-      and select existing ones.</string>
-    <string name="description2">This screen contains your macros.</string>
-    <string name="description3">Here you can change the language and
-      such.</string>
+    <string name="heading1">Home Screen</string>
+    <string name="heading2">Profile Screen</string>
+    <string name="heading3">Profile Edit Screen</string>
+    <string name="heading4">Macro Appearance</string>
+    <string name="heading5">Macro Action</string>
+    <string name="heading6">Macro Action Type</string>
+    <string name="heading7">Settings</string>
+    <string name="description1">On the home screen, you can select one of the
+        pre-existing profiles or create a new profile.</string>
+    <string name="description2">A profile screen contains multiple
+        buttons that each have their own function. You can also edit a profile
+        by clicking on the “pencil” icon.</string>
+    <string name="description3">When editing a profile, you can change its name,
+        the order of the buttons and you can add and remove buttons. By typing the name of a program
+        in the “Associated programs” text field, you can connect a profile to a program. When you
+        have another profile open, and you open the associated program of another profile,
+        that associated profile will open.</string>
+    <string name="description4">You can change the name, picture/colour and description of
+        any macro.</string>
+    <string name="description5">You can edit the amount of repetitions and the delay between those
+        repetitions for each action. You can also create a new action by pressing the plus
+        button.</string>
+    <string name="description6">After pressing the plus button, you have to choose an action type.
+        After that you have to follow the instructions on the screen.</string>
+    <string name="description7">In the settings you can change the language and colour of the app.
+        And you can replay this tutorial.</string>
     <string name="editProfile_associatedPrograms">Associated programs (csv)</string>
     <string name="macroSelection_search">Search</string>
 

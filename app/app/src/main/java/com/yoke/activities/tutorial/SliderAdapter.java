@@ -25,9 +25,13 @@ public class SliderAdapter extends PagerAdapter {
      * The images for on the slides
      */
     public int[] slide_images = {
-            R.drawable.eat_icon,
-            R.drawable.sleep_icon,
-            R.drawable.code_icon
+            R.drawable.home_screen,
+            R.drawable.profile_screen,
+            R.drawable.profile_edit_screen,
+            R.drawable.macro_appearance_screen,
+            R.drawable.macro_action_screen,
+            R.drawable.macro_action_type_screen,
+            R.drawable.settings_screen
     };
 
     /**
@@ -36,7 +40,11 @@ public class SliderAdapter extends PagerAdapter {
     public int[] slide_headings = {
             R.string.heading1,
             R.string.heading2,
-            R.string.heading3
+            R.string.heading3,
+            R.string.heading4,
+            R.string.heading5,
+            R.string.heading6,
+            R.string.heading7
     };
 
     /**
@@ -45,7 +53,11 @@ public class SliderAdapter extends PagerAdapter {
     public int[] slide_descs = {
             R.string.description1,
             R.string.description2,
-            R.string.description3
+            R.string.description3,
+            R.string.description4,
+            R.string.description5,
+            R.string.description6,
+            R.string.description7
     };
 
     /**

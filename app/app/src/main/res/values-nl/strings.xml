@@ -8,13 +8,31 @@
     <string name="tutorialBtn" translatable="false">Tutorial</string>
     <string name="splashBtn" translatable="false">Splash/Tutorial</string>
     <string name="title_activity_mouse" translatable="false">MouseActivity</string>
-    <string name="heading1">Thuis scherm</string>
-    <string name="heading2">Profielen scherm</string>
-    <string name="heading3">Instellingen</string>
-    <string name="description1">Hier kan je nieuwe profielen maken en bestaande
-        profielen selecteren.</string>
-    <string name="description2">Dit scherm bevat je macros</string>
-    <string name="description3">Hier kan je onder andere de taal aanpassen.</string>
+    <string name="heading1">Thuis Scherm</string>
+    <string name="heading2">Profiel Scherm</string>
+    <string name="heading3">Profiel Bewerken Scherm</string>
+    <string name="heading4">Geassocieerd Programma</string>
+    <string name="heading5">Macro Uiterlijk</string>
+    <string name="heading6">Macro Actie</string>
+    <string name="heading7">Instellingen</string>
+    <string name="description1">Op het thuis scherm kun je een bestaand profiel selecteren,
+        of een nieuw profiel creëren.</string>
+    <string name="description2">Een profiel bevat meerdere knoppen, elk met zijn eigen functie.
+        Je kunt een profiel bewereken door op het potlood icoon te drukken.</string>
+    <string name="description3">Hier kan je de naam en de volgorde van de knoppen veranderen.
+        En je kunt knoppen verwijderen en toevoegen. Door een naam van een programma in het
+        “Geassocieerd programma” text veld te typen, kun je een profiel verbinden aan een porgramma.
+        Wanneer een ander profiel open is, en je opent het geassocieerde programma,
+        zal het geassocieerde profiel vanzelf openen.</string>
+    <string name="description4">Je kunt de naam, plaatje/kleur en beschrijving van elke macro
+        aanpassen.</string>
+    <string name="description5">Je kunt het aantal herhalingen en de tijd tussen herhalingen van een
+        actie aanpassen. En je kunt een nieuwe actie maken door op de knop met de plus te
+        drukken.</string>
+    <string name="description6">Nadat je op de knop met de plus hebt gedrukt, moet je een
+        actie type kiezen. Voor verdere stappen volg je de instructies op het scherm.</string>
+    <string name="description7">Bij de instellingen kun je de taal en de kleur van de app aanpassen.
+        En je kunt deze tutorial nog eens afspelen.</string>
     <string name="editProfile_associatedPrograms">Geassocieerd programma (csv)</string>
     <string name="macroSelection_search">Zoeken</string>
 
