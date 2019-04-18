@@ -21,6 +21,7 @@ public class Settings extends BaseActivity {
         setContentView(R.layout.activity_settings);
         Toolbar toolbar = findViewById(R.id.toolbarSettings);
         setSupportActionBar(toolbar);
+        //sets the new theme colour
         this.setNewThemeColour(R.id.toolbarSettings, Toolbar.class);
         ActionBar actionBar = getSupportActionBar();
 

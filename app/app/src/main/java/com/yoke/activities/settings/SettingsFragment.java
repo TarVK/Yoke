@@ -31,7 +31,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     Preference language;
     Preference color;
+    //the following preference, when checked goes back to the main colour scheme
     CheckBoxPreference mainColor;
+    //for future versions
     Preference connection;
     Preference about;
 
