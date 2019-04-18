@@ -3,11 +3,7 @@ package com.yoke.Helper;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.util.Log;
-
-import com.yoke.activities.settings.Settings;
-import com.yoke.activities.settings.SettingsFragment;
 
 public class MainApp extends Application {
 

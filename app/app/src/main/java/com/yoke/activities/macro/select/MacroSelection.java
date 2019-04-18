@@ -4,31 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.activities.BaseActivity;
 import com.yoke.activities.macro.MacroActivity;
-import com.yoke.database.types.Button;
 import com.yoke.database.types.Macro;
-import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 public class MacroSelection extends BaseActivity {
 
@@ -51,8 +42,8 @@ public class MacroSelection extends BaseActivity {
         recyclerView = findViewById(R.id.recyclerView);
         search = findViewById(R.id.search);
         fabMacro = findViewById(R.id.createMacro);
-        this.setNewThemeColour(R.id.createMacro, FloatingActionButton.class);
-        this.setNewThemeColour(-1, Window.class);
+        this.setNewThemeColour(fabMacro);
+        this.setNewThemeColour(getWindow());
 
         profileID = getIntent().getLongExtra("profile id", -1);
 
@@ -72,6 +63,7 @@ public class MacroSelection extends BaseActivity {
             newMacro.save(this, () -> {
                 Log.d(TAG, "FAB: create new Macro, mID: " + newMacro.getID());
 
+                // Return to MacroActivity
                 Intent intent = new Intent(this, MacroActivity.class);
                 intent.putExtra("profile id", profileID);
                 intent.putExtra("macro id", newMacro.getID());

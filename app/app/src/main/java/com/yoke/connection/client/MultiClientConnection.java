@@ -2,8 +2,6 @@ package com.yoke.connection.client;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.util.Log;
 
 import com.yoke.activities.splash.SplashActivity;
 import com.yoke.connection.Connection;

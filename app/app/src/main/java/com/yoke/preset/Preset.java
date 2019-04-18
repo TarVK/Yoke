@@ -2,7 +2,6 @@ package com.yoke.preset;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.util.MutableInt;
 
 import com.yoke.connection.Message;
 import com.yoke.database.types.Button;

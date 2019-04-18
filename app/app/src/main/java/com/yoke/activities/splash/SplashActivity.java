@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.yoke.R;
-import com.yoke.activities.BaseActivity;
 import com.yoke.activities.home.HomeActivity;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;

@@ -7,7 +7,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,7 +43,7 @@ public class ProfileActivity extends BaseActivity {
         profileName = (TextView) findViewById(R.id.profileTextView);
         ImageView edit = (ImageView) findViewById(R.id.beginEdit);
 
-        this.setNewThemeColour(-1, Window.class);
+        this.setNewThemeColour(getWindow());
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 

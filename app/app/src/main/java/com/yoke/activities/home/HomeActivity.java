@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,20 +11,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.widget.ImageView;
 
 import com.example.yoke.R;
+import com.yoke.activities.BaseActivity;
 import com.yoke.activities.motionDetector.ShakeService;
 import com.yoke.activities.profileEdit.ProfileEditActivity;
+import com.yoke.activities.settings.Settings;
 import com.yoke.database.types.Profile;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import java.util.Comparator;
-
-import com.yoke.activities.BaseActivity;
-import com.yoke.activities.profileEdit.ItemMoveCallback;
-import com.yoke.activities.profileEdit.ProfileEditActivity;
-import com.yoke.activities.settings.Settings;
-import com.yoke.database.types.Profile;
 
 public class HomeActivity extends BaseActivity {
     FloatingActionButton button; // The add profile button
@@ -49,10 +41,10 @@ public class HomeActivity extends BaseActivity {
 
         // Add all ids to their variable
         button = findViewById(R.id.createProfile);
-        this.setNewThemeColour(R.id.createProfile, FloatingActionButton.class);
+        this.setNewThemeColour(button);
         settings = findViewById(R.id.settingsButton);
         toolbar = findViewById(R.id.toolbar);
-        this.setNewThemeColour(R.id.toolbar, Toolbar.class);
+        this.setNewThemeColour(toolbar);
         setSupportActionBar(toolbar);
 
         Intent shake = new Intent(this, ShakeService.class);

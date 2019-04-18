@@ -1,12 +1,7 @@
 package com.yoke.activities.mouse;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -37,7 +32,7 @@ public class MouseActivity extends BaseActivity {
         setContentView(R.layout.activity_mouse);
         connection = MultiClientConnection.getInstance(this); // Gets the connection
         Toolbar toolbar = findViewById(R.id.toolbar);
-        this.setNewThemeColour(R.id.toolbar, Toolbar.class);
+        this.setNewThemeColour(toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Track Pad");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

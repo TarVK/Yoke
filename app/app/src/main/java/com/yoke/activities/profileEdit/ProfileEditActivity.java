@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -59,7 +58,7 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
         setContentView(R.layout.activity_profile_edit);
         Toolbar toolbar = findViewById(R.id.toolbarEdit);
 
-        this.setNewThemeColour(-1, Window.class);
+        this.setNewThemeColour(getWindow());
 
         profileName = (EditText) findViewById(R.id.profileEditTextView);
         associatedPrograms = (EditText) findViewById(R.id.associatedPrograms);

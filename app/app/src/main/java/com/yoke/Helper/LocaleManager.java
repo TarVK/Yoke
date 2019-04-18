@@ -7,12 +7,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v7.preference.Preference;
-import android.util.Log;
-
-import static android.os.Build.VERSION_CODES.N;
-
-import com.yoke.activities.settings.SettingsFragment;
 
 import java.util.Locale;
 

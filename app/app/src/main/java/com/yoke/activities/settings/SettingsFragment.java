@@ -5,20 +5,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.preference.CheckBoxPreference;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.yoke.R;
-
 import com.yoke.Helper.MainApp;
-import com.yoke.connection.Message;
-import com.yoke.connection.messages.OpenURLCmd;
 import com.yoke.connection.Connection;
+import com.yoke.connection.Message;
 import com.yoke.connection.client.MultiClientConnection;
+import com.yoke.connection.messages.OpenURLCmd;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 

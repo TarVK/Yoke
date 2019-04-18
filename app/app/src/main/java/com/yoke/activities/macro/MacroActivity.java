@@ -8,39 +8,29 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.activities.BaseActivity;
 import com.yoke.activities.macro.tabs.MacroAppearance;
 import com.yoke.activities.macro.tabs.MacroSequence;
-import com.yoke.activities.profile.ProfileActivity;
 import com.yoke.activities.profileEdit.ProfileEditActivity;
 import com.yoke.connection.ComposedMessage;
 import com.yoke.connection.CompoundMessage;
-import com.yoke.connection.Message;
 import com.yoke.connection.RepeatMessage;
 import com.yoke.database.types.Macro;
-import com.yoke.database.types.Profile;
 import com.yoke.utils.Callback;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class MacroActivity extends BaseActivity {
 
     private static final String TAG = "MacroActivity";
-
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
 
     private Long macroID;
     public Macro macro;
@@ -54,19 +44,17 @@ public class MacroActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //following line necessary in order to allow colour change
-        this.setNewThemeColour(R.id.toolbar, Toolbar.class);
+        this.setNewThemeColour(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        //following line necessary in order to allow colour change
-        this.setNewThemeColour(R.id.tabs, TabLayout.class);
+        this.setNewThemeColour(tabLayout);
 
         Long profileID = getIntent().getLongExtra("profile id", 0);
         Long macroID = getIntent().getLongExtra("macro id", 0);
@@ -74,6 +62,7 @@ public class MacroActivity extends BaseActivity {
 
         EditText macroName = findViewById(R.id.macroName);
 
+        // Retrieve current Macro properties
         Macro.getByID(this, macroID, (macro) -> {
             String name = macro.getName();
             macroName.setText(name);
@@ -83,6 +72,7 @@ public class MacroActivity extends BaseActivity {
         findViewById(R.id.finishEdit).setOnClickListener(v -> {
             macro.setName(macroName.getText().toString());
 
+            // Convert RepeatMessages to CompoundMessage for Macro.action
             CompoundMessage cm = new CompoundMessage();
             for (RepeatMessage rm : mRepeatMessage) {
                 for (ComposedMessage.MessageDelay md : rm) {
@@ -105,7 +95,6 @@ public class MacroActivity extends BaseActivity {
             });
         });
 
-
         // Hide keyboard after done
         macroName.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -121,7 +110,7 @@ public class MacroActivity extends BaseActivity {
 
     /**
      * Retrieves the macro and stores it
-     * @param callback  Gets called once the macro has been loaded
+     * @param callback Callback which contains the Macro
      */
     public void loadMacro(Callback callback) {
         // first check if the macro hasn't been loaded already
@@ -142,10 +131,10 @@ public class MacroActivity extends BaseActivity {
                 return;
             }
 
+            // Call loading callback for Macro
             Macro.getByID(this, macroID, macro -> {
                 runOnUiThread(() -> {
                     MacroActivity.this.macro = macro;
-
                     if (macro != null) {
                         for(Callback cb: callbacks) {
                             cb.call();
@@ -156,7 +145,6 @@ public class MacroActivity extends BaseActivity {
                 });
             });
         }
-
         callbacks.add(callback);
     }
 
@@ -198,13 +186,11 @@ public class MacroActivity extends BaseActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        // Since the profile activity finished, we can't just use back navigation
         Long profileID = getIntent().getLongExtra("profile id", 0);
         Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
         intent.putExtra("profile id", profileID);
         startActivity(intent);
         finish();
-
         return true;
     }
 }
