@@ -156,7 +156,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void setUpColor() {
         colorPrimary = ContextCompat.getColor(getContext(), R.color.colorPrimary);
         if (!preferences.contains("color")) {
-            System.out.println("No color set");
             editor.putInt("color", colorPrimary);
             editor.apply();
         }

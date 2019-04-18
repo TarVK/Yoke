@@ -1,6 +1,5 @@
 package com.yoke.activities.settings;
 
-
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.preference.PreferenceManager;
@@ -11,12 +10,13 @@ import com.yoke.activities.BaseActivity;
 
 public class Settings extends BaseActivity {
 
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //sets the new theme colour
         this.setNewThemeColour(toolbar);

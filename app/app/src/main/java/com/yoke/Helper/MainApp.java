@@ -9,30 +9,19 @@ public class MainApp extends Application {
 
     private final String TAG = "MainApp";
 
+    //the locale manager takes care of updating the app language independently
+    // from the device's language
     public static LocaleManager localeManager;
-
-//    public MainApp() {
-//        super();
-//        localeManager = new LocaleManager(this.getApplicationContext());
-//    }
-//
-//    public MainApp(LocaleManager localeManager) {
-//        super();
-//        this.localeManager = localeManager;
-//    }
 
     @Override
     protected void attachBaseContext(Context base){
         localeManager = new LocaleManager(base);
         super.attachBaseContext(localeManager.setLocale(base));
-        Log.d(TAG, "attachBaseContent");
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         localeManager.setLocale(getApplicationContext());
-        Log.d(TAG, "onConfigurationChanged");
-
     }
 }
