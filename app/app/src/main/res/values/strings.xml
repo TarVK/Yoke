@@ -64,6 +64,7 @@
 
 
     <string name="color">Colour</string>
+    <string name="backToMain">Default Colour Theme</string>
     <string name="light">Night Theme</string>
 
     <string name="connection">Connection type</string>

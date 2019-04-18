@@ -4,89 +4,94 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.util.Log;
-import android.widget.Toolbar;
+import android.widget.Toast;
 
 import com.example.yoke.R;
 import com.yoke.Helper.MainApp;
-import com.yoke.activities.BaseActivity;
-import com.yoke.activities.home.HomeActivity;
-import com.yoke.activities.tutorial.TutorialActivity;
+import com.yoke.connection.Connection;
+import com.yoke.connection.Message;
+import com.yoke.connection.client.MultiClientConnection;
+import com.yoke.connection.messages.OpenURLCmd;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
-
-import static com.yoke.activities.splash.GlobalMessageReceiver.getActivity;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     public static SharedPreferences preferences;
-    //TypedArray colorTypedArray;
     AmbilWarnaDialog colorPicker;
-//    Toolbar toolbar;
+    int colorPrimary;
+    SharedPreferences.Editor editor;
+
+    Preference language;
+    Preference color;
+    CheckBoxPreference mainColor;
+    Preference connection;
+    Preference about;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        localeManager = new LocaleManager(getContext());
 
         Resources res = getContext().getResources();
         android.content.res.Configuration conf = res.getConfiguration();
-        //toolbar = BaseActivity.get
-        //addPreferencesFromResource(R.xml.preferences);
-        //ListPreference colorPicker = new ColorPickerDialog(getContext());
     }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
 
-//        if (getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE) == null) {
-//            Log.e("preferences empty", "true");
-//            preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-//        }
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        editor = preferences.edit();
 
-//        getPreferenceScreen().setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//            @Override
-//            public boolean onPreferenceClick(Preference preference) {
-//                System.out.println(preference.getKey());
-//                if (preference.getKey() == "tutorial") {
-////                    startActivity(new Intent((getActivity()), TutorialActivity.class));
-//                    System.out.println("Tutorial clicked");
-//                } else if (preference.getKey() == "about") {
-//                    //github README.txt
-//                } else if (preference.getKey() == "color") {
-//                    Log.e("clicked", "so far so good");
-//
-//                    colorPicker.show();
-//                }
-//
-//                return true;
-//            }
-//        });
+        //sets the value of the preference variables to their corresponding preferences from preferences.xml
+        language = findPreference("language");
+        color = findPreference("color");
+        mainColor = (CheckBoxPreference)findPreference("primary");
+        connection = findPreference("connection");
+        about = findPreference("about");
 
-        //Language preference
-        Preference language = findPreference("language");
+        setOnClickListenerLanguage();
+        setOnClickListenerColor();
+        setOnClickListenerMainColor();
+        setOnClickListenerAbout();
 
+    }
+
+    /** Set up for the language preference - Creates language preference if it does not exist yet,
+     *  sets summary to current language
+     * @pre true
+     * @modifies {@code preferences.getString("language");
+     *                  language.getSummary()}
+     * @returns void
+     * @post {@code preferences.contains("language");
+     *              language.getSummary() <> null;
+     *              language.getSummary().equals(currentLanguage) }
+     */
+    private void setUpLanguage() {
         if (!preferences.contains("language")) {
-            //the following line was changed since i last checked that language change works
             editor.putString("language", "en");
             editor.apply();
             setLanguageSummary(language, "en");
         }
 
         setLanguageSummary(language, preferences.getString("language", "default"));
+    }
 
-
+    /** Sets an OnClickListener on language preference, that updates preference value
+     * and application language
+     * @pre {@code language <> null} (setUpLanguage ensures it holds - no need to check here)
+     * @modifies onPreferenceChange() method
+     * @returns void
+     * @post {@code preferences.getString("language").equals(o.toString())
+     *              locale.getLanguage().equals(o.toString)}
+     */
+    private void setOnClickListenerLanguage() {
+        setUpLanguage();
         language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference language, Object o) {
@@ -98,32 +103,78 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+    }
 
-        //Colour Preference
-        Preference color = findPreference("color");
+    /** Updates language
+     * @pre {@code language <> null}
+     * @param language - new language
+     * @returns void
+     * @post locale.getLanguage().equals(o.toString())
+     * @throws NullPointerException if language == null
+     */
+    private void setNewLocale(String language) {
+        if (language == null) {
+            throw new NullPointerException("language cannot be null");
+        }
+        //call to the app's localeManager
+        MainApp.localeManager.setNewLocale(getContext(), language);
+        resetActivity();
+    }
+
+    /** Sets the summary for the Language Preference depending on the current language value
+     * @pre {@code language <> null && (newLang.equals("en") || newLang.equals("nl") || newLang.equals("bg"))}
+     * @param language preference
+     * @param newLang new language string
+     * @throws NullPointerException if language == null
+     * @throws IllegalArgumentException if {@code !(newLang.equals("en") || newLang.equals("nl") || newLang.equals("bg"))}
+     */
+    private void setLanguageSummary(Preference language, String newLang) {
+        if (language == null) {
+            throw new IllegalArgumentException("laguage cannot be null");
+        } else if(newLang.equals("en")) {
+            language.setSummary("English (default)");
+        } else if (newLang.equals("nl")) {
+            language.setSummary("Nederlands");
+        } else if (newLang.equals("bg")){
+            language.setSummary("Български");
+        } else {
+            throw new IllegalArgumentException("This language is not supported yet");
+        }
+    }
+
+    /** Makes sure the color preference exists
+     * @pre true
+     * @modifies preferences
+     * @post {@code preferences.contains("color")}
+     */
+    private void setUpColor() {
+        colorPrimary = ContextCompat.getColor(getContext(), R.color.colorPrimary);
+        if (!preferences.contains("color")) {
+            System.out.println("No color set");
+            editor.putInt("color", colorPrimary);
+            editor.apply();
+        }
+    }
+
+    /** Sets an OnClickListener on color preference that updates preference value
+     * @pre {@code color <> null} (setUpColor ensures it holds - no need to check here)
+     * @modifies onPreferenceClick() method && color
+     * @returns false
+     * @post {@code preferences.getString("color") == color)}
+     */
+    private void setOnClickListenerColor() {
+        setUpColor();
+        int currentColor = preferences.getInt("color", 0);
         color.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                int colorPrimary = ContextCompat.getColor(getContext(), R.color.colorPrimary);
-                if (!preferences.contains("color")) {
-                    System.out.println("No color set");
-                    editor.putInt("color", colorPrimary);
-                    editor.apply();
-                }
-
-                int currentColor = preferences.getInt("color", 0);
                 colorPicker = new AmbilWarnaDialog(getContext(), currentColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
-
-                        Log.e("old color ", "is " + preferences.getInt("color", 0));
                         editor.putInt("color", color).apply();
-                        resetColor();
-                        Log.e("new color applied", "color is supposed to be" + color);
-                        Log.e("new color applied", "color is " + preferences.getInt("color", 0));
-
-                        Intent i = new Intent(getContext(), Settings.class);
-                        startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                        editor.putBoolean("default", false).apply();
+                        mainColor.setChecked(false);
+                        resetActivity();
                     }
 
                     @Override
@@ -131,14 +182,70 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         //nothing needed here
                     }
                 });
-
                 colorPicker.show();
                 return false;
             }
         });
 
-        //Connection preference
-        Preference connection = findPreference("connection");
+    }
+
+    /** Makes sure default preference exists
+     * @pre {@code mainColor <> null}
+     * @modifies preferences
+     * @returns void
+     * @post {@code preferences.contains("default")}
+     * @throws NullPointerException if {@code mainColor == null}
+     */
+    private void setUpMainColor() {
+        if (mainColor == null) {
+            throw new NullPointerException("mainColor cannot be null");
+        }
+        mainColor.setDefaultValue(true);
+        if (!preferences.contains("default")) {
+            editor.putBoolean("default", true);
+            editor.apply();
+            mainColor.setChecked(true);
+        }
+
+        //makes sure the checkbox doesn't behave in an unexpected way
+        if (mainColor.isChecked()) {
+            mainColor.setEnabled(false);
+        }
+    }
+
+    /** Sets an OnClickListener on default preference that updates preference value;
+     * Sets the colour theme to the default one
+     * @pre {@code mainColor <> null} (setUpMainColor ensures it holds - no need to check here)
+     * @modifies onPreferenceChange() method && default
+     * @returns true
+     * @post {@code preferences.getBoolean("default") == true
+     *              preferences.getInt("color") == colorPrimary}
+     */
+    private void setOnClickListenerMainColor() {
+        setUpMainColor();
+        mainColor.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                editor.putBoolean("default", (Boolean) o).apply();
+                editor.putInt("color", colorPrimary).apply();
+                resetActivity();
+                return true;
+            }
+        });
+    }
+
+    //for future versions
+    /** Sets an onClickListener on the connection preference that updates the preference's value
+     * @pre {@code connection <> null}
+     * @modifies onPreferenceChange() method and connection
+     * @returns true
+     * @post {@code preferences.getString("connection").equals(o.toString())}
+     * @throws NullPointerException if connection == null
+     */
+    private void setOnClickListenerConnection() {
+        if (connection == null) {
+            throw new NullPointerException("connection cannot be null");
+        }
         connection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -151,38 +258,41 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
-//    public static int getColor() {
-//        return preferences.getInt("color", ContextCompat.getColor(getContext(), R.color.colorPrimary));
-//    }
+    /** Sets an onClickListener on about that links to our README.md
+     * @pre {@code about <> null}
+     * @modifies onPreferenceClick() method and connection
+     * @returns true
+     * @post a message is sent to computer that opens a browser showing out README.md
+     * @throws NullPointerException if about == null
+     */
+    private void setOnClickListenerAbout() {
+        if (about == null) {
+            throw new NullPointerException("about cannot be null");
+        }
+        about.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                MultiClientConnection connection = MultiClientConnection.getInstance(getContext());
+                Message readMe = new OpenURLCmd("https://github.com/TarVK/Yoke/blob/master/README.md");
+                //ensures the connection is active
+                if (connection.getState() == Connection.CONNECTED) {
+                    connection.send(readMe);
+                } else {
+                    Toast.makeText(getContext(), "Command could not be sent. " + "\n Please make sure you are connected", Toast.LENGTH_LONG).show();
+                }
+                return true;
+            }
+        });
 
-    public static SharedPreferences preferences() {
-        return preferences;
     }
 
-    private void resetColor() {
+    /** Restarts activity - needed so that changes in settings can be observed
+     * @post settings activity is restarted
+     */
+    private void resetActivity() {
          Intent i = new Intent(getContext(), Settings.class);
          startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
-    private void setNewLocale(String language) {
-        MainApp.localeManager.setNewLocale(getContext(), language);
-
-        Intent i = new Intent(getContext(), Settings.class);
-        startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-
-    }
-
-
-    private void setLanguageSummary(Preference language, String newLang) {
-        if (newLang.equals("en")) {
-            language.setSummary("English (default)");
-        } else if (newLang.equals("nl")) {
-            language.setSummary("Nederlands");
-        } else if (newLang.equals("bg")){
-            language.setSummary("Български");
-        } else {
-            language.setSummary("something went wrong");
-        }
-    }
 
 }

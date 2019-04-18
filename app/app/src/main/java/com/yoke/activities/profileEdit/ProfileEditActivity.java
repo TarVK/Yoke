@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -60,7 +58,7 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
         setContentView(R.layout.activity_profile_edit);
         Toolbar toolbar = findViewById(R.id.toolbarEdit);
 
-        this.setNewThemeColour(-1, Window.class);
+        this.setNewThemeColour(getWindow());
 
         profileName = (EditText) findViewById(R.id.profileEditTextView);
         associatedPrograms = (EditText) findViewById(R.id.associatedPrograms);
@@ -71,9 +69,7 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
 
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-//        if (isLandscape) {
-//            toolbar.setVisibility(View.GONE);
-//        }
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -86,9 +82,9 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
         addMacro.setOnClickListener(v -> {
             if (profile.hasSpace()) {
                 // Save the profile before continuing
-                // TODO: add prompt asking whether you are sure you want to asve the profile
                 saveProfile(()->{
                     Intent intent = new Intent(getApplicationContext(), MacroSelection.class);
+                    //send over the corresponding profile id
                     intent.putExtra("profile id", profile.getID());
                     startActivity(intent);
                     finish();
@@ -103,9 +99,9 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
             long macroID = selectedButton.getMacro().getID();
 
             // Save the profile before continuing
-            // TODO: add prompt asking whether you are sure you want to save the profile
             saveProfile(()->{
                 Intent intent = new Intent(getApplicationContext(), MacroActivity.class);
+                //send over the corresponding profile and macro id
                 intent.putExtra("macro id", macroID);
                 intent.putExtra("profile id", profile.getID());
                 Log.w("REACHED", "MACRO CREATED");
@@ -119,14 +115,13 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
             int index = mButton.indexOf(selectedButton);
 
             profile.removeButton(selectedButton);
-//            selectedButton.delete();
             deletedButtons.add(selectedButton);
             mButton.remove(selectedButton);
             Log.w(TAG, "onClick: " + index);
 
+            //the deleted button is no longer visible
             adapter.notifyItemRangeChanged(index, mButton.size());
             adapter.notifyItemRemoved(index);
-//                adapter.notifyDataSetChanged();
 
         });
 

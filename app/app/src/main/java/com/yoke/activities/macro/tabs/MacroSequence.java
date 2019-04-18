@@ -1,16 +1,14 @@
 package com.yoke.activities.macro.tabs;
 
-import android.media.Image;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.yoke.R;
@@ -33,7 +31,7 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
 
     RecyclerView recyclerView;
     ItemTouchHelper dragHelper;
-    ImageView addAction;
+    FloatingActionButton addAction;
 
     // Adapter for the RecyclerView
     MacroSequenceAdapter adapter;
@@ -62,7 +60,8 @@ public class MacroSequence extends Fragment implements MacroSequenceStartDragLis
                 container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        addAction = (ImageView) view.findViewById(R.id.addAction);
+        addAction = (FloatingActionButton) view.findViewById(R.id.addAction);
+        activity.setNewThemeColour(addAction);
 
         CommandRequester commandRequester = new CommandRequester(getContext());
 

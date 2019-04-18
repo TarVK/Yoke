@@ -3,8 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
     <ListPreference
         holo:key="language"
         android:defaultValue="@string/en"
@@ -13,31 +11,31 @@
         android:title="@string/language">
     </ListPreference>
 
-   <!-- <ListPreference
-        holo:key="color"
-        android:defaultValue="@color/colorPrimary"
-        android:entries="@array/pref_color_entries"
-        android:entryValues="@array/pref_color_values"
-        android:title="@string/color">
-
-
-
-    </ListPreference> -->
-
-    <!--<yuku.ambilwarna.widget.AmbilWarnaPreference-->
     <Preference
         android:key="color"
         android:defaultValue="@color/colorPrimary"
+        android:disableDependentsState="true"
         android:title="@string/color" />
 
+    <CheckBoxPreference
+        android:key="primary"
+        android:title="@string/backToMain">
+        <!--android:summaryOff=""-->
+
+    </CheckBoxPreference>
+
+    <!-- for future versions-->
     <SwitchPreference
+        app:isPreferenceVisible="false"
         android:background="@color/colorPrimary"
         android:enabled="true"
         android:foreground="@color/colorPrimary"
         holo:key="light_theme"
         android:title="@string/light" />
 
+    <!-- for future version-->
     <ListPreference
+        app:isPreferenceVisible="false"
         android:title="@string/connection"
         android:defaultValue="@string/blu"
         android:entries="@array/pref_conn_entries"
@@ -48,11 +46,11 @@
     <Preference
         holo:key="tutorial"
         android:title="@string/tutorial">
+         <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.yoke.activities.tutorial"
+            android:targetPackage="com.package.name" />
     </Preference>
-    <!--<intent-->
-        <!--android:action="android.intent.action.VIEW"-->
-        <!--android:targetClass="com.yoke.activities.tutorial"-->
-        <!--android:targetPackage="com.package.name" />-->
 
     <Preference
         holo:key="about"

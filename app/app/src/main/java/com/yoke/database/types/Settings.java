@@ -4,7 +4,6 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Query;
-import android.content.Context;
 
 import com.yoke.database.DataBase;
 import com.yoke.database.DataObject;

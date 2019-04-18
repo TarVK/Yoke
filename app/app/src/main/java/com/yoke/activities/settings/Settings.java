@@ -2,12 +2,8 @@ package com.yoke.activities.settings;
 
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.yoke.R;
 import com.yoke.activities.BaseActivity;
@@ -19,13 +15,12 @@ public class Settings extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        // Doesn't seem to be required?
-        Toolbar toolbar = findViewById(R.id.toolbarSettings);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        this.setNewThemeColour(R.id.toolbarSettings, Toolbar.class);
-        ActionBar actionBar = getSupportActionBar();
+        this.setNewThemeColour(toolbar);
 
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null){
@@ -33,25 +28,7 @@ public class Settings extends BaseActivity {
             }
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,
                     new SettingsFragment()).commit();
-
         }
-//
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
-
-
-        // Definitely don't do this: can't just put android layout components in the settings xml
-        // That's also why you shouldn't place it in the layout's folder, it isn't a layout
-        // It is a different type of xml file, that just stores settings data
-        // Changing values should be done from the fragment
-
-//        textViewLang = findViewById(R.id.currLanguage);
-//        textViewLang.setText(com.yoke.database.types.Settings.getInstance().getLanguage());
-//
-//        textViewConn = findViewById(R.id.currConn);
-//        textViewConn.setText(com.yoke.database.types.Settings.getInstance().getConnectionType());
-
-
-
     }
 }

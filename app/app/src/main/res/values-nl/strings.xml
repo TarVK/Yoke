@@ -60,7 +60,7 @@
 
 
     <string name="color">Kleur</string>
-
+    <string name="backToMain">Standaard kleurenthema</string>
     <string name="light">Nacht thema</string>
     <string name="connection">Connectie type</string>
 

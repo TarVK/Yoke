@@ -3,12 +3,10 @@ package com.yoke.activities.profile;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +32,7 @@ public class ProfileActivity extends BaseActivity {
 //    private TextView profile_name = findViewById(R.id.textView);
 
     public Profile profile; //declare the profile object we are going to use
-    boolean isLandscape;
+    boolean isLandscape; //checks whether the phone is rotated or not
 
 
 
@@ -45,10 +43,11 @@ public class ProfileActivity extends BaseActivity {
         profileName = (TextView) findViewById(R.id.profileTextView);
         ImageView edit = (ImageView) findViewById(R.id.beginEdit);
 
-        this.setNewThemeColour(-1, Window.class);
+        this.setNewThemeColour(getWindow());
         isLandscape =
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
+        //Toolbar is removed when the phone is rotated due to spacing issue
         if (isLandscape) {
             toolbar.setVisibility(View.GONE);
         }
@@ -94,47 +93,17 @@ public class ProfileActivity extends BaseActivity {
         });
 
 
-        //not sure which way is better
-//        DataBase.initialize(this, new DataObject.Callback() {
-//            @Override
-//            public void call() {
-//                Profile.getAll(profiles -> {
-//                    for (Profile profile : profiles) {
-//                        profile.getID();
-//                        profile.getIndex();
-//                        profile.getWidth();
-//                        profile.getHeight();
-//                        mButton.addAll(profile.getButtons());
-////                        profile_name.setText(profile.getName());
-//
-//                    }
-//                });
-//
-//                Profile.getAll(profiles -> {
-//                    profile = profiles.get(i);
-//                    mButton.addAll(profile.getButtons());
-//                });
-//
-////                Profile.getByID();
-//                for (com.yoke.database.types.Button layout_button : mButton) {
-//                    mImageID.add((int) layout_button.getIndex());
-//                    //add the layout_button index for positioning buttons
-//                    mMacro.add(layout_button.getMacro());
-//
-//                }
-//
-//            }
-//        });
-
     }
 
-    //uses the rercycler view
+    //uses the rercycler view to visualize each profile that holds saved macros and settings
     private void myRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         ButtonsRecyclerViewAdapter adapter =
                 new ButtonsRecyclerViewAdapter(this, buttons);
 
+        //the default number of columns of buttons on portrait mode is 2
         int columns = 2;
+        //if rotated three rows columns are used instead
         if (isLandscape) {
             columns = 3;
         }
