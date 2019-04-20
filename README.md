@@ -5,7 +5,7 @@ Yoke is an android app that that provides extra macro keys for your computer. Th
 ## Installation
 Yoke has only been tested and confirmed to work on windows 10, but might also work on different operating systems.
 
-It consists of two parts: A receiver and the app. The receiver is a runnable jar file which you can just start whenever you want to use it, or you may enable auto startup from the tray menu after running it once. This jar can be obtained in the [releases tab](https://github.com/TarVK/Yoke/releases). The app may also be obtained in the [releases tab](https://github.com/TarVK/Yoke/releases), or obtained from [Google Play](https://play.google.com/store/search?q=Yoke).
+It consists of two parts: A receiver and the app. The receiver is a runnable jar file which you can just start whenever you want to use it, or you may enable auto startup from the tray menu after running it once. This jar can be obtained in the [releases tab](https://github.com/TarVK/Yoke/releases). The app may also be obtained in the [releases tab](https://github.com/TarVK/Yoke/releases), or obtained from [Google Play](https://play.google.com/store/apps/details?id=com.codepex.yoke).
 
 ## App details
 ### Profiles
@@ -83,3 +83,15 @@ The course ran from 06-02-2019 until 21-04-2019 after which the first working ve
 ## Contributing
 
 Any contributions to the project are welcome, but generally it is unlikely that the project will be maintained by any of the original creators. Feel free to fork this repository and do whatever you want with it, including copying code for other projects.
+
+## Credits
+
+We have used some codes and guides from other authors and want to properly credit them below.
+
+[Journaldev’s draglistener](https://github.com/journaldev/journaldev/tree/master/Android/AndroidRecyclerViewDragAndDrop) was used as a base for the following files:
+-ItemMoveCallback.java
+-ButtonEditRecyclerViewAdapter.java: 
+ 
+[https://demonuts.com/android-shake-detection/](https://demonuts.com/android-shake-detection/) was used as a guide for:
+-ShakeService.java
+
