@@ -258,6 +258,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 editor.putString("connection", o.toString());
                 editor.apply();
 
+                // TODO: initialize new connection
+
                 return true;
             }
         });
@@ -278,8 +280,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
        tutorial.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
            @Override
            public boolean onPreferenceClick(Preference preference) {
-               Intent i = new Intent(getContext(), TutorialActivity.class);
-               startActivity(i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+               startActivity(new Intent(getContext(), TutorialActivity.class));
                return true;
            }
        });
@@ -290,7 +291,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
      * @pre {@code about <> null}
      * @modifies onPreferenceClick() method
      * @returns true
-     * @post a message is sent to computer that opens a browser showing out README.md
+     * @post a message is sent to computer that opens a browser showing our README.md
      * @throws NullPointerException if about == null
      */
     private void setOnClickListenerAbout() {
