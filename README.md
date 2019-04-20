@@ -89,9 +89,9 @@ Any contributions to the project are welcome, but generally it is unlikely that 
 We have used some codes and guides from other authors and want to properly credit them below.
 
 [Journaldev’s draglistener](https://github.com/journaldev/journaldev/tree/master/Android/AndroidRecyclerViewDragAndDrop) was used as a base for the following files:
--ItemMoveCallback.java
--ButtonEditRecyclerViewAdapter.java: 
+* ItemMoveCallback.java
+* ButtonEditRecyclerViewAdapter.java: 
  
 [https://demonuts.com/android-shake-detection/](https://demonuts.com/android-shake-detection/) was used as a guide for:
--ShakeService.java
+* ShakeService.java
 
