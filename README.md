@@ -10,8 +10,8 @@ It consists of two parts: A receiver and the app. The receiver is a runnable jar
 ## App details
 ### Profiles
 The home screen provides several standard profiles which can be opened to execute any of their macros by tapping on them.
-<img src=docs/screenshots/home.png width="250">
-<img src=docs/screenshots/profile.png width="250">
+
+<img src=docs/screenshots/home.png width="250"><img src=docs/screenshots/profile.png width="250">
 
 Profiles can be deleted, created and modified by users. 
 When modifying a profile consists of several different parts:
@@ -21,8 +21,7 @@ When modifying a profile consists of several different parts:
 * Reordering macros
 * Changing the associated programs
   
-<img src=docs/screenshots/editProfile.png width="250">
-<img src=docs/screenshots/editProfileDrag.png width="250">
+<img src=docs/screenshots/editProfile.png width="250"><img src=docs/screenshots/editProfileDrag.png width="250">
 
 The associated programs field allows you to define program names to which this profile should be associated.
 These would be names that are shown in the window of an arbitrary program on your computer. Once a profile and program are associated, the profile will automatically open when the program receives focus on your computer. This allows you to always display a profile that makes sense for the task you are working on. It will only switch from one profile to another however, and won't force open the app if something different is running. You can define multiple programs in this field, by seperating them with a comma. In order to make use of this feature `program poll` must be enabled in the receiver.
@@ -41,9 +40,7 @@ This action is a list of commands. Each of these commands may also be repeated a
   * Trackpad: Opens a trackpad on your phone to control the mouse
 * Computer command: performs a computer command such as `shutdown` or `next track`
 
-<img src=docs/screenshots/selectMacro.png width="250">
-<img src=docs/screenshots/editMacroAppearance.png width="250">
-<img src=docs/screenshots/editMacroSequence.png width="250">
+<img src=docs/screenshots/selectMacro.png width="250"><img src=docs/screenshots/editMacroAppearance.png width="250"><img src=docs/screenshots/editMacroSequence.png width="250">
 
 By allowing you to perform a sequence of commands, you can create some pretty useful setups. You could for instance have a command that switches to another profile, and any macro in this profile could perform a task and switch back to the intial profile afterwards.
 However, if Yoke's macro system isn't powerfull enough for your needs, you could always use something like [AHK](https://www.autohotkey.com/) to create your macro, and simply run the exe using Yoke.
