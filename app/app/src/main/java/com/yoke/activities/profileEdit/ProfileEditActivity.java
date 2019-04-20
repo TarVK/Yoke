@@ -34,17 +34,20 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
 
 
     private List<com.yoke.database.types.Button> mButton;
+    //indicate the button selected for editing
     private com.yoke.database.types.Button selectedButton;
     private Profile profile;
+    //add the deleted buttons into a list
     private ArrayList<com.yoke.database.types.Button> deletedButtons = new ArrayList<>();
     ButtonsEditRecyclerViewAdapter adapter;
 
     private EditText profileName;
     private EditText associatedPrograms;
-    private ImageView addMacro;
-    private ImageView editMacro;
-    private ImageView deleteMacro;
-    private ImageView doneMacro;
+
+    private ImageView addMacro; //imagebutton that adds a macro
+    private ImageView editMacro; //imagebutton that edits a macro
+    private ImageView deleteMacro; //imagebutton that deletes a macro
+    private ImageView doneMacro; //iamgebutton that finishes the edit activty
 
 
     boolean isActivated;
@@ -101,7 +104,7 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
             // Save the profile before continuing
             saveProfile(()->{
                 Intent intent = new Intent(getApplicationContext(), MacroActivity.class);
-                //send over the corresponding profile and macro id
+                //send over the corresponding profile and macro id to MacroActivity
                 intent.putExtra("macro id", macroID);
                 intent.putExtra("profile id", profile.getID());
                 Log.w("REACHED", "MACRO CREATED");
@@ -240,6 +243,7 @@ public class ProfileEditActivity extends BaseActivity implements StartDragListen
         return true;
     }
 
+    //recycler view is made draggable
     @Override
     public void requestDrag(RecyclerView.ViewHolder viewHolder) {
         touchHelper.startDrag(viewHolder);

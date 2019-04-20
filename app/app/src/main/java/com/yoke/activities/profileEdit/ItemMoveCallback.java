@@ -5,7 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 /**
- * src: https://www.journaldev.com/23208/android-recyclerview-drag-and-drop
+ * src: https://github.com/journaldev/journaldev/tree/master/Android/AndroidRecyclerViewDragAndDrop
+ * Implements a function to drag an object
  */
 public class ItemMoveCallback extends ItemTouchHelper.Callback {
 

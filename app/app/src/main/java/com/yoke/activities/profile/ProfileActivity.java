@@ -22,14 +22,11 @@ import java.util.List;
 
 public class ProfileActivity extends BaseActivity {
 
-//    protected Connection connection = MultiClientConnection.getInstance();
-
     private static final String TAG = "ProfileActivity";
 
     private List<com.yoke.database.types.Button> buttons;
-    private ArrayList<Macro> mMacro = new ArrayList<>();
+    private ArrayList<Macro> mMacro = new ArrayList<>(); //retrieves all the macros of the profile
     private TextView profileName;
-//    private TextView profile_name = findViewById(R.id.textView);
 
     public Profile profile; //declare the profile object we are going to use
     boolean isLandscape; //checks whether the phone is rotated or not
@@ -52,12 +49,12 @@ public class ProfileActivity extends BaseActivity {
             toolbar.setVisibility(View.GONE);
         }
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO create custom toolbar + back layout_button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         retrieveData();
 
-        //when edit layout_button is clicked send the profile id and open the edit activity
+        //if edit button is clicked send an intent of profile id and open the edit activity
         edit.setOnClickListener(openEditView -> {
             // Make sure the profile has loaded
             if (profile != null) {
@@ -76,7 +73,7 @@ public class ProfileActivity extends BaseActivity {
     public void retrieveData() {
         Long profileID = getIntent().getLongExtra("profile id", 0);
 
-        //add the profile datas to the arguments
+        //add the profile data to the arguments
         Profile.getByID(this, profileID, (profile) -> {
             runOnUiThread(() -> {
                 this.profile = profile;
@@ -95,7 +92,7 @@ public class ProfileActivity extends BaseActivity {
 
     }
 
-    //uses the rercycler view to visualize each profile that holds saved macros and settings
+    //uses the recycler view to visualize each profile that holds saved macros and settings
     private void myRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         ButtonsRecyclerViewAdapter adapter =
@@ -108,10 +105,11 @@ public class ProfileActivity extends BaseActivity {
             columns = 3;
         }
         recyclerView.setAdapter(adapter);
+        //Buttons will be displayed in grid layout of columns specified above
         recyclerView.setLayoutManager(new GridLayoutManager(this, columns));
     }
 
-//    going back to the previous page
+//    going back to the previous activity
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

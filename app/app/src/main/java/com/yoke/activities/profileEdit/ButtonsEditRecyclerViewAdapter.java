@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Implement longClick, drag, add, delete, done
- * src: https://www.journaldev.com/23208/android-recyclerview-drag-and-drop
+ * src: https://github.com/journaldev/journaldev/tree/master/Android/AndroidRecyclerViewDragAndDrop
  */
 public class ButtonsEditRecyclerViewAdapter extends
         RecyclerView.Adapter<ButtonsEditRecyclerViewAdapter.ViewHolder> implements
