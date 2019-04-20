@@ -40,7 +40,7 @@ This action is a list of commands. Each of these commands may also be repeated a
   * Trackpad: Opens a trackpad on your phone to control the mouse
 * Computer command: performs a computer command such as `shutdown` or `next track`
 
-<img src=docs/screenshots/selectMacro.png width="250"><img src=docs/screenshots/editMacroAppearance.png width="250"><img src=docs/screenshots/editMacroSequence.png width="250">
+<img src=docs/screenshots/selectMacroSearch.png width="250"><img src=docs/screenshots/editMacroAppearance.png width="250"><img src=docs/screenshots/editMacroSequence.png width="250">
 
 By allowing you to perform a sequence of commands, you can create some pretty useful setups. You could for instance have a command that switches to another profile, and any macro in this profile could perform a task and switch back to the intial profile afterwards.
 However, if Yoke's macro system isn't powerfull enough for your needs, you could always use something like [AHK](https://www.autohotkey.com/) to create your macro, and simply run the exe using Yoke.
