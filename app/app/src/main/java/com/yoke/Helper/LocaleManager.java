@@ -10,6 +10,8 @@ import android.preference.PreferenceManager;
 
 import java.util.Locale;
 
+//Used code and information from https://proandroiddev.com/change-language-programmatically-at-runtime-on-android-5e6bc15c758
+
 public class LocaleManager {
 
     public static final String LANGUAGE_ENGLISH = "en";
@@ -24,6 +26,7 @@ public class LocaleManager {
      * @param context
      * @pre {@code context <> null}
      * @modifies preferences, editor
+     * @post preferences and editor are initialised
      */
     public LocaleManager(Context context) {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);

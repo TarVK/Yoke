@@ -20,6 +20,8 @@ import com.example.yoke.R;
 import com.yoke.Helper.MainApp;
 import com.yoke.utils.DataCallback;
 
+//Used code and information from https://proandroiddev.com/change-language-programmatically-at-runtime-on-android-5e6bc15c758
+
 public class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = "BaseActivity";

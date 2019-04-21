@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.util.Log;
 
+//Used code and information from https://proandroiddev.com/change-language-programmatically-at-runtime-on-android-5e6bc15c758
+
 public class MainApp extends Application {
 
     private final String TAG = "MainApp";
