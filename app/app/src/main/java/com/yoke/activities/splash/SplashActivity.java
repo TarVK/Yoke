@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.yoke.R;
 import com.yoke.activities.home.HomeActivity;
+import com.yoke.activities.tutorial.TutorialActivity;
 import com.yoke.connection.Connection;
 import com.yoke.connection.Message;
 import com.yoke.connection.MessageReceiver;
@@ -22,6 +23,7 @@ import com.yoke.connection.messages.connection.ConnectionFailed;
 import com.yoke.connection.messages.connection.Disconnected;
 import com.yoke.database.DataBase;
 import com.yoke.database.types.Profile;
+import com.yoke.database.types.Settings;
 import com.yoke.preset.Preset;
 import com.yoke.preset.types.ComputerCommandPreset;
 import com.yoke.preset.types.GamerPreset;
@@ -162,9 +164,15 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
 
-        // If they did, continue to the home activity
-        Intent intent = new Intent(SplashActivity.this,
-                HomeActivity.class);
+        // If they did, continue to the next activity
+        Intent intent;
+        if (Settings.getInstance().isFirstLaunch()) {
+            intent = new Intent(this, TutorialActivity.class);
+        } else {
+            intent = new Intent(this, HomeActivity.class);
+        }
+
+        // Otherwise go home
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();

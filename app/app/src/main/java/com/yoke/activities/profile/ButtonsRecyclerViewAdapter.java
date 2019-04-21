@@ -19,7 +19,7 @@ import com.yoke.database.types.Button;
 import java.util.List;
 
 /**
- *  Recyclerview makes each data to be formed in an uniform way
+ *  Recyclerview makes each profile data to be formed in an uniform specification
  */
 public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecyclerViewAdapter.ViewHolder>{
 
@@ -70,8 +70,9 @@ public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecy
 //        viewHolder.buttonImage.setImageResource(mMacro.get(i).getForegroundColor());
 //        viewHolder.buttonImage.setImageResource(mMacro.get(i).getBackgroundColor());
 
-        //SET THE ACTUAL BUTTON IMAGE SOURCES
+        //SET THE ACTUAL BUTTON IMAGE SOURCES USING getCombinedImage()
         viewHolder.buttonImage.setImageBitmap(buttons.get(i).getMacro().getCombinedImage());
+
 
         //THIS IS DRAWABLE SOURCES
 //        viewHolder.buttonImage.setImageResource(mImage.get(i));
@@ -110,7 +111,6 @@ public class ButtonsRecyclerViewAdapter extends RecyclerView.Adapter<ButtonsRecy
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView buttonImage; //this is the imageView that images are put into
-//        TextView profileTitle;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
