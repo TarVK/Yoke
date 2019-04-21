@@ -21,6 +21,8 @@ import com.yoke.connection.client.MultiClientConnection;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
+//uses the Ambil Warna color picker library
+
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     public static SharedPreferences preferences;
