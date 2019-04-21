@@ -95,3 +95,9 @@ We have used some codes and guides from other authors and want to properly credi
 [https://demonuts.com/android-shake-detection/](https://demonuts.com/android-shake-detection/) was used as a guide for:
 * ShakeService.java
 
+[AmbilWarna Color Picker](https://github.com/yukuku/ambilwarna) was used for: 
+* picking the back- and foreground colour of macros
+* changing the main colour of the app.
+
+[Yaroslav Berezanskyi's guide on changing the language at runtime](https://proandroiddev.com/change-language-programmatically-at-runtime-on-android-5e6bc15c758) was used as a guide for :
+* the language change setting
